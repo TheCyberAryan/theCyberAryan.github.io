@@ -4,52 +4,70 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Blog — Aryan Pareek</title>
+<meta name="description" content="Technical blog by Aryan Pareek — case studies, bug bounty writeups, and practical pentesting toolkits." />
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0710;--ink:#e9e7ff;--muted:#bfc8e6;--accent:#b27bff;--accent2:#6a2bd6;--panel:rgba(20,12,30,.65);--border:1px solid rgba(160,120,255,.08)}
-*{box-sizing:border-box} html{scroll-behavior:smooth}
-body{margin:0;font-family:'Inter',system-ui;color:var(--muted);background:
-  linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),
-  url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;}
+:root{
+  --bg:#0b0710; --panel:rgba(20,12,30,0.65); --muted:#bfc8e6;
+  --accent:#b27bff; --accent2:#6a2bd6; --border:1px solid rgba(160,120,255,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:'Inter',system-ui;color:var(--muted);
+  background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+}
 .wrap{max-width:980px;margin:40px auto;padding:24px}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;animation:fade .7s ease both}
-header h1{margin:0;font-family:'Orbitron';color:var(--ink)}
-.back{color:var(--ink);text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.06);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.02));transition:transform .25s ease, box-shadow .25s ease}
-.back:hover{transform:translateY(-3px);box-shadow:0 0 0 4px rgba(178,123,255,.12), 0 14px 40px rgba(106,43,214,.22)}
-.post{background:var(--panel);border:var(--border);border-radius:14px;box-shadow:0 10px 30px rgba(8,6,14,.7);padding:18px;margin-bottom:16px;animation:fade .7s ease both}
-.post h2{margin:0;color:#fff;font-family:'Orbitron'}
-.meta{font-size:.85rem;color:var(--muted);margin:6px 0 12px}
-.tags span{display:inline-block;margin-right:8px;margin-bottom:6px;padding:6px 10px;border-radius:999px;border:1px solid rgba(180,140,255,.14);background:linear-gradient(90deg,rgba(178,123,255,.12),rgba(106,43,214,.1));color:#fff;font-size:.8rem}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+h1{margin:0;font-family:'Orbitron';color:#efe8ff}
+.back{color:var(--muted);text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.06);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));transition:all .2s}
+.back:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12)}
+.post{background:var(--panel);border:var(--border);border-radius:14px;box-shadow:0 10px 30px rgba(8,6,14,.7);padding:18px;margin-bottom:16px}
+.post h2{margin:0;color:#fff;font-family:'Orbitron';font-size:1.2rem}
+.meta{font-size:.85rem;color:var(--muted);margin:8px 0}
+.excerpt{color:var(--muted);line-height:1.6}
+.readmore{display:inline-block;margin-top:10px;color:var(--accent);font-weight:700;text-decoration:none;border-radius:8px;padding:8px 10px;border:1px solid rgba(178,123,255,.08);background:linear-gradient(90deg,rgba(178,123,255,.04),rgba(106,43,214,.02));transition:all .18s}
+.readmore:hover{color:#fff;box-shadow:0 10px 40px rgba(106,43,214,.12);transform:translateY(-3px)}
+.tags{margin-top:10px}
+.tag{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid rgba(180,140,255,.12);background:linear-gradient(90deg,rgba(178,123,255,.08),rgba(106,43,214,.06));color:#fff;font-size:.8rem;margin-right:8px}
+footer{margin-top:28px;color:#cfc9ff;text-align:center}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <h1>BLOG</h1>
-    <a class="back" href="index.html">← Back to Portfolio</a>
+    <div>
+      <h1>BLOG</h1>
+      <div style="font-size:.95rem;color:var(--muted)">Deep dives • Bug bounties • Practical pentesting</div>
+    </div>
+    <div><a class="back" href="index.html">← Back to Portfolio</a></div>
   </header>
 
+  <!-- Post 1 (excerpt) -->
   <article class="post">
     <h2>How I Found a (Sanitized) SQLi in a Search API</h2>
-    <div class="meta">Nov 7, 2025 • 6 min read</div>
-    <div class="tags"><span>Web Security</span><span>SQLi</span><span>Case Study</span></div>
-    <p>During an authorized e-commerce assessment, a search parameter was concatenated into a SQL string without parameterization. I verified boolean-based injection with benign payloads and recommended prepared statements and least-privilege DB roles as the fix.</p>
+    <div class="meta">Nov 7, 2025 • 6 min read • <span class="tag">Web Security</span> <span class="tag">SQLi</span></div>
+    <p class="excerpt">During an authorized assessment of an e-commerce app I found a search parameter concatenated into SQL. I verified a boolean-based injection using safe, non-destructive tests and worked with the vendor to patch it with prepared statements. This post summarizes my discovery, testing methodology, PoC (sanitized), and remediation steps.</p>
+    <a class="readmore" href="blog/sqli.html">Read More →</a>
   </article>
 
+  <!-- Post 2 (excerpt) -->
   <article class="post">
     <h2>XSS: The One-Liner That Steals Sessions</h2>
-    <div class="meta">Nov 6, 2025 • 4 min read</div>
-    <div class="tags"><span>XSS</span><span>Awareness</span></div>
-    <p>Reflected XSS persists because output encoding is skipped. This post shows a minimal PoC and a checklist to eliminate it with context-aware encoding and a strict CSP.</p>
+    <div class="meta">Nov 6, 2025 • 4 min read • <span class="tag">XSS</span> <span class="tag">Awareness</span></div>
+    <p class="excerpt">Reflected XSS still appears in many search and comment fields. I show a safe PoC, the contexts that matter, and an actionable checklist (encoding+CSP+secure headers) to remove XSS risk from apps.</p>
+    <a class="readmore" href="blog/xss.html">Read More →</a>
   </article>
 
+  <!-- Post 3 (excerpt) -->
   <article class="post">
     <h2>Starter Toolkit for Web App Pentesting (2025)</h2>
-    <div class="meta">Nov 3, 2025 • 5 min read</div>
-    <div class="tags"><span>Toolkit</span><span>OWASP</span></div>
-    <p>My current lightweight toolkit for fast, real-world testing: Burp Suite (manual + Intruder), nmap top-ports, gobuster for dirs, Nikto for quick misconfigs, plus custom Bash recon scripts.</p>
+    <div class="meta">Nov 3, 2025 • 5 min read • <span class="tag">Toolkit</span> <span class="tag">OWASP</span></div>
+    <p class="excerpt">A compact, high-efficiency toolkit for real engagements: Burp Suite, nmap, gobuster, Nikto, and custom Bash scripts for recon. I explain when to use each and provide quick config tips.</p>
+    <a class="readmore" href="blog/toolkit.html">Read More →</a>
   </article>
+
+  <footer>© 2025 Aryan Pareek — Blog</footer>
 </div>
 </body>
 </html>
