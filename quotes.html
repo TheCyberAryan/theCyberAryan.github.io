@@ -43,7 +43,7 @@ button.action:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,
 <body>
 <div class="wrap">
   <a class="back" href="index.html">← Back to Portfolio</a>
-  <h1>Quotes</h1>
+  <h1></h1>
   <p>Inspirations, philosophies, and truths from a hacker’s perspective.</p>
   <div id="gallery" class="gallery"></div>
 </div>
@@ -60,9 +60,9 @@ button.action:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,
 <div id="copyMsg">Link copied to clipboard!</div>
 
 <script>
-// Fetch quotes.json and render dynamically
+// Fetch .json and render dynamically
 const gallery = document.getElementById('gallery');
-fetch('quotes/quotes.json')
+fetch('quotes.json')
   .then(res => res.json())
   .then(files => {
     files.forEach((file, i) => {
