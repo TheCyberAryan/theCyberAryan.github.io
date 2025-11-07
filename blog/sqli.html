@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SQL Injection Case Study — Aryan Pareek</title>
+<meta name="description" content="Case study: safely discovering and reporting an SQL injection in a search API." />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0710;--muted:#bfc8e6;--accent:#b27bff;--panel:rgba(20,12,30,.65);--border:1px solid rgba(160,120,255,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:'Inter',system-ui;color:var(--muted);background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),url('../images/bg.jpg') center/cover fixed}
+.wrap{max-width:900px;margin:48px auto;padding:24px}
+a.back{color:var(--muted);text-decoration:none;font-weight:700}
+h1{font-family:'Orbitron';color:#efe8ff}
+.panel{background:var(--panel);padding:18px;border-radius:12px;border:var(--border);box-shadow:0 10px 30px rgba(8,6,14,.6)}
+pre{background:rgba(0,0,0,.35);padding:12px;border-radius:8px;overflow:auto;color:#e8e6ff}
+code{background:rgba(255,255,255,.02);padding:2px 6px;border-radius:4px;color:#dfeaff}
+.note{font-size:.9rem;color:#cfc5ff;padding:10px;border-radius:8px;margin-top:8px;border:1px solid rgba(178,123,255,.06)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../blog.html">← Back to Blog</a>
+  <h1>How I Found a (Sanitized) SQLi in a Search API</h1>
+  <div class="panel">
+    <p><em>Published Nov 7, 2025 • 6 min read</em></p>
+
+    <h2>Summary</h2>
+    <p>During an authorized assessment of an e-commerce search endpoint, I identified concatenation of user input into an SQL query. Using safe, non-destructive boolean checks and timing tests I confirmed the vulnerability and recommended prepared statements and least-privilege DB roles as the fix.</p>
+
+    <h2>1) Discovery</h2>
+    <p>The application exposed a search API at <code>/api/search?query=...</code>. Responses included structured hints (row counts, error fragments) useful for further probing.</p>
+
+    <h2>2) Safe Testing (sanitized)</h2>
+    <p>Always test safely. I used boolean checks that don't modify data. Example (sanitized):</p>
+    <pre><code>GET /api/search?query=test' AND (SELECT 1 FROM (SELECT COUNT(*),CONCAT(0x7e,(SELECT 'x'),0x7e,FLOOR(RAND(0)*2))a FROM information_schema.tables GROUP BY a)b)-- </code></pre>
+    <p><strong>Note:</strong> The above is an illustrative, sanitized payload—only run during authorized testing with permission.</p>
+
+    <h2>3) PoC & Impact</h2>
+    <p>I verified boolean-based injection and could read limited schema metadata. Impact: potential data exposure depending on DB privileges. Patch mitigations were prioritized as high.</p>
+
+    <h2>4) Remediation</h2>
+    <ul>
+      <li>Use prepared statements / parameterized queries (no string concatenation).</li>
+      <li>Use least-privilege DB accounts for app connections.</li>
+      <li>Implement input validation + WAF rules for suspicious payloads.</li>
+    </ul>
+
+    <h2>5) Responsible Disclosure</h2>
+    <p>I reported the finding through the vendor's security contact with PoC, remediation steps, and retested after patching. The vendor confirmed the patch within their SLA.</p>
+
+    <div class="note">If you're a developer: start by removing dynamic concatenation and move to parameterized queries. For quick checks, log and monitor error messages that leak DB information.</div>
+  </div>
+</div>
+</body>
+</html>
