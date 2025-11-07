@@ -15,6 +15,7 @@ html{scroll-behavior:smooth}
 body{
   margin:0;font-family:'Inter',system-ui;color:var(--muted);
   background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+  min-height:100vh;
 }
 .wrap{max-width:1000px;margin:40px auto;padding:24px}
 h1{font-family:'Orbitron';color:#efe8ff;margin:0 0 12px 0}
@@ -26,10 +27,16 @@ a.back:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12
 .qcard img{width:100%;height:100%;display:block;object-fit:cover;border-radius:16px}
 .qcard .cap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,transparent 60%,rgba(10,8,16,.9));color:#fff;padding:10px 14px;font-family:'Orbitron';opacity:0;transition:opacity .3s ease}
 .qcard:hover .cap{opacity:1}
-.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:99}
-.lightbox.active{display:flex}
-.lightbox img{max-width:90%;max-height:90%;border-radius:14px;box-shadow:0 0 40px rgba(178,123,255,.4)}
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:99;flex-direction:column;gap:16px;padding-bottom:40px}
+.lightbox.active{display:flex;animation:fadeIn .5s ease}
+.lightbox img{max-width:90%;max-height:80%;border-radius:14px;box-shadow:0 0 40px rgba(178,123,255,.4)}
+.lightbox .controls{display:flex;gap:12px;margin-top:10px}
+button.action{padding:10px 14px;border:none;border-radius:8px;font-family:'Orbitron';font-weight:600;color:#fff;cursor:pointer;transition:all .25s;background:linear-gradient(90deg,rgba(178,123,255,.2),rgba(106,43,214,.3));border:1px solid rgba(180,140,255,.12)}
+button.action:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.25)}
 .lightbox .close{position:absolute;top:18px;right:34px;font-size:40px;color:#fff;cursor:pointer}
+#copyMsg{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:rgba(178,123,255,.15);color:#fff;padding:10px 18px;border-radius:8px;font-family:'Inter';font-size:.9rem;opacity:0;transition:opacity .3s ease}
+#copyMsg.show{opacity:1}
+@keyframes fadeIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
 </style>
 </head>
 <body>
@@ -37,7 +44,6 @@ a.back:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12
   <a class="back" href="index.html">← Back to Portfolio</a>
   <h1>Quotes</h1>
   <p>Inspirations, philosophies, and truths from a hacker’s perspective.</p>
-
   <div id="gallery" class="gallery"></div>
 </div>
 
@@ -45,35 +51,72 @@ a.back:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12
 <div id="lightbox" class="lightbox">
   <span class="close">&times;</span>
   <img alt="preview">
+  <div class="controls">
+    <button id="downloadBtn" class="action">📥 Download</button>
+    <button id="shareBtn" class="action">🔗 Share</button>
+  </div>
 </div>
+<div id="copyMsg">Link copied to clipboard!</div>
 
 <script>
-// Dynamic quotes loader
+// Auto-load quotes dynamically from JSON
 const gallery = document.getElementById('gallery');
 
-// specify number of images you’ve uploaded
-const totalQuotes = 10; // 🔹 change this if you upload more/less
+// fetch quotes list
+fetch('quotes/quotes.json')
+  .then(res => res.json())
+  .then(files => {
+    files.forEach((file, i) => {
+      const card = document.createElement('div');
+      const captionText = file.replace(/[-_]/g,' ').replace(/\\.[^/.]+$/, '').replace(/quote/i,'Quote ');
+      card.className = 'qcard';
+      card.innerHTML = `
+        <img src="quotes/${file}" alt="${captionText}">
+        <div class="cap">// ${captionText}</div>
+      `;
+      gallery.appendChild(card);
+    });
+  })
+  .catch(err => {
+    console.error('Error loading quotes:', err);
+    gallery.innerHTML = '<p style="color:#fff">⚠️ Could not load quotes list.</p>';
+  });
 
-for (let i = 1; i <= totalQuotes; i++) {
-  const card = document.createElement('div');
-  card.className = 'qcard';
-  card.innerHTML = `
-    <img src="quotes/quote${i}.png" alt="Quote ${i}">
-    <div class="cap">// THECYBERARYAN</div>
-  `;
-  gallery.appendChild(card);
-}
-
-// Lightbox behavior
+// Lightbox + share/download
 const lightbox = document.getElementById('lightbox');
 const lbImg = lightbox.querySelector('img');
-document.addEventListener('click', e => {
-  if (e.target.closest('.qcard img')) {
-    lbImg.src = e.target.src;
+const closeBtn = lightbox.querySelector('.close');
+const copyMsg = document.getElementById('copyMsg');
+let currentImg = '';
+
+gallery.addEventListener('click', e => {
+  if (e.target.tagName === 'IMG') {
+    currentImg = e.target.src;
+    lbImg.src = currentImg;
     lightbox.classList.add('active');
-  } else if (e.target.classList.contains('close') || e.target === lightbox) {
-    lightbox.classList.remove('active');
   }
+});
+closeBtn.addEventListener('click',()=>lightbox.classList.remove('active'));
+lightbox.addEventListener('click',e=>{
+  if(e.target===lightbox)lightbox.classList.remove('active');
+});
+
+// Download
+document.getElementById('downloadBtn').addEventListener('click', ()=>{
+  const a = document.createElement('a');
+  a.href = currentImg;
+  a.download = currentImg.split('/').pop();
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+});
+
+// Share
+document.getElementById('shareBtn').addEventListener('click', ()=>{
+  navigator.clipboard.writeText(currentImg).then(()=>{
+    copyMsg.classList.add('show');
+    setTimeout(()=>copyMsg.classList.remove('show'),1500);
+  });
 });
 </script>
 </body>
