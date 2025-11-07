@@ -4,281 +4,76 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Aryan Pareek — Cybersecurity Portfolio</title>
-
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg-1: #0b0710;
-    --panel: rgba(20,12,30,0.65);
-    --glass: rgba(255,255,255,0.03);
-    --accent: #b27bff;
-    --accent-2: #6a2bd6;
-    --muted: #bfc8e6;
-    --glow: 0 0 30px rgba(178,123,255,0.18), 0 8px 40px rgba(106,43,214,0.08);
-    --glass-border: 1px solid rgba(160,120,255,0.08);
-  }
+:root{
+  --bg-1:#0b0710; --panel:rgba(20,12,30,0.65); --glass:rgba(255,255,255,.03);
+  --accent:#b27bff; --accent2:#6a2bd6; --muted:#bfc8e6;
+  --glow:0 0 30px rgba(178,123,255,.18),0 8px 40px rgba(106,43,214,.12);
+  --border:1px solid rgba(160,120,255,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:'Inter',system-ui;color:var(--muted);
+  background:
+    linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),
+    url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+.overlay{position:fixed;inset:0;pointer-events:none;background:
+  radial-gradient(800px 400px at 10% 10%,rgba(110,40,200,.08),transparent 10%),
+  radial-gradient(700px 400px at 90% 80%,rgba(170,110,255,.06),transparent 10%);
+  mix-blend-mode:screen}
+.container{max-width:1100px;margin:36px auto;padding:24px}
 
-  /* Page */
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background:
-      linear-gradient(180deg, rgba(8,6,14,0.86) 0%, rgba(6,4,12,0.9) 100%),
-      url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
-    color:var(--muted);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    padding-bottom:60px;
-  }
+/* Header */
+header{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-bottom:18px;animation:fadeIn .9s ease both}
+.brand{display:flex;gap:16px;align-items:center}
+.logo{width:84px;height:84px;border-radius:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:var(--glow);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',sans-serif;color:#fff;font-weight:700;letter-spacing:1px;transform:rotate(-6deg);animation:logoPulse 1.8s ease-out .25s both}
+.title h1{margin:0;font-family:'Orbitron',sans-serif;color:#efe8ff;text-shadow:0 0 18px rgba(178,123,255,.18)}
+.title p{margin:6px 0 0 0;color:#cfccee}
+nav{display:flex;gap:10px;align-items:center}
+.navlink{color:#e9e7ff;text-decoration:none;font-weight:700;font-family:'Orbitron',sans-serif;font-size:.9rem;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.05);background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.02));backdrop-filter:blur(6px);transition:transform .25s ease,box-shadow .25s ease}
+.navlink:hover{transform:translateY(-3px);box-shadow:0 0 0 6px rgba(178,123,255,.12),0 18px 46px rgba(106,43,214,.22)}
 
-  /* subtle overlay */
-  .overlay {
-    position:fixed; inset:0; pointer-events:none;
-    background: radial-gradient(800px 400px at 10% 10%, rgba(110,40,200,0.08), transparent 10%),
-                radial-gradient(700px 400px at 90% 80%, rgba(170,110,255,0.06), transparent 10%);
-    mix-blend-mode: screen;
-  }
+/* Panels */
+.panel{background:var(--panel);border-radius:14px;padding:18px;border:var(--border);box-shadow:0 10px 30px rgba(8,6,14,.7);animation:fadeIn .9s ease both}
+.hero{display:grid;grid-template-columns:220px 1fr;gap:22px;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01));border:var(--border)}
+.avatar{width:200px;height:200px;border-radius:18px;overflow:hidden;border:2px solid rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,.01))}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.pill{display:inline-block;padding:8px 12px;border-radius:999px;color:#fff;background:linear-gradient(90deg,rgba(178,123,255,.16),rgba(106,43,214,.14));border:1px solid rgba(180,140,255,.08);margin-right:8px;margin-top:8px}
 
-  /* container */
-  .container{
-    max-width:1100px;
-    margin:36px auto;
-    padding:36px;
-  }
+/* Skills & Projects */
+.skills{display:flex;gap:8px;flex-wrap:wrap}
+.skill-tag{background:rgba(255,255,255,.02);padding:8px 10px;border-radius:10px;color:var(--muted);font-size:.9rem;border:1px solid rgba(150,120,255,.04)}
+.projects{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.project{padding:18px;border-radius:14px;min-height:120px;border:1px solid rgba(160,120,255,.06);background:linear-gradient(135deg,rgba(110,30,150,.18),rgba(40,10,70,.06));clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);transition:transform .25s ease,box-shadow .25s ease}
+.project:hover{transform:translateY(-6px);box-shadow:0 18px 60px rgba(80,30,150,.18)}
+.project h4{margin:0 0 6px 0;color:#fff;font-family:'Orbitron',sans-serif}
 
-  /* Header */
-  header{
-    display:flex;
-    gap:20px;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:18px;
-  }
+/* Certifications */
+.cert-list{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.cert{padding:12px;border-radius:12px;border:1px dashed rgba(200,180,255,.06);background:linear-gradient(90deg,rgba(255,255,255,.01),rgba(255,255,255,.02));transform:skewX(-6deg);transition:box-shadow .25s ease,transform .25s ease}
+.cert:hover{transform:skewX(-6deg) translateY(-3px);box-shadow:0 10px 36px rgba(106,43,214,.22)}
+.cert span{display:inline-block;transform:skewX(6deg);color:var(--muted);font-weight:600}
 
-  .brand{
-    display:flex;
-    gap:18px;
-    align-items:center;
-  }
+/* Contact */
+form.contact{display:grid;gap:10px}
+.input{background:rgba(255,255,255,.03);border:1px solid rgba(160,120,255,.1);color:#eae7ff;border-radius:10px;padding:12px;font-family:inherit}
+.input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(178,123,255,.12)}
+.row{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+@media(max-width:720px){.hero{grid-template-columns:1fr}.row{grid-template-columns:1fr}}
 
-  .logo {
-    width:84px; height:84px;
-    border-radius:16px;
-    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
-    box-shadow: var(--glow);
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Orbitron',sans-serif;
-    color:white; font-weight:700; letter-spacing:1px;
-    transform: rotate(-6deg);
-  }
-
-  .title {
-    color:#e9e7ff;
-    font-family:'Orbitron', sans-serif;
-  }
-  .title h1{
-    margin:0; font-size:1.6rem;
-    text-shadow: 0 0 18px rgba(178,123,255,0.18);
-  }
-  .title p{ margin:0; color: #cfccee; opacity:0.9; font-size:0.9rem; margin-top:6px;}
-
-  /* CTA group */
-  .cta {
-    display:flex; gap:12px; align-items:center;
-  }
-  a.btn {
-    --pad:12px 16px;
-    text-decoration:none;
-    font-weight:600;
-    color:white;
-    background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    padding:var(--pad);
-    border-radius:12px;
-    border: 1px solid rgba(255,255,255,0.04);
-    backdrop-filter: blur(6px);
-    transition: transform .18s ease, box-shadow .18s ease;
-    display:inline-flex; gap:8px; align-items:center;
-  }
-  a.btn.primary{
-    background: linear-gradient(90deg, rgba(178,123,255,0.14), rgba(106,43,214,0.18));
-    box-shadow: 0 6px 28px rgba(106,43,214,0.12);
-  }
-  a.btn:hover{ transform: translateY(-4px); box-shadow: var(--glow); }
-
-  /* Hero / About card */
-  .hero {
-    display:grid;
-    grid-template-columns: 220px 1fr;
-    gap:22px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:16px;
-    padding:20px;
-    border: var(--glass-border);
-    box-shadow: 0 8px 60px rgba(9,6,16,0.6);
-    align-items:center;
-  }
-
-  .avatar {
-    width:200px; height:200px;
-    border-radius:18px;
-    overflow:hidden;
-    border: 2px solid rgba(255,255,255,0.04);
-    display:flex; align-items:center; justify-content:center;
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  }
-  .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-  .about-content h2{
-    margin:0 0 8px 0;
-    color:#efe8ff;
-    font-family:'Orbitron', sans-serif;
-    font-size:1.15rem;
-    letter-spacing:1px;
-  }
-  .about-content p{ margin:0; color:var(--muted); line-height:1.6; font-size:0.98rem; }
-
-  .meta {
-    margin-top:12px; display:flex; gap:12px; flex-wrap:wrap;
-  }
-  .pill {
-    padding:8px 12px; border-radius:999px; font-size:0.85rem; color:white;
-    background:linear-gradient(90deg, rgba(178,123,255,0.16), rgba(106,43,214,0.14));
-    border:1px solid rgba(180,140,255,0.08);
-  }
-
-  /* two-column grid for main sections */
-  .grid {
-    display:grid;
-    grid-template-columns: 1fr;
-    gap:24px;
-    margin-top:24px;
-  }
-
-  @media(min-width:980px){
-    .grid{ grid-template-columns: 1fr 420px; align-items:start; }
-  }
-
-  /* left column panels */
-  .panel {
-    background:var(--panel);
-    border-radius:14px;
-    padding:18px;
-    border: var(--glass-border);
-    box-shadow: 0 10px 30px rgba(8,6,14,0.7);
-  }
-
-  h3.section-title{
-    display:flex; justify-content:space-between; align-items:center;
-    margin:0 0 14px 0; color: #efe8ff; font-family:'Orbitron',sans-serif;
-  }
-  h3.section-title small{ font-weight:600; color:var(--muted); font-size:0.85rem; letter-spacing:0.4px; }
-
-  /* Skills list */
-  .skills {
-    display:flex; gap:8px; flex-wrap:wrap;
-  }
-  .skill-tag{
-    background: rgba(255,255,255,0.02);
-    padding:8px 10px;
-    border-radius:10px;
-    color:var(--muted);
-    font-size:0.9rem;
-    border:1px solid rgba(150,120,255,0.04);
-  }
-
-  /* Experience timeline */
-  .timeline{
-    display:flex; flex-direction:column; gap:12px;
-  }
-  .job {
-    display:flex; gap:12px; align-items:flex-start;
-  }
-  .job .when {
-    min-width:90px; color:#d7cffe; font-weight:600; font-size:0.9rem;
-  }
-  .job .what {
-    flex:1;
-    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));
-    padding:12px; border-radius:10px;
-    border:1px solid rgba(160,120,255,0.03);
-  }
-  .job .what h4{ margin:0; color:#efe8ff; font-size:1rem; }
-  .job .what p{ margin:6px 0 0 0; font-size:0.92rem; color:var(--muted); line-height:1.5; }
-
-  /* Projects / hex-like cyber tiles (non-rectangular) */
-  .projects-grid{
-    display:grid; gap:12px;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
-  .project {
-    padding:18px;
-    border-radius:14px;
-    min-height:120px;
-    position:relative;
-    overflow:hidden;
-    border:1px solid rgba(160,120,255,0.04);
-    background: linear-gradient(135deg, rgba(110,30,150,0.18), rgba(40,10,70,0.06));
-    clip-path: polygon(6% 0, 94% 0, 100% 50%, 94% 100%, 6% 100%, 0 50%);
-    transition: transform .25s ease, box-shadow .25s ease;
-  }
-  .project:hover{ transform: translateY(-6px); box-shadow: 0 18px 60px rgba(80,30,150,0.18); }
-  .project h4{ margin:0 0 6px 0; color:#fff; font-size:1rem; font-family:'Orbitron',sans-serif;}
-  .project p{ margin:0; font-size:0.92rem; color:var(--muted); line-height:1.45; }
-
-  .project .meta-row{ margin-top:10px; display:flex; gap:8px; flex-wrap:wrap; }
-
-  /* Certifications (skewed cards) */
-  .cert-list{ display:flex; gap:10px; flex-direction:column; }
-  .cert {
-    padding:12px;
-    border-radius:12px;
-    border:1px dashed rgba(200,180,255,0.06);
-    background: linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
-    transform: skewX(-6deg);
-  }
-  .cert span{ display:inline-block; transform: skewX(6deg); color:var(--muted); font-weight:600; }
-
-  /* Extracurricular / Simulations */
-  .extra-list{ display:flex; flex-direction:column; gap:8px; }
-  .extra-item{ padding:10px; border-radius:10px; background: rgba(255,255,255,0.01); border:1px solid rgba(120,90,180,0.03); }
-
-  /* Right column: contact + quick stats */
-  .right-rail { display:flex; flex-direction:column; gap:16px; position:sticky; top:24px; }
-
-  .card-rail{
-    padding:14px; border-radius:12px; background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));
-    border:1px solid rgba(160,120,255,0.03);
-  }
-  .contact-list{ display:flex; flex-direction:column; gap:8px; }
-  .contact-list a{ color:#efe8ff; text-decoration:none; font-weight:600; }
-
-  /* footer */
-  footer{
-    margin-top:28px; text-align:center; color:#cfc9ff; font-size:0.9rem;
-    opacity:0.9;
-  }
-
-  /* small UI flourishes */
-  .cursor-typing{ color:var(--accent); font-weight:700; font-family:'Orbitron',sans-serif; }
-  /* small responsive tweaks */
-  @media(max-width:720px){
-    .hero{ grid-template-columns: 1fr; text-align:center }
-    .avatar{ margin:0 auto }
-    .brand{ gap:12px }
-    header{ flex-direction:column; align-items:flex-start; gap:14px }
-    .right-rail{ position:static; top:auto }
-  }
+/* Footer + animations */
+footer{margin-top:28px;text-align:center;color:#cfc9ff;font-size:.9rem}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes logoPulse{0%{box-shadow:0 0 0 0 rgba(178,123,255,0)}60%{box-shadow:0 0 0 14px rgba(178,123,255,.12)}100%{box-shadow:var(--glow)}}
 </style>
 </head>
 <body>
 <div class="overlay" aria-hidden="true"></div>
-
 <div class="container">
-  <!-- Header -->
   <header>
     <div class="brand">
       <div class="logo">AP</div>
@@ -287,233 +82,85 @@
         <p>Certified Ethical Hacker • Red & Blue Team • SOC Analyst</p>
       </div>
     </div>
-
-    <div class="cta">
-      <a class="btn primary" href="#contact" title="Contact">✉️ Contact</a>
-      <!-- Download / resume. When hosting, place SecurityEngineer.pdf alongside this file or update link -->
-      <a class="btn" href="SecurityEngineer.pdf" target="_blank" rel="noopener">📄 Download Resume</a>
-    </div>
+    <nav>
+      <a class="navlink" href="index.html">HOME</a>
+      <a class="navlink" href="blog.html">BLOG</a>
+      <a class="navlink" href="quotes.html">QUOTES</a>
+      <a class="navlink" href="#contact">CONTACT</a>
+    </nav>
   </header>
 
-  <!-- Hero / About -->
-  <section class="hero panel" aria-label="About">
-    <div class="avatar">
-      <!-- Replace with your real photo by swapping the src -->
-      <img src="pfp.jpg" alt="Aryan Pareek — profile photo">
-    </div>
-
-    <div class="about-content">
-      <h2>About Me <span class="cursor-typing" id="typed-suffix"></span></h2>
-      <p>
-        I’m a Certified Ethical Hacker with 4 years of professional experience in cybersecurity and digital forensics.
-        I’ve worked with the Rajasthan Police and private organizations on cybercrime investigations, penetration testing,
-        and security engineering. My focus is on building resilient systems through thorough risk analysis, detection
-        engineering, and pragmatic offensive testing.
-      </p>
-
-      <div class="meta">
-        <div class="pill">BCA — Cybersecurity & Cyber Forensics, Parul University (2025)</div>
-        <div class="pill">Jaipur, Rajasthan • Open to relocation</div>
-        <div class="pill">+91 99504 00005</div>
+  <!-- Hero -->
+  <section class="panel hero" aria-label="About">
+    <div class="avatar"><img src="pfp.jpg" alt="Aryan Pareek — profile photo"></div>
+    <div>
+      <h2 style="margin:0 0 8px 0;color:#efe8ff;font-family:'Orbitron'">About Me</h2>
+      <p>I’m a Certified Ethical Hacker with 4 years of experience in cybersecurity and digital forensics. Worked with the Rajasthan Police and private organizations on cybercrime investigations, penetration testing, and security engineering.</p>
+      <div>
+        <span class="pill">BCA — Cybersecurity & Forensics (Parul University, 2025)</span>
+        <span class="pill">Jaipur • Open to relocation</span>
+        <span class="pill">+91 99504 00005</span>
       </div>
-
-      <div style="margin-top:12px;">
-        <strong style="color:#efe8ff">Profiles</strong>
-        <div style="font-size:0.95rem; margin-top:8px;">
-          <a href="https://github.com/TheCyberAryan" target="_blank" style="color:var(--muted); text-decoration:none">🐙 GitHub: TheCyberAryan</a> •
-          <a href="http://www.linkedin.com/in/aryan-pareek-597a0b218" target="_blank" style="color:var(--muted); text-decoration:none">💼 LinkedIn</a>
-        </div>
+      <div style="margin-top:10px;font-size:.95rem">
+        <a href="https://github.com/TheCyberAryan" target="_blank" style="color:var(--muted);text-decoration:none">🐙 GitHub: TheCyberAryan</a> •
+        <a href="http://www.linkedin.com/in/aryan-pareek-597a0b218" target="_blank" style="color:var(--muted);text-decoration:none">💼 LinkedIn</a>
       </div>
     </div>
   </section>
 
-  <!-- Main grid -->
-  <div class="grid">
-
-    <!-- Left column -->
-    <div style="display:flex; flex-direction:column; gap:18px;">
-      <!-- Skills -->
-      <div class="panel">
-        <h3 class="section-title">Skills <small>Core competencies</small></h3>
-        <div class="skills" aria-label="skills">
-          <div class="skill-tag">Penetration Testing</div>
-          <div class="skill-tag">Vulnerability Assessment</div>
-          <div class="skill-tag">Threat Hunting / SIEM</div>
-          <div class="skill-tag">Network Security Testing</div>
-          <div class="skill-tag">Web App Security (OWASP)</div>
-          <div class="skill-tag">Cloud Security Testing</div>
-          <div class="skill-tag">Incident Response</div>
-          <div class="skill-tag">Forensics & Evidence Gathering</div>
-          <div class="skill-tag">DevSecOps Integration</div>
-          <div class="skill-tag">Scripting (Bash, Python)</div>
-          <div class="skill-tag">Threat Intelligence</div>
-        </div>
-      </div>
-
-      <!-- Experience -->
-      <div class="panel">
-        <h3 class="section-title">Experience <small>Work & volunteer</small></h3>
-        <div class="timeline">
-          <div class="job">
-            <div class="when">02/2024 — 10/2024</div>
-            <div class="what">
-              <h4>Cyber Security Engineer — Skyee Pvt Ltd, Jaipur</h4>
-              <p>Executed risk analysis, recommended countermeasures, and enhanced system security by implementing targeted improvements
-              across infrastructure. Focused on continuous evaluation of security measures and practical remediation workflows.</p>
-            </div>
-          </div>
-
-          <div class="job">
-            <div class="when">12/2024 — 03/2025</div>
-            <div class="what">
-              <h4>Cyber Security Intern — Rajasthan Police, Dhaulpur</h4>
-              <p>Worked on cybercrime investigations, gathered evidence, traced actors using investigative tools, and developed security measures
-              to assist legal proceedings and case outcomes.</p>
-            </div>
-          </div>
-
-          <div class="job">
-            <div class="when">10/2023 — Current</div>
-            <div class="what">
-              <h4>Cyber Volunteer — Rajasthan Police, Jaipur</h4>
-              <p>Conducts awareness programs, maintains SOPs for investigations, and supports ongoing case analyses and technical interventions.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Projects -->
-      <div class="panel">
-        <h3 class="section-title">Projects <small>Selected & production-ready</small></h3>
-        <div class="projects-grid">
-
-          <div class="project" aria-label="ENUMO">
-            <h4>ENUMO — Automated Recon Toolkit</h4>
-            <p>Automated web reconnaissance and exploitation toolkit built for pen testers and CTF players. Automates subdomain discovery, ports,
-               technology fingerprinting, directory enumeration, and identifies potential XSS and other issues to speed up the enumeration phase.</p>
-            <div class="meta-row">
-              <div class="pill" style="padding:6px 10px;">Bash & Python</div>
-              <div class="pill" style="padding:6px 10px;">Recon • Exploitation</div>
-            </div>
-          </div>
-
-          <div class="project">
-            <h4>Fraud Detection System</h4>
-            <p>ML-based tool to identify phishing and counterfeit websites. Uses URL analysis, domain verification, SSL checks and content features — tested to >95% accuracy on curated datasets.</p>
-            <div class="meta-row">
-              <div class="pill" style="padding:6px 10px;">Machine Learning</div>
-              <div class="pill" style="padding:6px 10px;">Forensics • Law-enforcement</div>
-            </div>
-          </div>
-
-          <div class="project">
-            <h4>Traverser — Path Traversal Scanner</h4>
-            <p>A high-speed Bash-based directory traversal scanner with parallel requests, URL encoding, null-byte bypass, and extension evasion for identifying path traversal weaknesses.</p>
-            <div class="meta-row">
-              <div class="pill" style="padding:6px 10px;">Bash</div>
-              <div class="pill" style="padding:6px 10px;">Web App Security</div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Certifications -->
-      <div class="panel">
-        <h3 class="section-title">Certifications <small>Validated credentials</small></h3>
-        <div class="cert-list">
-          <div class="cert"><span>CEH v13 — Certified Ethical Hacker</span></div>
-          <div class="cert"><span>CompTIA PenTest+</span></div>
-          <div class="cert"><span>Certified AppSec Pentesting Expert — SecOps Group</span></div>
-          <div class="cert"><span>DevSecOps — CI/CD Security</span></div>
-          <div class="cert"><span>Google — Foundations of Cybersecurity</span></div>
-          <div class="cert"><span>Cisco — Ethical Hacker & Junior CyberSecurity Analyst</span></div>
-        </div>
-      </div>
-
-      <!-- Education -->
-      <div class="panel">
-        <h3 class="section-title">Education <small>Academic background</small></h3>
-        <p style="margin:0">
-          <strong>BCA — Cybersecurity & Cyber Forensics</strong><br>
-          Parul University, Jaipur • Graduated 06/2025
-        </p>
-      </div>
+  <!-- Skills -->
+  <section class="panel" style="margin-top:18px">
+    <h3 style="margin:0 0 10px 0;color:#efe8ff;font-family:'Orbitron'">Skills</h3>
+    <div class="skills">
+      <div class="skill-tag">Penetration Testing</div><div class="skill-tag">Vulnerability Assessment</div>
+      <div class="skill-tag">Threat Hunting / SIEM</div><div class="skill-tag">Network Security Testing</div>
+      <div class="skill-tag">Web App Security (OWASP)</div><div class="skill-tag">Cloud Security Testing</div>
+      <div class="skill-tag">Incident Response</div><div class="skill-tag">Forensics & Evidence</div>
+      <div class="skill-tag">DevSecOps</div><div class="skill-tag">Bash/Python</div>
     </div>
+  </section>
 
-    <!-- Right column -->
-    <aside class="right-rail">
-      <div class="card-rail panel">
-        <h3 class="section-title">Contact <small>Reach out</small></h3>
-        <div class="contact-list">
-          <a href="mailto:aryanpareek311072004@gmail.com">📧 aryanpareek311072004@gmail.com</a>
-          <a href="tel:+919950400005">📞 +91 99504 00005</a>
-          <a href="https://github.com/TheCyberAryan" target="_blank">🐙 GitHub: TheCyberAryan</a>
-          <a href="http://www.linkedin.com/in/aryan-pareek-597a0b218" target="_blank">💼 LinkedIn</a>
-        </div>
+  <!-- Projects -->
+  <section id="projects" class="panel" style="margin-top:18px">
+    <h3 style="margin:0 0 10px 0;color:#efe8ff;font-family:'Orbitron'">Projects</h3>
+    <div class="projects">
+      <article class="project"><h4>ENUMO — Automated Recon Toolkit</h4><p>Automates subdomain discovery, ports, tech fingerprinting, directory enum, and flags likely XSS to speed recon.</p></article>
+      <article class="project"><h4>Fraud Detection System</h4><p>ML-based phishing/counterfeit detector using URL/SSL/content features. >95% accuracy on curated data.</p></article>
+      <article class="project"><h4>Traverser — Path Traversal Scanner</h4><p>Parallelized Bash scanner with URL encoding, null-byte and extension evasion for traversal weaknesses.</p></article>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section class="panel" style="margin-top:18px">
+    <h3 style="margin:0 0 10px 0;color:#efe8ff;font-family:'Orbitron'">Certifications</h3>
+    <div class="cert-list">
+      <div class="cert"><span>CEH v13 — Certified Ethical Hacker</span></div>
+      <div class="cert"><span>CompTIA PenTest+</span></div>
+      <div class="cert"><span>Certified AppSec Pentesting Expert — SecOps Group</span></div>
+      <div class="cert"><span>DevSecOps — CI/CD Security</span></div>
+      <div class="cert"><span>Google — Foundations of Cybersecurity</span></div>
+      <div class="cert"><span>Cisco — Ethical Hacker & Junior CyberSecurity Analyst</span></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="panel" style="margin-top:18px">
+    <h3 style="margin:0 0 10px 0;color:#efe8ff;font-family:'Orbitron'">Contact</h3>
+    <p>Let’s collaborate or discuss cybersecurity — I usually reply within a day.</p>
+    <form class="contact" action="https://formsubmit.co/aryanpareek311072004@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New message from Portfolio" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <div class="row">
+        <input class="input" type="text" name="name" placeholder="Your Name" required>
+        <input class="input" type="email" name="email" placeholder="Email" required>
       </div>
+      <textarea class="input" name="message" rows="4" placeholder="Your message" required></textarea>
+      <button class="navlink" type="submit" style="border-color:rgba(255,255,255,.08)">Send Message</button>
+    </form>
+  </section>
 
-      <div class="card-rail panel">
-        <h3 class="section-title">Simulations & Extra <small>Completed programs</small></h3>
-        <div class="extra-list">
-          <div class="extra-item"><strong>Deloitte Australia — Cyber Job Simulation (Forage)</strong><br><small>Analyzed web activity logs and supported a breach investigation. (07/01/2025)</small></div>
-          <div class="extra-item"><strong>Mastercard — Security Awareness Simulation (Forage)</strong><br><small>Security awareness analyst tasks, phishing identification. (Sep 2025)</small></div>
-          <div class="extra-item"><strong>Tata — IAM Simulation (Forage)</strong><br><small>Identity & access management job simulation and documentation. (Sep 2025)</small></div>
-        </div>
-      </div>
-
-      <div class="card-rail panel">
-        <h3 class="section-title">Quick Profile</h3>
-        <p style="margin:0; color:var(--muted)">
-          Certified Ethical Hacker with hands-on experience in red/blue operations, SOC tasks, and digital forensics. Comfortable with both investigative case work for law enforcement and enterprise-level security engineering.
-        </p>
-      </div>
-    </aside>
-
-  </div>
-
-  <footer>
-    © 2025 Aryan Pareek — Built for clarity, speed, and purple vibes.
-  </footer>
+  <footer>© 2025 Aryan Pareek — Built for clarity, speed, and purple vibes.</footer>
 </div>
-
-<!-- Typing effect script -->
-<script>
-  // typing suffix effect in header (cyber role rotating)
-  const roles = [
-    "Ethical Hacker",
-    "Red & Blue Team",
-    "SOC Analyst",
-    "Threat Hunter",
-    "Penetration Tester"
-  ];
-  const out = document.getElementById('typed-suffix');
-  let iRole = 0, iChar = 0, deleting = false;
-  function typeLoop(){
-    const role = roles[iRole];
-    if(!deleting){
-      if(iChar <= role.length){
-        out.textContent = role.substring(0, iChar);
-        iChar++;
-        setTimeout(typeLoop, 70);
-      } else {
-        deleting = true;
-        setTimeout(typeLoop, 900);
-      }
-    } else {
-      if(iChar >= 0){
-        out.textContent = role.substring(0, iChar);
-        iChar--;
-        setTimeout(typeLoop, 40);
-      } else {
-        deleting = false;
-        iRole = (iRole + 1) % roles.length;
-        setTimeout(typeLoop, 250);
-      }
-    }
-  }
-  // start after small delay
-  setTimeout(typeLoop, 600);
-</script>
 </body>
 </html>
