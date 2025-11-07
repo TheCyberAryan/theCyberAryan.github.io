@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Blog — Aryan Pareek</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0710;--ink:#e9e7ff;--muted:#bfc8e6;--accent:#b27bff;--accent2:#6a2bd6;--panel:rgba(20,12,30,.65);--border:1px solid rgba(160,120,255,.08)}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;font-family:'Inter',system-ui;color:var(--muted);background:
+  linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),
+  url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;}
+.wrap{max-width:980px;margin:40px auto;padding:24px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;animation:fade .7s ease both}
+header h1{margin:0;font-family:'Orbitron';color:var(--ink)}
+.back{color:var(--ink);text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.06);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.02));transition:transform .25s ease, box-shadow .25s ease}
+.back:hover{transform:translateY(-3px);box-shadow:0 0 0 4px rgba(178,123,255,.12), 0 14px 40px rgba(106,43,214,.22)}
+.post{background:var(--panel);border:var(--border);border-radius:14px;box-shadow:0 10px 30px rgba(8,6,14,.7);padding:18px;margin-bottom:16px;animation:fade .7s ease both}
+.post h2{margin:0;color:#fff;font-family:'Orbitron'}
+.meta{font-size:.85rem;color:var(--muted);margin:6px 0 12px}
+.tags span{display:inline-block;margin-right:8px;margin-bottom:6px;padding:6px 10px;border-radius:999px;border:1px solid rgba(180,140,255,.14);background:linear-gradient(90deg,rgba(178,123,255,.12),rgba(106,43,214,.1));color:#fff;font-size:.8rem}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>BLOG</h1>
+    <a class="back" href="index.html">← Back to Portfolio</a>
+  </header>
+
+  <article class="post">
+    <h2>How I Found a (Sanitized) SQLi in a Search API</h2>
+    <div class="meta">Nov 7, 2025 • 6 min read</div>
+    <div class="tags"><span>Web Security</span><span>SQLi</span><span>Case Study</span></div>
+    <p>During an authorized e-commerce assessment, a search parameter was concatenated into a SQL string without parameterization. I verified boolean-based injection with benign payloads and recommended prepared statements and least-privilege DB roles as the fix.</p>
+  </article>
+
+  <article class="post">
+    <h2>XSS: The One-Liner That Steals Sessions</h2>
+    <div class="meta">Nov 6, 2025 • 4 min read</div>
+    <div class="tags"><span>XSS</span><span>Awareness</span></div>
+    <p>Reflected XSS persists because output encoding is skipped. This post shows a minimal PoC and a checklist to eliminate it with context-aware encoding and a strict CSP.</p>
+  </article>
+
+  <article class="post">
+    <h2>Starter Toolkit for Web App Pentesting (2025)</h2>
+    <div class="meta">Nov 3, 2025 • 5 min read</div>
+    <div class="tags"><span>Toolkit</span><span>OWASP</span></div>
+    <p>My current lightweight toolkit for fast, real-world testing: Burp Suite (manual + Intruder), nmap top-ports, gobuster for dirs, Nikto for quick misconfigs, plus custom Bash recon scripts.</p>
+  </article>
+</div>
+</body>
+</html>
