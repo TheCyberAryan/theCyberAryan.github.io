@@ -21,13 +21,21 @@ body{
 h1{font-family:'Orbitron';color:#efe8ff;margin:0 0 12px 0}
 a.back{color:var(--muted);text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.06);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));transition:all .2s}
 a.back:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12)}
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:20px}
-.qcard{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(180,140,255,.1);box-shadow:0 10px 30px rgba(8,6,14,.6);transition:transform .3s ease, box-shadow .3s ease;cursor:pointer;opacity:0;transform:translateY(20px);filter:blur(4px)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:20px}
+.qcard{
+  position:relative;overflow:hidden;border-radius:18px;
+  background:rgba(255,255,255,.02);border:1px solid rgba(180,140,255,.1);
+  box-shadow:0 10px 30px rgba(8,6,14,.6);transition:transform .3s ease, box-shadow .3s ease;
+  cursor:pointer;opacity:0;transform:translateY(20px);filter:blur(4px);
+  height:280px;display:flex;align-items:center;justify-content:center;
+}
 .qcard.visible{opacity:1;transform:translateY(0);filter:blur(0);transition:all .8s cubic-bezier(0.22,1,0.36,1)}
 .qcard:hover{transform:translateY(-6px);box-shadow:0 0 25px rgba(178,123,255,.25)}
-.qcard img{width:100%;height:100%;display:block;object-fit:cover;border-radius:16px}
+.qcard img{width:100%;height:100%;object-fit:cover;display:block;border-radius:18px}
 .qcard .cap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,transparent 60%,rgba(10,8,16,.9));color:#fff;padding:10px 14px;font-family:'Orbitron';opacity:0;transition:opacity .3s ease}
 .qcard:hover .cap{opacity:1}
+
+/* Lightbox */
 .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:99;flex-direction:column;gap:16px;padding-bottom:40px}
 .lightbox.active{display:flex;animation:fadeIn .5s ease}
 .lightbox img{max-width:90%;max-height:80%;border-radius:14px;box-shadow:0 0 40px rgba(178,123,255,.4)}
@@ -37,15 +45,37 @@ button.action:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,
 .lightbox .close{position:absolute;top:18px;right:34px;font-size:40px;color:#fff;cursor:pointer}
 #copyMsg{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:rgba(178,123,255,.15);color:#fff;padding:10px 18px;border-radius:8px;font-family:'Inter';font-size:.9rem;opacity:0;transition:opacity .3s ease}
 #copyMsg.show{opacity:1}
+
+/* Load More Button */
+#loadMore{
+  display:block;margin:40px auto 20px auto;
+  background:linear-gradient(90deg,rgba(178,123,255,.15),rgba(106,43,214,.2));
+  border:1px solid rgba(180,140,255,.1);color:#fff;
+  font-family:'Orbitron';font-weight:600;font-size:1rem;
+  padding:12px 28px;border-radius:12px;cursor:pointer;
+  transition:all .3s ease;
+}
+#loadMore:hover{transform:translateY(-3px);box-shadow:0 0 25px rgba(178,123,255,.25)}
+#loadMore.hidden{display:none}
+
+/* Mobile full width */
+@media(max-width:700px){
+  .wrap{padding:16px}
+  .gallery{grid-template-columns:1fr;gap:24px}
+  .qcard{height:auto;min-height:320px;border-radius:0}
+  .qcard img{border-radius:0}
+}
+
 @keyframes fadeIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <a class="back" href="index.html">← Back to Portfolio</a>
-  <h1></h1>
+  <h1>Quotes</h1>
   <p>Inspirations, philosophies, and truths from a hacker’s perspective.</p>
   <div id="gallery" class="gallery"></div>
+  <button id="loadMore">Load More ↓</button>
 </div>
 
 <!-- Lightbox -->
@@ -60,75 +90,87 @@ button.action:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,
 <div id="copyMsg">Link copied to clipboard!</div>
 
 <script>
-// Fetch .json and render dynamically
-const gallery = document.getElementById('gallery');
+const gallery=document.getElementById('gallery');
+const loadMore=document.getElementById('loadMore');
+let allFiles=[],currentIndex=0,perLoad=6;
+
+// Load JSON
 fetch('quotes.json')
-  .then(res => res.json())
-  .then(files => {
-    files.forEach((file, i) => {
-      const card = document.createElement('div');
-      card.className = 'qcard';
-      const captionText = file.replace(/[-_]/g,' ').replace(/\\.[^/.]+$/, '').replace(/quote/i,'Quote ');
-      card.innerHTML = `
-        <img data-src="quotes/${file}" alt="${captionText}" loading="lazy">
-        <div class="cap">// ${captionText}</div>
-      `;
-      gallery.appendChild(card);
-    });
-    initLazyLoading();
+  .then(res=>res.json())
+  .then(files=>{
+    allFiles=files;
+    renderNext();
   })
-  .catch(err => {
-    console.error('Error loading quotes:', err);
-    gallery.innerHTML = '<p style="color:#fff">⚠️ Could not load quotes list.</p>';
+  .catch(err=>{
+    console.error('Error loading quotes:',err);
+    gallery.innerHTML='<p style="color:#fff">⚠️ Could not load quotes list.</p>';
   });
 
-// Lazy loading + fade-in
+// Render next batch
+function renderNext(){
+  const slice=allFiles.slice(currentIndex,currentIndex+perLoad);
+  slice.forEach(file=>{
+    const card=document.createElement('div');
+    card.className='qcard';
+    const captionText=file.replace(/[-_]/g,' ').replace(/\\.[^/.]+$/,'').replace(/quote/i,'Quote ');
+    card.innerHTML=`
+      <img data-src="quotes/${file}" alt="${captionText}" loading="lazy">
+      <div class="cap">// ${captionText}</div>
+    `;
+    gallery.appendChild(card);
+  });
+  initLazyLoading();
+  currentIndex+=slice.length;
+  if(currentIndex>=allFiles.length){loadMore.classList.add('hidden');}
+}
+
+// Lazy loading
 function initLazyLoading(){
-  const cards = document.querySelectorAll('.qcard img');
-  const observer = new IntersectionObserver(entries=>{
+  const imgs=document.querySelectorAll('.qcard img:not([src])');
+  const observer=new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
-        const img = entry.target;
-        img.src = img.dataset.src;
+        const img=entry.target;
+        img.src=img.dataset.src;
         img.parentElement.classList.add('visible');
         observer.unobserve(img);
       }
     });
-  },{threshold:0.1});
-  cards.forEach(img=>observer.observe(img));
+  },{threshold:0.15});
+  imgs.forEach(img=>observer.observe(img));
 }
 
-// Lightbox + controls
-const lightbox = document.getElementById('lightbox');
-const lbImg = lightbox.querySelector('img');
-const closeBtn = lightbox.querySelector('.close');
-const copyMsg = document.getElementById('copyMsg');
-let currentImg = '';
+loadMore.addEventListener('click',()=>renderNext());
 
-gallery.addEventListener('click', e => {
-  if (e.target.tagName === 'IMG') {
-    currentImg = e.target.src;
-    lbImg.src = currentImg;
+// Lightbox
+const lightbox=document.getElementById('lightbox');
+const lbImg=lightbox.querySelector('img');
+const closeBtn=lightbox.querySelector('.close');
+const copyMsg=document.getElementById('copyMsg');
+let currentImg='';
+
+gallery.addEventListener('click',e=>{
+  if(e.target.tagName==='IMG'){
+    currentImg=e.target.src;
+    lbImg.src=currentImg;
     lightbox.classList.add('active');
   }
 });
 closeBtn.addEventListener('click',()=>lightbox.classList.remove('active'));
-lightbox.addEventListener('click',e=>{
-  if(e.target===lightbox)lightbox.classList.remove('active');
-});
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)lightbox.classList.remove('active');});
 
 // Download
-document.getElementById('downloadBtn').addEventListener('click', ()=>{
-  const a = document.createElement('a');
-  a.href = currentImg;
-  a.download = currentImg.split('/').pop();
+document.getElementById('downloadBtn').addEventListener('click',()=>{
+  const a=document.createElement('a');
+  a.href=currentImg;
+  a.download=currentImg.split('/').pop();
   document.body.appendChild(a);
   a.click();
   a.remove();
 });
 
 // Share
-document.getElementById('shareBtn').addEventListener('click', ()=>{
+document.getElementById('shareBtn').addEventListener('click',()=>{
   navigator.clipboard.writeText(currentImg).then(()=>{
     copyMsg.classList.add('show');
     setTimeout(()=>copyMsg.classList.remove('show'),1500);
