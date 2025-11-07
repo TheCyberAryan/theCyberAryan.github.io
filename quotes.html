@@ -4,63 +4,77 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Quotes — Aryan Pareek</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-:root{--muted:#bfc8e6;--panel:rgba(20,12,30,.65);--border:1px solid rgba(160,120,255,.08)}
+:root{
+  --bg:#0b0710;--panel:rgba(20,12,30,0.65);--accent:#b27bff;--muted:#bfc8e6;
+  --border:1px solid rgba(160,120,255,.08);
+}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   margin:0;font-family:'Inter',system-ui;color:var(--muted);
-  background:
-    linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),
-    url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+  background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
 }
-.wrap{max-width:1200px;margin:60px auto;padding:24px}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
-header h1{margin:0;font-family:'Orbitron',sans-serif;color:#f2f1ff}
-header a{color:#f2f1ff;text-decoration:none;border:1px solid rgba(255,255,255,.1);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.02));transition:transform .25s ease, box-shadow .25s ease}
-header a:hover{transform:translateY(-3px);box-shadow:0 0 0 4px rgba(178,123,255,.12),0 14px 40px rgba(106,43,214,.22)}
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
-.card{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.02);border:var(--border);box-shadow:0 10px 30px rgba(8,6,14,.6);transition:transform .3s ease, box-shadow .3s ease;cursor:pointer}
-.card:hover{transform:translateY(-6px);box-shadow:0 0 25px rgba(178,123,255,.25)}
-.card img{width:100%;height:100%;object-fit:cover;display:block;border-radius:16px}
-.caption{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(180deg,transparent 60%,rgba(10,8,16,.9) 100%);color:#fff;font-size:1rem;padding:10px 14px;opacity:0;transition:opacity .3s ease}
-.card:hover .caption{opacity:1}
-/* Lightbox */
+.wrap{max-width:1000px;margin:40px auto;padding:24px}
+h1{font-family:'Orbitron';color:#efe8ff;margin:0 0 12px 0}
+a.back{color:var(--muted);text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.06);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));transition:all .2s}
+a.back:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:20px}
+.qcard{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(180,140,255,.1);box-shadow:0 10px 30px rgba(8,6,14,.6);transition:transform .3s ease, box-shadow .3s ease;cursor:pointer}
+.qcard:hover{transform:translateY(-6px);box-shadow:0 0 25px rgba(178,123,255,.25)}
+.qcard img{width:100%;height:100%;display:block;object-fit:cover;border-radius:16px}
+.qcard .cap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,transparent 60%,rgba(10,8,16,.9));color:#fff;padding:10px 14px;font-family:'Orbitron';opacity:0;transition:opacity .3s ease}
+.qcard:hover .cap{opacity:1}
 .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:99}
 .lightbox.active{display:flex}
 .lightbox img{max-width:90%;max-height:90%;border-radius:14px;box-shadow:0 0 40px rgba(178,123,255,.4)}
-.lightbox span{position:absolute;top:20px;right:40px;font-size:40px;color:#fff;cursor:pointer}
+.lightbox .close{position:absolute;top:18px;right:34px;font-size:40px;color:#fff;cursor:pointer}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <h1>Quotes Gallery</h1>
-    <a href="index.html">← Back to Portfolio</a>
-  </header>
+  <a class="back" href="index.html">← Back to Portfolio</a>
+  <h1>Quotes</h1>
+  <p>Inspirations, philosophies, and truths from a hacker’s perspective.</p>
 
-  <section class="gallery">
-    <!-- Replace with your real images -->
-    <div class="card"><img src="quote1.png" alt="Quote 1"><div class="caption">// THECYBERARYAN</div></div>
-    <div class="card"><img src="quote2.png" alt="Quote 2"><div class="caption">// THECYBERARYAN</div></div>
-    <div class="card"><img src="quote3.png" alt="Quote 3"><div class="caption">// THECYBERARYAN</div></div>
-    <div class="card"><img src="quote4.png" alt="Quote 4"><div class="caption">// THECYBERARYAN</div></div>
-  </section>
+  <div id="gallery" class="gallery"></div>
+</div>
 
-  <div id="lightbox" class="lightbox">
-    <span id="closeBtn">&times;</span>
-    <img id="lightbox-img" src="" alt="">
-  </div>
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+  <span class="close">&times;</span>
+  <img alt="preview">
 </div>
 
 <script>
-const lightbox=document.getElementById('lightbox');
-const lightboxImg=document.getElementById('lightbox-img');
-document.querySelectorAll('.card img').forEach(img=>{
-  img.addEventListener('click',()=>{ lightboxImg.src=img.src; lightbox.classList.add('active'); });
+// Dynamic quotes loader
+const gallery = document.getElementById('gallery');
+
+// specify number of images you’ve uploaded
+const totalQuotes = 10; // 🔹 change this if you upload more/less
+
+for (let i = 1; i <= totalQuotes; i++) {
+  const card = document.createElement('div');
+  card.className = 'qcard';
+  card.innerHTML = `
+    <img src="quotes/quote${i}.png" alt="Quote ${i}">
+    <div class="cap">// THECYBERARYAN</div>
+  `;
+  gallery.appendChild(card);
+}
+
+// Lightbox behavior
+const lightbox = document.getElementById('lightbox');
+const lbImg = lightbox.querySelector('img');
+document.addEventListener('click', e => {
+  if (e.target.closest('.qcard img')) {
+    lbImg.src = e.target.src;
+    lightbox.classList.add('active');
+  } else if (e.target.classList.contains('close') || e.target === lightbox) {
+    lightbox.classList.remove('active');
+  }
 });
-document.getElementById('closeBtn').addEventListener('click',()=>lightbox.classList.remove('active'));
-lightbox.addEventListener('click',e=>{ if(e.target===lightbox) lightbox.classList.remove('active'); });
 </script>
 </body>
 </html>
