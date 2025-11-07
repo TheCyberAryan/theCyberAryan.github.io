@@ -22,7 +22,8 @@ h1{font-family:'Orbitron';color:#efe8ff;margin:0 0 12px 0}
 a.back{color:var(--muted);text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.06);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));transition:all .2s}
 a.back:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12)}
 .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:20px}
-.qcard{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(180,140,255,.1);box-shadow:0 10px 30px rgba(8,6,14,.6);transition:transform .3s ease, box-shadow .3s ease;cursor:pointer}
+.qcard{position:relative;overflow:hidden;border-radius:16px;background:rgba(255,255,255,.02);border:1px solid rgba(180,140,255,.1);box-shadow:0 10px 30px rgba(8,6,14,.6);transition:transform .3s ease, box-shadow .3s ease;cursor:pointer;opacity:0;transform:translateY(20px);filter:blur(4px)}
+.qcard.visible{opacity:1;transform:translateY(0);filter:blur(0);transition:all .8s cubic-bezier(0.22,1,0.36,1)}
 .qcard:hover{transform:translateY(-6px);box-shadow:0 0 25px rgba(178,123,255,.25)}
 .qcard img{width:100%;height:100%;display:block;object-fit:cover;border-radius:16px}
 .qcard .cap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,transparent 60%,rgba(10,8,16,.9));color:#fff;padding:10px 14px;font-family:'Orbitron';opacity:0;transition:opacity .3s ease}
@@ -59,30 +60,45 @@ button.action:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,
 <div id="copyMsg">Link copied to clipboard!</div>
 
 <script>
-// Auto-load quotes dynamically from JSON
+// Fetch quotes.json and render dynamically
 const gallery = document.getElementById('gallery');
-
-// fetch quotes list
 fetch('quotes/quotes.json')
   .then(res => res.json())
   .then(files => {
     files.forEach((file, i) => {
       const card = document.createElement('div');
-      const captionText = file.replace(/[-_]/g,' ').replace(/\\.[^/.]+$/, '').replace(/quote/i,'Quote ');
       card.className = 'qcard';
+      const captionText = file.replace(/[-_]/g,' ').replace(/\\.[^/.]+$/, '').replace(/quote/i,'Quote ');
       card.innerHTML = `
-        <img src="quotes/${file}" alt="${captionText}">
+        <img data-src="quotes/${file}" alt="${captionText}" loading="lazy">
         <div class="cap">// ${captionText}</div>
       `;
       gallery.appendChild(card);
     });
+    initLazyLoading();
   })
   .catch(err => {
     console.error('Error loading quotes:', err);
     gallery.innerHTML = '<p style="color:#fff">⚠️ Could not load quotes list.</p>';
   });
 
-// Lightbox + share/download
+// Lazy loading + fade-in
+function initLazyLoading(){
+  const cards = document.querySelectorAll('.qcard img');
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const img = entry.target;
+        img.src = img.dataset.src;
+        img.parentElement.classList.add('visible');
+        observer.unobserve(img);
+      }
+    });
+  },{threshold:0.1});
+  cards.forEach(img=>observer.observe(img));
+}
+
+// Lightbox + controls
 const lightbox = document.getElementById('lightbox');
 const lbImg = lightbox.querySelector('img');
 const closeBtn = lightbox.querySelector('.close');
