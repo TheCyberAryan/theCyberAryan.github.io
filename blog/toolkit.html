@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>My 2025 Web App Pentesting Toolkit — Aryan Pareek</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--panel:rgba(20,12,30,.65);--muted:#bfc8e6;--border:1px solid rgba(160,120,255,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:'Inter',system-ui;color:var(--muted);background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),url('../images/bg.jpg') center/cover fixed}
+.wrap{max-width:900px;margin:48px auto;padding:24px}
+a.back{color:var(--muted);text-decoration:none;font-weight:700}
+h1{font-family:'Orbitron';color:#efe8ff}
+.panel{background:var(--panel);padding:18px;border-radius:12px;border:var(--border);box-shadow:0 10px 30px rgba(8,6,14,.6)}
+pre{background:rgba(0,0,0,.35);padding:12px;border-radius:8px;overflow:auto;color:#e8e6ff}
+.code{display:block;padding:10px 12px;border-radius:8px;background:rgba(255,255,255,.02);border:1px solid rgba(160,120,255,.06);color:#e8e6ff;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../blog.html">← Back to Blog</a>
+  <h1>Starter Toolkit for Web App Pentesting (2025)</h1>
+  <div class="panel">
+    <p><em>Published Nov 3, 2025 • 5 min read</em></p>
+
+    <h2>Core tools I use</h2>
+    <ul>
+      <li><strong>Burp Suite</strong> (manual analysis, Intruder, repeater)</li>
+      <li><strong>nmap</strong> — quick host & port discovery</li>
+      <li><strong>gobuster/ffuf</strong> — directory & file enumeration</li>
+      <li><strong>Nikto</strong> — quick misconfiguration checks</li>
+      <li><strong>Custom Bash/Python scripts</strong> — for automated recon flows (like ENUMO)</li>
+    </ul>
+
+    <h2>Quick command snippets</h2>
+    <div class="code">nmap -sC -sV -T4 -p- target.example.com</div>
+    <div class="code">gobuster dir -u https://target.example.com -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt</div>
+
+    <h2>Workflow tips</h2>
+    <ol>
+      <li>Start with discovery — DNS, subdomains, ports.</li>
+      <li>Fingerprin t technologies (Wappalyzer, builtwith).</li>
+      <li>Run focused web checks (dir brute, parameter discovery).</li>
+      <li>Manual validation in Burp — avoid noisy, destructive checks until authorized.</li>
+    </ol>
+
+    <p>Keep a clean, reproducible notes file (Markdown) with PoCs and remediation suggestions — it saves time during reporting and retesting.</p>
+  </div>
+</div>
+</body>
+</html>
