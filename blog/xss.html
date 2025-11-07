@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Reflected XSS Deep Dive — Aryan Pareek</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--panel:rgba(20,12,30,.65);--muted:#bfc8e6;--border:1px solid rgba(160,120,255,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:'Inter',system-ui;color:var(--muted);background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),url('../images/bg.jpg') center/cover fixed}
+.wrap{max-width:900px;margin:48px auto;padding:24px}
+a.back{color:var(--muted);text-decoration:none;font-weight:700}
+h1{font-family:'Orbitron';color:#efe8ff}
+.panel{background:var(--panel);padding:18px;border-radius:12px;border:var(--border);box-shadow:0 10px 30px rgba(8,6,14,.6)}
+pre{background:rgba(0,0,0,.35);padding:12px;border-radius:8px;overflow:auto;color:#e8e6ff}
+code{background:rgba(255,255,255,.02);padding:2px 6px;border-radius:4px;color:#dfeaff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../blog.html">← Back to Blog</a>
+  <h1>Reflected XSS Deep Dive</h1>
+  <div class="panel">
+    <p><em>Published Nov 6, 2025 • 4 min read</em></p>
+
+    <h2>What is Reflected XSS?</h2>
+    <p>Reflected XSS occurs when untrusted input is included in HTML output without proper encoding. Common places: search boxes, error pages, GET parameters used inside HTML attributes or scripts.</p>
+
+    <h2>Safe example (sanitized)</h2>
+    <p>Never run payloads on live systems without permission. Example of a concept (safe):</p>
+    <pre><code>&lt;script&gt;/* benign */console.log('xss-test')&lt;/script&gt;</code></pre>
+
+    <h2>Remediation checklist</h2>
+    <ul>
+      <li>Context-aware encoding (HTML, attribute, JS, CSS contexts).</li>
+      <li>Use libraries/framework auto-encoding features (e.g., template engines).</li>
+      <li>Set strict Content Security Policy (CSP).</li>
+      <li>Sanitize input where appropriate and enforce least privilege on cookies (HttpOnly, Secure, SameSite).</li>
+    </ul>
+
+    <h2>Detection tips</h2>
+    <p>Automated scanners find many XSS issues; manual testing often finds edge cases (DOM-based or unusual contexts). Use Burp with carefully crafted payloads and verify in a safe environment.</p>
+  </div>
+</div>
+</body>
+</html>
