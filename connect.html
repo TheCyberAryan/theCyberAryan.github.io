@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>💸 CONNECT — Hire, Support, or Contact The Cyber Aryan</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0710; --panel:rgba(20,12,30,0.65); --muted:#bfc8e6;
+  --accent:#b27bff; --accent2:#6a2bd6; --border:1px solid rgba(160,120,255,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;font-family:'Inter',system-ui;color:var(--muted);
+  background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+.wrap{max-width:980px;margin:40px auto;padding:24px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+h1{margin:0;font-family:'Orbitron';color:#efe8ff;font-size:1.8rem}
+a.back{color:var(--muted);text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.06);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));transition:all .2s}
+a.back:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12)}
+
+.section{background:var(--panel);border:var(--border);border-radius:14px;padding:24px;margin-bottom:20px;box-shadow:0 10px 30px rgba(8,6,14,.7)}
+h2{margin-top:0;font-family:'Orbitron';color:#fff;font-size:1.3rem}
+p{line-height:1.6}
+
+.btn{
+  display:inline-block;margin-top:10px;color:#fff;text-decoration:none;font-weight:700;
+  border-radius:10px;padding:10px 14px;
+  background:linear-gradient(90deg,rgba(178,123,255,.14),rgba(106,43,214,.18));
+  border:1px solid rgba(255,255,255,.06);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.btn:hover{transform:translateY(-4px);box-shadow:0 10px 40px rgba(106,43,214,.15)}
+
+form{display:grid;gap:12px;margin-top:12px}
+.row{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+.input,textarea{
+  background:rgba(255,255,255,.03);border:1px solid rgba(160,120,255,.1);color:#eae7ff;
+  border-radius:10px;padding:12px;font-family:inherit;font-size:1rem
+}
+.input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(178,123,255,.12)}
+textarea{resize:vertical;min-height:120px}
+button{
+  background:linear-gradient(90deg,rgba(178,123,255,.14),rgba(106,43,214,.18));color:#fff;
+  border:none;padding:12px 20px;border-radius:10px;font-weight:700;font-family:'Orbitron';cursor:pointer;
+  transition:transform .2s,box-shadow .2s;
+}
+button:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(106,43,214,.18)}
+
+footer{margin-top:30px;text-align:center;color:#cfc9ff;font-size:.9rem}
+
+@media(max-width:720px){.row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>💸 CONNECT — Hire, Support, or Contact The Cyber Aryan</h1>
+    <a class="back" href="index.html">← Back</a>
+  </header>
+
+  <!-- Monetization / Hire Section -->
+  <div class="section">
+    <h2>⚙️ Hire Me for Security Work</h2>
+    <p>Offering comprehensive vulnerability assessment, penetration testing, and red-blue simulations for startups and organizations. Each engagement includes a detailed professional report and patch recommendations.</p>
+    <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Security%20Project%20Inquiry">📩 Contact for Pentest</a>
+  </div>
+
+  <div class="section">
+    <h2>☕ Support My Research</h2>
+    <p>If my open-source tools, blogs, or findings helped you, consider supporting my work — every coffee keeps the recon servers running ☕.</p>
+    <a class="btn" href="https://www.buymeacoffee.com/TheCyberAryan" target="_blank">Buy Me a Coffee</a>
+  </div>
+
+  <div class="section">
+    <h2>🧠 Tools & Scripts</h2>
+    <p>Explore my GitHub repositories — Bash and Python-based cybersecurity tools for real-world reconnaissance and exploitation.</p>
+    <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">Visit GitHub</a>
+  </div>
+
+  <div class="section">
+    <h2>🎓 Book Mentorship</h2>
+    <p>Get personal mentorship sessions on Web Pentesting, Bug Bounty, and Exploit Writing — focused on real-world tactics and methodology.</p>
+    <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Mentorship%20Request">Book Session</a>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="section">
+    <h2>📞 Contact Me</h2>
+    <p>Have a project, collaboration, or query? Send me a message — I usually reply within a day.</p>
+    <form action="https://formsubmit.co/aryanpareek311072004@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Message from TheCyberAryan Portfolio">
+      <input type="hidden" name="_captcha" value="false">
+      <div class="row">
+        <input class="input" type="text" name="name" placeholder="Your Name" required>
+        <input class="input" type="email" name="email" placeholder="Email" required>
+      </div>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <footer>© 2025 The Cyber Aryan — Security. Precision. Resilience.</footer>
+</div>
+</body>
+</html>
