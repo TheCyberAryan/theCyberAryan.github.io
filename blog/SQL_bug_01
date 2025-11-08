@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Responsible Disclosure: SQL Injection (Sanitized) — The Cyber Aryan</title>
+  <meta name="author" content="Aryan Pareek — The Cyber Aryan">
+  <meta name="description" content="A responsible, vendor-safe writeup of a discovered SQL Injection vulnerability (sanitized). Includes impact, safe verification steps, and remediation guidance."/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0710; --panel:rgba(22,12,28,0.7);
+      --muted:#bfc8e6; --accent:#00e5ff; --accent2:#b27bff;
+      --card:#0f1116;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:Inter,system-ui; background:
+      linear-gradient(180deg, rgba(26,0,43,0.92), rgba(0,28,42,0.95)),
+      var(--bg);
+      color:var(--muted); -webkit-font-smoothing:antialiased;}
+    .container{max-width:900px;margin:36px auto;padding:28px;}
+    .post-card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); border-radius:12px; padding:28px; border:1px solid rgba(180,120,255,0.05); box-shadow:0 12px 40px rgba(3,3,6,0.6)}
+    header .tag{font-family:Orbitron,monospace;color:#e9f7ff; letter-spacing:.6px; font-size:.9rem}
+    h1{font-family:Orbitron, sans-serif; color:#ecf3ff; margin:8px 0 6px; text-shadow:0 0 12px rgba(0,229,255,0.08)}
+    .meta{color:#9fb7d8; font-size:0.9rem; margin-bottom:18px}
+    .lead{color:var(--muted); line-height:1.7; margin-bottom:18px}
+    h2{font-family:Orbitron, sans-serif; color:#eaf4ff; margin:22px 0 10px; text-shadow:0 0 6px rgba(0,229,255,0.06)}
+    p, li{color:var(--muted); line-height:1.65; font-size:1rem}
+    pre{background:rgba(0,0,0,0.35); padding:12px; border-radius:8px; overflow:auto; border:1px solid rgba(255,255,255,0.03); color:#dff;}
+    code{font-family:monospace; font-size:0.95rem}
+    ul{margin:0 0 12px 1rem}
+    .screenshot{margin:12px 0; border-radius:8px; overflow:hidden; border:1px solid rgba(255,255,255,0.03)}
+    .screenshot img{width:100%; display:block}
+    .cta{margin-top:18px; display:flex; gap:12px; align-items:center}
+    .btn{background:linear-gradient(90deg,var(--accent2),var(--accent)); padding:10px 14px; border-radius:10px; color:#061118; text-decoration:none; font-weight:700}
+    .note{background:rgba(255,255,255,0.02); border-left:4px solid rgba(0,229,255,0.18); padding:10px 12px; border-radius:6px; margin:14px 0}
+    footer{margin-top:22px; color:#aabbd6; font-size:0.9rem}
+    @media(max-width:720px){ .container{padding:18px} pre{font-size:0.9rem} }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <article class="post-card">
+      <header>
+        <div class="tag">// THECYBERARYAN — Research</div>
+        <h1>Responsible Disclosure: SQL Injection (sanitized)</h1>
+        <div class="meta">Author: Aryan Pareek • Date: 2025-11-03 • Type: Vendor-safe PoC writeup</div>
+      </header>
+
+      <p class="lead">
+        This is a responsible, vendor-safe writeup of an SQL Injection issue I discovered in a public-facing endpoint.
+        The content below is intentionally sanitized to avoid enabling misuse. If you need the full PoC for remediation or verification,
+        please contact me through an encrypted channel or your vendor portal — I will only share evidence via a secure channel.
+      </p>
+
+      <h2>Executive summary</h2>
+      <p>
+        A user-controlled query parameter in a public endpoint allowed unparameterized SQL to be constructed on the server,
+        enabling unauthorized data access. The vulnerability affects the request parameter(s) passed in the query string and
+        is exploitable without authentication. Immediate mitigation and secure coding fixes are advised.
+      </p>
+
+      <h2>Observed endpoint & environment</h2>
+      <ul>
+        <li><strong>Endpoint (example):</strong> <code>/en/webpage.php</code> (query parameters observed: <code>cid</code>, <code>fid</code>)</li>
+        <li><strong>Method:</strong> GET</li>
+        <li><strong>Environment:</strong> Production (reported by researcher)</li>
+        <li><strong>Authorization:</strong> Not required to reproduce observed behavior</li>
+      </ul>
+
+      <h2>What I observed (sanitized)</h2>
+      <p>
+        During testing I observed that input supplied via the query string was incorporated into a database query without proper parameterization.
+        Application responses indicated that the injected input altered query behavior and returned data beyond the expected result set.
+        I have removed any exploit strings and removed returned PII from all sample captures in this writeup to remain vendor-safe.
+      </p>
+
+      <!-- Placeholder for sanitized screenshot(s) you will add -->
+      <!-- Add your screenshots to the same folder as this file and name them screenshot-sql-1.png, screenshot-sql-2.png -->
+      <!-- Example insertion:
+           <div class="screenshot"><img src="screenshot-sql-1.png" alt="Sanitized response showing DB-driven output"></div>
+      -->
+      <!-- START SCREENSHOT PLACEHOLDERS -->
+      <!-- <div class="screenshot"><img src="screenshot-sql-1.png" alt="Sanitized response showing DB-driven output"></div> -->
+      <!-- <div class="screenshot"><img src="screenshot-sql-2.png" alt="HTTP request/response capture (redacted)"></div> -->
+      <!-- END SCREENSHOT PLACEHOLDERS -->
+
+      <h2>Impact</h2>
+      <p>
+        The impact depends on the data stored in the backend database. Potential consequences include exposure of:
+      </p>
+      <ul>
+        <li>User PII (emails, names, addresses)</li>
+        <li>Authentication material (password hashes, tokens)</li>
+        <li>Internal configuration or API keys</li>
+        <li>Business-critical data</li>
+      </ul>
+
+      <h2>Safe reproduction steps (for vendors / devs)</h2>
+      <p><em>Important:</em> Do not perform intrusive tests on live production containing real user data. Use a staging copy of production data when verifying.</p>
+      <ol>
+        <li>Create a staging environment or a test copy of the database (masked or synthetic data).</li>
+        <li>Request the endpoint with normal test values for the observed parameters (e.g. numeric IDs).</li>
+        <li>Inspect application logs, DB logs, or tracing to confirm whether the parameter values appear concatenated into SQL statements.</li>
+        <li>If confirmation is required, request secure contact from the reporter for a redacted PoC payload and limited evidence (PGP / secure upload).</li>
+      </ol>
+
+      <h2>Root cause (high level)</h2>
+      <p>
+        The application constructs SQL queries by concatenating or interpolating untrusted input directly into SQL strings instead of using
+        parameterized queries or prepared statements. This pattern makes injection possible whenever user input reaches the database layer without validation and binding.
+      </p>
+
+      <h2>Safe remediation (developer-focused examples)</h2>
+      <p>Below are vendor-safe code patterns demonstrating the correct approach: parameterized queries / prepared statements and input allow-listing.</p>
+
+      <h3>PHP (PDO) — Prepared statements</h3>
+      <pre><code class="language-php">// safe: use prepared statements with bound parameters
+$sql = "SELECT * FROM pages WHERE cid = :cid AND fid = :fid";
+$stmt = $pdo->prepare($sql);
+$stmt->bindValue(':cid', $cid, PDO::PARAM_INT);
+$stmt->bindValue(':fid', $fid, PDO::PARAM_INT);
+$stmt->execute();
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);</code></pre>
+
+      <h3>Python (psycopg2) — parameterized</h3>
+      <pre><code class="language-py"># safe: use parameter substitution provided by the DB driver
+cur.execute("SELECT * FROM pages WHERE cid = %s AND fid = %s", (cid, fid))
+rows = cur.fetchall()</code></pre>
+
+      <h3>Node.js (mysql2) — parameterized</h3>
+      <pre><code class="language-js">const [rows] = await pool.execute('SELECT * FROM pages WHERE cid = ? AND fid = ?', [cid, fid]);</code></pre>
+
+      <h3>General best practices</h3>
+      <ul>
+        <li>Use parameterized queries / prepared statements for all DB access.</li>
+        <li>Strictly validate and allow-list input types (e.g., ensure IDs are integers).</li>
+        <li>Use ORM-provided APIs that automatically bind parameters where appropriate.</li>
+        <li>Encode output where data is displayed in HTML (to prevent secondary XSS issues).</li>
+        <li>Implement WAF rules temporarily if immediate mitigation is needed while developers work on fixes.</li>
+      </ul>
+
+      <h2>Recommendations for immediate mitigation</h2>
+      <ul>
+        <li>Apply a temporary WAF rule to block suspicious query patterns that attempt to inject SQL control characters.</li>
+        <li>Rate-limit/monitor unusual query volumes and large result exports.</li>
+        <li>Rotate any credentials or API keys that might have been exposed if you suspect leakage.</li>
+        <li>Perform a scope-wide review to locate other instances where raw string concatenation is used for SQL.</li>
+      </ul>
+
+      <div class="note">
+        <strong>Disclosure & evidence handling:</strong> I did not include raw payloads or exfiltrated data in this post. For remediation verification,
+        please provide a secure channel (PGP key or secure upload). I can provide one or two redacted rows and minimal PoC payloads after you acknowledge receipt.
+      </div>
+
+      <h2>Suggested vendor contact (copyable)</h2>
+      <pre><code>Subject: Security report — SQL Injection (sensitive data exposure) — [your-domain]
+Hello,
+I discovered a SQL injection vulnerability affecting [endpoint path] (parameters: cid, fid). I can share a redacted PoC and limited evidence via an encrypted channel or your secure portal. Please acknowledge receipt and provide a secure contact (PGP key or secure upload link). I recommend disabling or restricting the endpoint until a fix is applied.
+Regards,
+Aryan Pareek
+CEH | Penetration Tester | The Cyber Aryan
+aryanpareek311072004@gmail.com
+</code></pre>
+
+      <h2>Conclusion</h2>
+      <p>
+        SQL Injection remains a high-impact vulnerability when user input reaches database queries without proper binding. The fix is straightforward:
+        parameterize queries, validate inputs, and add monitoring. If you are the site owner or responsible party, contact me through a secure channel and I will provide redacted verification and retest after remediation.
+      </p>
+
+      <div class="cta">
+        <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Secure%20Contact%20for%20PoC">Contact securely (email)</a>
+        <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">View tools & scripts</a>
+      </div>
+
+      <footer>
+        <p>© 2025 Aryan Pareek — The Cyber Aryan. This writeup is vendor-safe and intended for remediation and learning. Never publish raw PII or exploit payloads.</p>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>
