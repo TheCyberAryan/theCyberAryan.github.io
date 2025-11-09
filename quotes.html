@@ -170,43 +170,109 @@ document.getElementById('downloadBtn').addEventListener('click',()=>{
 });
 
 // Share
-document.getElementById('shareBtn').addEventListener('click',()=>{
-  navigator.clipboard.writeText(currentImg).then(()=>{
-    copyMsg.classList.add('show');
-    setTimeout(()=>copyMsg.classList.remove('show'),1500);
+<!-- Universal Share System -->
+<div id="share-popup" class="share-popup">
+  <div class="share-box">
+    <h3>Share this Quote</h3>
+    <div class="share-buttons">
+      <a id="share-whatsapp" target="_blank" title="Share on WhatsApp">🟢 WhatsApp</a>
+      <a id="share-twitter" target="_blank" title="Share on Twitter">🐦 Twitter</a>
+      <a id="share-linkedin" target="_blank" title="Share on LinkedIn">💼 LinkedIn</a>
+      <a id="share-telegram" target="_blank" title="Share on Telegram">📨 Telegram</a>
+      <a id="share-copy" title="Copy link">📋 Copy Link</a>
+    </div>
+    <button id="close-share">Close ✖</button>
+  </div>
+</div>
+
+<style>
+.share-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+.share-popup.active {
+  display: flex;
+}
+.share-box {
+  background: rgba(20,20,30,0.9);
+  border: 1px solid rgba(0,255,255,0.2);
+  border-radius: 14px;
+  padding: 20px 30px;
+  box-shadow: 0 0 40px rgba(0,229,255,0.1);
+  text-align: center;
+  color: #bfc8e6;
+  max-width: 300px;
+}
+.share-box h3 {
+  font-family: 'Orbitron', sans-serif;
+  color: #00e5ff;
+  margin-bottom: 14px;
+}
+.share-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.share-buttons a {
+  text-decoration: none;
+  background: linear-gradient(90deg, rgba(0,229,255,0.1), rgba(178,123,255,0.1));
+  border: 1px solid rgba(178,123,255,0.2);
+  color: #fff;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: all .3s ease;
+}
+.share-buttons a:hover {
+  box-shadow: 0 0 14px rgba(178,123,255,0.3);
+}
+#close-share {
+  background: none;
+  border: 1px solid rgba(0,229,255,0.2);
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #bfc8e6;
+  cursor: pointer;
+  font-family: 'Inter';
+  transition: all .3s ease;
+}
+#close-share:hover {
+  background: rgba(0,229,255,0.1);
+  color: #fff;
+}
+</style>
+
+<script>
+let selectedQuote = null;
+
+document.querySelectorAll('.qcard').forEach(card => {
+  card.addEventListener('click', () => {
+    selectedQuote = card.querySelector('img').src;
+    document.getElementById('share-popup').classList.add('active');
+
+    const encodedURL = encodeURIComponent(selectedQuote);
+    document.getElementById('share-whatsapp').href = `https://wa.me/?text=Check%20this%20quote%20by%20TheCyberAryan%20${encodedURL}`;
+    document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=Check%20this%20quote%20by%20TheCyberAryan%20${encodedURL}`;
+    document.getElementById('share-linkedin').href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedURL}`;
+    document.getElementById('share-telegram').href = `https://t.me/share/url?url=${encodedURL}&text=Check%20this%20quote%20by%20TheCyberAryan`;
+    
+    document.getElementById('share-copy').onclick = () => {
+      navigator.clipboard.writeText(selectedQuote);
+      alert('Quote link copied to clipboard!');
+    };
   });
 });
+
+document.getElementById('close-share').addEventListener('click', () => {
+  document.getElementById('share-popup').classList.remove('active');
+});
 </script>
-  <script>
-  // Select all share buttons or clickable quote cards
-  document.querySelectorAll('.qcard').forEach(card => {
-    card.addEventListener('click', async () => {
-      const img = card.querySelector('img').src;
-      const title = 'Cybersecurity Quote by TheCyberAryan';
-      const text = '// THECYBERARYAN  —  Hacker Mindset. Minimalist Vibes.';
-      
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: title,
-            text: text,
-            url: img
-          });
-        } catch (err) {
-          console.log('Share cancelled or failed:', err);
-        }
-      } else {
-        // Fallback for desktop browsers without Web Share API
-        const tempInput = document.createElement('input');
-        document.body.appendChild(tempInput);
-        tempInput.value = img;
-        tempInput.select();
-        document.execCommand('copy');
-        document.body.removeChild(tempInput);
-        alert('Link copied! You can share it manually.');
-      }
-    });
-  });
-</script>
+
+
 </body>
 </html>
