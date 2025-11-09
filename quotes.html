@@ -61,10 +61,10 @@ header a:hover {
   position:relative;
   overflow:hidden;
   border-radius:16px;
-  background:rgba(255,255,255,.02);
+  background:rgba(255,255,255,.03);
   border:1px solid rgba(180,140,255,.1);
   box-shadow:0 10px 30px rgba(8,6,14,.6);
-  transition:transform .3s ease, box-shadow .3s ease;
+  transition:transform .25s ease, box-shadow .25s ease;
   cursor:pointer;
 }
 .qcard:hover {
@@ -73,23 +73,23 @@ header a:hover {
 }
 .qcard img {
   width:100%;
-  height:100%;
+  height:auto;
   display:block;
-  object-fit:cover;
+  object-fit:contain;
   border-radius:16px;
+  opacity:1; /* Always visible */
 }
 .qcard .cap {
   position:absolute;
   left:0; right:0; bottom:0;
-  background:linear-gradient(180deg,transparent 60%,rgba(10,8,16,.9));
-  color:#fff;
-  padding:10px 14px;
+  background:rgba(10,8,16,.7);
+  color:#00e5ff;
+  text-align:center;
+  padding:8px 0;
   font-family:'Orbitron';
-  opacity:0;
-  transition:opacity .3s ease;
+  font-size:0.8rem;
+  letter-spacing:0.5px;
 }
-.qcard:hover .cap {opacity:1;}
-
 footer {
   text-align:center;
   color:#cfc9ff;
@@ -193,6 +193,7 @@ footer {
 <script>
 let selectedQuote = null;
 
+// Make quotes visible and clickable
 document.querySelectorAll('.qcard').forEach(card => {
   card.addEventListener('click', () => {
     selectedQuote = card.querySelector('img').src;
@@ -212,6 +213,7 @@ document.querySelectorAll('.qcard').forEach(card => {
   });
 });
 
+// Close share popup
 document.getElementById('close-share').addEventListener('click', () => {
   document.getElementById('share-popup').classList.remove('active');
 });
