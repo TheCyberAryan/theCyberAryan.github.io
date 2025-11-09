@@ -6,44 +6,109 @@
 <title>Quotes — The Cyber Aryan</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b0710;--panel:rgba(20,12,30,.65);--muted:#bfc8e6;--cy:#00e5ff;--pu:#b27bff}
+:root {
+  --bg:#0b0710; --muted:#bfc8e6; --cy:#00e5ff; --pu:#b27bff;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{
+body {
   font-family:'Inter',system-ui;color:var(--muted);
   background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),
              url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
-  min-height:100vh;-webkit-font-smoothing:antialiased}
-.container{max-width:1100px;margin:40px auto;padding:24px}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
-header h1{font-family:'Orbitron',sans-serif;color:#efe8ff}
-header a{color:var(--muted);text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.06);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01))}
-header a:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12)}
+  min-height:100vh;-webkit-font-smoothing:antialiased;
+}
+.container {max-width:1100px;margin:40px auto;padding:24px;}
+header {display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
+header h1 {font-family:'Orbitron',sans-serif;color:#efe8ff;}
+header a {
+  color:var(--muted);text-decoration:none;font-weight:700;
+  border:1px solid rgba(255,255,255,.06);
+  padding:8px 12px;border-radius:10px;
+  background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+  transition:all .2s;
+}
+header a:hover {transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12);}
 
-/* GRID */
-.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
-.qcard{
-  position:relative;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02);
-  border:1px solid rgba(180,140,255,.12);box-shadow:0 10px 30px rgba(8,6,14,.6);cursor:pointer;
-  transition:transform .25s ease,box-shadow .25s ease}
-.qcard:hover{transform:translateY(-6px);box-shadow:0 0 25px rgba(178,123,255,.25)}
-/* ✅ KEY FIX: give the image a real height so it’s visible on all devices */
-.qcard img{
-  display:block;width:100%;height:280px; /* adjust if you want taller cards */
-  object-fit:cover;border-radius:16px;background:#05040a}
-.cap{
-  position:absolute;left:0;right:0;bottom:0;padding:8px 12px;text-align:center;
-  font-family:'Orbitron',sans-serif;font-size:.8rem;letter-spacing:.4px;color:#fff;
-  background:linear-gradient(180deg,transparent 40%,rgba(10,8,16,.9))}
-footer{text-align:center;color:#cfc9ff;margin-top:26px;font-size:.9rem}
+/* Gallery */
+.gallery {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+}
+.qcard {
+  position:relative;border-radius:16px;overflow:hidden;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(180,140,255,.12);
+  box-shadow:0 10px 30px rgba(8,6,14,.6);
+  cursor:pointer;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.qcard:hover {transform:translateY(-6px);box-shadow:0 0 25px rgba(178,123,255,.25);}
+.qcard img {
+  display:block;width:100%;height:auto;
+  object-fit:contain;background:#05040a;
+  aspect-ratio:1/1;
+}
+.cap {
+  position:absolute;left:0;right:0;bottom:0;
+  padding:8px 12px;text-align:center;
+  font-family:'Orbitron';font-size:.8rem;letter-spacing:.4px;
+  color:#00e5ff;
+  background:linear-gradient(180deg,transparent 40%,rgba(10,8,16,.9));
+}
 
-/* SHARE POPUP */
-.share-popup{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:999}
-.share-popup.active{display:flex}
-.share-box{background:rgba(20,20,30,.95);border:1px solid rgba(0,229,255,.25);border-radius:14px;padding:20px 24px;max-width:320px;text-align:center;box-shadow:0 0 40px rgba(0,229,255,.12)}
-.share-box h3{font-family:'Orbitron';color:var(--cy);margin-bottom:12px}
-.share-buttons{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
-.share-buttons a{text-decoration:none;border:1px solid rgba(178,123,255,.25);background:linear-gradient(90deg,rgba(0,229,255,.12),rgba(178,123,255,.12));color:#fff;padding:9px 10px;border-radius:8px}
-#close-share{background:none;border:1px solid rgba(0,229,255,.22);border-radius:6px;padding:6px 12px;color:#bfc8e6;cursor:pointer}
+/* Load More */
+#load-more {
+  display:block;margin:28px auto;
+  font-family:'Orbitron';
+  background:linear-gradient(90deg,rgba(0,229,255,0.1),rgba(178,123,255,0.1));
+  border:1px solid rgba(178,123,255,0.3);
+  color:#fff;padding:10px 18px;border-radius:10px;
+  cursor:pointer;transition:all .3s ease;
+}
+#load-more:hover {box-shadow:0 0 15px rgba(0,229,255,0.3);transform:translateY(-3px);}
+footer {text-align:center;color:#cfc9ff;margin-top:26px;font-size:.9rem;}
+
+/* Lightbox Preview */
+.lightbox {
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.92);
+  align-items:center;justify-content:center;z-index:1000;
+}
+.lightbox.active {display:flex;}
+.lightbox img {
+  max-width:90%;max-height:90%;
+  border-radius:14px;
+  box-shadow:0 0 40px rgba(0,229,255,.4);
+}
+.lightbox .close {
+  position:absolute;top:18px;right:34px;
+  font-size:38px;color:#fff;cursor:pointer;
+}
+
+/* Share popup */
+.share-popup {
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  display:none;align-items:center;justify-content:center;z-index:1200;
+}
+.share-popup.active {display:flex;}
+.share-box {
+  background:rgba(20,20,30,.95);
+  border:1px solid rgba(0,229,255,.25);
+  border-radius:14px;
+  padding:20px 24px;max-width:320px;text-align:center;
+  box-shadow:0 0 40px rgba(0,229,255,.12);
+}
+.share-box h3 {font-family:'Orbitron';color:var(--cy);margin-bottom:12px;}
+.share-buttons {display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+.share-buttons a {
+  text-decoration:none;border:1px solid rgba(178,123,255,.25);
+  background:linear-gradient(90deg,rgba(0,229,255,.12),rgba(178,123,255,.12));
+  color:#fff;padding:9px 10px;border-radius:8px;
+}
+#close-share {
+  background:none;border:1px solid rgba(0,229,255,.22);
+  border-radius:6px;padding:6px 12px;color:#bfc8e6;cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -53,41 +118,33 @@ footer{text-align:center;color:#cfc9ff;margin-top:26px;font-size:.9rem}
       <a href="index.html">← Back to Portfolio</a>
     </header>
 
-    <div class="gallery">
-      <!-- Make sure these filenames exist in the same folder -->
-      <div class="qcard"><img src="quotes/q1.png" alt="Quote 1"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q2.png" alt="Quote 2"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q3.png" alt="Quote 3"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q4.png" alt="Quote 4"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q5.png" alt="Quote 5"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q6.png" alt="Quote 6"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q7.png" alt="Quote 7"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q8.png" alt="Quote 8"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q9.png" alt="Quote 9"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q10.png" alt="Quote 10"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q11.png" alt="Quote 11"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q12.png" alt="Quote 12"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q13.png" alt="Quote 13"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q14.png" alt="Quote 14"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q15.png" alt="Quote 15"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q16.png" alt="Quote 16"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q17.png" alt="Quote 17"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q18.png" alt="Quote 18"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q19.png" alt="Quote 19"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q20.png" alt="Quote 20"><div class="cap">// THECYBERARYAN</div></div>
-      
+    <div class="gallery" id="quote-gallery">
+      <div class="qcard"><img src="quote1.png" alt="Quote 1"><div class="cap">// THECYBERARYAN</div></div>
+      <div class="qcard"><img src="quote2.png" alt="Quote 2"><div class="cap">// THECYBERARYAN</div></div>
+      <div class="qcard"><img src="quote3.png" alt="Quote 3"><div class="cap">// THECYBERARYAN</div></div>
+      <div class="qcard"><img src="quote4.png" alt="Quote 4"><div class="cap">// THECYBERARYAN</div></div>
+      <div class="qcard"><img src="quote5.png" alt="Quote 5"><div class="cap">// THECYBERARYAN</div></div>
+      <div class="qcard"><img src="quote6.png" alt="Quote 6"><div class="cap">// THECYBERARYAN</div></div>
     </div>
+
+    <button id="load-more">Load More ↓</button>
 
     <footer>© 2025 Aryan Pareek — The Cyber Aryan</footer>
   </div>
 
-  <!-- Share Popup -->
+  <!-- Lightbox for preview -->
+  <div class="lightbox" id="lightbox">
+    <span class="close">&times;</span>
+    <img src="" alt="Preview">
+  </div>
+
+  <!-- Share popup -->
   <div id="share-popup" class="share-popup">
     <div class="share-box">
       <h3>Share this Quote</h3>
       <div class="share-buttons">
         <a id="share-whatsapp" target="_blank">🟢 WhatsApp</a>
-        <a id="share-twitter"  target="_blank">🐦 Twitter</a>
+        <a id="share-twitter" target="_blank">🐦 Twitter</a>
         <a id="share-linkedin" target="_blank">💼 LinkedIn</a>
         <a id="share-telegram" target="_blank">📨 Telegram</a>
         <a id="share-copy">📋 Copy Link</a>
@@ -97,33 +154,65 @@ footer{text-align:center;color:#cfc9ff;margin-top:26px;font-size:.9rem}
   </div>
 
 <script>
-let selectedQuote=null;
+const extraQuotes = [
+  "quote7.png","quote8.png","quote9.png","quote10.png","quote11.png","quote12.png"
+];
 
-// open share instantly on card tap
-document.querySelectorAll('.qcard').forEach(card=>{
-  card.addEventListener('click',()=>{
-    const img = card.querySelector('img');
-    // If an image fails to load, do nothing
-    if(!img || !img.src) return;
+const gallery = document.getElementById('quote-gallery');
+const loadBtn = document.getElementById('load-more');
 
-    selectedQuote = img.src;
-    const enc = encodeURIComponent(selectedQuote);
-    document.getElementById('share-whatsapp').href = `https://wa.me/?text=Check%20this%20quote%20by%20TheCyberAryan%20${enc}`;
-    document.getElementById('share-twitter').href  = `https://twitter.com/intent/tweet?text=Check%20this%20quote%20by%20TheCyberAryan%20${enc}`;
-    document.getElementById('share-linkedin').href = `https://www.linkedin.com/sharing/share-offsite/?url=${enc}`;
-    document.getElementById('share-telegram').href = `https://t.me/share/url?url=${enc}&text=Check%20this%20quote%20by%20TheCyberAryan`;
-    document.getElementById('share-popup').classList.add('active');
-  });
-});
+// Lightbox
+const lightbox = document.getElementById('lightbox');
+const lightImg = lightbox.querySelector('img');
+lightbox.querySelector('.close').onclick = ()=>lightbox.classList.remove('active');
 
-// copy + close
+// Share popup
+const popup = document.getElementById('share-popup');
+let selectedQuote = null;
+document.getElementById('close-share').onclick = ()=>popup.classList.remove('active');
 document.getElementById('share-copy').onclick = ()=>{
-  if(selectedQuote){ navigator.clipboard.writeText(selectedQuote); alert('Link copied!'); }
-  document.getElementById('share-popup').classList.remove('active');
+  if(selectedQuote){
+    navigator.clipboard.writeText(selectedQuote);
+    alert("Quote link copied!");
+  }
+  popup.classList.remove('active');
 };
-document.getElementById('close-share').onclick = ()=>{
-  document.getElementById('share-popup').classList.remove('active');
-};
+
+// Attach interactions
+function bindEvents() {
+  document.querySelectorAll('.qcard').forEach(card=>{
+    const img = card.querySelector('img');
+    card.onclick = (e)=>{
+      if(e.altKey) return; // skip if alt clicked
+      lightImg.src = img.src;
+      lightbox.classList.add('active');
+    };
+    card.oncontextmenu = (e)=>{
+      e.preventDefault();
+      selectedQuote = img.src;
+      const enc = encodeURIComponent(selectedQuote);
+      document.getElementById('share-whatsapp').href = `https://wa.me/?text=Check%20this%20quote%20by%20TheCyberAryan%20${enc}`;
+      document.getElementById('share-twitter').href  = `https://twitter.com/intent/tweet?text=Check%20this%20quote%20by%20TheCyberAryan%20${enc}`;
+      document.getElementById('share-linkedin').href = `https://www.linkedin.com/sharing/share-offsite/?url=${enc}`;
+      document.getElementById('share-telegram').href = `https://t.me/share/url?url=${enc}&text=Check%20this%20quote%20by%20TheCyberAryan`;
+      popup.classList.add('active');
+    };
+  });
+}
+bindEvents();
+
+// Load More functionality
+loadBtn.addEventListener('click',()=>{
+  let next = extraQuotes.splice(0,6);
+  next.forEach(src=>{
+    const card = document.createElement('div');
+    card.className='qcard';
+    card.innerHTML = `<img src="${src}" alt="${src}"><div class="cap">// THECYBERARYAN</div>`;
+    gallery.appendChild(card);
+  });
+  bindEvents();
+  if(extraQuotes.length===0) loadBtn.style.display='none';
+});
 </script>
 </body>
 </html>
