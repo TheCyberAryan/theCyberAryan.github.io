@@ -64,6 +64,17 @@ header a:hover {transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,
   cursor:pointer;transition:all .3s ease;
 }
 #load-more:hover {box-shadow:0 0 15px rgba(0,229,255,0.3);transform:translateY(-3px);}
+#load-more.loading {
+  animation:glowPulse 1.2s infinite ease-in-out;
+  background:linear-gradient(90deg,rgba(0,229,255,0.15),rgba(178,123,255,0.15));
+  box-shadow:0 0 20px rgba(0,229,255,.4),0 0 40px rgba(178,123,255,.25);
+}
+@keyframes glowPulse {
+  0% {box-shadow:0 0 10px rgba(0,229,255,.3);}
+  50% {box-shadow:0 0 30px rgba(178,123,255,.4);}
+  100% {box-shadow:0 0 10px rgba(0,229,255,.3);}
+}
+
 footer {text-align:center;color:#cfc9ff;margin-top:26px;font-size:.9rem;}
 
 /* Lightbox Preview */
@@ -100,30 +111,14 @@ footer {text-align:center;color:#cfc9ff;margin-top:26px;font-size:.9rem;}
       <a href="index.html">← Back to Portfolio</a>
     </header>
 
-    <div class="gallery" id="quote-gallery">
-      <div class="qcard"><img src="quotes/q1.png" alt="Quote 1"><div class="cap">// THECYBERARYAN</div></div>
-     <div class="qcard"><img src="quotes/q2.png" alt="Quote 2"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q3.png" alt="Quote 3"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q4.png" alt="Quote 4"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q5.png" alt="Quote 5"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q6.png" alt="Quote 6"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q7.png" alt="Quote 7"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q8.png" alt="Quote 8"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q9.png" alt="Quote 9"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q10.png" alt="Quote 10"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q11.png" alt="Quote 11"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q12.png" alt="Quote 12"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q13.png" alt="Quote 13"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q14.png" alt="Quote 14"><div class="cap">// THECYBERARYAN</div></div>
-      <div class="qcard"><img src="quotes/q15.png" alt="Quote 15"><div class="cap">// THECYBERARYAN</div></div>
-    </div>
+    <div class="gallery" id="quote-gallery"></div>
 
     <button id="load-more">Load More ↓</button>
 
     <footer>© 2025 Aryan Pareek — The Cyber Aryan</footer>
   </div>
 
-  <!-- Lightbox for Preview -->
+  <!-- Lightbox -->
   <div class="lightbox" id="lightbox">
     <span class="close">&times;</span>
     <img src="" alt="Preview">
@@ -134,57 +129,82 @@ footer {text-align:center;color:#cfc9ff;margin-top:26px;font-size:.9rem;}
   </div>
 
 <script>
-const extraQuotes = ["quote7.png","quote8.png","quote9.png","quote10.png","quote11.png","quote12.png"];
+// --- QUOTES ARRAY ---
+const allQuotes = [
+  "quotes/q1.png","quotes/q2.png","quotes/q3.png","quotes/q4.png","quotes/q5.png","quotes/q6.png",
+  "quotes/q7.png","quotes/q8.png","quotes/q9.png","quotes/q10.png","quotes/q11.png","quotes/q12.png",
+  "quotes/q13.png","quotes/q14.png","quotes/q15.png","quotes/q16.png","quotes/q17.png","quotes/q18.png"
+];
+
 const gallery = document.getElementById('quote-gallery');
 const loadBtn = document.getElementById('load-more');
 const lightbox = document.getElementById('lightbox');
 const lightImg = lightbox.querySelector('img');
 const closeBtn = lightbox.querySelector('.close');
+const downloadBtn = document.getElementById('download-btn');
+const shareBtn = document.getElementById('share-btn');
 
-function bindCards() {
-  document.querySelectorAll('.qcard img').forEach(img=>{
-    img.onclick=()=>{
-      lightImg.src=img.src;
+let visibleCount = 6;
+
+// --- INITIAL RENDER ---
+function renderQuotes() {
+  gallery.innerHTML = "";
+  allQuotes.slice(0, visibleCount).forEach(src => {
+    const card = document.createElement('div');
+    card.className = 'qcard';
+    card.innerHTML = `<img src="${src}" alt="${src}"><div class="cap">// THECYBERARYAN</div>`;
+    gallery.appendChild(card);
+  });
+  bindQuoteClicks();
+  if (visibleCount >= allQuotes.length) loadBtn.style.display = 'none';
+}
+renderQuotes();
+
+// --- LOAD MORE (with animation) ---
+loadBtn.addEventListener('click', () => {
+  loadBtn.classList.add('loading');
+  loadBtn.textContent = 'Loading...';
+  setTimeout(() => {
+    visibleCount += 6;
+    renderQuotes();
+    loadBtn.classList.remove('loading');
+    loadBtn.textContent = 'Load More ↓';
+  }, 900);
+});
+
+// --- PREVIEW HANDLER ---
+function bindQuoteClicks() {
+  document.querySelectorAll('.qcard img').forEach(img => {
+    img.onclick = () => {
+      lightImg.src = img.src;
       lightbox.classList.add('active');
     };
   });
 }
-bindCards();
 
-closeBtn.onclick=()=>lightbox.classList.remove('active');
+// --- CLOSE PREVIEW ---
+closeBtn.onclick = () => lightbox.classList.remove('active');
 
-loadBtn.onclick=()=>{
-  let batch=extraQuotes.splice(0,6);
-  batch.forEach(src=>{
-    const card=document.createElement('div');
-    card.className='qcard';
-    card.innerHTML=`<img src="${src}" alt="${src}"><div class="cap">// THECYBERARYAN</div>`;
-    gallery.appendChild(card);
-  });
-  bindCards();
-  if(extraQuotes.length===0) loadBtn.style.display='none';
-};
-
-// Download
-document.getElementById('download-btn').onclick=()=>{
-  const link=document.createElement('a');
-  link.href=lightImg.src;
-  link.download='TheCyberAryan_Quote.png';
+// --- DOWNLOAD BUTTON ---
+downloadBtn.onclick = () => {
+  const link = document.createElement('a');
+  link.href = lightImg.src;
+  link.download = 'TheCyberAryan_Quote.png';
   link.click();
 };
 
-// Share (mobile + desktop)
-document.getElementById('share-btn').onclick=async()=>{
-  const imgURL=lightImg.src;
-  if(navigator.share){
+// --- SHARE BUTTON ---
+shareBtn.onclick = async () => {
+  const imgURL = lightImg.src;
+  if (navigator.share) {
     await navigator.share({
-      title:'The Cyber Aryan',
-      text:'Check out this quote by TheCyberAryan',
-      url:imgURL
+      title: 'The Cyber Aryan',
+      text: 'Check out this quote by TheCyberAryan!',
+      url: imgURL
     });
-  }else{
+  } else {
     navigator.clipboard.writeText(imgURL);
-    alert('Link copied! You can paste it anywhere to share.');
+    alert('Quote link copied! You can share it manually.');
   }
 };
 </script>
