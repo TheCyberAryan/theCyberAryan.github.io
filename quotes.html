@@ -177,5 +177,36 @@ document.getElementById('shareBtn').addEventListener('click',()=>{
   });
 });
 </script>
+  <script>
+  // Select all share buttons or clickable quote cards
+  document.querySelectorAll('.qcard').forEach(card => {
+    card.addEventListener('click', async () => {
+      const img = card.querySelector('img').src;
+      const title = 'Cybersecurity Quote by TheCyberAryan';
+      const text = '// THECYBERARYAN  —  Hacker Mindset. Minimalist Vibes.';
+      
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: title,
+            text: text,
+            url: img
+          });
+        } catch (err) {
+          console.log('Share cancelled or failed:', err);
+        }
+      } else {
+        // Fallback for desktop browsers without Web Share API
+        const tempInput = document.createElement('input');
+        document.body.appendChild(tempInput);
+        tempInput.value = img;
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        alert('Link copied! You can share it manually.');
+      }
+    });
+  });
+</script>
 </body>
 </html>
