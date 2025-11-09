@@ -6,155 +6,44 @@
 <title>Quotes — The Cyber Aryan</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0b0710;
-  --panel:rgba(20,12,30,0.65);
-  --accent:#00e5ff;
-  --accent2:#b27bff;
-  --muted:#bfc8e6;
-}
+:root{--bg:#0b0710;--panel:rgba(20,12,30,.65);--muted:#bfc8e6;--cy:#00e5ff;--pu:#b27bff}
 *{box-sizing:border-box;margin:0;padding:0}
-body {
-  font-family:'Inter',system-ui;
+body{
+  font-family:'Inter',system-ui;color:var(--muted);
   background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),
              url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
-  color:var(--muted);
-  min-height:100vh;
-  -webkit-font-smoothing:antialiased;
-}
-.container {
-  max-width:1100px;
-  margin:40px auto;
-  padding:24px;
-}
-header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:22px;
-}
-header h1 {
-  font-family:'Orbitron',sans-serif;
-  color:#efe8ff;
-  letter-spacing:.5px;
-}
-header a {
-  color:var(--muted);
-  text-decoration:none;
-  font-weight:700;
-  border:1px solid rgba(255,255,255,.06);
-  padding:8px 12px;
-  border-radius:10px;
-  background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
-  transition:all .2s;
-}
-header a:hover {
-  transform:translateY(-3px);
-  box-shadow:0 0 20px rgba(178,123,255,.12);
-}
-.gallery {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:18px;
-}
-.qcard {
-  position:relative;
-  overflow:hidden;
-  border-radius:16px;
-  background:rgba(255,255,255,.03);
-  border:1px solid rgba(180,140,255,.1);
-  box-shadow:0 10px 30px rgba(8,6,14,.6);
-  transition:transform .25s ease, box-shadow .25s ease;
-  cursor:pointer;
-}
-.qcard:hover {
-  transform:translateY(-6px);
-  box-shadow:0 0 25px rgba(178,123,255,.25);
-}
-.qcard img {
-  width:100%;
-  height:auto;
-  display:block;
-  object-fit:contain;
-  border-radius:16px;
-  opacity:1; /* Always visible */
-}
-.qcard .cap {
-  position:absolute;
-  left:0; right:0; bottom:0;
-  background:rgba(10,8,16,.7);
-  color:#00e5ff;
-  text-align:center;
-  padding:8px 0;
-  font-family:'Orbitron';
-  font-size:0.8rem;
-  letter-spacing:0.5px;
-}
-footer {
-  text-align:center;
-  color:#cfc9ff;
-  margin-top:26px;
-  font-size:.9rem;
-}
+  min-height:100vh;-webkit-font-smoothing:antialiased}
+.container{max-width:1100px;margin:40px auto;padding:24px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+header h1{font-family:'Orbitron',sans-serif;color:#efe8ff}
+header a{color:var(--muted);text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.06);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01))}
+header a:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12)}
 
-/* Share popup */
-.share-popup {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.85);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:999;
-}
-.share-popup.active {display:flex;}
-.share-box {
-  background:rgba(20,20,30,0.9);
-  border:1px solid rgba(0,255,255,0.2);
-  border-radius:14px;
-  padding:20px 30px;
-  box-shadow:0 0 40px rgba(0,229,255,0.1);
-  text-align:center;
-  color:#bfc8e6;
-  max-width:300px;
-}
-.share-box h3 {
-  font-family:'Orbitron',sans-serif;
-  color:#00e5ff;
-  margin-bottom:14px;
-}
-.share-buttons {
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  margin-bottom:16px;
-}
-.share-buttons a {
-  text-decoration:none;
-  background:linear-gradient(90deg,rgba(0,229,255,0.1),rgba(178,123,255,0.1));
-  border:1px solid rgba(178,123,255,0.2);
-  color:#fff;
-  padding:8px 10px;
-  border-radius:8px;
-  transition:all .3s ease;
-}
-.share-buttons a:hover {
-  box-shadow:0 0 14px rgba(178,123,255,0.3);
-}
-#close-share {
-  background:none;
-  border:1px solid rgba(0,229,255,0.2);
-  border-radius:6px;
-  padding:6px 12px;
-  color:#bfc8e6;
-  cursor:pointer;
-  font-family:'Inter';
-  transition:all .3s ease;
-}
-#close-share:hover {
-  background:rgba(0,229,255,0.1);
-  color:#fff;
-}
+/* GRID */
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.qcard{
+  position:relative;border-radius:16px;overflow:hidden;background:rgba(255,255,255,.02);
+  border:1px solid rgba(180,140,255,.12);box-shadow:0 10px 30px rgba(8,6,14,.6);cursor:pointer;
+  transition:transform .25s ease,box-shadow .25s ease}
+.qcard:hover{transform:translateY(-6px);box-shadow:0 0 25px rgba(178,123,255,.25)}
+/* ✅ KEY FIX: give the image a real height so it’s visible on all devices */
+.qcard img{
+  display:block;width:100%;height:280px; /* adjust if you want taller cards */
+  object-fit:cover;border-radius:16px;background:#05040a}
+.cap{
+  position:absolute;left:0;right:0;bottom:0;padding:8px 12px;text-align:center;
+  font-family:'Orbitron',sans-serif;font-size:.8rem;letter-spacing:.4px;color:#fff;
+  background:linear-gradient(180deg,transparent 40%,rgba(10,8,16,.9))}
+footer{text-align:center;color:#cfc9ff;margin-top:26px;font-size:.9rem}
+
+/* SHARE POPUP */
+.share-popup{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:999}
+.share-popup.active{display:flex}
+.share-box{background:rgba(20,20,30,.95);border:1px solid rgba(0,229,255,.25);border-radius:14px;padding:20px 24px;max-width:320px;text-align:center;box-shadow:0 0 40px rgba(0,229,255,.12)}
+.share-box h3{font-family:'Orbitron';color:var(--cy);margin-bottom:12px}
+.share-buttons{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.share-buttons a{text-decoration:none;border:1px solid rgba(178,123,255,.25);background:linear-gradient(90deg,rgba(0,229,255,.12),rgba(178,123,255,.12));color:#fff;padding:9px 10px;border-radius:8px}
+#close-share{background:none;border:1px solid rgba(0,229,255,.22);border-radius:6px;padding:6px 12px;color:#bfc8e6;cursor:pointer}
 </style>
 </head>
 <body>
@@ -165,6 +54,7 @@ footer {
     </header>
 
     <div class="gallery">
+      <!-- Make sure these filenames exist in the same folder -->
       <div class="qcard"><img src="quote1.png" alt="Quote 1"><div class="cap">// THECYBERARYAN</div></div>
       <div class="qcard"><img src="quote2.png" alt="Quote 2"><div class="cap">// THECYBERARYAN</div></div>
       <div class="qcard"><img src="quote3.png" alt="Quote 3"><div class="cap">// THECYBERARYAN</div></div>
@@ -180,43 +70,44 @@ footer {
     <div class="share-box">
       <h3>Share this Quote</h3>
       <div class="share-buttons">
-        <a id="share-whatsapp" target="_blank" title="Share on WhatsApp">🟢 WhatsApp</a>
-        <a id="share-twitter" target="_blank" title="Share on Twitter">🐦 Twitter</a>
-        <a id="share-linkedin" target="_blank" title="Share on LinkedIn">💼 LinkedIn</a>
-        <a id="share-telegram" target="_blank" title="Share on Telegram">📨 Telegram</a>
-        <a id="share-copy" title="Copy link">📋 Copy Link</a>
+        <a id="share-whatsapp" target="_blank">🟢 WhatsApp</a>
+        <a id="share-twitter"  target="_blank">🐦 Twitter</a>
+        <a id="share-linkedin" target="_blank">💼 LinkedIn</a>
+        <a id="share-telegram" target="_blank">📨 Telegram</a>
+        <a id="share-copy">📋 Copy Link</a>
       </div>
       <button id="close-share">Close ✖</button>
     </div>
   </div>
 
 <script>
-let selectedQuote = null;
+let selectedQuote=null;
 
-// Make quotes visible and clickable
-document.querySelectorAll('.qcard').forEach(card => {
-  card.addEventListener('click', () => {
-    selectedQuote = card.querySelector('img').src;
+// open share instantly on card tap
+document.querySelectorAll('.qcard').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const img = card.querySelector('img');
+    // If an image fails to load, do nothing
+    if(!img || !img.src) return;
+
+    selectedQuote = img.src;
+    const enc = encodeURIComponent(selectedQuote);
+    document.getElementById('share-whatsapp').href = `https://wa.me/?text=Check%20this%20quote%20by%20TheCyberAryan%20${enc}`;
+    document.getElementById('share-twitter').href  = `https://twitter.com/intent/tweet?text=Check%20this%20quote%20by%20TheCyberAryan%20${enc}`;
+    document.getElementById('share-linkedin').href = `https://www.linkedin.com/sharing/share-offsite/?url=${enc}`;
+    document.getElementById('share-telegram').href = `https://t.me/share/url?url=${enc}&text=Check%20this%20quote%20by%20TheCyberAryan`;
     document.getElementById('share-popup').classList.add('active');
-
-    const encodedURL = encodeURIComponent(selectedQuote);
-    document.getElementById('share-whatsapp').href = `https://wa.me/?text=Check%20this%20quote%20by%20TheCyberAryan%20${encodedURL}`;
-    document.getElementById('share-twitter').href = `https://twitter.com/intent/tweet?text=Check%20this%20quote%20by%20TheCyberAryan%20${encodedURL}`;
-    document.getElementById('share-linkedin').href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedURL}`;
-    document.getElementById('share-telegram').href = `https://t.me/share/url?url=${encodedURL}&text=Check%20this%20quote%20by%20TheCyberAryan`;
-    
-    document.getElementById('share-copy').onclick = () => {
-      navigator.clipboard.writeText(selectedQuote);
-      alert('Quote link copied to clipboard!');
-      document.getElementById('share-popup').classList.remove('active');
-    };
   });
 });
 
-// Close share popup
-document.getElementById('close-share').addEventListener('click', () => {
+// copy + close
+document.getElementById('share-copy').onclick = ()=>{
+  if(selectedQuote){ navigator.clipboard.writeText(selectedQuote); alert('Link copied!'); }
   document.getElementById('share-popup').classList.remove('active');
-});
+};
+document.getElementById('close-share').onclick = ()=>{
+  document.getElementById('share-popup').classList.remove('active');
+};
 </script>
 </body>
 </html>
