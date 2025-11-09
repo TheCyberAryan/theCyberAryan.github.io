@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Reflected XSS (Responsible Disclosure) — Aryan Pareek</title>
+<meta name="description" content="Sanitized reflected XSS writeup: observed behavior, impact, safe verification and remediation steps." />
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0710; --panel:rgba(20,12,30,0.65); --muted:#bfc8e6;
+  --accent:#b27bff; --accent2:#6a2bd6; --border:1px solid rgba(160,120,255,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:'Inter',system-ui;color:var(--muted);
+  background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)), url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+}
+.wrap{max-width:980px;margin:40px auto;padding:24px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+h1{margin:0;font-family:'Orbitron';color:#efe8ff;font-size:1.4rem}
+.back{color:var(--muted);text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.06);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));transition:all .18s}
+.back:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12)}
+.article{background:var(--panel);border:var(--border);border-radius:14px;box-shadow:0 10px 30px rgba(8,6,14,.7);padding:20px}
+.meta{font-size:.9rem;color:var(--muted);margin:8px 0}
+.lead{color:var(--muted);line-height:1.6}
+.screenshot{margin:16px 0;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+.screenshot img{width:100%;display:block;height:auto}
+.h2{font-family:'Orbitron';color:#fff;margin:22px 0 10px 0}
+.note{background:rgba(255,255,255,0.02);padding:12px;border-left:4px solid rgba(0,229,255,0.08);border-radius:8px;margin:14px 0;color:var(--muted)}
+pre{background:rgba(0,0,0,0.35);padding:12px;border-radius:8px;overflow:auto;border:1px solid rgba(255,255,255,0.03);color:#bfe}
+.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{display:inline-block;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700;color:#041018;background:linear-gradient(90deg,rgba(178,123,255,.16),rgba(0,229,255,.14));border:1px solid rgba(255,255,255,0.06)}
+.footer-notes{margin-top:18px;color:#9fb6d8;font-size:0.9rem}
+.watermark{position:fixed;right:18px;bottom:14px;opacity:.12;width:140px}
+@media(max-width:720px){.wrap{padding:16px}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Reflected Cross-Site Scripting (XSS) — Responsible Writeup</h1>
+        <div style="font-size:.95rem;color:var(--muted)">Sanitized case study • Responsible disclosure • Practical remediation</div>
+      </div>
+      <div><a class="back" href="../blog.html">← Back to Blog</a></div>
+    </header>
+
+    <article class="article">
+      <div class="meta"><strong>Author:</strong> Aryan Pareek • <strong>Date:</strong> Nov 9, 2025 • <strong>Tags:</strong> 
+        <span style="background:linear-gradient(90deg,rgba(178,123,255,.08),rgba(106,43,214,.06));padding:6px 10px;border-radius:999px;color:#fff">XSS</span> 
+        <span style="background:linear-gradient(90deg,rgba(178,123,255,.08),rgba(106,43,214,.06));padding:6px 10px;border-radius:999px;color:#fff">Web Security</span>
+      </div>
+
+      <p class="lead"><strong>Summary:</strong> During authorized testing of an e-commerce web application, a reflected Cross-Site Scripting (XSS) vulnerability was identified in the product search endpoint. The input from the search parameter was being directly rendered in the HTML response, allowing execution of user-supplied scripts in the browser. The report below is fully sanitized and safe to publish.</p>
+
+      <h3 class="h2">Vulnerability Context</h3>
+      <p class="lead">The affected endpoint was <code>/search-products.php</code> which accepted the parameter <code>search</code>. Upon entering crafted input, the unencoded value appeared directly in the returned page HTML. The vulnerability was safely verified under permission and responsibly reported to the concerned team.</p>
+
+      <h3 class="h2">Observed Behavior (Sanitized)</h3>
+      <p class="lead">The following screenshots demonstrate the reflection behavior observed in the page. Sensitive elements and payloads have been sanitized for public viewing.</p>
+
+      <div class="screenshot"><img src="San1.png" alt="Sanitized screenshot showing input reflected in search field"></div>
+      <div class="screenshot"><img src="San2.png" alt="Sanitized screenshot showing successful reflected XSS alert"></div>
+
+      <h3 class="h2">Impact</h3>
+      <p class="lead">An attacker could craft a malicious link containing a script payload that, when visited by another user, would execute arbitrary JavaScript in that user’s browser. This could lead to cookie theft, user redirection, or execution of unauthorized actions within the web application.</p>
+
+      <h3 class="h2">Safe Reproduction (for Developers)</h3>
+      <ol>
+        <li class="lead">Use a non-production environment or dummy test account.</li>
+        <li class="lead">Check how the search query input is echoed back in the response.</li>
+        <li class="lead">Implement encoding/escaping on the reflected variable and verify the response renders safely.</li>
+      </ol>
+
+      <h3 class="h2">Root Cause</h3>
+      <p class="lead">User-controlled input was rendered inside HTML without proper output encoding or sanitization. The lack of context-specific escaping (HTML/attribute) enabled script injection upon rendering.</p>
+
+      <h3 class="h2">Remediation</h3>
+      <ul>
+        <li class="lead"><strong>Escape & Encode:</strong> Apply HTML encoding for all user input reflected in pages.</li>
+        <li class="lead"><strong>Implement CSP:</strong> Use <code>Content-Security-Policy: default-src 'self'; script-src 'self'; object-src 'none';</code> to block inline execution.</li>
+        <li class="lead"><strong>Validate Input:</strong> Restrict search parameters to safe characters and lengths.</li>
+        <li class="lead"><strong>Security Testing:</strong> Include automated and manual XSS detection during QA.</li>
+      </ul>
+
+      <div class="note"><strong>Note:</strong> This blog avoids including any live payloads or exploit strings. The intention is educational — showing the reflection pattern and remediation guidance for web developers.</div>
+
+      <h3 class="h2">Vendor Notification Template</h3>
+      <pre>
+Subject: Security report — Reflected XSS on [site-domain]
+
+Hello,
+
+I found a reflected XSS issue affecting [path] (parameter: search). 
+I have sanitized screenshots and a non-malicious PoC to share via a secure channel. 
+Please provide your PGP key or secure upload link to proceed responsibly.
+
+Regards,
+Aryan Pareek
+The Cyber Aryan
+aryanpareek311072004@gmail.com
+      </pre>
+
+      <div class="cta">
+        <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Secure%20Contact%20for%20XSS%20Disclosure">Contact securely</a>
+        <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">View tools</a>
+      </div>
+
+      <div class="footer-notes">
+        <p>© 2025 Aryan Pareek — The Cyber Aryan. This post is published under responsible disclosure principles and does not contain any active payloads or exploits.</p>
+      </div>
+    </article>
+  </div>
+
+  <img src="../thecyberaryan_logo.png" alt="The Cyber Aryan" class="watermark">
+</body>
+</html>
