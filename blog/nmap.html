@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nmap — Zero to Hero Guide — The Cyber Aryan</title>
+  <meta name="author" content="Aryan Pareek — The Cyber Aryan">
+  <meta name="description" content="A complete Zero-to-Hero guide on Nmap for bug bounty, pentesting, recon, scanning, and advanced enumeration."/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0710; --muted:#bfc8e6; --accent:#00e5ff; --accent2:#b27bff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Inter,system-ui;
+      background: linear-gradient(180deg, rgba(26,0,43,0.92), rgba(0,28,42,0.95)), var(--bg);
+      color:var(--muted); -webkit-font-smoothing:antialiased;
+    }
+    .container{max-width:900px;margin:36px auto;padding:28px;}
+    .post-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0));
+      border-radius:12px; padding:28px;
+      border:1px solid rgba(180,120,255,0.05);
+      box-shadow:0 12px 40px rgba(3,3,6,0.6);
+    }
+    header .tag{
+      font-family:Orbitron,monospace;color:#e9f7ff;
+      letter-spacing:.6px; font-size:.9rem
+    }
+    h1{
+      font-family:Orbitron, sans-serif; color:#ecf3ff;
+      margin:8px 0 6px;
+      text-shadow:0 0 12px rgba(0,229,255,0.08)
+    }
+    h2{
+      font-family:Orbitron, sans-serif; color:#eaf4ff;
+      margin:22px 0 10px;
+      text-shadow:0 0 6px rgba(0,229,255,0.06)
+    }
+    p, li{color:var(--muted); line-height:1.65; font-size:1rem}
+    pre{
+      background:rgba(0,0,0,0.35); padding:12px; border-radius:8px;
+      overflow:auto; border:1px solid rgba(255,255,255,0.03);
+      color:#dff; white-space:pre; font-family:monospace;
+    }
+    code{font-size:0.95rem; font-family:monospace}
+    ul{margin:0 0 12px 1rem}
+    .lead{line-height:1.7;margin-bottom:18px}
+    .note{
+      background:rgba(255,255,255,0.02);
+      border-left:4px solid rgba(0,229,255,0.18);
+      padding:10px 12px; border-radius:6px; margin:14px 0
+    }
+    .cta{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
+    .btn{
+      background:linear-gradient(90deg,var(--accent2),var(--accent));
+      padding:10px 14px; border-radius:10px;
+      color:#061118; text-decoration:none; font-weight:700
+    }
+    footer{margin-top:22px; color:#aabbd6; font-size:0.9rem}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <article class="post-card">
+
+      <header>
+        <div class="tag">// THECYBERARYAN — Research</div>
+        <h1>Nmap — Zero to Hero (Elite Pentesting & Recon Guide)</h1>
+        <div class="meta" style="color:#9fb7d8;font-size:0.9rem;margin-bottom:18px;">Author: Aryan Pareek • Date: 2025-11-17 • Category: Scanning & Enumeration</div>
+      </header>
+
+      <p class="lead">
+        Nmap is the <strong>king of network scanning</strong>. It discovers hosts, services, ports, versions, operating systems, vulnerabilities, misconfigurations and network fingerprints. This guide takes you from <strong>absolute beginner to expert</strong> with real commands, examples, workflows, and bug-bounty ready scans.
+      </p>
+
+      <h2>🚀 What is Nmap?</h2>
+      <p>
+        Nmap (Network Mapper) is a reconnaissance and port-scanning tool used to discover open ports, services, firewalls, OS fingerprints, and vulnerabilities during pentesting and bug bounty assessments.
+      </p>
+
+      <pre><code>Open Ports → Services → Versions → OS → Vulnerabilities</code></pre>
+
+      <p>Nmap helps you identify:</p>
+      <ul>
+        <li>Open ports & listening services</li>
+        <li>Running software & versions</li>
+        <li>Firewall rules & filtering</li>
+        <li>OS & device fingerprinting</li>
+        <li>Vulnerabilities via NSE scripts</li>
+      </ul>
+
+      <h2>⚙️ Installation</h2>
+      <pre><code>sudo apt install nmap
+# or
+brew install nmap</code></pre>
+
+      <h2>🔰 Basic Scans</h2>
+
+      <h3>Scan a single target</h3>
+      <pre><code>nmap example.com</code></pre>
+
+      <h3>Scan multiple targets</h3>
+      <pre><code>nmap 192.168.1.1 192.168.1.20 example.com</code></pre>
+
+      <h3>Scan a whole subnet</h3>
+      <pre><code>nmap 192.168.1.0/24</code></pre>
+
+      <h2>🟣 Service & Version Detection</h2>
+      <pre><code>nmap -sV example.com</code></pre>
+
+      <h3>Aggressive service detection</h3>
+      <pre><code>nmap -A example.com</code></pre>
+
+      <h2>🟣 Fast Scanning</h2>
+      <pre><code>nmap -T4 example.com</code></pre>
+      <pre><code>nmap --top-ports 100 example.com</code></pre>
+
+      <h2>🛡️ Firewall / Stealth Scanning</h2>
+      <pre><code>nmap -sS example.com</code></pre>
+      <pre><code>nmap -f example.com</code></pre>
+      <pre><code>nmap -Pn example.com</code></pre>
+
+      <h2>🧠 OS Fingerprinting</h2>
+      <pre><code>nmap -O example.com</code></pre>
+
+      <h2>🧪 Vulnerability Scanning (NSE)</h2>
+
+      <h3>Run default script scan</h3>
+      <pre><code>nmap -sC example.com</code></pre>
+
+      <h3>Vulnerability category scan</h3>
+      <pre><code>nmap --script vuln example.com</code></pre>
+
+      <h3>Specific NSE script</h3>
+      <pre><code>nmap --script http-title example.com</code></pre>
+
+      <h2>🔍 Enumerating Web Servers</h2>
+      <pre><code>nmap -p 80,443 -sV --script http-enum example.com</code></pre>
+
+      <h2>🔍 Enumerating SMB</h2>
+      <pre><code>nmap -p 445 --script smb-enum-shares example.com</code></pre>
+
+      <h2>🔍 Enumerating FTP</h2>
+      <pre><code>nmap -p 21 --script ftp-anon example.com</code></pre>
+
+      <h2>🥷 Bug Bounty Recon Workflow</h2>
+
+      <h3>1. Fast scan for alive ports</h3>
+      <pre><code>nmap -T4 --top-ports 100 example.com -oN quick.txt</code></pre>
+
+      <h3>2. Full detailed scan</h3>
+      <pre><code>nmap -A -p- example.com -oN full.txt</code></pre>
+
+      <h3>3. Vulnerability scripts</h3>
+      <pre><code>nmap --script vuln example.com -oN vuln.txt</code></pre>
+
+      <h3>4. Combine with other tools</h3>
+      <pre><code>subfinder -d example.com -o subs.txt
+httpx -l subs.txt -o live.txt
+nmap -p- -sV -iL live.txt -oN services.txt</code></pre>
+
+      <div class="note">
+        <strong>Tip:</strong> Run Nmap on specific high-value ports you discover with Naabu or Masscan for deeper enumeration.
+      </div>
+
+      <h2>Conclusion</h2>
+      <p>
+        Nmap is the backbone of network reconnaissance. Learn its flags, understand its techniques, and integrate it into
+        automated recon pipelines to uncover services, vulnerabilities, and attack surfaces with precision.
+      </p>
+
+      <div class="cta">
+        <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Nmap%20Help">Contact securely (email)</a>
+        <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">View tools & scripts</a>
+      </div>
+
+      <footer>
+        <p>© 2025 Aryan Pareek — The Cyber Aryan. This guide is designed for penetration testers, researchers, and bug bounty workflows.</p>
+      </footer>
+
+    </article>
+  </div>
+</body>
+</html>
