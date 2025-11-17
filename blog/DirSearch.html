@@ -1,148 +1,210 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Dirsearch – Zero to Hero | TheCyberAryan</title>
-<meta name="author" content="Aryan Pareek — The Cyber Aryan">
-<style>
-    body { background: #0a0014; color: #d9c9ff; font-family: Consolas, monospace; padding: 40px; line-height: 1.65; }
-    .container { max-width: 980px; margin: auto; background: #0f001a; padding: 40px; border-radius: 18px; border: 1px solid #2a0052; box-shadow: 0 0 25px #5a00ff45; }
-    h1, h2, h3, h4 { color: #b57bff; text-shadow: 0 0 10px #6d32ff80; margin-top: 35px; }
-    p { margin-bottom: 16px; }
-    pre, code {
-    background: #130020;
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid #3d1f5f;
-    box-shadow: 0 0 12px #3d1f5f60;
-    white-space: pre;
-    overflow-x: auto;
-    display: block;
-    margin-bottom: 20px;
-}
-    ul, ol { margin-left: 20px; margin-bottom: 20px; }
-    a { color: #c28bff; text-decoration: none; }
-    .header-bar { width: 100%; padding: 18px; background: linear-gradient(90deg, #2a0052, #5a00ff, #2a0052); color: #fff; text-align: center; border-radius: 12px; margin-bottom: 35px; font-size: 20px; letter-spacing: 2px; text-shadow: 0 0 8px #ffffff40; }
-    .footer { text-align: center; padding: 30px 0 10px; font-size: 14px; opacity: 0.7; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dirsearch — Zero to Hero Guide — The Cyber Aryan</title>
+  <meta name="author" content="Aryan Pareek — The Cyber Aryan">
+  <meta name="description" content="A complete Zero-to-Hero guide on Dirsearch for bug bounty, pentesting, and reconnaissance."/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0710; --panel:rgba(22,12,28,0.7);
+      --muted:#bfc8e6; --accent:#00e5ff; --accent2:#b27bff;
+      --card:#0f1116;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Inter,system-ui;
+      background: linear-gradient(180deg, rgba(26,0,43,0.92), rgba(0,28,42,0.95)), var(--bg);
+      color:var(--muted); -webkit-font-smoothing:antialiased;
+    }
+    .container{max-width:900px;margin:36px auto;padding:28px;}
+    .post-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00)); 
+      border-radius:12px; padding:28px;
+      border:1px solid rgba(180,120,255,0.05);
+      box-shadow:0 12px 40px rgba(3,3,6,0.6);
+    }
+    header .tag{
+      font-family:Orbitron,monospace;color:#e9f7ff;
+      letter-spacing:.6px; font-size:.9rem
+    }
+    h1{
+      font-family:Orbitron, sans-serif; color:#ecf3ff;
+      margin:8px 0 6px;
+      text-shadow:0 0 12px rgba(0,229,255,0.08)
+    }
+    .meta{color:#9fb7d8; font-size:0.9rem; margin-bottom:18px}
+    .lead{color:var(--muted); line-height:1.7; margin-bottom:18px}
+
+    h2{
+      font-family:Orbitron, sans-serif; color:#eaf4ff;
+      margin:22px 0 10px;
+      text-shadow:0 0 6px rgba(0,229,255,0.06)
+    }
+    p, li{color:var(--muted); line-height:1.65; font-size:1rem}
+
+    pre{
+      background:rgba(0,0,0,0.35); padding:12px;
+      border-radius:8px; overflow:auto;
+      border:1px solid rgba(255,255,255,0.03); color:#dff;
+      white-space:pre; font-family:monospace;
+    }
+    code{font-family:monospace; font-size:0.95rem}
+
+    ul{margin:0 0 12px 1rem}
+
+    .note{
+      background:rgba(255,255,255,0.02);
+      border-left:4px solid rgba(0,229,255,0.18);
+      padding:10px 12px; border-radius:6px; margin:14px 0
+    }
+
+    .cta{margin-top:18px; display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+    .btn{
+      background:linear-gradient(90deg,var(--accent2),var(--accent));
+      padding:10px 14px; border-radius:10px;
+      color:#061118; text-decoration:none; font-weight:700
+    }
+
+    footer{margin-top:22px; color:#aabbd6; font-size:0.9rem}
+
+    @media(max-width:720px){
+      .container{padding:18px}
+      pre{font-size:0.9rem}
+    }
+  </style>
+
 </head>
 <body>
-<div class="container">
-<div class="header-bar">THECYBERARYAN — DIRSEARCH ZERO TO HERO</div>
+  <div class="container">
+    <article class="post-card">
 
-<h1>Dirsearch – Zero to Hero (Full Practical Guide)</h1>
-<p><i>A beginner-friendly, clean explanation of Dirsearch, one of the most powerful directory enumeration tools for cybersecurity and bug bounty hunters.</i></p>
+      <!-- SAME TAG -->
+      <header>
+        <div class="tag">// THECYBERARYAN — Research</div>
+        <h1>Dirsearch — Zero to Hero (Ultimate Recon Guide)</h1>
+        <div class="meta">Author: Aryan Pareek • Date: 2025-11-17 • Category: Recon & Enumeration</div>
+      </header>
 
-<h2>🔥 What is Dirsearch?</h2>
-<p>Dirsearch is a <b>directory and file brute-forcing tool</b> designed to uncover hidden paths on a website—paths developers forgot to remove, restrict, or secure.</p>
+      <p class="lead">
+        Dirsearch is one of the most powerful tools in the recon phase — used to find hidden directories,
+        confidential files, backup dumps, staging environments, admin panels and much more. In this guide, you
+        will learn Dirsearch from <strong>absolute zero to expert level</strong>, with practical usage, examples,
+        flags, workflows, and bug bounty–ready automation techniques.
+      </p>
 
-<pre><code>/admin
-/login
+      <h2>Introduction to Dirsearch</h2>
+      <p>
+        Dirsearch is a command-line based directory and file brute-forcing tool written in Python. It checks for 
+        hidden paths by attacking the webserver with thousands of wordlist entries.
+      </p>
+
+      <pre><code>/admin
 /backup
-/dev
-/test
 /.git
+/dev
+/server-status
 /config.php
-/server-status</code></pre>
+/staging
+</code></pre>
 
-<p>These endpoints often reveal:</p>
-<ul>
-<li>Admin dashboards</li>
-<li>Credentials</li>
-<li>Database dumps</li>
-<li>Configurations</li>
-<li>Internal test environments</li>
-</ul>
+      <p>These commonly lead to:</p>
+      <ul>
+        <li>Leaked credentials</li>
+        <li>Database exports</li>
+        <li>Forgotten admin panels</li>
+        <li>Source code</li>
+        <li>Internal-only environments</li>
+      </ul>
 
-<h2>⚙️ Installation</h2>
-<h3>Clone the repository</h3>
-<pre><code>git clone https://github.com/maurosoria/dirsearch.git
+      <h2>Installation</h2>
+
+      <h3>Clone the project</h3>
+      <pre><code>git clone https://github.com/maurosoria/dirsearch.git
 cd dirsearch</code></pre>
 
-<h3>Run it</h3>
-<pre><code>python3 dirsearch.py -u https://example.com</code></pre>
+      <h3>Run it</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com</code></pre>
 
-<h2>🔰 Basic Usage</h2>
-<h3>Scan one URL</h3>
-<pre><code>python3 dirsearch.py -u https://example.com</code></pre>
+      <h2>Basic Usage</h2>
 
-<h3>Save output</h3>
-<pre><code>python3 dirsearch.py -u https://example.com -o result.txt</code></pre>
+      <h3>Scan a single target</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com</code></pre>
 
-<h3>Increase threads (speed)</h3>
-<pre><code>python3 dirsearch.py -u https://example.com -t 50</code></pre>
+      <h3>Save your results</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com -o output.txt</code></pre>
 
-<h2>🔎 Intermediate Usage</h2>
-<h3>Use a custom wordlist</h3>
-<pre><code>python3 dirsearch.py -u https://example.com -w wordlist.txt</code></pre>
+      <h3>Scan faster with threads</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com -t 50</code></pre>
 
-<h3>Scan multiple targets</h3>
-<pre><code>python3 dirsearch.py -L targets.txt</code></pre>
+      <h2>Intermediate Usage</h2>
 
-<h3>Add file extensions</h3>
-<pre><code>python3 dirsearch.py -u https://example.com -e php,js,txt</code></pre>
+      <h3>Custom wordlist</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com -w wordlist.txt</code></pre>
 
-<h3>Recursive scanning</h3>
-<pre><code>python3 dirsearch.py -u https://example.com -r</code></pre>
+      <h3>Find file types</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com -e php,js,txt</code></pre>
 
-<h3>Exclude status codes</h3>
-<pre><code>python3 dirsearch.py -u https://example.com --exclude-status 403,404</code></pre>
+      <h3>Recursive scanning</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com -r</code></pre>
 
-<h3>Show only interesting responses</h3>
-<pre><code>python3 dirsearch.py -u https://example.com -i 200,204,301,302</code></pre>
+      <h3>Exclude useless codes</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com --exclude-status 403,404</code></pre>
 
-<h2>🚀 Advanced Usage</h2>
-<h3>Use custom headers (JWT, Cookies, Tokens)</h3>
-<pre><code>python3 dirsearch.py -u https://example.com -H "Authorization: Bearer TOKEN"</code></pre>
+      <h3>Show only important responses</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com -i 200,204,301,302</code></pre>
 
-<h3>Use proxy (BurpSuite)</h3>
-<pre><code>python3 dirsearch.py -u https://example.com --proxy http://127.0.0.1:8080</code></pre>
+      <h2>Advanced Usage</h2>
 
-<h3>Ignore SSL errors</h3>
-<pre><code>python3 dirsearch.py -u https://example.com --ignore-ssl-errors</code></pre>
+      <h3>Add headers (JWT, cookies, tokens)</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com -H "Authorization: Bearer TOKEN"</code></pre>
 
-<h3>Force extension brute-forcing</h3>
-<pre><code>python3 dirsearch.py -u https://example.com --force-extensions</code></pre>
+      <h3>Use proxy (BurpSuite)</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com --proxy http://127.0.0.1:8080</code></pre>
 
-<h3>Filter by response size</h3>
-<pre><code>python3 dirsearch.py -u https://example.com --min-size 200 --max-size 8000</code></pre>
+      <h3>Ignore SSL errors</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com --ignore-ssl-errors</code></pre>
 
-<h2>🧪 Real Bug Bounty Recon Workflow</h2>
-<h3>1. Subdomain Enumeration</h3>
-<pre><code>subfinder -d example.com -o subs.txt</code></pre>
+      <h3>Force extension-based scanning</h3>
+      <pre><code>python3 dirsearch.py -u https://example.com --force-extensions</code></pre>
 
-<h3>2. Check which ones are alive</h3>
-<pre><code>httpx -l subs.txt -o live.txt</code></pre>
+      <h2>Real Bug Bounty Workflow</h2>
 
-<h3>3. Run Dirsearch on all live hosts</h3>
-<pre><code>while read url; do
+      <h3>1. Subdomain enumeration</h3>
+      <pre><code>subfinder -d example.com -o subs.txt</code></pre>
+
+      <h3>2. Check which ones are alive</h3>
+      <pre><code>httpx -l subs.txt -o live.txt</code></pre>
+
+      <h3>3. Run Dirsearch on all alive hosts</h3>
+      <pre><code>while read url; do
   python3 dirsearch.py -u $url -e php,txt,js -r -t 50 -o results/$url.txt
-done < live.txt</code></pre>
+done < live.txt
+</code></pre>
 
-<h2>📚 Quick Cheat Sheet</h2>
-<pre><code>Basic scan: -u
-Wordlist: -w FILE
-Extensions: -e php,js,txt
-Recursive: -r
-Exclude: --exclude-status
-Interesting: -i 200,301
-Proxy: --proxy
-Ignore SSL: --ignore-ssl-errors
-Output: -o file.txt</code></pre>
+      <div class="note">
+        <strong>Tip:</strong> Dirsearch becomes extremely powerful when paired with Subfinder + Httpx + Nuclei in a full recon pipeline.
+      </div>
 
-<h2>🏁 Final Summary</h2>
-<p>Dirsearch is one of the most powerful reconnaissance tools for discovering hidden directories and sensitive files. It exposes forgotten endpoints, backup files, dev environments, and configuration leaks—making it essential for:</p>
-<ul>
-<li>Bug bounty hunting</li>
-<li>Pentesting engagements</li>
-<li>Attack surface mapping</li>
-<li>OSINT & recon workflows</li>
-</ul>
+      <h2>Conclusion</h2>
+      <p>
+        Dirsearch is a cornerstone tool in reconnaissance. Mastering it allows you to uncover hidden directories,
+        backup files, dev environments, and sensitive endpoints that often lead to high-impact vulnerabilities.
+      </p>
 
-<p>Master Dirsearch → find vulnerabilities others miss.</p>
+      <div class="cta">
+        <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Dirsearch%20Help">Contact securely (email)</a>
+        <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">View tools & scripts</a>
+      </div>
 
-<div class="footer">© TheCyberAryan — All Rights Reserved</div>
-</div>
+      <footer>
+        <p>© 2025 Aryan Pareek — The Cyber Aryan. This writeup is intended for cybersecurity learning and professional recon workflows.</p>
+      </footer>
+
+    </article>
+  </div>
 </body>
 </html>
