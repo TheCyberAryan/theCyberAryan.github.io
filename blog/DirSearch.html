@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dirsearch – Zero to Hero | TheCyberAryan</title>
+<style>
+    body { background: #0a0014; color: #d9c9ff; font-family: Consolas, monospace; padding: 40px; line-height: 1.65; }
+    .container { max-width: 980px; margin: auto; background: #0f001a; padding: 40px; border-radius: 18px; border: 1px solid #2a0052; box-shadow: 0 0 25px #5a00ff45; }
+    h1, h2, h3, h4 { color: #b57bff; text-shadow: 0 0 10px #6d32ff80; margin-top: 35px; }
+    p { margin-bottom: 16px; }
+    pre, code {
+    background: #130020;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #3d1f5f;
+    box-shadow: 0 0 12px #3d1f5f60;
+    white-space: pre;
+    overflow-x: auto;
+    display: block;
+    margin-bottom: 20px;
+}
+    ul, ol { margin-left: 20px; margin-bottom: 20px; }
+    a { color: #c28bff; text-decoration: none; }
+    .header-bar { width: 100%; padding: 18px; background: linear-gradient(90deg, #2a0052, #5a00ff, #2a0052); color: #fff; text-align: center; border-radius: 12px; margin-bottom: 35px; font-size: 20px; letter-spacing: 2px; text-shadow: 0 0 8px #ffffff40; }
+    .footer { text-align: center; padding: 30px 0 10px; font-size: 14px; opacity: 0.7; }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header-bar">THECYBERARYAN — DIRSEARCH ZERO TO HERO</div>
+
+<h1>Dirsearch – Zero to Hero (Full Practical Guide)</h1>
+<p><i>A beginner-friendly, clean explanation of Dirsearch, one of the most powerful directory enumeration tools for cybersecurity and bug bounty hunters.</i></p>
+
+<h2>🔥 What is Dirsearch?</h2>
+<p>Dirsearch is a <b>directory and file brute-forcing tool</b> designed to uncover hidden paths on a website—paths developers forgot to remove, restrict, or secure.</p>
+
+<pre><code>/admin
+/login
+/backup
+/dev
+/test
+/.git
+/config.php
+/server-status</code></pre>
+
+<p>These endpoints often reveal:</p>
+<ul>
+<li>Admin dashboards</li>
+<li>Credentials</li>
+<li>Database dumps</li>
+<li>Configurations</li>
+<li>Internal test environments</li>
+</ul>
+
+<h2>⚙️ Installation</h2>
+<h3>Clone the repository</h3>
+<pre><code>git clone https://github.com/maurosoria/dirsearch.git
+cd dirsearch</code></pre>
+
+<h3>Run it</h3>
+<pre><code>python3 dirsearch.py -u https://example.com</code></pre>
+
+<h2>🔰 Basic Usage</h2>
+<h3>Scan one URL</h3>
+<pre><code>python3 dirsearch.py -u https://example.com</code></pre>
+
+<h3>Save output</h3>
+<pre><code>python3 dirsearch.py -u https://example.com -o result.txt</code></pre>
+
+<h3>Increase threads (speed)</h3>
+<pre><code>python3 dirsearch.py -u https://example.com -t 50</code></pre>
+
+<h2>🔎 Intermediate Usage</h2>
+<h3>Use a custom wordlist</h3>
+<pre><code>python3 dirsearch.py -u https://example.com -w wordlist.txt</code></pre>
+
+<h3>Scan multiple targets</h3>
+<pre><code>python3 dirsearch.py -L targets.txt</code></pre>
+
+<h3>Add file extensions</h3>
+<pre><code>python3 dirsearch.py -u https://example.com -e php,js,txt</code></pre>
+
+<h3>Recursive scanning</h3>
+<pre><code>python3 dirsearch.py -u https://example.com -r</code></pre>
+
+<h3>Exclude status codes</h3>
+<pre><code>python3 dirsearch.py -u https://example.com --exclude-status 403,404</code></pre>
+
+<h3>Show only interesting responses</h3>
+<pre><code>python3 dirsearch.py -u https://example.com -i 200,204,301,302</code></pre>
+
+<h2>🚀 Advanced Usage</h2>
+<h3>Use custom headers (JWT, Cookies, Tokens)</h3>
+<pre><code>python3 dirsearch.py -u https://example.com -H "Authorization: Bearer TOKEN"</code></pre>
+
+<h3>Use proxy (BurpSuite)</h3>
+<pre><code>python3 dirsearch.py -u https://example.com --proxy http://127.0.0.1:8080</code></pre>
+
+<h3>Ignore SSL errors</h3>
+<pre><code>python3 dirsearch.py -u https://example.com --ignore-ssl-errors</code></pre>
+
+<h3>Force extension brute-forcing</h3>
+<pre><code>python3 dirsearch.py -u https://example.com --force-extensions</code></pre>
+
+<h3>Filter by response size</h3>
+<pre><code>python3 dirsearch.py -u https://example.com --min-size 200 --max-size 8000</code></pre>
+
+<h2>🧪 Real Bug Bounty Recon Workflow</h2>
+<h3>1. Subdomain Enumeration</h3>
+<pre><code>subfinder -d example.com -o subs.txt</code></pre>
+
+<h3>2. Check which ones are alive</h3>
+<pre><code>httpx -l subs.txt -o live.txt</code></pre>
+
+<h3>3. Run Dirsearch on all live hosts</h3>
+<pre><code>while read url; do
+  python3 dirsearch.py -u $url -e php,txt,js -r -t 50 -o results/$url.txt
+done < live.txt</code></pre>
+
+<h2>📚 Quick Cheat Sheet</h2>
+<pre><code>Basic scan: -u
+Wordlist: -w FILE
+Extensions: -e php,js,txt
+Recursive: -r
+Exclude: --exclude-status
+Interesting: -i 200,301
+Proxy: --proxy
+Ignore SSL: --ignore-ssl-errors
+Output: -o file.txt</code></pre>
+
+<h2>🏁 Final Summary</h2>
+<p>Dirsearch is one of the most powerful reconnaissance tools for discovering hidden directories and sensitive files. It exposes forgotten endpoints, backup files, dev environments, and configuration leaks—making it essential for:</p>
+<ul>
+<li>Bug bounty hunting</li>
+<li>Pentesting engagements</li>
+<li>Attack surface mapping</li>
+<li>OSINT & recon workflows</li>
+</ul>
+
+<p>Master Dirsearch → find vulnerabilities others miss.</p>
+
+<div class="footer">© TheCyberAryan — All Rights Reserved</div>
+</div>
+</body>
+</html>
