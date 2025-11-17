@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HTTPX — Zero to Hero Guide — The Cyber Aryan</title>
+  <meta name="author" content="Aryan Pareek — The Cyber Aryan">
+  <meta name="description" content="A complete Zero-to-Hero guide on HTTPX for recon, alive checking, fingerprinting, and bug bounty workflows."/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{ --bg:#0b0710; --muted:#bfc8e6; --accent:#00e5ff; --accent2:#b27bff; }
+    body{margin:0;font-family:Inter,system-ui;background:linear-gradient(180deg,rgba(26,0,43,0.92),rgba(0,28,42,0.95)),var(--bg);color:var(--muted);-webkit-font-smoothing:antialiased;}
+    .container{max-width:900px;margin:36px auto;padding:28px;}
+    .post-card{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0));border-radius:12px;padding:28px;border:1px solid rgba(180,120,255,0.05);box-shadow:0 12px 40px rgba(3,3,6,0.6)}
+    header .tag{font-family:Orbitron,monospace;color:#e9f7ff;letter-spacing:.6px;font-size:.9rem}
+    h1{font-family:Orbitron,sans-serif;color:#ecf3ff;margin:8px 0 6px;text-shadow:0 0 12px rgba(0,229,255,0.08)}
+    h2{font-family:Orbitron,sans-serif;color:#eaf4ff;margin:22px 0 10px;text-shadow:0 0 6px rgba(0,229,255,0.06)}
+    p,li{color:var(--muted);line-height:1.65;font-size:1rem}
+    pre{background:rgba(0,0,0,0.35);padding:12px;border-radius:8px;overflow:auto;border:1px solid rgba(255,255,255,0.03);color:#dff;white-space:pre;font-family:monospace}
+    code{font-size:0.95rem;font-family:monospace}
+    ul{margin:0 0 12px 1rem}
+    .lead{line-height:1.7;margin-bottom:18px}
+    .note{background:rgba(255,255,255,0.02);border-left:4px solid rgba(0,229,255,0.18);padding:10px 12px;border-radius:6px;margin:14px 0}
+    .cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{background:linear-gradient(90deg,var(--accent2),var(--accent));padding:10px 14px;border-radius:10px;color:#061118;text-decoration:none;font-weight:700}
+    footer{margin-top:22px;color:#aabbd6;font-size:0.9rem}
+  </style>
+</head>
+<body>
+<div class="container">
+<article class="post-card">
+
+<header>
+  <div class="tag">// THECYBERARYAN — Research</div>
+  <h1>HTTPX — Zero to Hero (Alive Checking & Fingerprinting Guide)</h1>
+  <div class="meta" style="color:#9fb7d8;font-size:0.9rem;margin-bottom:18px;">Author: Aryan Pareek • Date: 2025-11-17 • Category: Recon / Fingerprinting</div>
+</header>
+
+<p class="lead">
+  HTTPX is one of the most powerful tools for <strong>alive checking, service fingerprinting, response analysis, metadata extraction,
+  TLS inspection, and technology detection</strong>. It's a must-have during recon and bug bounty hunting.
+  This guide takes you from <strong>zero to expert</strong> with real commands, workflows, and automation.
+</p>
+
+<h2>🔥 What is HTTPX?</h2>
+<p>
+  HTTPX is a fast and flexible HTTP probing tool by ProjectDiscovery. It takes a list of domains and identifies:
+</p>
+<ul>
+  <li>Which hosts are alive</li>
+  <li>Status codes</li>
+  <li>Page titles</li>
+  <li>Technologies (Wappalyzer-like)</li>
+  <li>TLS details</li>
+  <li>Redirect chains</li>
+  <li>IP & CDN info</li>
+</ul>
+
+<pre><code>Input:   1000 subdomains
+Output:  Alive hosts + tech stack + metadata</code></pre>
+
+<h2>⚙️ Installation</h2>
+<pre><code>sudo apt install httpx
+# or
+curl -s https://api.projectdiscovery.io/tools/install | sh</code></pre>
+
+<h2>🔰 Basic Usage</h2>
+<h3>Check if a domain is alive</h3>
+<pre><code>echo "example.com" | httpx</code></pre>
+
+<h3>Alive check for a list</h3>
+<pre><code>httpx -l subs.txt -o alive.txt</code></pre>
+
+<h3>Silent mode (only alive hosts)</h3>
+<pre><code>httpx -l subs.txt -silent</code></pre>
+
+<h2>🟣 Intermediate Usage</h2>
+<h3>Show status codes</h3>
+<pre><code>httpx -l subs.txt -sc</code></pre>
+
+<h3>Show page titles</h3>
+<pre><code>httpx -l subs.txt -title</code></pre>
+
+<h3>Show IP addresses</h3>
+<pre><code>httpx -l subs.txt -ip</code></pre>
+
+<h3>Technology detection</h3>
+<pre><code>httpx -l subs.txt -tech-detect</code></pre>
+
+<h3>Follow redirects</h3>
+<pre><code>httpx -l subs.txt -follow-redirects</code></pre>
+
+<h2>🚀 Advanced Usage</h2>
+<h3>Full fingerprinting</h3>
+<pre><code>httpx -l subs.txt -sc -title -tech-detect -ip -cdn -status-code</code></pre>
+
+<h3>Output to JSON</h3>
+<pre><code>httpx -l subs.txt -json -o httpx.json</code></pre>
+
+<h3>Probe specific ports</h3>
+<pre><code>httpx -l hosts.txt -ports 80,443,8080</code></pre>
+
+<h3>Skip TLS verification</h3>
+<pre><code>httpx -l subs.txt -tls-probe -no-color -insecure</code></pre>
+
+<h3>Extract response headers</h3>
+<pre><code>httpx -l subs.txt -header</code></pre>
+
+<h3>Extract favicon hash (for Shodan clustering)</h3>
+<pre><code>httpx -l subs.txt -favicon</code></pre>
+
+<h2>🧪 Real Recon Workflow</h2>
+
+<h3>1. Enumerate subdomains</h3>
+<pre><code>subfinder -d example.com -o subs.txt</code></pre>
+
+<h3>2. Identify alive hosts</h3>
+<pre><code>httpx -l subs.txt -o alive.txt</code></pre>
+
+<h3>3. Fingerprint everything</h3>
+<pre><code>httpx -l alive.txt -sc -title -tech-detect -ip -cdn -o fingerprint.txt</code></pre>
+
+<h3>4. Send only alive hosts to Dirsearch</h3>
+<pre><code>while read url; do
+  python3 dirsearch.py -u $url -e php,js,txt -r -t 50 -o results/$url.txt
+done < alive.txt</code></pre>
+
+<h3>5. Nmap deep scan</h3>
+<pre><code>nmap -p- -sV -iL alive.txt -oN nmap_services.txt</code></pre>
+
+<div class="note">
+  <strong>Pro tip:</strong> HTTPX + Subfinder is the fastest way to map a target's entire attack surface.
+</div>
+
+<h2>📚 Quick Cheat Sheet</h2>
+<pre><code>Basic scan:                 httpx -l subs.txt
+Show status codes:          -sc
+Show titles:                -title
+Show technologies:          -tech-detect
+Follow redirects:           -follow-redirects
+IP address:                 -ip
+Save output:                -o out.txt
+JSON output:                -json -o out.json
+Silent mode:                -silent</code></pre>
+
+<h2>Conclusion</h2>
+<p>
+  HTTPX is the backbone of recon. It filters subdomains, identifies alive hosts, fingerprints technologies,
+  detects redirects, extracts metadata and prepares perfect input for Dirsearch, Nmap, Naabu, and Nuclei.
+  Mastering HTTPX means mastering fast, accurate reconnaissance.
+</p>
+
+<div class="cta">
+  <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=HTTPX%20Help">Contact securely (email)</a>
+  <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">View tools & scripts</a>
+</div>
+
+<footer>
+  <p>© 2025 Aryan Pareek — The Cyber Aryan. Built for recon, OSINT, and professional bug bounty workflows.</p>
+</footer>
+
+</article>
+</div>
+</body>
+</html>
