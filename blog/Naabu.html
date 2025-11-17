@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Naabu — Zero to Hero Guide — The Cyber Aryan</title>
+<meta name="author" content="Aryan Pareek — The Cyber Aryan">
+<meta name="description" content="Complete Zero-to-Hero guide on Naabu for fast port scanning, recon pipelines, and bug bounty hunting."/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0710;--muted:#bfc8e6;--accent:#00e5ff;--accent2:#b27bff;}
+body{margin:0;font-family:Inter,system-ui;background:linear-gradient(180deg,rgba(26,0,43,0.92),rgba(0,28,42,0.95)),var(--bg);color:var(--muted);-webkit-font-smoothing:antialiased;}
+.container{max-width:900px;margin:36px auto;padding:28px;}
+.post-card{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0));border-radius:12px;padding:28px;border:1px solid rgba(180,120,255,0.05);box-shadow:0 12px 40px rgba(3,3,6,0.6)}
+header .tag{font-family:Orbitron,monospace;color:#e9f7ff;letter-spacing:.6px;font-size:.9rem}
+h1{font-family:Orbitron,sans-serif;color:#ecf3ff;margin:8px 0 6px;text-shadow:0 0 12px rgba(0,229,255,0.08)}
+h2{font-family:Orbitron,sans-serif;color:#eaf4ff;margin:22px 0 10px;text-shadow:0 0 6px rgba(0,229,255,0.06)}
+p,li{color:var(--muted);line-height:1.65;font-size:1rem}
+pre{background:rgba(0,0,0,0.35);padding:12px;border-radius:8px;overflow:auto;border:1px solid rgba(255,255,255,0.03);color:#dff;white-space:pre;font-family:monospace}
+code{font-size:0.95rem;font-family:monospace}
+ul{margin:0 0 12px 1rem}
+.lead{line-height:1.7;margin-bottom:18px}
+.note{background:rgba(255,255,255,0.02);border-left:4px solid rgba(0,229,255,0.18);padding:10px 12px;border-radius:6px;margin:14px 0}
+.cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+.btn{background:linear-gradient(90deg,var(--accent2),var(--accent));padding:10px 14px;border-radius:10px;color:#061118;text-decoration:none;font-weight:700}
+footer{margin-top:22px;color:#aabbd6;font-size:0.9rem}
+</style>
+</head>
+<body>
+<div class="container">
+<article class="post-card">
+<header>
+  <div class="tag">// THECYBERARYAN — Research</div>
+  <h1>Naabu — Zero to Hero (High-Speed Port Scanning for Recon & Pentesting)</h1>
+  <div class="meta" style="color:#9fb7d8;font-size:0.9rem;margin-bottom:18px;">Author: Aryan Pareek • Date: 2025-11-17 • Category: Recon / Port Scanning</div>
+</header>
+
+<p class="lead">
+Naabu is a <strong>blazing-fast port scanner</strong> developed by ProjectDiscovery. It is designed to find open ports across large attack surfaces with speed, accuracy, and stealth. 
+This Zero-to-Hero guide covers installation, beginner commands, advanced usage, stealth mode, evasion, automation, and real bug bounty workflows.
+</p>
+
+<h2>🔥 What is Naabu?</h2>
+<p>Naabu performs asynchronous TCP SYN scans to detect open ports quickly and reliably. It’s commonly chained with Subfinder, Httpx, Dirsearch, and Nuclei in modern recon pipelines.</p>
+
+<pre><code>Input: Domains / IP ranges
+Output: Open ports + services
+</code></pre>
+
+<h2>⚙️ Installation</h2>
+<pre><code>sudo apt install naabu
+# or
+curl -s https://api.projectdiscovery.io/tools/install | sh
+</code></pre>
+
+<h2>🔰 Basic Usage</h2>
+<h3>Scan a domain</h3>
+<pre><code>naabu -host example.com</code></pre>
+
+<h3>Scan an IP</h3>
+<pre><code>naabu -host 192.168.1.1</code></pre>
+
+<h3>Scan a list of domains</h3>
+<pre><code>naabu -list hosts.txt -o ports.txt</code></pre>
+
+<h2>🟣 Port Selection</h2>
+<h3>Scan top 100 ports</h3>
+<pre><code>naabu -host example.com -top-ports 100</code></pre>
+
+<h3>Scan all ports (1–65535)</h3>
+<pre><code>naabu -host example.com -p -</code></pre>
+
+<h3>Scan custom ports</h3>
+<pre><code>naabu -host example.com -p 80,443,21,22,8080</code></pre>
+
+<h2>⚡ Speed & Performance</h2>
+<h3>Increase speed (threads)</h3>
+<pre><code>naabu -host example.com -rate 50000</code></pre>
+
+<h3>Avoid packet drops</h3>
+<pre><code>sudo sysctl -w net.ipv4.ping_group_range='0 2147483647'</code></pre>
+
+<h2>🛡️ Stealth & Firewall Evasion</h2>
+<h3>Use SYN scan (default)</h3>
+<pre><code>naabu -host example.com -s</code></pre>
+
+<h3>Use connect scan (bypasses some firewalls)</h3>
+<pre><code>naabu -host example.com -connect</code></pre>
+
+<h3>Use fragmented packets</h3>
+<pre><code>naabu -host example.com -f</code></pre>
+
+<h2>🔒 Excluding Ports / Protocols</h2>
+<pre><code>naabu -host example.com -exclude-ports 80,443</code></pre>
+
+<h2>🔍 Service detection (integrated with Nmap)</h2>
+<pre><code>naabu -host example.com -nmap</code></pre>
+
+<h3>Run Nmap automatically after detecting open ports</h3>
+<pre><code>naabu -host example.com -nmap-cli "-sV -sC"</code></pre>
+
+<h2>📡 Host Discovery</h2>
+<pre><code>naabu -host example.com -p 80,443,22 -host-discovery</code></pre>
+
+<h2>🧪 Real Recon Workflow</h2>
+<h3>1. Subdomains</h3>
+<pre><code>subfinder -d example.com -o subs.txt</code></pre>
+
+<h3>2. Filter alive hosts</h3>
+<pre><code>httpx -l subs.txt -o alive.txt</code></pre>
+
+<h3>3. Find open ports with Naabu</h3>
+<pre><code>naabu -list alive.txt -p - -o open_ports.txt</code></pre>
+
+<h3>4. Run Nmap for deep service detection</h3>
+<pre><code>nmap -sV -sC -iL open_ports.txt -oN nmap_results.txt</code></pre>
+
+<h3>5. Directory discovery</h3>
+<pre><code>while read url; do
+  python3 dirsearch.py -u $url -e php,js,txt -r -t 50
+done < alive.txt</code></pre>
+
+<h3>6. Vulnerability scanning</h3>
+<pre><code>nuclei -l alive.txt -severity medium,high,critical -o nuclei_results.txt</code></pre>
+
+<div class="note">
+<b>Pro Tip:</b> Naabu + Nmap is the elite combination for infrastructure-level recon.
+</div>
+
+<h2>📚 Cheat Sheet</h2>
+<pre><code>Scan host:              naabu -host domain.com
+Scan list:              naabu -list hosts.txt
+Top ports:              -top-ports 100
+All ports:              -p -
+Custom ports:           -p 80,443,22
+Stealth mode:           -s
+Firewall bypass:        -connect
+Run Nmap:               -nmap
+Rate limit:             -rate 50000
+Output:                 -o file.txt
+</code></pre>
+
+<h2>Conclusion</h2>
+<p>Naabu is a high-speed, modern port scanner crafted for bug bounty recon and pentesting. When combined with Httpx, Nmap, Subfinder, Dirsearch, and Nuclei, it forms one of the most powerful recon pipelines in the world. Master the flags, control the rate, and use Naabu responsibly within scope.</p>
+
+<div class="cta">
+  <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Naabu%20Help">Contact securely (email)</a>
+  <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">View tools & scripts</a>
+</div>
+
+<footer>
+  <p>© 2025 Aryan Pareek — The Cyber Aryan. Built for legal recon, professional pentesting, and automation pipelines.</p>
+</footer>
+
+</article>
+</div>
+</body>
+</html>
