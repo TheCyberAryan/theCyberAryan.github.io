@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SSRF Hunting Guide — Tools & Practical Steps | TheCyberAryan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="A practical Server-Side Request Forgery (SSRF) hunting guide with tools, payloads, and real-world bug bounty workflows." />
+  <meta name="author" content="TheCyberAryan" />
+
+  <!-- Optional Google Font (remove if your site already has fonts) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050711;
+      --bg-alt: #0b0f1e;
+      --accent: #4df3ff;
+      --accent-soft: rgba(77,243,255,0.15);
+      --accent-2: #ff4d9c;
+      --text: #e6f1ff;
+      --muted: #94a3b8;
+      --border: #1e293b;
+      --code-bg: #020617;
+      --danger: #ff6b6b;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #000 100%);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .page-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 16px 64px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    h1 {
+      margin: 8px 0 12px;
+      font-size: 2.1rem;
+      line-height: 1.2;
+    }
+
+    .meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      background: radial-gradient(circle at top left, rgba(77,243,255,0.18), transparent 55%);
+      font-size: 0.75rem;
+      margin-top: 8px;
+    }
+
+    .pill span.icon {
+      font-size: 0.9rem;
+    }
+
+    main {
+      margin-top: 24px;
+      font-size: 0.98rem;
+    }
+
+    h2, h3, h4 {
+      margin-top: 28px;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 10px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      color: var(--accent);
+    }
+
+    h4 {
+      font-size: 1rem;
+      color: var(--accent-2);
+    }
+
+    p {
+      margin: 8px 0 12px;
+      color: #cbd5f5;
+    }
+
+    strong { color: #f9fafb; }
+
+    ul, ol {
+      margin: 10px 0 16px 20px;
+      padding-left: 12px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    .callout {
+      border: 1px solid var(--accent-soft);
+      background: linear-gradient(135deg, rgba(77,243,255,0.06), rgba(15,23,42,0.9));
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      margin: 16px 0;
+    }
+
+    .callout.danger {
+      border-color: rgba(248,113,113,0.6);
+      background: linear-gradient(135deg, rgba(248,113,113,0.15), rgba(15,23,42,0.95));
+    }
+
+    .callout-title {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      margin-bottom: 4px;
+      color: var(--accent);
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    .callout.danger .callout-title {
+      color: var(--danger);
+    }
+
+    code {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      background: rgba(15,23,42,0.9);
+      padding: 2px 4px;
+      border-radius: 4px;
+      border: 1px solid rgba(30,64,175,0.6);
+    }
+
+    pre {
+      background: var(--code-bg);
+      border-radius: 10px;
+      padding: 12px 14px;
+      overflow-x: auto;
+      border: 1px solid #111827;
+      box-shadow: 0 0 0 1px rgba(15,23,42,0.9), 0 16px 40px rgba(15,23,42,0.9);
+      margin: 12px 0 18px;
+    }
+
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.84rem;
+      color: #e5e7eb;
+    }
+
+    .step-list {
+      list-style: none;
+      padding-left: 0;
+      margin-left: 0;
+    }
+
+    .step-item {
+      border-left: 2px dashed rgba(75,85,99,0.6);
+      padding-left: 14px;
+      margin-left: 4px;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .step-item::before {
+      content: "";
+      position: absolute;
+      left: -6px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      border: 2px solid var(--accent);
+      background: #020617;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 20px;
+      font-size: 0.9rem;
+      background: rgba(15,23,42,0.9);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid #1e293b;
+      padding: 8px 10px;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(15,23,42,0.95);
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(15,23,42,0.7);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 32px;
+      padding-top: 16px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 768px) {
+      .page-wrapper {
+        padding: 48px 16px 72px;
+      }
+
+      h1 { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <header>
+      <div class="tagline">// TheCyberAryan — Practical Bug Bounty</div>
+      <h1>SSRF Hunting Guide — Tools &amp; Practical Steps</h1>
+      <div class="meta">
+        Level: Intermediate → Advanced &nbsp;•&nbsp; Topic: Server-Side Request Forgery (SSRF)
+      </div>
+      <div class="pill">
+        <span class="icon">🛰️</span>
+        <span>From “What is SSRF?” to “How do I actually find it on real targets?”</span>
+      </div>
+    </header>
+
+    <main>
+      <div class="callout">
+        <div class="callout-title">Quick context</div>
+        <p>
+          This guide assumes you already understand the basics of SSRF (what it is and why it’s dangerous).
+          Here, we focus on **how to hunt it in real applications** step-by-step: which parameters to look for,
+          how to test them, which tools to use, and how to move from a small SSRF to a serious impact.
+        </p>
+      </div>
+
+      <h2>1. Mindset: How to Think Like an SSRF Hunter</h2>
+      <p>
+        SSRF is less about “one magical payload” and more about **recognizing the patterns** where a server has to
+        make a request on behalf of the user. Whenever you see:
+      </p>
+      <ul>
+        <li>Any feature that **fetches a URL** you provide.</li>
+        <li>Any feature that **imports data** from an external resource.</li>
+        <li>Any feature that **previews a link or file** before saving.</li>
+      </ul>
+      <p>…you should immediately ask yourself:</p>
+      <p><strong>“Can I make this server talk to something it should not talk to?”</strong></p>
+
+      <h3>Common SSRF Entry Points</h3>
+      <ul>
+        <li>Profile picture import via URL.</li>
+        <li>“Fetch URL and convert to PDF” / screenshot services.</li>
+        <li>Webhook / callback URLs.</li>
+        <li>RSS or JSON feed importers.</li>
+        <li>URL preview / link unfurling (like link thumbnail previews).</li>
+        <li>Any place where backend fetches a URL you control.</li>
+      </ul>
+
+      <h2>2. Building a Simple SSRF Recon Checklist</h2>
+      <p>While testing a target, keep this mini-checklist handy:</p>
+      <ul>
+        <li>Search for parameters like:
+          <code>url</code>, <code>uri</code>, <code>link</code>, <code>target</code>, <code>callback</code>, <code>webhook</code>, <code>feed</code>, <code>img</code>, <code>avatar</code>, <code>redirect</code>, <code>next</code>.
+        </li>
+        <li>Look at every “import from URL” or “fetch from URL” feature inside the app.</li>
+        <li>Look at integration settings (Slack, Discord, email webhook, payment webhooks, etc.).</li>
+        <li>Look at internal tools or admin panels (often more SSRF-prone than public pages).</li>
+      </ul>
+
+      <div class="callout danger">
+        <div class="callout-title">Legal reminder</div>
+        <p>
+          Only test SSRF on **targets where you have explicit permission**:
+          bug bounty programs, lab environments, or your own infrastructure.
+          Never hit random internal or cloud endpoints on unauthorized systems.
+        </p>
+      </div>
+
+      <h2>3. Core Tools for SSRF Hunting</h2>
+
+      <h3>3.1 Burp Suite (Core Tool)</h3>
+      <p>Burp is your main weapon for SSRF:</p>
+      <ul>
+        <li><strong>Proxy</strong> — to capture every request and spot URL-like parameters.</li>
+        <li><strong>Repeater</strong> — to manually modify and resend requests with test URLs.</li>
+        <li><strong>Intruder</strong> — for fuzzing multiple payloads and encodings.</li>
+        <li><strong>Burp Collaborator</strong> — to detect **blind SSRF**.</li>
+      </ul>
+
+      <h4>Practical Workflow</h4>
+      <ol>
+        <li>Turn on Burp Proxy and browse the app normally.</li>
+        <li>Look in <strong>HTTP history</strong> for any parameter that clearly looks like a URL.</li>
+        <li>Send interesting requests to <strong>Repeater</strong>.</li>
+        <li>Start replacing parameter values with SSRF test URLs (examples below).</li>
+      </ol>
+
+      <h3>3.2 Burp Collaborator / Interactsh (for Blind SSRF)</h3>
+      <p>
+        Not all SSRF will show you a visible response. Sometimes, the server will silently request your URL in
+        the background — that’s blind SSRF.
+      </p>
+      <p>For this, you need an external interaction service, such as:</p>
+      <ul>
+        <li><strong>Burp Collaborator</strong> (built into Burp Pro).</li>
+        <li>Public services like <code>Interactsh</code> (if allowed by the program).</li>
+      </ul>
+
+      <p><strong>Basic idea:</strong></p>
+      <ol>
+        <li>Generate a unique URL in Burp Collaborator or Interactsh.</li>
+        <li>Put that URL as the value in the parameter you suspect is SSRF-vulnerable.</li>
+        <li>Send the request.</li>
+        <li>Check Collaborator/Interactsh — if you see a DNS/HTTP hit, the server made a request → SSRF exists.</li>
+      </ol>
+
+      <h2>4. Payload Sets for SSRF Testing</h2>
+
+      <h3>4.1 Basic Reachability Checks</h3>
+      <p>Start simple. Does the server even try to fetch external URLs you give it?</p>
+      <pre><code>https://your-burp-collaborator-id.oast.live
+https://example.com/</code></pre>
+
+      <p>If you get:</p>
+      <ul>
+        <li>Any preview of your site.</li>
+        <li>Any error mentioning your domain.</li>
+        <li>A hit on Collaborator / Interactsh.</li>
+      </ul>
+      <p>…then the parameter is likely SSRF-capable.</p>
+
+      <h3>4.2 Internal Network Probing</h3>
+      <p>Next, try internal IPs (where SSRF gets interesting):</p>
+      <pre><code>http://127.0.0.1
+http://localhost
+http://127.0.0.1:22
+http://127.0.0.1:3306
+http://127.0.0.1:5000
+http://10.0.0.1
+http://192.168.0.1</code></pre>
+
+      <p>Observe:</p>
+      <ul>
+        <li>Different error messages for open vs closed ports.</li>
+        <li>Time delays (longer response could mean open port / hanging connection).</li>
+      </ul>
+
+      <h3>4.3 Cloud Metadata Endpoints (High Impact)</h3>
+      <p>For cloud-hosted apps, the metadata service is a goldmine.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Cloud</th>
+            <th>Typical Metadata URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>AWS</td>
+            <td><code>http://169.254.169.254/latest/meta-data/</code></td>
+          </tr>
+          <tr>
+            <td>GCP</td>
+            <td><code>http://169.254.169.254/computeMetadata/v1/</code> (often requires header)</td>
+          </tr>
+          <tr>
+            <td>Azure</td>
+            <td><code>http://169.254.169.254/metadata/</code> (often with <code>Metadata: true</code> header)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        If the SSRF is strong enough to reach these endpoints, you may be able to exfiltrate:
+        IAM role names, temporary access keys, instance details, and more.
+      </p>
+
+      <h2>5. Bypassing Simple Protections</h2>
+
+      <h3>5.1 Localhost / Private IP Block Bypasses</h3>
+      <p>Developers sometimes block obvious values like <code>127.0.0.1</code> or <code>localhost</code>. Try:</p>
+      <pre><code>http://127.1
+http://2130706433
+http://0x7f000001
+http://0177.0.0.1</code></pre>
+      <p>These all represent the same address: <strong>localhost</strong>.</p>
+
+      <h3>5.2 Using DNS to Reach Internal Services</h3>
+      <p>
+        Sometimes, internal services are only accessible by hostname, like <code>http://internal-api/</code>.
+        If you don’t know the hostnames, try:
+      </p>
+      <ul>
+        <li>Common words: <code>http://admin/</code>, <code>http://api/</code>, <code>http://intranet/</code>, <code>http://grafana/</code>.</li>
+        <li>Brute forcing with a wordlist via an automated tool (respecting rate limits and program rules).</li>
+      </ul>
+
+      <h2>6. Turning a “Small” SSRF into a High-Impact Bug</h2>
+      <p>
+        Many reports stop at “I can make the server fetch my domain”. That’s a start, but not always enough
+        for a high payout. Try to escalate impact:
+      </p>
+
+      <ul>
+        <li><strong>Reach metadata endpoints</strong> (cloud credentials).</li>
+        <li><strong>Read internal status pages</strong> (e.g., admin panels, health checks).</li>
+        <li><strong>Access internal developer tools</strong> (Jenkins, Grafana, Kibana, etc.).</li>
+        <li><strong>Hit internal APIs</strong> that return sensitive data.</li>
+        <li><strong>Combine SSRF with another bug</strong> (like an open Docker API → remote code execution).</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">Reporter tip</div>
+        <p>
+          In your final bug report, clearly explain the **path**:
+          “User-controlled URL parameter → Server fetches arbitrary URL → Internal metadata endpoint reachable →
+          IAM credentials exfiltrated → potential full cloud compromise.”
+        </p>
+      </div>
+
+      <h2>7. Example: A Practical SSRF Hunting Flow</h2>
+
+      <ol class="step-list">
+        <li class="step-item">
+          <div class="badge">Step 1 — Recon</div>
+          <p>Browse the app through Burp, list all parameters that look like URLs or redirection paths.</p>
+        </li>
+        <li class="step-item">
+          <div class="badge">Step 2 — Initial test</div>
+          <p>Send promising requests to Repeater and test with your Collaborator URL. Look for any external callbacks.</p>
+        </li>
+        <li class="step-item">
+          <div class="badge">Step 3 — Internal probing</div>
+          <p>Try <code>127.0.0.1</code>, local ports, and private network IPs to see if behavior changes.</p>
+        </li>
+        <li class="step-item">
+          <div class="badge">Step 4 — Metadata check</div>
+          <p>Carefully test <code>169.254.169.254</code> endpoints to see if cloud metadata is reachable.</p>
+        </li>
+        <li class="step-item">
+          <div class="badge">Step 5 — Escalate impact</div>
+          <p>Enumerate exposed internal services/APIs and demonstrate how that can lead to data access or RCE.</p>
+        </li>
+      </ol>
+
+      <h2>8. How to Present Your SSRF Finding in a Report</h2>
+      <p>When you finally find SSRF, structure your report like this:</p>
+      <ol>
+        <li><strong>Summary:</strong> One or two lines explaining what you did and why it’s serious.</li>
+        <li><strong>Location:</strong> Exact endpoint and parameter, e.g. <code>POST /api/fetch?url=</code>.</li>
+        <li><strong>Steps to reproduce:</strong> Clear instructions with full requests and responses.</li>
+        <li><strong>Impact:</strong> What internal systems you accessed or could access (metadata, internal dashboards, etc.).</li>
+        <li><strong>Recommendation:</strong> Short, practical fix suggestions (allow-list, block internal IP ranges, etc.).</li>
+      </ol>
+
+      <h2>9. What to Practice Next</h2>
+      <p>You can sharpen your SSRF skills by:</p>
+      <ul>
+        <li>Solving SSRF labs on platforms like PortSwigger Web Security Academy.</li>
+        <li>Recreating simple SSRF-prone apps locally (e.g. a “fetch URL” feature) and testing against them.</li>
+        <li>Reading public bug bounty write-ups that involve SSRF → cloud compromise or SSRF → RCE chains.</li>
+      </ul>
+
+      <div class="callout">
+        <div class="callout-title">Next steps with TheCyberAryan</div>
+        <p>
+          Want a **ready-made SSRF lab** you can host locally, with vulnerable code and walkthrough solutions?
+          I can generate a small Node.js or Python app specifically for SSRF practice, along with payload examples.
+        </p>
+      </div>
+    </main>
+
+    <footer>
+      <div>Written for: <strong>TheCyberAryan</strong> — Ethical Hacking &amp; Cybersecurity</div>
+      <div>Permission-based testing only. Hack responsibly.</div>
+    </footer>
+  </div>
+</body>
+</html>
