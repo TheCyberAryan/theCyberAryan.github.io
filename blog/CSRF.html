@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>CSRF — TheCyberAryan</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<!-- Use your cyberpunk theme stylesheet -->
+<link rel="stylesheet" href="/blog/style.css">
+
+</head>
+
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tag">// THECYBERARYAN — VULNERABILITY SERIES</div>
+  <h1>CSRF — CROSS-SITE REQUEST FORGERY</h1>
+  <div class="subtitle">
+    When websites trust your browser a little *too* much, and attackers take advantage of that.
+  </div>
+  <div class="pill">
+    <span class="icon">🎯</span>
+    <span>TRICKING YOUR BROWSER INTO ATTACKING YOU</span>
+  </div>
+</header>
+
+<section>
+  <p>
+    CSRF is the vulnerability where a website thinks:
+  </p>
+
+  <p><em>“If this request comes from the user’s browser, it must be legit!”</em></p>
+
+  <p>
+    Meanwhile an attacker is sitting behind the screen like:
+    <br><br>
+    <strong><em>“Perfect. Let's weaponize that trust.”</em></strong>
+  </p>
+
+  <div class="panel">
+    <div class="panel-inner">
+      <div class="panel-label">definition</div>
+      <p>
+        <strong>Cross-Site Request Forgery (CSRF)</strong> forces a victim’s browser to send unwanted,
+        authenticated requests to a website — without the victim realizing it.
+      </p>
+    </div>
+  </div>
+
+  <p>
+    Your browser automatically sends cookies.  
+    The website automatically trusts them.  
+    The attacker automatically smiles.
+  </p>
+</section>
+
+<hr>
+
+<section>
+  <h2>HOW CSRF WORKS (IN THE SIMPLEST POSSIBLE WAY)</h2>
+
+  <p>
+    Let’s say you’re logged into:
+  </p>
+
+  <ul>
+    <li>Your bank</li>
+    <li>Your social media</li>
+    <li>Your admin panel</li>
+  </ul>
+
+  <p>
+    You visit a malicious website while still logged in.
+  </p>
+
+  <p>
+    The attacker can make your browser auto-submit a hidden request:
+  </p>
+
+  <pre><code>&lt;img src="https://bank.com/transfer?to=attacker&amount=5000"&gt;</code></pre>
+
+  <p>
+    The browser sends your cookies because… that’s what browsers do.
+  </p>
+
+  <div class="panel panel-danger">
+    <div class="panel-inner">
+      <div class="panel-label">result</div>
+      <p>
+        Congratulations, you just “donated” money without clicking anything.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <h2>REALISTIC EXAMPLE — PASSWORD CHANGE CSRF</h2>
+
+  <p>Victim is logged in. Normal request:</p>
+
+  <pre><code>POST /change-password
+password=newpass123</code></pre>
+
+  <p>
+    Attacker hosts a page with this:
+  </p>
+
+  <pre><code>&lt;form action="https://website.com/change-password" method="POST"&gt;
+  &lt;input type="hidden" name="password" value="hacked123"&gt;
+&lt;/form&gt;
+
+&lt;script&gt;document.forms[0].submit();&lt;/script&gt;</code></pre>
+
+  <p>
+    Victim opens attacker’s webpage → browser instantly submits the form.
+  </p>
+
+  <div class="panel panel-danger">
+    <div class="panel-inner">
+      <div class="panel-label">impact</div>
+      <p>
+        The victim’s password gets changed to the attacker’s chosen value  
+        without the victim doing anything.
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<hr>
+
+<section>
+  <h2>WHERE CSRF OCCURS MOST OFTEN</h2>
+
+  <p>Any action that changes something:</p>
+
+  <ul>
+    <li>Change password</li>
+    <li>Update email</li>
+    <li>Send money / transfer funds</li>
+    <li>Delete account</li>
+    <li>Change user roles</li>
+    <li>Submit support tickets</li>
+    <li>Approve / reject actions in admin dashboards</li>
+  </ul>
+
+  <div class="panel">
+    <div class="panel-inner">
+      <div class="panel-label">hint</div>
+      <p>
+        If an action is important and the app doesn’t ask for confirmation…  
+        assume CSRF is probably possible.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <h2>THE MOST POWERFUL CSRF TEST</h2>
+
+  <p>Here’s your one-size-fits-all test:</p>
+
+  <pre><code>&lt;img src="https://target.com/sensitive-action?param=value"&gt;</code></pre>
+
+  <p>
+    Place it in a self-controlled website.  
+    If the request succeeds while the victim is logged in → **Vulnerable**.
+  </p>
+
+</section>
+
+<hr>
+
+<section>
+  <h2>CSRF WITH FORMS (THE CLASSIC)</h2>
+
+  <pre><code>&lt;form action="https://target.com/update" method="POST"&gt;
+  &lt;input type="hidden" name="email" value="attacker@evil.com"&gt;
+&lt;/form&gt;
+
+&lt;script&gt;document.forms[0].submit();&lt;/script&gt;</code></pre>
+
+  <div class="panel panel-danger">
+    <div class="panel-inner">
+      <div class="panel-label">pro tip</div>
+      <p>
+        Add autoplaying JavaScript, hidden iframes, or clickjacking to make the attack even smoother.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <h2>HOW DEVELOPERS SHOULD FIX CSRF</h2>
+
+  <ul>
+    <li>Implement **CSRF tokens** on every state-changing action</li>
+    <li>Use **SameSite=Lax** or **SameSite=Strict** cookies</li>
+    <li>Use **POST** for sensitive actions</li>
+    <li>Re-authenticate critical operations (like password change)</li>
+    <li>Require CAPTCHA for dangerous actions</li>
+  </ul>
+
+  <div class="panel panel-danger">
+    <div class="panel-inner">
+      <div class="panel-label">golden rule</div>
+      <p>
+        If the browser is automatically trusted,  
+        an attacker can weaponize it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <h2>FAST HACKER CHECKLIST</h2>
+
+  <ul>
+    <li>Check if the action uses GET (bad)</li>
+    <li>Check if the action works without a CSRF token</li>
+    <li>Check if CSRF token is missing or predictable</li>
+    <li>Test sensitive actions inside an `<img>` or `<form>`</li>
+    <li>Check for SameSite=None + Secure cookies</li>
+  </ul>
+
+  <p>
+    A single successful forged request = full CSRF.
+  </p>
+</section>
+
+<footer>
+  // THECYBERARYAN — HACK RESPONSIBLY. YOUR BROWSER IS TOO TRUSTING.
+</footer>
+
+</div>
+</body>
+</html>
