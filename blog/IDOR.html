@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Race Condition Vulnerabilities — TheCyberAryan</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body{background:#050711;color:#e9f0ff;font-family:Inter,sans-serif;line-height:1.7;padding:32px}
+    h1,h2{color:#4df3ff}
+    pre{background:#0a0f1c;padding:14px;border-radius:6px;overflow-x:auto}
+  </style>
+</head>
+<body>
+
+<h1>Race Condition Vulnerabilities — When Timing Becomes a Bug</h1>
+
+<p><strong>Race conditions</strong> happen when an application performs multiple operations in parallel and doesn’t handle them safely.</p>
+
+<p>In simple words:</p>
+<p><em>“If I send the same request many times very fast, the system gets confused and gives me extra benefits.”</em></p>
+
+<h2>Real-World Examples</h2>
+<ul>
+  <li>Buying the same coupon multiple times even though it should be “one per user”.</li>
+  <li>Transferring more money than balance using parallel requests.</li>
+  <li>Creating multiple accounts with a single-use invite code.</li>
+</ul>
+
+<h2>How Attackers Exploit It</h2>
+<ul>
+  <li>Send 10–100 parallel requests at the same time (using Burp Intruder, Turbo Intruder, custom scripts).</li>
+  <li>Target endpoints that change account balance, points, coupons, stock, etc.</li>
+</ul>
+
+<h2>Key Signs of a Race Condition</h2>
+<ul>
+  <li>Same action allowed multiple times in parallel.</li>
+  <li>Inconsistent responses.</li>
+  <li>Balance/points changing incorrectly.</li>
+</ul>
+
+<h2>Defence</h2>
+<ul>
+  <li>Use proper locking in backend logic.</li>
+  <li>Perform atomic operations at database level.</li>
+  <li>Validate state again after the operation (e.g., check if coupon already used).</li>
+</ul>
+
+<footer><p>// Written for TheCyberAryan</p></footer>
+</body>
+</html>
