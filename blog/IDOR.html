@@ -1,51 +1,289 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Race Condition Vulnerabilities — TheCyberAryan</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body{background:#050711;color:#e9f0ff;font-family:Inter,sans-serif;line-height:1.7;padding:32px}
-    h1,h2{color:#4df3ff}
-    pre{background:#0a0f1c;padding:14px;border-radius:6px;overflow-x:auto}
-  </style>
+<meta charset="utf-8" />
+<title>IDOR / BOLA Vulnerability — TheCyberAryan</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="description" content="A sarcastic yet highly informative guide to IDOR/BOLA vulnerabilities — with examples, payloads, and real-world cases." />
+
+<style>
+  body {
+    background: #050711;
+    color: #e8edff;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.8;
+    padding: 40px 16px;
+  }
+  h1, h2 {
+    color: #4df3ff;
+    font-weight: 700;
+  }
+  h3 {
+    color: #ff6bd6;
+  }
+  p {
+    color: #d8e2ff;
+  }
+  code {
+    background: #0c1020;
+    padding: 3px 6px;
+    border-radius: 4px;
+    color: #c6d4ff;
+    font-size: 0.95rem;
+  }
+  pre {
+    background: #0c1020;
+    padding: 14px;
+    border-radius: 6px;
+    overflow-x: auto;
+    color: #cbd5f5;
+    border-left: 3px solid #4df3ff;
+  }
+  .box {
+    background: #0a0f1c;
+    padding: 16px;
+    border-left: 3px solid #4df3ff;
+    margin: 20px 0;
+    border-radius: 6px;
+  }
+  .danger {
+    border-color: #ff6b6b;
+  }
+  ul { margin-left: 20px; }
+  li { margin-bottom: 8px; }
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #222a46;
+    color: #94a3b8;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  .highlight {
+    color: #4df3ff;
+    font-weight: 600;
+  }
+</style>
+
 </head>
 <body>
 
-<h1>Race Condition Vulnerabilities — When Timing Becomes a Bug</h1>
+<h1>🔓 IDOR / BOLA — The Vulnerability That Says “Access Granted… To Everyone”</h1>
 
-<p><strong>Race conditions</strong> happen when an application performs multiple operations in parallel and doesn’t handle them safely.</p>
+<p>
+Imagine a restaurant where the waiter doesn’t care who you are — you say “I’m table 12,” and he brings you table 12’s biryani, bill, OTP, and maybe even their passport.  
+<br><br>
+Congratulations.  
+<br>
+You’ve just experienced the spirit of <strong>IDOR</strong>.
+</p>
 
-<p>In simple words:</p>
-<p><em>“If I send the same request many times very fast, the system gets confused and gives me extra benefits.”</em></p>
+<div class="box">
+<b>IDOR (Insecure Direct Object Reference)</b> means:  
+<br>
+<strong>“If you guess someone else's ID, congratulations, you are them now.”</strong>
+</div>
 
-<h2>Real-World Examples</h2>
+<p>
+In API terms, this is called <strong>BOLA (Broken Object Level Authorization)</strong>, because cybersecurity people like fancy names for simple disasters.
+</p>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🥲 Why IDOR Exists (Simple & Sarcastic Explanation)</h2>
+
+<p>
+Because developers think:
+</p>
+
+<div class="box">
+“Who would ever change the ID? Users are honest people.”
+</div>
+
+<p>
+My brother in Christ, the website is on the <em>internet</em>.  
+Of course someone will change the ID.
+</p>
+
+<p>
+And so they write code like this:
+</p>
+
+<pre><code>GET /user/profile?id=123</code></pre>
+
+<p>
+And assume:
+</p>
+
+<p><strong>“This is enough security.”</strong></p>
+
+<p>
+Meanwhile you (the hacker), smiling like a villain:
+</p>
+
+<pre><code>GET /user/profile?id=124</code></pre>
+
+<p>
+Boom.  
+You now have access to someone else’s:
+</p>
+
 <ul>
-  <li>Buying the same coupon multiple times even though it should be “one per user”.</li>
-  <li>Transferring more money than balance using parallel requests.</li>
-  <li>Creating multiple accounts with a single-use invite code.</li>
+  <li>profile</li>
+  <li>address</li>
+  <li>phone</li>
+  <li>orders</li>
+  <li>maybe their entire life story</li>
 </ul>
 
-<h2>How Attackers Exploit It</h2>
+<h3>IDOR is literally the vulnerability version of:  
+<br><em>“If you know the secret number… you’re in.”</em></h3>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>📍 Where IDOR Usually Hides (This part is important!)</h2>
+
+<p>Whenever you see numerical IDs, your hacker senses should start tingling:</p>
+
+<pre><code>/order?id=120  
+/user?id=88  
+/invoice/1022  
+/cart/56  
+/ticket?user=12  
+/api/v1/user/202</code></pre>
+
+<p>Anywhere numbers appear → IDOR says “Hello.”</p>
+
+<h3>Top Hotspots:</h3>
 <ul>
-  <li>Send 10–100 parallel requests at the same time (using Burp Intruder, Turbo Intruder, custom scripts).</li>
-  <li>Target endpoints that change account balance, points, coupons, stock, etc.</li>
+  <li>User profile endpoints</li>
+  <li>Order history</li>
+  <li>Support tickets</li>
+  <li>Wallet / reward points</li>
+  <li>File downloads</li>
+  <li>Anything starting with <code>/api/v1/</code> (because devs trust APIs too much)</li>
 </ul>
 
-<h2>Key Signs of a Race Condition</h2>
+<div class="box danger">
+<b>Fun Fact:</b>  
+A huge percent of bug bounty payouts are from IDORs.  
+Because companies forget authorization faster than students forget passwords.
+</div>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🧪 Realistic Example (Super Easy to Understand)</h2>
+
+<h3>Suppose you are logged in as:</h3>
+
+<pre><code>GET /api/user/details?id=2001</code></pre>
+
+<p>You see your own data. Cute.</p>
+
+<h3>Now change it to:</h3>
+
+<pre><code>GET /api/user/details?id=2002</code></pre>
+
+<p>
+If you now see someone else’s data…
+</p>
+
+<div class="box danger">
+🎉 <strong>Congrats! That's a full-blown IDOR.</strong>  
+You now know their name, email, phone — maybe even saved card details.
+</div>
+
+<p>Just don’t go to jail.</p>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>📥 IDOR in File Downloads (People Always Forget This)</h2>
+
+<pre><code>GET /download?file=invoice_102.pdf</code></pre>
+<p>Now try:</p>
+<pre><code>/download?file=invoice_103.pdf</code></pre>
+
+<p>You just stole someone’s invoice.  
+Try it for reports, tickets, medical PDFs — developers love exposing files.</p>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🔁 IDOR + PUT/PATCH/DELETE = Pure Disaster</h2>
+
+<p>Sometimes it's not just reading data…  
+You can modify or delete it. 🤡</p>
+
+<pre><code>PATCH /api/user/2002
+{
+  "email": "hacked@evil.com"
+}</code></pre>
+
+<p>If the server says:</p>
+
+<div class="box">"Updated successfully"</div>
+
+<p>…that’s not a vulnerability anymore.  
+That’s a résumé-worthy achievement.</p>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🤖 Using Burp to Mass Detect IDOR (Fun & Efficient)</h2>
+
+<p>In Burp Intruder:</p>
 <ul>
-  <li>Same action allowed multiple times in parallel.</li>
-  <li>Inconsistent responses.</li>
-  <li>Balance/points changing incorrectly.</li>
+  <li>Target the ID parameter</li>
+  <li>Payload = numbers from 1 to 500</li>
+  <li>Send</li>
+  <li>Look for different response sizes</li>
 </ul>
 
-<h2>Defence</h2>
+<p>If some responses look "juicy" → IDOR detected.</p>
+
+<div class="box">
+<strong>Tip:</strong> Response length ≠ always different.  
+Sometimes look for keywords: <code>"email"</code>, <code>"role"</code>, <code>"address"</code>.
+</div>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🔐 How Developers Can Fix IDOR (Spoiler: They Won’t)</h2>
+
+<p>But let’s pretend they will:</p>
+
 <ul>
-  <li>Use proper locking in backend logic.</li>
-  <li>Perform atomic operations at database level.</li>
-  <li>Validate state again after the operation (e.g., check if coupon already used).</li>
+  <li>Validate ownership on server-side</li>
+  <li>Never trust client-provided IDs</li>
+  <li>Use session-based lookups (not user-given IDs)</li>
+  <li>Use UUIDs instead of predictable numbers</li>
+  <li>Check permission EVERY time an object is accessed</li>
 </ul>
 
-<footer><p>// Written for TheCyberAryan</p></footer>
+<p>But again… this is the internet.  
+So we both know you’ll keep finding IDORs for years. 😎</p>
+
+<hr style="border-color:#1a2238;margin:30px 0">
+
+<h2>🎯 Final Thoughts</h2>
+
+<p>
+IDOR is one of those vulnerabilities that is:
+</p>
+
+<ul>
+  <li>easy to find</li>
+  <li>simple to exploit</li>
+  <li>highly rewarding in bug bounties</li>
+  <li>and absolutely hilarious when you realize how simple the fix was</li>
+</ul>
+
+<p>
+If hacking was PUBG, IDOR is the “DP-28” —  
+easy recoil, massive damage.
+</p>
+
+<footer>
+  <p>// Written for <strong>TheCyberAryan</strong> — Hack responsibly.</p>
+</footer>
+
 </body>
 </html>
