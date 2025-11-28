@@ -1,158 +1,276 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Naabu — Zero to Hero Guide — The Cyber Aryan</title>
-<meta name="author" content="Aryan Pareek — The Cyber Aryan">
-<meta name="description" content="Complete Zero-to-Hero guide on Naabu for fast port scanning, recon pipelines, and bug bounty hunting."/>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#0b0710;--muted:#bfc8e6;--accent:#00e5ff;--accent2:#b27bff;}
-body{margin:0;font-family:Inter,system-ui;background:linear-gradient(180deg,rgba(26,0,43,0.92),rgba(0,28,42,0.95)),var(--bg);color:var(--muted);-webkit-font-smoothing:antialiased;}
-.container{max-width:900px;margin:36px auto;padding:28px;}
-.post-card{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0));border-radius:12px;padding:28px;border:1px solid rgba(180,120,255,0.05);box-shadow:0 12px 40px rgba(3,3,6,0.6)}
-header .tag{font-family:Orbitron,monospace;color:#e9f7ff;letter-spacing:.6px;font-size:.9rem}
-h1{font-family:Orbitron,sans-serif;color:#ecf3ff;margin:8px 0 6px;text-shadow:0 0 12px rgba(0,229,255,0.08)}
-h2{font-family:Orbitron,sans-serif;color:#eaf4ff;margin:22px 0 10px;text-shadow:0 0 6px rgba(0,229,255,0.06)}
-p,li{color:var(--muted);line-height:1.65;font-size:1rem}
-pre{background:rgba(0,0,0,0.35);padding:12px;border-radius:8px;overflow:auto;border:1px solid rgba(255,255,255,0.03);color:#dff;white-space:pre;font-family:monospace}
-code{font-size:0.95rem;font-family:monospace}
-ul{margin:0 0 12px 1rem}
-.lead{line-height:1.7;margin-bottom:18px}
-.note{background:rgba(255,255,255,0.02);border-left:4px solid rgba(0,229,255,0.18);padding:10px 12px;border-radius:6px;margin:14px 0}
-.cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
-.btn{background:linear-gradient(90deg,var(--accent2),var(--accent));padding:10px 14px;border-radius:10px;color:#061118;text-decoration:none;font-weight:700}
-footer{margin-top:22px;color:#aabbd6;font-size:0.9rem}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Naabu — Zero to Hero Guide — The Cyber Aryan</title>
+  <meta name="author" content="Aryan Pareek — The Cyber Aryan">
+  <meta name="description" content="Complete Zero-to-Hero guide on Naabu for fast port scanning, recon pipelines, and bug bounty hunting.">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+  :root {
+    --bg: #030515;
+    --panel: #090d26;
+    --primary: #ff4d9c; 
+    --secondary: #7d5dff;
+    --accent: #4df3ff;
+    --text: #e7ebff;
+    --muted: #9ca8d9;
+    --font-mono: 'Share Tech Mono', monospace;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 40px 18px 50px;
+    background:
+      radial-gradient(circle at top, rgba(255,77,156,0.18), transparent 55%),
+      radial-gradient(circle at bottom right, rgba(77,243,255,0.12), transparent 55%),
+      var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.75;
+  }
+
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    background: linear-gradient(145deg, rgba(10,13,40,0.96), rgba(4,7,26,0.98));
+    border-radius: 18px;
+    border: 1px solid rgba(255,77,156,0.3);
+    padding: 32px 24px;
+    box-shadow:
+      0 0 0 1px rgba(20,24,56,0.9),
+      0 24px 60px rgba(0,0,0,0.88);
+  }
+
+  header {
+    border-bottom: 1px solid rgba(148,163,214,0.25);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 10px 0 6px;
+    font-size: 1.9rem;
+    font-family: var(--font-mono);
+    color: var(--primary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  h2 {
+    margin-top: 32px;
+    margin-bottom: 12px;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin-top: 22px;
+    margin-bottom: 6px;
+    font-family: var(--font-mono);
+    color: var(--secondary);
+    font-size: 1.05rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  p { margin: 8px 0 12px; font-size: 1rem; color: var(--text); }
+
+  .lead {
+    font-size: 1.08rem;
+    color: var(--text);
+    margin-bottom: 22px;
+  }
+
+  code {
+    background: rgba(15,23,42,0.95);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(148,163,214,0.35);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+  }
+
+  pre {
+    background: radial-gradient(circle at top left, rgba(255,77,156,0.12), transparent 55%), #050820;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(148,163,214,0.4);
+    margin: 12px 0 20px;
+    overflow-x: auto;
+    box-shadow: 0 14px 32px rgba(3,4,18,0.9);
+  }
+
+  pre code {
+    background: transparent;
+    border: none;
+    color: #e8ebff;
+    font-size: 0.9rem;
+  }
+
+  ul, ol {
+    margin-left: 20px;
+    margin-bottom: 16px;
+  }
+
+  li {
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .note {
+    background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(10,10,30,0.98));
+    border: 1px solid rgba(77,243,255,0.38);
+    border-radius: 12px;
+    padding: 14px;
+    margin: 22px 0;
+  }
+
+  .cta {
+    margin-top: 26px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-family: var(--font-mono);
+    color: var(--text);
+    border: 1px solid rgba(255,77,156,0.35);
+    background: radial-gradient(circle at top left, rgba(255,77,156,0.25), transparent 55%);
+    text-decoration: none;
+    transition: 0.25s ease;
+  }
+
+  .btn:hover {
+    box-shadow: 0 0 14px rgba(255,77,156,0.35);
+    transform: translateY(-3px);
+  }
+
+  footer {
+    margin-top: 36px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(148,163,214,0.28);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    letter-spacing: 0.16em;
+  }
+
+  </style>
 </head>
+
 <body>
-<div class="container">
-<article class="post-card">
-<header>
-  <div class="tag">// THECYBERARYAN — Research</div>
-  <h1>Naabu — Zero to Hero (High-Speed Port Scanning for Recon & Pentesting)</h1>
-  <div class="meta" style="color:#9fb7d8;font-size:0.9rem;margin-bottom:18px;">Author: Aryan Pareek • Date: 2025-11-17 • Category: Recon / Port Scanning</div>
-</header>
+<div class="wrap">
+  <header>
+    <div class="tag">// THECYBERARYAN — RESEARCH</div>
+    <h1>Naabu — Zero to Hero Guide</h1>
+    <div class="meta">Author: Aryan Pareek • 2025-11-17 • Recon / Port Scanning</div>
+  </header>
 
-<p class="lead">
-Naabu is a <strong>blazing-fast port scanner</strong> developed by ProjectDiscovery. It is designed to find open ports across large attack surfaces with speed, accuracy, and stealth. 
-This Zero-to-Hero guide covers installation, beginner commands, advanced usage, stealth mode, evasion, automation, and real bug bounty workflows.
-</p>
+  <p class="lead">
+    Naabu is a <strong>high-speed SYN-based port scanner</strong> built by ProjectDiscovery.  
+    It’s used by bug bounty hunters and pentesters to rapidly identify open ports across huge attack surfaces.
+  </p>
 
-<h2>🔥 What is Naabu?</h2>
-<p>Naabu performs asynchronous TCP SYN scans to detect open ports quickly and reliably. It’s commonly chained with Subfinder, Httpx, Dirsearch, and Nuclei in modern recon pipelines.</p>
+  <h2>What is Naabu?</h2>
+  <p>Naabu sends asynchronous SYN packets to detect open ports extremely fast. Perfect for recon pipelines:</p>
 
-<pre><code>Input: Domains / IP ranges
-Output: Open ports + services
-</code></pre>
+  <pre><code>Input → domains / hosts  
+Output → open ports</code></pre>
 
-<h2>⚙️ Installation</h2>
-<pre><code>sudo apt install naabu
+  <h2>Installation</h2>
+  <pre><code>sudo apt install naabu
 # or
-curl -s https://api.projectdiscovery.io/tools/install | sh
-</code></pre>
+curl -s https://api.projectdiscovery.io/tools/install | sh</code></pre>
 
-<h2>🔰 Basic Usage</h2>
-<h3>Scan a domain</h3>
-<pre><code>naabu -host example.com</code></pre>
+  <h2>Basic Usage</h2>
+  <h3>Scan a domain</h3>
+  <pre><code>naabu -host example.com</code></pre>
 
-<h3>Scan an IP</h3>
-<pre><code>naabu -host 192.168.1.1</code></pre>
+  <h3>Scan an IP</h3>
+  <pre><code>naabu -host 192.168.1.1</code></pre>
 
-<h3>Scan a list of domains</h3>
-<pre><code>naabu -list hosts.txt -o ports.txt</code></pre>
+  <h3>Scan a list</h3>
+  <pre><code>naabu -list hosts.txt -o ports.txt</code></pre>
 
-<h2>🟣 Port Selection</h2>
-<h3>Scan top 100 ports</h3>
-<pre><code>naabu -host example.com -top-ports 100</code></pre>
+  <h2>Port Selection</h2>
+  <pre><code>naabu -top-ports 100
+naabu -p -             # all ports
+naabu -p 80,443,22     # custom</code></pre>
 
-<h3>Scan all ports (1–65535)</h3>
-<pre><code>naabu -host example.com -p -</code></pre>
+  <h2>Speed & Performance</h2>
+  <pre><code>naabu -rate 50000</code></pre>
 
-<h3>Scan custom ports</h3>
-<pre><code>naabu -host example.com -p 80,443,21,22,8080</code></pre>
+  <h2>Stealth & Evasion</h2>
+  <pre><code>naabu -s        # SYN scan
+naabu -connect  # TCP connect  
+naabu -f        # fragmented packets</code></pre>
 
-<h2>⚡ Speed & Performance</h2>
-<h3>Increase speed (threads)</h3>
-<pre><code>naabu -host example.com -rate 50000</code></pre>
+  <h2>Service Detection (Nmap)</h2>
+  <pre><code>naabu -nmap
+naabu -nmap-cli "-sV -sC"</code></pre>
 
-<h3>Avoid packet drops</h3>
-<pre><code>sudo sysctl -w net.ipv4.ping_group_range='0 2147483647'</code></pre>
+  <h2>Real Recon Workflow</h2>
+  <pre><code>subfinder -d example.com -o subs.txt
+httpx -l subs.txt -o alive.txt
+naabu -list alive.txt -p - -o open_ports.txt
+nmap -sV -sC -iL open_ports.txt</code></pre>
 
-<h2>🛡️ Stealth & Firewall Evasion</h2>
-<h3>Use SYN scan (default)</h3>
-<pre><code>naabu -host example.com -s</code></pre>
+  <div class="note">
+    <b>Pro Tip:</b> Naabu + Nmap = elite infrastructure recon combo.
+  </div>
 
-<h3>Use connect scan (bypasses some firewalls)</h3>
-<pre><code>naabu -host example.com -connect</code></pre>
+  <h2>Cheat Sheet</h2>
+  <pre><code>Scan host:      naabu -host domain.com
+Scan list:      naabu -list hosts.txt
+Top ports:      -top-ports 100
+All ports:      -p -
+Stealth:        -s
+Firewall bypass -connect
+Run Nmap:       -nmap</code></pre>
 
-<h3>Use fragmented packets</h3>
-<pre><code>naabu -host example.com -f</code></pre>
+  <h2>Conclusion</h2>
+  <p>
+    Naabu is one of the fastest and most reliable scanners in modern recon.
+    When chained with Subfinder, Httpx, Nmap, Dirsearch, and Nuclei, it forms an unstoppable pipeline.
+  </p>
 
-<h2>🔒 Excluding Ports / Protocols</h2>
-<pre><code>naabu -host example.com -exclude-ports 80,443</code></pre>
+  <div class="cta">
+    <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Naabu%20Help">Contact Securely</a>
+    <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">View Tools</a>
+  </div>
 
-<h2>🔍 Service detection (integrated with Nmap)</h2>
-<pre><code>naabu -host example.com -nmap</code></pre>
-
-<h3>Run Nmap automatically after detecting open ports</h3>
-<pre><code>naabu -host example.com -nmap-cli "-sV -sC"</code></pre>
-
-<h2>📡 Host Discovery</h2>
-<pre><code>naabu -host example.com -p 80,443,22 -host-discovery</code></pre>
-
-<h2>🧪 Real Recon Workflow</h2>
-<h3>1. Subdomains</h3>
-<pre><code>subfinder -d example.com -o subs.txt</code></pre>
-
-<h3>2. Filter alive hosts</h3>
-<pre><code>httpx -l subs.txt -o alive.txt</code></pre>
-
-<h3>3. Find open ports with Naabu</h3>
-<pre><code>naabu -list alive.txt -p - -o open_ports.txt</code></pre>
-
-<h3>4. Run Nmap for deep service detection</h3>
-<pre><code>nmap -sV -sC -iL open_ports.txt -oN nmap_results.txt</code></pre>
-
-<h3>5. Directory discovery</h3>
-<pre><code>while read url; do
-  python3 dirsearch.py -u $url -e php,js,txt -r -t 50
-done < alive.txt</code></pre>
-
-<h3>6. Vulnerability scanning</h3>
-<pre><code>nuclei -l alive.txt -severity medium,high,critical -o nuclei_results.txt</code></pre>
-
-<div class="note">
-<b>Pro Tip:</b> Naabu + Nmap is the elite combination for infrastructure-level recon.
-</div>
-
-<h2>📚 Cheat Sheet</h2>
-<pre><code>Scan host:              naabu -host domain.com
-Scan list:              naabu -list hosts.txt
-Top ports:              -top-ports 100
-All ports:              -p -
-Custom ports:           -p 80,443,22
-Stealth mode:           -s
-Firewall bypass:        -connect
-Run Nmap:               -nmap
-Rate limit:             -rate 50000
-Output:                 -o file.txt
-</code></pre>
-
-<h2>Conclusion</h2>
-<p>Naabu is a high-speed, modern port scanner crafted for bug bounty recon and pentesting. When combined with Httpx, Nmap, Subfinder, Dirsearch, and Nuclei, it forms one of the most powerful recon pipelines in the world. Master the flags, control the rate, and use Naabu responsibly within scope.</p>
-
-<div class="cta">
-  <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Naabu%20Help">Contact securely (email)</a>
-  <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">View tools & scripts</a>
-</div>
-
-<footer>
-  <p>© 2025 Aryan Pareek — The Cyber Aryan. Built for legal recon, professional pentesting, and automation pipelines.</p>
-</footer>
-
-</article>
+  <footer>
+    © 2025 THECYBERARYAN — LEGAL RECON ONLY.
+  </footer>
 </div>
 </body>
 </html>
