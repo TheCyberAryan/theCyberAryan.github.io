@@ -1,188 +1,1339 @@
+
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nmap — Zero to Hero Guide — The Cyber Aryan</title>
-  <meta name="author" content="Aryan Pareek — The Cyber Aryan">
-  <meta name="author" content="Aryan Pareek — The Cyber Aryan">
-  <meta name="description" content="A complete Zero-to-Hero guide on Nmap for bug bounty, pentesting, recon, scanning, and advanced enumeration."/>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>NMAP: The Hacker's Survival Guide — TheCyberAryan</title>
 
-  <style>
-    :root{
-      --bg:#0b0710; --muted:#bfc8e6; --accent:#00e5ff; --accent2:#b27bff;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; font-family:Inter,system-ui;
-      background: linear-gradient(180deg, rgba(26,0,43,0.92), rgba(0,28,42,0.95)), var(--bg);
-      color:var(--muted); -webkit-font-smoothing:antialiased;
-    }
-    .container{max-width:900px;margin:36px auto;padding:28px;}
-    .post-card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0));
-      border-radius:12px; padding:28px;
-      border:1px solid rgba(180,120,255,0.05);
-      box-shadow:0 12px 40px rgba(3,3,6,0.6);
-    }
-    header .tag{
-      font-family:Orbitron,monospace;color:#e9f7ff;
-      letter-spacing:.6px; font-size:.9rem
-    }
-    h1{
-      font-family:Orbitron, sans-serif; color:#ecf3ff;
-      margin:8px 0 6px;
-      text-shadow:0 0 12px rgba(0,229,255,0.08)
-    }
-    h2{
-      font-family:Orbitron, sans-serif; color:#eaf4ff;
-      margin:22px 0 10px;
-      text-shadow:0 0 6px rgba(0,229,255,0.06)
-    }
-    p, li{color:var(--muted); line-height:1.65; font-size:1rem}
-    pre{
-      background:rgba(0,0,0,0.35); padding:12px; border-radius:8px;
-      overflow:auto; border:1px solid rgba(255,255,255,0.03);
-      color:#dff; white-space:pre; font-family:monospace;
-    }
-    code{font-size:0.95rem; font-family:monospace}
-    ul{margin:0 0 12px 1rem}
-    .lead{line-height:1.7;margin-bottom:18px}
-    .note{
-      background:rgba(255,255,255,0.02);
-      border-left:4px solid rgba(0,229,255,0.18);
-      padding:10px 12px; border-radius:6px; margin:14px 0
-    }
-    .cta{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
-    .btn{
-      background:linear-gradient(90deg,var(--accent2),var(--accent));
-      padding:10px 14px; border-radius:10px;
-      color:#061118; text-decoration:none; font-weight:700
-    }
-    footer{margin-top:22px; color:#aabbd6; font-size:0.9rem}
-  </style>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #030515;
+  --panel: #090d26;
+  --primary: #ff4d9c;
+  --secondary: #7d5dff;
+  --accent: #4df3ff;
+  --text: #e7ebff;
+  --muted: #9ca8d9;
+  --font-mono:'Share Tech Mono', monospace;
+  --font-body:'Inter', system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin:0;
+  padding:40px 14px;
+  background:
+    radial-gradient(circle at top, rgba(255,77,156,0.18), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(77,243,255,0.14), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.75;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 22px;
+}
+
+@media (max-width: 900px) {
+  .page { display:block; }
+}
+
+.toc-box {
+  background: linear-gradient(145deg, rgba(10,13,40,0.96), rgba(4,7,26,0.98));
+  border-radius: 14px;
+  border: 1px solid rgba(77,243,255,0.3);
+  padding: 20px;
+  position: sticky;
+  top: 20px;
+}
+
+.toc-title {
+  font-family:var(--font-mono);
+  font-size:0.78rem;
+  color:var(--accent);
+  text-transform:uppercase;
+  letter-spacing:0.18em;
+  margin-bottom:12px;
+}
+
+.toc-box a {
+  color:var(--muted);
+  text-decoration:none;
+  font-size:0.89rem;
+  display:block;
+  padding:5px 4px;
+  border-radius:6px;
+}
+
+.toc-box a:hover {
+  color:var(--accent);
+  background:rgba(77,243,255,0.10);
+}
+
+.wrap {
+  background: linear-gradient(145deg, rgba(10,13,40,0.98), rgba(4,7,26,0.98));
+  border-radius: 18px;
+  border: 1px solid rgba(255,77,156,0.3);
+  padding: 32px 26px;
+}
+
+.wrap h1, .wrap h2, .wrap h3 {
+  font-family:var(--font-mono);
+  text-transform:uppercase;
+}
+
+.wrap h1 {
+  color:var(--primary);
+  font-size:2rem;
+  letter-spacing:0.08em;
+}
+.wrap h2 {
+  color:var(--accent);
+  font-size:1.35rem;
+  margin-top:32px;
+}
+.wrap h3 {
+  color:var(--secondary);
+  font-size:1.05rem;
+  margin-top:20px;
+}
+
+pre {
+  background: linear-gradient(145deg, rgba(255,77,156,0.10), transparent 65%), #050820;
+  border: 1px solid rgba(148,163,214,0.35);
+  padding:14px;
+  overflow-x:auto;
+  border-radius:10px;
+}
+
+pre code {
+  color:#e5e7ff;
+  background:transparent;
+}
+
+code {
+  background:#0b0f2e;
+  padding:2px 6px;
+  border-radius:4px;
+  color:var(--accent);
+  border:1px solid rgba(148,163,214,0.4);
+}
+
+footer {
+  margin-top:40px;
+  padding-top:20px;
+  text-align:center;
+  font-family:var(--font-mono);
+  font-size:.8rem;
+  color:var(--muted);
+  letter-spacing:.18em;
+  border-top:1px solid rgba(148,163,214,0.28);
+}
+</style>
+
 </head>
-<body>
-  <div class="container">
-    <article class="post-card">
+<body id="top">
+  <div class="page">
+    <aside class="toc-box">
+      <div class="toc-title">// Contents</div>
+      <a href="#nmap-the-hacker-s-survival-guide" style="margin-left:0px">NMAP: The Hacker's Survival Guide</a>
+<a href="#complete-network-scanning-cyber-security-auditing-guide-beginner-to-advanced" style="margin-left:12px">Complete Network Scanning & Cyber Security Auditing Guide (Beginner to Advanced)</a>
+<a href="#table-of-contents" style="margin-left:12px">TABLE OF CONTENTS</a>
+<a href="#what-is-nmap" style="margin-left:12px">WHAT IS NMAP?</a>
+<a href="#key-features" style="margin-left:24px">Key Features</a>
+<a href="#why-it-matters" style="margin-left:24px">Why It Matters</a>
+<a href="#installation-setup" style="margin-left:12px">INSTALLATION & SETUP</a>
+<a href="#check-your-system-first" style="margin-left:24px">Check Your System First</a>
+<a href="#linux-ubuntu-debian" style="margin-left:24px">Linux (Ubuntu/Debian)</a>
+<a href="#linux-fedora-centos-rhel" style="margin-left:24px">Linux (Fedora/CentOS/RHEL)</a>
+<a href="#linux-arch" style="margin-left:24px">Linux (Arch)</a>
+<a href="#macos" style="margin-left:24px">macOS</a>
+<a href="#windows" style="margin-left:24px">Windows</a>
+<a href="#from-source-advanced" style="margin-left:24px">From Source (Advanced)</a>
+<a href="#basic-concepts" style="margin-left:12px">BASIC CONCEPTS</a>
+<a href="#understanding-ports" style="margin-left:24px">Understanding Ports</a>
+<a href="#port-states-in-nmap" style="margin-left:24px">Port States in Nmap</a>
+<a href="#tcp-three-way-handshake" style="margin-left:24px">TCP Three-Way Handshake</a>
+<a href="#common-scan-types" style="margin-left:24px">Common Scan Types</a>
+<a href="#beginner-commands-with-examples" style="margin-left:12px">BEGINNER COMMANDS WITH EXAMPLES</a>
+<a href="#is-nmap-installed" style="margin-left:24px">Is Nmap Installed?</a>
+<a href="#command-1-basic-port-scan" style="margin-left:24px">Command 1: Basic Port Scan</a>
+<a href="#command-2-ping-scan-who-s-alive" style="margin-left:24px">Command 2: Ping Scan (Who's Alive?)</a>
+<a href="#command-3-scan-specific-ports" style="margin-left:24px">Command 3: Scan Specific Ports</a>
+<a href="#command-4-service-detection" style="margin-left:24px">Command 4: Service Detection</a>
+<a href="#command-5-os-detection" style="margin-left:24px">Command 5: OS Detection</a>
+<a href="#command-6-aggressive-scan-all-in-one" style="margin-left:24px">Command 6: Aggressive Scan (All-In-One)</a>
+<a href="#command-7-fast-scan-quick-overview" style="margin-left:24px">Command 7: Fast Scan (Quick Overview)</a>
+<a href="#command-8-no-ping-when-icmp-is-blocked" style="margin-left:24px">Command 8: No Ping (When ICMP is Blocked)</a>
+<a href="#command-9-verbose-output-see-what-s-happening" style="margin-left:24px">Command 9: Verbose Output (See What's Happening)</a>
+<a href="#command-10-save-results-to-a-file" style="margin-left:24px">Command 10: Save Results to a File</a>
+<a href="#python-nmap-integration" style="margin-left:12px">PYTHON + NMAP INTEGRATION</a>
+<a href="#why-python-nmap" style="margin-left:24px">Why Python + Nmap?</a>
+<a href="#snippet-1-basic-nmap-execution" style="margin-left:24px">Snippet 1: Basic Nmap Execution</a>
+<a href="#snippet-2-scan-specific-ports" style="margin-left:24px">Snippet 2: Scan Specific Ports</a>
+<a href="#snippet-3-parse-open-ports-from-output" style="margin-left:24px">Snippet 3: Parse Open Ports from Output</a>
+<a href="#snippet-4-scan-a-subnet-list-results" style="margin-left:24px">Snippet 4: Scan a Subnet & List Results</a>
+<a href="#snippet-5-save-results-to-csv" style="margin-left:24px">Snippet 5: Save Results to CSV</a>
+<a href="#snippet-6-check-for-specific-ports-being-open" style="margin-left:24px">Snippet 6: Check for Specific Ports Being Open</a>
+<a href="#snippet-7-compare-two-scans" style="margin-left:24px">Snippet 7: Compare Two Scans</a>
+<a href="#snippet-8-error-handling-best-practices" style="margin-left:24px">Snippet 8: Error Handling Best Practices</a>
+<a href="#snippet-9-beginner-lab-checklist-script" style="margin-left:24px">Snippet 9: Beginner Lab Checklist Script</a>
+<a href="#intermediate-techniques" style="margin-left:12px">INTERMEDIATE TECHNIQUES</a>
+<a href="#scanning-multiple-targets" style="margin-left:24px">Scanning Multiple Targets</a>
+<a href="#timing-templates" style="margin-left:24px">Timing Templates</a>
+<a href="#excluding-hosts-ports" style="margin-left:24px">Excluding Hosts/Ports</a>
+<a href="#firewall-evasion" style="margin-left:24px">Firewall Evasion</a>
+<a href="#advanced-scanning-methods" style="margin-left:12px">ADVANCED SCANNING METHODS</a>
+<a href="#different-scan-types" style="margin-left:24px">Different Scan Types</a>
+<a href="#performance-tuning" style="margin-left:24px">Performance Tuning</a>
+<a href="#nse-scripting-engine" style="margin-left:12px">NSE SCRIPTING ENGINE</a>
+<a href="#using-nse-scripts" style="margin-left:24px">Using NSE Scripts</a>
+<a href="#popular-nse-scripts" style="margin-left:24px">Popular NSE Scripts</a>
+<a href="#update-nse-scripts" style="margin-left:24px">Update NSE Scripts</a>
+<a href="#output-formats-analysis" style="margin-left:12px">OUTPUT FORMATS & ANALYSIS</a>
+<a href="#save-scan-results" style="margin-left:24px">Save Scan Results</a>
+<a href="#parse-xml-results-python" style="margin-left:24px">Parse XML Results (Python)</a>
+<a href="#convert-to-html" style="margin-left:24px">Convert to HTML</a>
+<a href="#practical-labs" style="margin-left:12px">PRACTICAL LABS</a>
+<a href="#lab-1-network-discovery" style="margin-left:24px">Lab 1: Network Discovery</a>
+<a href="#lab-2-port-scanning" style="margin-left:24px">Lab 2: Port Scanning</a>
+<a href="#lab-3-service-enumeration" style="margin-left:24px">Lab 3: Service Enumeration</a>
+<a href="#lab-4-vulnerability-assessment" style="margin-left:24px">Lab 4: Vulnerability Assessment</a>
+<a href="#error-handling" style="margin-left:12px">ERROR HANDLING</a>
+<a href="#common-errors-solutions" style="margin-left:24px">Common Errors & Solutions</a>
+<a href="#debug-mode" style="margin-left:24px">Debug Mode</a>
+<a href="#timeout-issues" style="margin-left:24px">Timeout Issues</a>
+<a href="#best-practices" style="margin-left:12px">BEST PRACTICES</a>
+<a href="#1-always-get-permission" style="margin-left:24px">1. Always Get Permission</a>
+<a href="#2-respect-target-systems" style="margin-left:24px">2. Respect Target Systems</a>
+<a href="#3-reconnaissance-workflow" style="margin-left:24px">3. Reconnaissance Workflow</a>
+<a href="#4-document-everything" style="margin-left:24px">4. Document Everything</a>
+<a href="#5-secure-your-results" style="margin-left:24px">5. Secure Your Results</a>
+<a href="#6-performance-for-large-networks" style="margin-left:24px">6. Performance for Large Networks</a>
+<a href="#quick-reference-common-commands" style="margin-left:12px">QUICK REFERENCE: Common Commands</a>
+<a href="#summary-next-steps" style="margin-left:12px">SUMMARY & NEXT STEPS</a>
+<a href="#you-now-know" style="margin-left:24px">You Now Know:</a>
+<a href="#next-steps" style="margin-left:24px">Next Steps:</a>
+<a href="#ethical-hacking-mindset" style="margin-left:24px">Ethical Hacking Mindset:</a>
+<a href="#resources" style="margin-left:12px">RESOURCES</a>
+<a href="#official-documentation" style="margin-left:24px">Official Documentation</a>
+<a href="#learning-platforms" style="margin-left:24px">Learning Platforms</a>
+<a href="#community" style="margin-left:24px">Community</a>
 
-      <header>
-        <div class="tag">// THECYBERARYAN — Research</div>
-        <h1>Nmap — Zero to Hero (Elite Pentesting & Recon Guide)</h1>
-        <div class="meta" style="color:#9fb7d8;font-size:0.9rem;margin-bottom:18px;">Author: Aryan Pareek • Date: 2025-11-17 • Category: Scanning & Enumeration</div>
-      </header>
+    </aside>
 
-      <p class="lead">
-        Nmap is the <strong>king of network scanning</strong>. It discovers hosts, services, ports, versions, operating systems, vulnerabilities, misconfigurations and network fingerprints. This guide takes you from <strong>absolute beginner to expert</strong> with real commands, examples, workflows, and bug-bounty ready scans.
-      </p>
+    <div class="wrap">
+      <h1 id="nmap-the-hacker-s-survival-guide">NMAP: The Hacker's Survival Guide</h1>
+<h2 id="complete-network-scanning-cyber-security-auditing-guide-beginner-to-advanced">Complete Network Scanning &amp; Cyber Security Auditing Guide (Beginner to Advanced)</h2>
+<p><strong>Because why just scan when you can scan smartly and safely?</strong></p>
+<hr/>
+<h2 id="what-is-nmap">WHAT IS NMAP?</h2>
+<p><strong>Nmap</strong> (Network Mapper) is a powerful, open-source tool for network discovery and security auditing. It's used by:</p>
+<ul>
+<li><strong>Network Administrators</strong> - for inventory and device monitoring</li>
+<li><strong>Cybersecurity Professionals</strong> - for vulnerability assessment and penetration testing</li>
+<li><strong>Ethical Hackers</strong> - for reconnaissance and security research</li>
+</ul>
+<h3 id="key-features">Key Features</h3>
+<ul>
+<li><strong>Host Discovery</strong>: Identifies live systems on a network</li>
+<li><strong>Port Scanning</strong>: Determines which ports are open, closed, or filtered</li>
+<li><strong>Service Detection</strong>: Identifies services and their versions</li>
+<li><strong>OS Detection</strong>: Fingerprints target operating systems</li>
+<li><strong>NSE Scripting</strong>: Executes custom scripts for enhanced scanning</li>
+<li><strong>Multiple Output Formats</strong>: Normal, XML, Grepable formats</li>
+</ul>
+<h3 id="why-it-matters">Why It Matters</h3>
+<p>Nmap is the <strong>de facto standard</strong> for network reconnaissance. Understanding it is crucial for:
+1. <strong>Penetration Testing</strong>: Gathering information about targets
+2. <strong>Network Security</strong>: Identifying unauthorized services
+3. <strong>Compliance Audits</strong>: Verifying security controls
+4. <strong>Incident Response</strong>: Analyzing network compromises</p>
+<hr/>
+<h2 id="installation-setup">INSTALLATION &amp; SETUP</h2>
+<h3 id="check-your-system-first">Check Your System First</h3>
+<pre><code class="language-bash"># See if nmap already exists (it probably doesn't)
+nmap --version
+</code></pre>
+<h3 id="linux-ubuntu-debian">Linux (Ubuntu/Debian)</h3>
+<pre><code class="language-bash"># Update package list
+sudo apt update
 
-      <h2>🚀 What is Nmap?</h2>
-      <p>
-        Nmap (Network Mapper) is a reconnaissance and port-scanning tool used to discover open ports, services, firewalls, OS fingerprints, and vulnerabilities during pentesting and bug bounty assessments.
-      </p>
+# Install Nmap
+&lt;div align="center"&gt;
+  &lt;img src="carbon.png" width="500" style="border:1px solid #6a2bd6; border-radius:10px;"&gt;
+&lt;/div&gt;
 
-      <pre><code>Open Ports → Services → Versions → OS → Vulnerabilities</code></pre>
 
-      <p>Nmap helps you identify:</p>
-      <ul>
-        <li>Open ports & listening services</li>
-        <li>Running software & versions</li>
-        <li>Firewall rules & filtering</li>
-        <li>OS & device fingerprinting</li>
-        <li>Vulnerabilities via NSE scripts</li>
-      </ul>
 
-      <h2>⚙️ Installation</h2>
-      <pre><code>sudo apt install nmap
-# or
-brew install nmap</code></pre>
+# Verify installation
+nmap --version
+</code></pre>
+<h3 id="linux-fedora-centos-rhel">Linux (Fedora/CentOS/RHEL)</h3>
+<pre><code class="language-bash"># Using DNF
+sudo dnf install nmap -y
 
-      <h2>🔰 Basic Scans</h2>
+# Or using YUM (older versions)
+sudo yum install nmap -y
 
-      <h3>Scan a single target</h3>
-      <pre><code>nmap example.com</code></pre>
+# Verify
+nmap --version
+</code></pre>
+<h3 id="linux-arch">Linux (Arch)</h3>
+<pre><code class="language-bash">sudo pacman -S nmap
+nmap --version
+</code></pre>
+<h3 id="macos">macOS</h3>
+<pre><code class="language-bash"># Install Homebrew first (if needed)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-      <h3>Scan multiple targets</h3>
-      <pre><code>nmap 192.168.1.1 192.168.1.20 example.com</code></pre>
+# Install Nmap
+brew install nmap
 
-      <h3>Scan a whole subnet</h3>
-      <pre><code>nmap 192.168.1.0/24</code></pre>
+# Verify
+nmap --version
+</code></pre>
+<h3 id="windows">Windows</h3>
+<p><strong>Option 1: Download Installer</strong>
+1. Visit https://nmap.org/download.html
+2. Download the .exe file
+3. Run with admin privileges
+4. Accept all defaults
+5. Verify in CMD: <code>nmap --version</code></p>
+<p><strong>Option 2: Add to PATH (PowerShell as Admin)</strong></p>
+<pre><code class="language-powershell">setx PATH "%PATH%;C:\Program Files (x86)\Nmap"
+# Restart PowerShell and test
+nmap --version
+</code></pre>
+<h3 id="from-source-advanced">From Source (Advanced)</h3>
+<pre><code class="language-bash">wget https://nmap.org/dist/nmap-7.94.tar.bz2
+tar -xvf nmap-7.94.tar.bz2
+cd nmap-7.94
+./configure
+make
+sudo make install
+nmap --version
+</code></pre>
+<hr/>
+<h2 id="basic-concepts">BASIC CONCEPTS</h2>
+<h3 id="understanding-ports">Understanding Ports</h3>
+<p>Ports are <strong>logical communication endpoints</strong> on a system:
+- <strong>Port Range</strong>: 0 - 65,535
+- <strong>Well-Known Ports</strong>: 0 - 1,023 (SSH, HTTP, HTTPS, DNS, etc.)
+- <strong>Registered Ports</strong>: 1,024 - 49,151
+- <strong>Dynamic Ports</strong>: 49,152 - 65,535</p>
+<h3 id="port-states-in-nmap">Port States in Nmap</h3>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Open</strong></td>
+<td>Port is accepting connections</td>
+</tr>
+<tr>
+<td><strong>Closed</strong></td>
+<td>Port responds but not accepting</td>
+</tr>
+<tr>
+<td><strong>Filtered</strong></td>
+<td>No response received (firewall blocking)</td>
+</tr>
+<tr>
+<td><strong>Unfiltered</strong></td>
+<td>Port responds to ACK</td>
+</tr>
+<tr>
+<td><strong>Open|Filtered</strong></td>
+<td>Likely open but may be filtered</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tcp-three-way-handshake">TCP Three-Way Handshake</h3>
+<pre><code>Client              Server
+  |                  |
+  |--- SYN -------&gt; |
+  |                  |
+  | &lt;---- SYN/ACK ---|
+  |                  |
+  |--- ACK -------&gt; |
+  |                  |
+</code></pre>
+<p>Understanding this is key to understanding scan types.</p>
+<h3 id="common-scan-types">Common Scan Types</h3>
+<p><strong>TCP SYN Scan (-sS)</strong>
+- Fastest and most popular
+- Requires root/admin privileges
+- Never completes full connection
+- Stealthier than full connects</p>
+<p><strong>TCP Connect Scan (-sT)</strong>
+- Uses OS socket connection
+- Works without root/admin
+- More likely to be logged
+- Slower than SYN</p>
+<p><strong>UDP Scan (-sU)</strong>
+- Scans UDP ports (DNS, SNMP, DHCP)
+- Slower than TCP
+- Can combine with TCP</p>
+<hr/>
+<h2 id="beginner-commands-with-examples">BEGINNER COMMANDS WITH EXAMPLES</h2>
+<h3 id="is-nmap-installed">Is Nmap Installed?</h3>
+<pre><code class="language-bash">nmap --version
+</code></pre>
+<p><strong>Expected:</strong> Version number like "Nmap version 7.94"<br/>
+<strong>If error:</strong> Install Nmap (see Installation section above)</p>
+<hr/>
+<h3 id="command-1-basic-port-scan">Command 1: Basic Port Scan</h3>
+<pre><code class="language-bash">nmap 192.168.1.10
+</code></pre>
+<p><strong>What it does:</strong>
+- Scans the 1,000 most common TCP ports
+- Performs a SYN scan (default)
+- Takes 10-30 seconds depending on network</p>
+<p><strong>Output Example:</strong></p>
+<pre><code>Nmap scan report for 192.168.1.10
+Host is up (0.05s latency).
+Not shown: 997 filtered ports
+PORT      STATE  SERVICE
+22/tcp    open   ssh
+80/tcp    open   http
+443/tcp   open   https
+</code></pre>
+<p><strong>Beginner Task:</strong> Replace <code>192.168.1.10</code> with your router's IP (usually <code>192.168.1.1</code>)</p>
+<hr/>
+<h3 id="command-2-ping-scan-who-s-alive">Command 2: Ping Scan (Who's Alive?)</h3>
+<pre><code class="language-bash">nmap -sn 192.168.1.0/24
+</code></pre>
+<p><strong>What it does:</strong>
+- Discovers live hosts on your network
+- Doesn't scan ports (super fast)
+- <code>/24</code> means the entire subnet</p>
+<p><strong>Output Example:</strong></p>
+<pre><code>Nmap scan report for 192.168.1.1
+Host is up (0.001s latency).
+Nmap scan report for 192.168.1.100
+Host is up (0.050s latency).
+Nmap scan report for 192.168.1.105
+Host is up (0.045s latency).
+</code></pre>
+<p><strong>Beginner Task:</strong> Run this on your network and count how many devices you find.</p>
+<hr/>
+<h3 id="command-3-scan-specific-ports">Command 3: Scan Specific Ports</h3>
+<pre><code class="language-bash"># Single port
+nmap -p 22 192.168.1.10
 
-      <h2>🟣 Service & Version Detection</h2>
-      <pre><code>nmap -sV example.com</code></pre>
+# Multiple ports
+nmap -p 22,80,443 192.168.1.10
 
-      <h3>Aggressive service detection</h3>
-      <pre><code>nmap -A example.com</code></pre>
+# Port range
+nmap -p 1-1000 192.168.1.10
 
-      <h2>🟣 Fast Scanning</h2>
-      <pre><code>nmap -T4 example.com</code></pre>
-      <pre><code>nmap --top-ports 100 example.com</code></pre>
+# All 65535 ports (slow!)
+nmap -p- 192.168.1.10
+</code></pre>
+<p><strong>Output Example:</strong></p>
+<pre><code>PORT      STATE SERVICE
+22/tcp    open  ssh
+80/tcp    open  http
+443/tcp   closed
+</code></pre>
+<hr/>
+<h3 id="command-4-service-detection">Command 4: Service Detection</h3>
+<pre><code class="language-bash">nmap -sV 192.168.1.10
+</code></pre>
+<p><strong>What it does:</strong>
+- Identifies services running on open ports
+- Attempts to guess service versions
+- Useful for vulnerability research</p>
+<p><strong>Output Example:</strong></p>
+<pre><code>PORT      STATE SERVICE VERSION
+22/tcp    open  ssh     OpenSSH_8.2p1 Ubuntu
+80/tcp    open  http    Apache httpd 2.4.41
+443/tcp   open  https   Apache httpd 2.4.41 (SSL/TLS)
+</code></pre>
+<p><strong>Pro Tip:</strong> Google the version to find known vulnerabilities.</p>
+<hr/>
+<h3 id="command-5-os-detection">Command 5: OS Detection</h3>
+<pre><code class="language-bash">sudo nmap -O 192.168.1.10
+</code></pre>
+<p><strong>What it does:</strong>
+- Attempts to identify the target OS
+- Uses TCP/IP stack fingerprinting
+- Requires <code>sudo</code> for accurate results</p>
+<p><strong>Output Example:</strong></p>
+<pre><code>Device type: general purpose
+Running: Linux 4.X|5.X
+OS details: Linux 4.15 - 5.10
+</code></pre>
+<hr/>
+<h3 id="command-6-aggressive-scan-all-in-one">Command 6: Aggressive Scan (All-In-One)</h3>
+<pre><code class="language-bash">sudo nmap -A 192.168.1.10
+</code></pre>
+<p><strong>What it does:</strong>
+- OS Detection (-O)
+- Version Detection (-sV)
+- Script Scanning (-sC)
+- Traceroute (--traceroute)
+- Everything combined = "Aggressive"</p>
+<p><strong>Warning:</strong> Slower but comprehensive.</p>
+<hr/>
+<h3 id="command-7-fast-scan-quick-overview">Command 7: Fast Scan (Quick Overview)</h3>
+<pre><code class="language-bash">nmap -F 192.168.1.10
+</code></pre>
+<p><strong>What it does:</strong>
+- Scans only 100 most common ports
+- Much faster than full scan
+- Good for quick recon</p>
+<hr/>
+<h3 id="command-8-no-ping-when-icmp-is-blocked">Command 8: No Ping (When ICMP is Blocked)</h3>
+<pre><code class="language-bash">nmap -Pn 192.168.1.10
+</code></pre>
+<p><strong>What it does:</strong>
+- Assumes target is online
+- Skips ping phase
+- Useful if firewall blocks ICMP</p>
+<hr/>
+<h3 id="command-9-verbose-output-see-what-s-happening">Command 9: Verbose Output (See What's Happening)</h3>
+<pre><code class="language-bash">nmap -v 192.168.1.10
+nmap -vv 192.168.1.10  # Extra verbose
+</code></pre>
+<p><strong>What it does:</strong>
+- Shows scan progress in real-time
+- Displays what ports are being probed</p>
+<hr/>
+<h3 id="command-10-save-results-to-a-file">Command 10: Save Results to a File</h3>
+<pre><code class="language-bash"># Human-readable format
+nmap -oN results.txt 192.168.1.10
 
-      <h2>🛡️ Firewall / Stealth Scanning</h2>
-      <pre><code>nmap -sS example.com</code></pre>
-      <pre><code>nmap -f example.com</code></pre>
-      <pre><code>nmap -Pn example.com</code></pre>
+# XML format (machine-readable)
+nmap -oX results.xml 192.168.1.10
 
-      <h2>🧠 OS Fingerprinting</h2>
-      <pre><code>nmap -O example.com</code></pre>
+# All formats
+nmap -oA results 192.168.1.10
+# Produces: results.nmap, results.xml, results.gnmap
+</code></pre>
+<hr/>
+<h2 id="python-nmap-integration">PYTHON + NMAP INTEGRATION</h2>
+<h3 id="why-python-nmap">Why Python + Nmap?</h3>
+<p>Automate scanning, parse results, integrate with other tools, build custom dashboards. Let's go!</p>
+<hr/>
+<h3 id="snippet-1-basic-nmap-execution">Snippet 1: Basic Nmap Execution</h3>
+<p><strong>File:</strong> <code>basic_scan.py</code></p>
+<pre><code class="language-python">import subprocess
 
-      <h2>🧪 Vulnerability Scanning (NSE)</h2>
+target = "scanme.nmap.org"
 
-      <h3>Run default script scan</h3>
-      <pre><code>nmap -sC example.com</code></pre>
+try:
+    result = subprocess.run(
+        ["nmap", target],
+        capture_output=True,
+        text=True,
+        check=True
+    )
+    print("=== Nmap Output ===")
+    print(result.stdout)
+except FileNotFoundError:
+    print("Error: nmap is not installed or not in PATH.")
+except subprocess.CalledProcessError as e:
+    print(f"Nmap failed with exit code: {e.returncode}")
+    print(f"Error: {e.stderr}")
+</code></pre>
+<p><strong>Run it:</strong></p>
+<pre><code class="language-bash">python3 basic_scan.py
+</code></pre>
+<p><strong>What it does:</strong>
+- Runs <code>nmap scanme.nmap.org</code>
+- Handles errors gracefully
+- Prints results</p>
+<hr/>
+<h3 id="snippet-2-scan-specific-ports">Snippet 2: Scan Specific Ports</h3>
+<p><strong>File:</strong> <code>port_scan.py</code></p>
+<pre><code class="language-python">import subprocess
+import sys
 
-      <h3>Vulnerability category scan</h3>
-      <pre><code>nmap --script vuln example.com</code></pre>
+# Get target from command line or use default
+target = sys.argv[1] if len(sys.argv) &gt; 1 else "192.168.1.10"
+ports = "22,80,443,3306,5432,8080"
 
-      <h3>Specific NSE script</h3>
-      <pre><code>nmap --script http-title example.com</code></pre>
+cmd = ["nmap", "-sV", "-p", ports, target]
 
-      <h2>🔍 Enumerating Web Servers</h2>
-      <pre><code>nmap -p 80,443 -sV --script http-enum example.com</code></pre>
+print(f"Scanning {target} on ports: {ports}")
+print(f"Command: {' '.join(cmd)}\n")
 
-      <h2>🔍 Enumerating SMB</h2>
-      <pre><code>nmap -p 445 --script smb-enum-shares example.com</code></pre>
+result = subprocess.run(cmd, capture_output=True, text=True)
+print(result.stdout)
 
-      <h2>🔍 Enumerating FTP</h2>
-      <pre><code>nmap -p 21 --script ftp-anon example.com</code></pre>
+# Save to file
+with open(f"scan_{target}.txt", "w") as f:
+    f.write(result.stdout)
 
-      <h2>🥷 Bug Bounty Recon Workflow</h2>
+print(f"\nResults saved to scan_{target}.txt")
+</code></pre>
+<p><strong>Run it:</strong></p>
+<pre><code class="language-bash">python3 port_scan.py 192.168.1.10
+python3 port_scan.py scanme.nmap.org
+</code></pre>
+<hr/>
+<h3 id="snippet-3-parse-open-ports-from-output">Snippet 3: Parse Open Ports from Output</h3>
+<p><strong>File:</strong> <code>parse_ports.py</code></p>
+<pre><code class="language-python">import subprocess
+import re
 
-      <h3>1. Fast scan for alive ports</h3>
-      <pre><code>nmap -T4 --top-ports 100 example.com -oN quick.txt</code></pre>
+target = "scanme.nmap.org"
 
-      <h3>2. Full detailed scan</h3>
-      <pre><code>nmap -A -p- example.com -oN full.txt</code></pre>
+cmd = ["nmap", "-sV", target]
+result = subprocess.run(cmd, capture_output=True, text=True)
 
-      <h3>3. Vulnerability scripts</h3>
-      <pre><code>nmap --script vuln example.com -oN vuln.txt</code></pre>
+open_ports = []
 
-      <h3>4. Combine with other tools</h3>
-      <pre><code>subfinder -d example.com -o subs.txt
-httpx -l subs.txt -o live.txt
-nmap -p- -sV -iL live.txt -oN services.txt</code></pre>
+# Parse each line looking for "PORT STATE SERVICE"
+for line in result.stdout.splitlines():
+    # Pattern: "80/tcp open http Apache httpd 2.4.x"
+    if re.match(r"^\d+/tcp\s+open", line):
+        parts = line.split()
+        port_proto = parts[0]     # "80/tcp"
+        state = parts[1]          # "open"
+        service = parts[2]        # "http"
+        open_ports.append({
+            'port': port_proto,
+            'state': state,
+            'service': service,
+            'raw': line
+        })
 
-      <div class="note">
-        <strong>Tip:</strong> Run Nmap on specific high-value ports you discover with Naabu or Masscan for deeper enumeration.
-      </div>
+print(f"\n=== Open Ports on {target} ===")
+for port_info in open_ports:
+    print(f"Port {port_info['port']} - {port_info['service']}")
 
-      <h2>Conclusion</h2>
-      <p>
-        Nmap is the backbone of network reconnaissance. Learn its flags, understand its techniques, and integrate it into
-        automated recon pipelines to uncover services, vulnerabilities, and attack surfaces with precision.
-      </p>
+print(f"\nTotal: {len(open_ports)} open ports")
+</code></pre>
+<p><strong>Run it:</strong></p>
+<pre><code class="language-bash">python3 parse_ports.py
+</code></pre>
+<hr/>
+<h3 id="snippet-4-scan-a-subnet-list-results">Snippet 4: Scan a Subnet &amp; List Results</h3>
+<p><strong>File:</strong> <code>subnet_scan.py</code></p>
+<pre><code class="language-python">import subprocess
+import re
+import time
 
-      <div class="cta">
-        <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Nmap%20Help">Contact securely (email)</a>
-        <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">View tools & scripts</a>
-      </div>
+subnet = "192.168.1.0/24"
 
-      <footer>
-        <p>© 2025 Aryan Pareek — The Cyber Aryan. This guide is designed for penetration testers, researchers, and bug bounty workflows.</p>
-      </footer>
+print(f"Scanning subnet: {subnet}")
+print("This may take 1-2 minutes...\n")
 
-    </article>
+cmd = ["nmap", "-sV", "--top-ports", "20", subnet]
+result = subprocess.run(cmd, capture_output=True, text=True)
+
+hosts = {}
+
+# Parse results and group by host
+current_host = None
+for line in result.stdout.splitlines():
+    # Look for "Nmap scan report for XXX"
+    if "Nmap scan report for" in line:
+        current_host = line.split("for ")[-1].split(" ")[0]
+        hosts[current_host] = []
+
+    # Look for open ports
+    elif current_host and re.match(r"^\d+/tcp\s+open", line):
+        hosts[current_host].append(line.strip())
+
+# Display results
+for host, ports in hosts.items():
+    if ports:  # Only show hosts with open ports
+        print(f"\n{host}:")
+        for port in ports:
+            print(f"  {port}")
+
+print(f"\nFound {len(hosts)} hosts with open ports")
+</code></pre>
+<p><strong>Run it:</strong></p>
+<pre><code class="language-bash">python3 subnet_scan.py
+</code></pre>
+<hr/>
+<h3 id="snippet-5-save-results-to-csv">Snippet 5: Save Results to CSV</h3>
+<p><strong>File:</strong> <code>csv_export.py</code></p>
+<pre><code class="language-python">import subprocess
+import csv
+import re
+from datetime import datetime
+
+target = "scanme.nmap.org"
+
+cmd = ["nmap", "-sV", "-p", "1-1000", target]
+result = subprocess.run(cmd, capture_output=True, text=True)
+
+# Parse results
+results = []
+for line in result.stdout.splitlines():
+    if re.match(r"^\d+/tcp\s+", line):
+        parts = line.split()
+        results.append({
+            'timestamp': datetime.now().isoformat(),
+            'target': target,
+            'port': parts[0],
+            'state': parts[1],
+            'service': parts[2] if len(parts) &gt; 2 else 'unknown',
+        })
+
+# Save to CSV
+filename = f"scan_{target}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+with open(filename, 'w', newline='') as f:
+    writer = csv.DictWriter(f, fieldnames=['timestamp', 'target', 'port', 'state', 'service'])
+    writer.writeheader()
+    writer.writerows(results)
+
+print(f"Saved {len(results)} results to {filename}")
+</code></pre>
+<p><strong>Run it:</strong></p>
+<pre><code class="language-bash">python3 csv_export.py
+# Opens the CSV in Excel or text editor
+</code></pre>
+<hr/>
+<h3 id="snippet-6-check-for-specific-ports-being-open">Snippet 6: Check for Specific Ports Being Open</h3>
+<p><strong>File:</strong> <code>port_checker.py</code></p>
+<pre><code class="language-python">import subprocess
+
+def check_port_open(target, port):
+    """Check if a specific port is open"""
+    cmd = ["nmap", "-p", str(port), target]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+
+    return "open" in result.stdout
+
+target = "scanme.nmap.org"
+important_ports = {
+    22: "SSH",
+    80: "HTTP",
+    443: "HTTPS",
+    3306: "MySQL",
+    5432: "PostgreSQL",
+    6379: "Redis",
+    27017: "MongoDB"
+}
+
+print(f"Checking important ports on {target}:\n")
+
+for port, service in important_ports.items():
+    if check_port_open(target, port):
+        print(f"✓ Port {port:5} ({service:15}) - OPEN")
+    else:
+        print(f"✗ Port {port:5} ({service:15}) - CLOSED/FILTERED")
+</code></pre>
+<p><strong>Run it:</strong></p>
+<pre><code class="language-bash">python3 port_checker.py
+</code></pre>
+<hr/>
+<h3 id="snippet-7-compare-two-scans">Snippet 7: Compare Two Scans</h3>
+<p><strong>File:</strong> <code>compare_scans.py</code></p>
+<pre><code class="language-python">import subprocess
+import re
+from datetime import datetime
+
+def scan_and_parse(target):
+    """Scan and return set of open ports"""
+    cmd = ["nmap", "-p", "1-1000", target]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+
+    ports = set()
+    for line in result.stdout.splitlines():
+        if re.match(r"^\d+/tcp\s+open", line):
+            port = line.split('/')[0]
+            ports.add(port)
+
+    return ports
+
+target = "scanme.nmap.org"
+
+print("Performing baseline scan...")
+baseline = scan_and_parse(target)
+
+print("Waiting 5 seconds...")
+import time
+time.sleep(5)
+
+print("Performing second scan...")
+current = scan_and_parse(target)
+
+print(f"\n=== Scan Comparison ===")
+print(f"Baseline ports: {sorted(baseline)}")
+print(f"Current ports: {sorted(current)}")
+
+new_ports = current - baseline
+closed_ports = baseline - current
+
+if new_ports:
+    print(f"\n⚠️ NEW PORTS OPEN: {sorted(new_ports)}")
+else:
+    print(f"\n✓ No new ports opened")
+
+if closed_ports:
+    print(f"✓ Ports closed: {sorted(closed_ports)}")
+</code></pre>
+<p><strong>Run it:</strong></p>
+<pre><code class="language-bash">python3 compare_scans.py
+</code></pre>
+<hr/>
+<h3 id="snippet-8-error-handling-best-practices">Snippet 8: Error Handling Best Practices</h3>
+<p><strong>File:</strong> <code>safe_scan.py</code></p>
+<pre><code class="language-python">import subprocess
+import sys
+import time
+
+def safe_scan(target, ports="1-1000", max_retries=3):
+    """Perform scan with error handling"""
+
+    for attempt in range(max_retries):
+        try:
+            print(f"Scanning {target} (attempt {attempt + 1}/{max_retries})...")
+
+            cmd = ["nmap", "-sV", "-p", ports, target]
+            result = subprocess.run(
+                cmd,
+                capture_output=True,
+                text=True,
+                timeout=300  # 5 minute timeout
+            )
+
+            if result.returncode == 0:
+                return result.stdout
+            else:
+                print(f"Error: {result.stderr}")
+
+        except subprocess.TimeoutExpired:
+            print(f"Scan timed out on attempt {attempt + 1}")
+        except FileNotFoundError:
+            print("Error: nmap not found. Install it first!")
+            sys.exit(1)
+        except Exception as e:
+            print(f"Error: {e}")
+
+        if attempt &lt; max_retries - 1:
+            print("Retrying...")
+            time.sleep(2)
+
+    return None
+
+# Usage
+output = safe_scan("scanme.nmap.org")
+if output:
+    print("\n=== Scan Results ===")
+    print(output)
+else:
+    print("Scan failed after all retries")
+</code></pre>
+<p><strong>Run it:</strong></p>
+<pre><code class="language-bash">python3 safe_scan.py
+</code></pre>
+<hr/>
+<h3 id="snippet-9-beginner-lab-checklist-script">Snippet 9: Beginner Lab Checklist Script</h3>
+<p><strong>File:</strong> <code>beginner_lab.py</code></p>
+<pre><code class="language-python">#!/usr/bin/env python3
+"""
+Beginner Lab: Complete Network Audit in Python
+Performs: Host discovery → Port scan → Service detection → Report
+"""
+
+import subprocess
+import re
+from datetime import datetime
+from pathlib import Path
+
+def run_command(cmd):
+    """Run command and return output"""
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        return f"Error: {e.stderr}"
+    except FileNotFoundError:
+        return "Error: nmap not found"
+
+def main():
+    print("=" * 60)
+    print("NMAP BEGINNER LAB - Complete Network Audit")
+    print("=" * 60)
+
+    # Task 1: Verify Nmap installation
+    print("\n[Task 1] Checking Nmap installation...")
+    version = run_command(["nmap", "--version"])
+    if "version" in version.lower():
+        print(f"✓ {version.strip()}")
+    else:
+        print("✗ Nmap not found. Install it first!")
+        return
+
+    # Task 2: Host discovery
+    target = input("\n[Task 2] Enter subnet to scan (e.g., 192.168.1.0/24): ")
+    print(f"Performing host discovery on {target}...")
+    discovery = run_command(["nmap", "-sn", target])
+
+    hosts = re.findall(r"Nmap scan report for ([\d\.]+)", discovery)
+    print(f"✓ Found {len(hosts)} live hosts")
+
+    # Task 3: Port scan on first 3 hosts
+    for host in hosts[:3]:
+        print(f"\n[Task 3] Scanning ports on {host}...")
+        scan = run_command(["nmap", "-sV", "--top-ports", "10", host])
+
+        open_ports = re.findall(r"(\d+/tcp)\s+open", scan)
+        print(f"  Open ports: {', '.join(open_ports) if open_ports else 'None'}")
+
+    # Task 4: Save report
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    report_file = f"lab_report_{timestamp}.txt"
+
+    with open(report_file, "w") as f:
+        f.write("NMAP BEGINNER LAB REPORT\n")
+        f.write(f"Date: {datetime.now()}\n")
+        f.write(f"Target: {target}\n")
+        f.write(f"Hosts Found: {len(hosts)}\n\n")
+        f.write("Discovery Results:\n")
+        f.write(discovery)
+
+    print(f"\n✓ Report saved to {report_file}")
+    print("\n[Lab Complete!] Review the report for findings.")
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+<p><strong>Run it:</strong></p>
+<pre><code class="language-bash">python3 beginner_lab.py
+</code></pre>
+<hr/>
+<h2 id="intermediate-techniques">INTERMEDIATE TECHNIQUES</h2>
+<h3 id="scanning-multiple-targets">Scanning Multiple Targets</h3>
+<pre><code class="language-bash"># Scan multiple IPs
+nmap 192.168.1.1 192.168.1.2 192.168.1.3
+
+# Scan IP range
+nmap 192.168.1.1-50
+
+# Scan entire subnet
+nmap 192.168.1.0/24
+
+# Scan from file
+nmap -iL targets.txt
+
+# Save targets to file first:
+echo "192.168.1.1" &gt; targets.txt
+echo "192.168.1.10" &gt;&gt; targets.txt
+nmap -iL targets.txt
+</code></pre>
+<h3 id="timing-templates">Timing Templates</h3>
+<pre><code class="language-bash"># Very slow (stealthy)
+nmap -T0 target.com
+
+# Slow (stealth attempt)
+nmap -T1 target.com
+
+# Polite (considerate)
+nmap -T2 target.com
+
+# Normal (default)
+nmap -T3 target.com
+
+# Aggressive (fast)
+nmap -T4 target.com
+
+# Insane (very fast, may miss)
+nmap -T5 target.com
+</code></pre>
+<h3 id="excluding-hosts-ports">Excluding Hosts/Ports</h3>
+<pre><code class="language-bash"># Exclude specific hosts
+nmap 192.168.1.0/24 --exclude 192.168.1.1,192.168.1.2
+
+# Exclude from file
+nmap 192.168.1.0/24 --excludefile exclude.txt
+
+# Exclude specific ports
+nmap --exclude-ports 22,23,25 target.com
+</code></pre>
+<h3 id="firewall-evasion">Firewall Evasion</h3>
+<pre><code class="language-bash"># Fragment packets (old technique)
+nmap -f target.com
+
+# Custom MTU size
+nmap --mtu 32 target.com
+
+# Source port spoofing
+nmap --source-port 53 target.com
+
+# IP decoy
+nmap -D 192.168.1.1,192.168.1.2 target.com
+</code></pre>
+<hr/>
+<h2 id="advanced-scanning-methods">ADVANCED SCANNING METHODS</h2>
+<h3 id="different-scan-types">Different Scan Types</h3>
+<pre><code class="language-bash"># SYN scan (requires sudo, stealthy)
+sudo nmap -sS target.com
+
+# TCP connect (slower, full connection)
+nmap -sT target.com
+
+# UDP scan
+nmap -sU target.com
+
+# FIN scan (firewall evasion)
+sudo nmap -sF target.com
+
+# NULL scan
+sudo nmap -sN target.com
+
+# Xmas scan
+sudo nmap -sX target.com
+</code></pre>
+<h3 id="performance-tuning">Performance Tuning</h3>
+<pre><code class="language-bash"># Set minimum rate
+nmap --min-rate 1000 target.com
+
+# Set maximum rate
+nmap --max-rate 100 target.com
+
+# Host timeout
+nmap --host-timeout 10m target.com
+
+# Scan delay between probes
+nmap --scan-delay 1s target.com
+
+# Maximum retries
+nmap --max-retries 2 target.com
+</code></pre>
+<hr/>
+<h2 id="nse-scripting-engine">NSE SCRIPTING ENGINE</h2>
+<h3 id="using-nse-scripts">Using NSE Scripts</h3>
+<pre><code class="language-bash"># Run default scripts
+nmap -sC target.com
+
+# Run specific script
+nmap --script ssh-hostkey target.com
+
+# Run script category
+nmap --script vuln target.com
+nmap --script safe target.com
+
+# Multiple scripts
+nmap --script ssh-hostkey,ssl-cert target.com
+</code></pre>
+<h3 id="popular-nse-scripts">Popular NSE Scripts</h3>
+<pre><code class="language-bash"># SSH enumeration
+nmap --script ssh-hostkey,ssh-auth-methods target.com
+
+# HTTP enumeration
+nmap -p 80 --script http-enum,http-title target.com
+
+# DNS zone transfer
+nmap --script dns-zone-transfer target.com
+
+# SMB enumeration
+nmap --script smb-os-discovery,smb-enum-shares target.com
+
+# Vulnerability scanning
+nmap --script vuln target.com
+</code></pre>
+<h3 id="update-nse-scripts">Update NSE Scripts</h3>
+<pre><code class="language-bash">sudo nmap --script-updatedb
+</code></pre>
+<hr/>
+<h2 id="output-formats-analysis">OUTPUT FORMATS &amp; ANALYSIS</h2>
+<h3 id="save-scan-results">Save Scan Results</h3>
+<pre><code class="language-bash"># Human-readable
+nmap -oN results.txt target.com
+
+# XML (machine-readable)
+nmap -oX results.xml target.com
+
+# Grepable (awk-friendly)
+nmap -oG results.gnmap target.com
+
+# All formats
+nmap -oA results target.com
+</code></pre>
+<h3 id="parse-xml-results-python">Parse XML Results (Python)</h3>
+<pre><code class="language-python">import xml.etree.ElementTree as ET
+
+def parse_nmap_xml(filename):
+    tree = ET.parse(filename)
+    root = tree.getroot()
+
+    for host in root.findall('host'):
+        status = host.find('status').get('state')
+        addr = host.find('address').get('addr')
+
+        print(f"\nHost: {addr} ({status})")
+
+        ports = host.find('ports')
+        if ports:
+            for port in ports.findall('port'):
+                port_id = port.get('portid')
+                state = port.find('state').get('state')
+                service = port.find('service')
+                service_name = service.get('name') if service else 'unknown'
+
+                print(f"  Port {port_id}: {state} ({service_name})")
+
+parse_nmap_xml('results.xml')
+</code></pre>
+<h3 id="convert-to-html">Convert to HTML</h3>
+<pre><code class="language-bash"># Generate XML first
+nmap -sV -oX scan.xml target.com
+
+# Convert to HTML
+xsltproc /usr/share/nmap/nmap.xsl scan.xml -o scan.html
+
+# View in browser
+firefox scan.html
+</code></pre>
+<hr/>
+<h2 id="practical-labs">PRACTICAL LABS</h2>
+<h3 id="lab-1-network-discovery">Lab 1: Network Discovery</h3>
+<pre><code class="language-bash"># Discover your network
+nmap -sn 192.168.1.0/24
+
+# Save results
+nmap -sn -oN discovery.txt 192.168.1.0/24
+
+# Count live hosts
+nmap -sn 192.168.1.0/24 | grep "Host is up" | wc -l
+</code></pre>
+<h3 id="lab-2-port-scanning">Lab 2: Port Scanning</h3>
+<pre><code class="language-bash"># Scan official Nmap test site (permission granted)
+nmap scanme.nmap.org
+
+# With version detection
+nmap -sV scanme.nmap.org
+
+# Save to XML
+nmap -sV -oX lab2.xml scanme.nmap.org
+</code></pre>
+<h3 id="lab-3-service-enumeration">Lab 3: Service Enumeration</h3>
+<pre><code class="language-bash"># Comprehensive scan
+nmap -A scanme.nmap.org
+
+# With default scripts
+nmap -sC -sV scanme.nmap.org
+
+# Save results
+nmap -A -oA lab3 scanme.nmap.org
+</code></pre>
+<h3 id="lab-4-vulnerability-assessment">Lab 4: Vulnerability Assessment</h3>
+<pre><code class="language-bash"># Run vulnerability scripts
+nmap --script vuln scanme.nmap.org
+
+# Check for specific CVE
+nmap --script ssl-heartbleed -p 443 scanme.nmap.org
+
+# Save report
+nmap --script vuln -oX vuln_report.xml scanme.nmap.org
+</code></pre>
+<hr/>
+<h2 id="error-handling">ERROR HANDLING</h2>
+<h3 id="common-errors-solutions">Common Errors &amp; Solutions</h3>
+<p><strong>"Permission denied" - Need Root</strong></p>
+<pre><code class="language-bash"># Problem
+nmap -sS target.com
+# Error: Operation not permitted
+
+# Solution
+sudo nmap -sS target.com
+
+# Or use TCP connect (no root needed)
+nmap -sT target.com
+</code></pre>
+<p><strong>"Unknown host"</strong></p>
+<pre><code class="language-bash"># Problem
+nmap invalidhost
+
+# Solution: Use valid IP or hostname
+nmap 8.8.8.8
+nmap google.com
+</code></pre>
+<p><strong>"Port out of range"</strong></p>
+<pre><code class="language-bash"># Problem
+nmap -p 99999 target.com
+
+# Solution: Valid ports are 1-65535
+nmap -p 1-1000 target.com
+</code></pre>
+<p><strong>"Failed to resolve hostname"</strong></p>
+<pre><code class="language-bash"># Problem: DNS issue
+nmap invalid-domain.xyz
+
+# Solution: Use IP or valid domain
+nmap 192.168.1.1
+nmap google.com
+</code></pre>
+<p><strong>"Couldn't open/read file"</strong></p>
+<pre><code class="language-bash"># Problem
+nmap -iL nonexistent.txt
+
+# Solution: Create file first
+echo "192.168.1.1" &gt; targets.txt
+nmap -iL targets.txt
+</code></pre>
+<h3 id="debug-mode">Debug Mode</h3>
+<pre><code class="language-bash"># Enable debug output
+nmap -d target.com
+
+# Maximum debug
+nmap -ddd target.com
+</code></pre>
+<h3 id="timeout-issues">Timeout Issues</h3>
+<pre><code class="language-bash"># If scan timing out
+nmap --host-timeout 30m target.com
+
+# Use polite timing
+nmap -T2 target.com
+
+# Increase max retries
+nmap --max-retries 5 target.com
+</code></pre>
+<hr/>
+<h2 id="best-practices">BEST PRACTICES</h2>
+<h3 id="1-always-get-permission">1. Always Get Permission</h3>
+<pre><code class="language-bash"># ⚠️ NEVER scan without permission
+# These are ILLEGAL:
+nmap random-company.com
+nmap 10.0.0.0/8
+nmap government-site.gov
+
+# These are LEGAL and authorized:
+nmap scanme.nmap.org         # Official test site
+nmap YOUR_OWN_NETWORK
+nmap YOUR_OWN_SERVER
+</code></pre>
+<h3 id="2-respect-target-systems">2. Respect Target Systems</h3>
+<pre><code class="language-bash"># Use appropriate timing for production systems
+nmap -T2 production-server.com
+
+# Only scan necessary ports
+nmap -p 80,443,22 target.com
+
+# Avoid aggressive options on shared networks
+nmap --script safe target.com  # Not intrusive
+</code></pre>
+<h3 id="3-reconnaissance-workflow">3. Reconnaissance Workflow</h3>
+<pre><code class="language-bash"># Step 1: Light reconnaissance
+nmap -sn -oA 01_discovery 192.168.0.0/16
+
+# Step 2: Port scan
+nmap -sS -oA 02_portscan 192.168.0.0/16
+
+# Step 3: Service detection
+nmap -sV -oA 03_services 192.168.0.0/16
+
+# Step 4: Safe scripts
+nmap --script safe -oA 04_scripts 192.168.0.0/16
+
+# Step 5: Vulnerability check
+nmap --script vuln -oA 05_vuln 192.168.0.0/16
+</code></pre>
+<h3 id="4-document-everything">4. Document Everything</h3>
+<pre><code class="language-bash"># Include metadata
+echo "Scan Date: $(date)" &gt; report.txt
+echo "Target: target.com" &gt;&gt; report.txt
+echo "Authorized by: [Name]" &gt;&gt; report.txt
+nmap -oX - target.com &gt;&gt; report.txt
+</code></pre>
+<h3 id="5-secure-your-results">5. Secure Your Results</h3>
+<pre><code class="language-bash"># Scan results contain sensitive data
+# Make them read-only
+chmod 600 *.xml *.nmap *.gnmap
+
+# Encrypt if needed
+gpg -c results.xml
+</code></pre>
+<h3 id="6-performance-for-large-networks">6. Performance for Large Networks</h3>
+<pre><code class="language-bash"># Optimize for subnet scanning
+nmap --min-rate 1000 --max-rate 2000 \
+  --min-hostgroup 256 --max-hostgroup 512 \
+  192.168.0.0/16 -oA largescan
+</code></pre>
+<hr/>
+<h2 id="quick-reference-common-commands">QUICK REFERENCE: Common Commands</h2>
+<pre><code class="language-bash"># Quick recon
+nmap -A -T4 target.com
+
+# Stealthy scan
+sudo nmap -sS -T2 -Pn target.com
+
+# Vulnerability assessment
+nmap -A --script vuln target.com
+
+# Network discovery
+nmap -sn -oA discovery 192.168.0.0/16
+
+# Complete audit
+nmap -A -sS -sU --script default,vuln \
+  -p- -oA audit target.com
+</code></pre>
+<hr/>
+<h2 id="summary-next-steps">SUMMARY &amp; NEXT STEPS</h2>
+<h3 id="you-now-know">You Now Know:</h3>
+<p>✓ How to install Nmap on any OS<br/>
+✓ Perform basic and advanced scans<br/>
+✓ Detect services and vulnerabilities<br/>
+✓ Use NSE scripts<br/>
+✓ Parse results with Python<br/>
+✓ Document and report findings  </p>
+<h3 id="next-steps">Next Steps:</h3>
+<ol>
+<li><strong>Practice</strong> on authorized systems (scanme.nmap.org, HackTheBox)</li>
+<li><strong>Learn</strong> complementary tools (Metasploit, Nessus, Burp Suite)</li>
+<li><strong>Study</strong> network protocols (TCP/IP, DNS, HTTP)</li>
+<li><strong>Get certified</strong> (CEH, OSCP, GPEN)</li>
+<li><strong>Join</strong> bug bounty programs</li>
+</ol>
+<h3 id="ethical-hacking-mindset">Ethical Hacking Mindset:</h3>
+<ul>
+<li><strong>Legal:</strong> Only scan authorized targets</li>
+<li><strong>Transparent:</strong> Document everything</li>
+<li><strong>Responsible:</strong> Report responsibly</li>
+<li><strong>Professional:</strong> Maintain confidentiality</li>
+<li><strong>Continuous:</strong> Always be learning</li>
+</ul>
+<hr/>
+<h2 id="resources">RESOURCES</h2>
+<h3 id="official-documentation">Official Documentation</h3>
+<ul>
+<li>Nmap Official: https://nmap.org</li>
+<li>Nmap Book: https://nmap.org/book/</li>
+<li>NSE Guide: https://nmap.org/book/nse.html</li>
+</ul>
+<h3 id="learning-platforms">Learning Platforms</h3>
+<ul>
+<li>HackTheBox: https://www.hackthebox.com</li>
+<li>TryHackMe: https://www.tryhackme.com</li>
+<li>Vulnhub: https://www.vulnhub.com</li>
+</ul>
+<h3 id="community">Community</h3>
+<ul>
+<li>Reddit: r/netsec, r/HowToHack</li>
+<li>Discord security communities</li>
+<li>Local security meetups</li>
+</ul>
+<hr/>
+<p><strong>Last Updated:</strong> November 2025<br/>
+<strong>Difficulty:</strong> Beginner to Advanced<br/>
+<strong>Estimated Time:</strong> 40-60 hours of hands-on learning<br/>
+<strong>License:</strong> Educational Use Only</p>
+<p><em>Now you have everything you need to wield Nmap like a pro. Practice responsibly, scan ethically, and keep learning!</em></p>
+      <footer>// THECYBERARYAN //</footer>
+    </div>
   </div>
 </body>
 </html>
