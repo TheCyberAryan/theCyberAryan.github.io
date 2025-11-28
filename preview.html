@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cybersecurity Services — TheCyberAryan</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #02030a;
+      --panel: #05071a;
+      --primary: #ff4d9c;
+      --accent: #4df3ff;
+      --purple: #7d5dff;
+      --text: #f4f5ff;
+      --muted: #99a0d5;
+      --radius: 18px;
+      --font-body: "Inter", sans-serif;
+      --font-mono: "Share Tech Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 40px 18px 80px;
+      background:
+        radial-gradient(circle at top left, rgba(255, 77, 156, 0.18), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(77, 243, 255, 0.16), transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.7;
+    }
+
+    .shell {
+      max-width: 1080px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Much softer grid */
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 26px 26px;
+      opacity: 0.08;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.75;
+    }
+
+    header h1 {
+      margin: 10px 0 6px;
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ffffff;
+      text-shadow:
+        0 0 6px rgba(77, 243, 255, 0.25);
+    }
+
+    .pill {
+      margin: 10px auto 0;
+      padding: 4px 14px;
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      border-radius: 999px;
+      border: 1px solid rgba(77, 243, 255, 0.35);
+      background:
+        radial-gradient(circle at top left, rgba(77, 243, 255, 0.15), transparent 60%),
+        rgba(3, 6, 30, 0.75);
+      width: fit-content;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    header p {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    /* GRID */
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 900px) {
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* SERVICE CARDS */
+    .service-card {
+      border-radius: var(--radius);
+      background:
+        radial-gradient(circle at top left, rgba(255, 77, 156, 0.09), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(77, 243, 255, 0.08), transparent 55%),
+        rgba(5, 6, 24, 0.92);
+      border: 1px solid rgba(148, 163, 244, 0.35);
+      padding: 22px 20px;
+      transition: 0.25s ease;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
+    }
+
+    .service-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 77, 156, 0.5);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.48);
+    }
+
+    .service-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    /* Icons — softer glow */
+    .service-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top left, rgba(255, 77, 156, 0.25), transparent 65%),
+        rgba(15, 6, 30, 0.8);
+      border: 1px solid rgba(255, 77, 156, 0.65);
+      color: var(--primary);
+      font-size: 1.28rem;
+    }
+
+    h2 {
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0;
+    }
+
+    .price {
+      margin: 12px 0 10px;
+      font-size: 0.9rem;
+      font-family: var(--font-mono);
+      color: var(--primary);
+      letter-spacing: 0.05em;
+    }
+
+    ul {
+      padding-left: 18px;
+      margin: 4px 0 0;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    /* Button — softer glow */
+    .btn-wrap { margin-top: 16px; }
+
+    .btn {
+      display: inline-block;
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      border-radius: 999px;
+      border: 1px solid rgba(77, 243, 255, 0.55);
+      color: #001015;
+      background:
+        rgba(0, 230, 255, 0.75);
+      transition: 0.2s ease;
+      box-shadow: 0 0 10px rgba(77, 243, 255, 0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 14px rgba(77, 243, 255, 0.45);
+    }
+
+    footer {
+      margin-top: 48px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="shell">
+    <div class="grid-overlay"></div>
+
+    <header>
+      <div class="eyebrow">Security • Testing • Assurance</div>
+      <h1>Cybersecurity Services</h1>
+      <div class="pill">(by TheCyberAryan)</div>
+      <p>High-impact, affordable security services for websites, APIs, apps, and startups.</p>
+    </header>
+
+    <div class="cards">
+
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-icon">🛡</div>
+          <h2>Website Security Health Check</h2>
+        </div>
+        <div class="price">₹999</div>
+        <ul>
+          <li>XSS & SQLi detection</li>
+          <li>Security headers review</li>
+          <li>Data exposure checks</li>
+          <li>HTTPS & config checks</li>
+          <li>Screenshot proof report</li>
+        </ul>
+        <div class="btn-wrap">
+          <a href="mailto:thecyberaryan@gmail.com?subject=Book Website Audit" class="btn">Book Audit</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-icon">🧩</div>
+          <h2>WordPress Security Audit</h2>
+        </div>
+        <div class="price">₹1,499 – ₹2,999</div>
+        <ul>
+          <li>Plugin vulnerability scan</li>
+          <li>XML-RPC & file upload test</li>
+          <li>Admin panel hardening</li>
+          <li>Database & wp-config audit</li>
+        </ul>
+        <div class="btn-wrap">
+          <a href="mailto:thecyberaryan@gmail.com?subject=Book WP Audit" class="btn">Book Audit</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-icon">🐞</div>
+          <h2>Mini Penetration Test</h2>
+        </div>
+        <div class="price">₹2,999 – ₹6,999</div>
+        <ul>
+          <li>Recon → scan → exploit flow</li>
+          <li>Admin discovery</li>
+          <li>Misconfig testing</li>
+          <li>Pentest-style PDF report</li>
+        </ul>
+        <div class="btn-wrap">
+          <a href="mailto:thecyberaryan@gmail.com?subject=Book Mini PT" class="btn">Book Audit</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-icon">🔗</div>
+          <h2>API Security Testing</h2>
+        </div>
+        <div class="price">₹2,999 – ₹9,999</div>
+        <ul>
+          <li>IDOR & access control tests</li>
+          <li>Auth bypass attempts</li>
+          <li>Rate-limit & bruteforce checks</li>
+          <li>Parameter tampering</li>
+        </ul>
+        <div class="btn-wrap">
+          <a href="mailto:thecyberaryan@gmail.com?subject=Book API Audit" class="btn">Book Audit</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-icon">📱</div>
+          <h2>Mobile App (APK) Security Scan</h2>
+        </div>
+        <div class="price">₹1,999 – ₹6,999</div>
+        <ul>
+          <li>Static APK analysis</li>
+          <li>Hardcoded keys detection</li>
+          <li>Network/API traffic review</li>
+          <li>Firebase config audit</li>
+        </ul>
+        <div class="btn-wrap">
+          <a href="mailto:thecyberaryan@gmail.com?subject=Book APK Scan" class="btn">Book Audit</a>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-icon">♻️</div>
+          <h2>Monthly Security Maintenance</h2>
+        </div>
+        <div class="price">₹999 – ₹2,999 / month</div>
+        <ul>
+          <li>Monthly scans</li>
+          <li>Risk alerts</li>
+          <li>Updated security report</li>
+          <li>Priority support</li>
+        </ul>
+        <div class="btn-wrap">
+          <a href="mailto:thecyberaryan@gmail.com?subject=Subscribe Maintenance" class="btn">Book Audit</a>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>// THECYBERARYAN — Cybersecurity Done Right //</footer>
+
+  </div>
+</body>
+</html>
