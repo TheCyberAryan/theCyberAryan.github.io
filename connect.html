@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Connect to TheCyberAryan</title>
 
-  <!-- Fonts: same as services.html -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
   <style>
@@ -19,12 +18,10 @@
       --muted: #99a0d5;
       --radius: 18px;
       --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      --font-mono: "Share Tech Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --font-mono: "Share Tech Mono", ui-monospace;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -44,7 +41,6 @@
       position: relative;
     }
 
-    /* Subtle grid, same as services */
     .grid-overlay {
       position: absolute;
       inset: 0;
@@ -57,7 +53,6 @@
       z-index: -1;
     }
 
-    /* HEADER (same vibe as services) */
     header {
       text-align: center;
       margin-bottom: 32px;
@@ -76,8 +71,8 @@
       margin: 10px 0 6px;
       font-family: var(--font-mono);
       font-size: 2rem;
-      letter-spacing: 0.08em;
       text-transform: uppercase;
+      letter-spacing: 0.08em;
       color: #ffffff;
       text-shadow: 0 0 6px rgba(77, 243, 255, 0.25);
     }
@@ -88,6 +83,7 @@
       font-size: 0.78rem;
       color: var(--accent);
       font-family: var(--font-mono);
+      text-transform: uppercase;
       border-radius: 999px;
       border: 1px solid rgba(77, 243, 255, 0.35);
       background:
@@ -95,7 +91,6 @@
         rgba(3, 6, 30, 0.75);
       width: fit-content;
       letter-spacing: 0.14em;
-      text-transform: uppercase;
     }
 
     header p {
@@ -104,7 +99,6 @@
       color: var(--muted);
     }
 
-    /* GRID FOR TOP CARDS */
     .cards {
       display: grid;
       grid-template-columns: 1fr;
@@ -112,13 +106,10 @@
       margin-bottom: 22px;
     }
 
-    @media (min-width: 900px) {
-      .cards {
-        grid-template-columns: 1fr 1fr;
-      }
+    @media(min-width:900px){
+      .cards { grid-template-columns: 1fr 1fr; }
     }
 
-    /* CARD STYLE: same family as services cards */
     .card {
       border-radius: var(--radius);
       background:
@@ -138,24 +129,15 @@
     }
 
     .card h2 {
-      margin: 0 0 8px 0;
+      margin: 0 0 8px;
       font-family: var(--font-mono);
       font-size: 1rem;
-      letter-spacing: 0.07em;
       text-transform: uppercase;
+      letter-spacing: 0.07em;
       color: var(--accent);
     }
 
-    .card p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: var(--text);
-    }
-
-    /* BUTTONS — same family as services (cyan) */
-    .btn-wrap {
-      margin-top: 14px;
-    }
+    .btn-wrap { margin-top: 14px; }
 
     .btn {
       display: inline-block;
@@ -163,47 +145,40 @@
       font-size: 0.82rem;
       font-family: var(--font-mono);
       text-transform: uppercase;
-      text-decoration: none;
       letter-spacing: 0.1em;
+      text-decoration: none;
       border-radius: 999px;
-      border: 1px solid rgba(77, 243, 255, 0.55);
+      border: 1px solid rgba(77,243,255,0.55);
+      background: rgba(0,230,255,0.75);
       color: #001015;
-      background: rgba(0, 230, 255, 0.75);
       transition: 0.2s ease;
-      box-shadow: 0 0 10px rgba(77, 243, 255, 0.35);
+      box-shadow: 0 0 10px rgba(77,243,255,0.35);
     }
 
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 14px rgba(77, 243, 255, 0.45);
+      box-shadow: 0 0 14px rgba(77,243,255,0.45);
     }
 
-    /* CONTACT CARD (full-width form) */
     .contact-card {
+      margin-top: 4px;
+      padding: 22px 18px 20px;
       border-radius: var(--radius);
       background:
-        radial-gradient(circle at top left, rgba(255, 77, 156, 0.09), transparent 60%),
-        radial-gradient(circle at bottom right, rgba(77, 243, 255, 0.08), transparent 55%),
+        radial-gradient(circle at top left, rgba(255,77,156,0.09), transparent 60%),
+        radial-gradient(circle at bottom right, rgba(77,243,255,0.08), transparent 55%),
         rgba(5, 6, 24, 0.92);
-      border: 1px solid rgba(148, 163, 244, 0.35);
-      padding: 22px 18px 20px;
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.35);
-      margin-top: 4px;
+      border: 1px solid rgba(148,163,244,0.35);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.35);
     }
 
     .contact-card h2 {
-      margin: 0 0 8px 0;
+      margin: 0 0 8px;
       font-family: var(--font-mono);
       font-size: 1rem;
-      letter-spacing: 0.07em;
       text-transform: uppercase;
+      letter-spacing: 0.07em;
       color: var(--accent);
-    }
-
-    .contact-card p {
-      margin: 0 0 10px 0;
-      font-size: 0.9rem;
-      color: var(--text);
     }
 
     form {
@@ -218,47 +193,34 @@
       grid-template-columns: 1fr 1fr;
     }
 
-    .input,
-    textarea {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(160, 120, 255, 0.18);
-      color: var(--text);
+    .input, textarea {
       border-radius: 10px;
       padding: 12px;
-      font-size: 1rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(160,120,255,0.18);
       font-family: inherit;
+      font-size: 1rem;
+      color: var(--text);
     }
 
-    .input:focus,
-    textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(178, 123, 255, 0.16);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 120px;
-    }
+    textarea { min-height: 120px; resize: vertical; }
 
     button {
-      background: rgba(0, 230, 255, 0.75);
-      color: #001015;
-      border: none;
       padding: 10px 18px;
       border-radius: 999px;
+      background: rgba(0,230,255,0.75);
       font-family: var(--font-mono);
-      font-size: 0.86rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      border: none;
       cursor: pointer;
+      letter-spacing: 0.1em;
+      color: #001015;
       transition: 0.2s ease;
-      box-shadow: 0 0 10px rgba(77, 243, 255, 0.35);
+      box-shadow: 0 0 10px rgba(77,243,255,0.35);
     }
 
     button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 0 14px rgba(77, 243, 255, 0.45);
+      box-shadow: 0 0 14px rgba(77,243,255,0.45);
     }
 
     footer {
@@ -266,19 +228,14 @@
       text-align: center;
       font-family: var(--font-mono);
       font-size: 0.82rem;
+      color: var(--muted);
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--muted);
     }
 
-    /* Mobile tweaks */
-    @media (max-width: 720px) {
-      body {
-        padding: 30px 12px 60px;
-      }
-      .row {
-        grid-template-columns: 1fr;
-      }
+    @media(max-width:720px){
+      .row { grid-template-columns: 1fr; }
+      body { padding: 30px 12px 60px; }
     }
   </style>
 </head>
@@ -291,94 +248,56 @@
       <div class="eyebrow">Work • Support • Contact</div>
       <h1>Connect to TheCyberAryan</h1>
       <div class="pill">(by TheCyberAryan)</div>
-      <p>Hire, support, or collaborate — everything in one place.</p>
+      <p>Support, collaborate, explore tools, or contact — all in one place.</p>
     </header>
 
-    <!-- Top 4 cards: Hire / Support / Tools / Mentorship -->
     <div class="cards">
-
-      <!-- Hire -->
-      <div class="card">
-        <h2>⚙️ Hire Me for Security Work</h2>
-        <p>
-          Offering vulnerability assessment, penetration testing, and red–blue simulations for startups and organizations.
-          Every engagement includes a professional report and clear remediation steps.
-        </p>
-        <div class="btn-wrap">
-          <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Security%20Project%20Inquiry">
-            📩 Contact for Pentest
-          </a>
-        </div>
-      </div>
 
       <!-- Support -->
       <div class="card">
         <h2>☕ Support My Research</h2>
-        <p>
-          If my open-source tools, blogs, or findings helped you, you can support my work —
-          every coffee keeps the recon and lab machines running.
-        </p>
+        <p>If my tools/blogs helped you, you can support my work — every coffee keeps the recon & lab machines running.</p>
         <div class="btn-wrap">
-          <a class="btn" href="https://www.buymeacoffee.com/TheCyberAryan" target="_blank">
-            Buy Me a Coffee
-          </a>
+          <a class="btn" target="_blank" href="https://www.buymeacoffee.com/TheCyberAryan">Buy Me a Coffee</a>
         </div>
       </div>
 
-      <!-- Tools & Scripts -->
+      <!-- Tools -->
       <div class="card">
         <h2>🧠 Tools & Scripts</h2>
-        <p>
-          Explore my GitHub — Bash and Python-based cybersecurity tools focused on real-world recon,
-          automation, and exploit support.
-        </p>
+        <p>Explore my GitHub — cybersecurity tools for real-world recon, automation, and exploitation.</p>
         <div class="btn-wrap">
-          <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">
-            Visit GitHub
-          </a>
+          <a class="btn" target="_blank" href="https://github.com/TheCyberAryan">Visit GitHub</a>
         </div>
       </div>
 
       <!-- Mentorship -->
       <div class="card">
         <h2>🎓 Book Mentorship</h2>
-        <p>
-          Get 1:1 sessions on Web Pentesting, Bug Bounty, and Exploit Writing — with practical,
-          hands-on methodology instead of just theory.
-        </p>
+        <p>Get 1:1 guidance in Web App Pentesting, Bug Bounty, and Exploit Writing — practical hands-on learning.</p>
         <div class="btn-wrap">
-          <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Mentorship%20Request">
-            Book Session
-          </a>
+          <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Mentorship%20Request">Book Session</a>
         </div>
       </div>
 
     </div>
 
-    <!-- Contact form card -->
     <div class="contact-card">
       <h2>📞 Contact Me</h2>
-      <p>Have a project, collaboration idea, or question? Drop a message — I usually reply within a day.</p>
+      <p>Have a collaboration idea, project, or question? Drop a message — I usually reply within a day.</p>
 
       <form action="https://formsubmit.co/aryanpareek311072004@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="Message from TheCyberAryan Portfolio">
         <input type="hidden" name="_captcha" value="false">
-
         <div class="row">
           <input class="input" type="text" name="name" placeholder="Your Name" required />
           <input class="input" type="email" name="email" placeholder="Email" required />
         </div>
-
         <textarea name="message" placeholder="Your Message" required></textarea>
-
         <button type="submit">Send Message</button>
       </form>
     </div>
 
-    <footer>
-      // THECYBERARYAN — Security • Precision • Resilience //
-    </footer>
-
+    <footer>// THECYBERARYAN — SECURITY • PRECISION • RESILIENCE //</footer>
   </div>
 </body>
 </html>
