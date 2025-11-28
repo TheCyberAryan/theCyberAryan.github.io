@@ -1,289 +1,399 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>IDOR / BOLA Vulnerability — TheCyberAryan</title>
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="description" content="A sarcastic yet highly informative guide to IDOR/BOLA vulnerabilities — with examples, payloads, and real-world cases." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IDOR / BOLA Vulnerability (Sarcastic & Informative) — TheCyberAryan</title>
+  <meta name="author" content="Aryan Pareek — The Cyber Aryan">
+  <meta name="description" content="A dark-humor yet highly practical deep-dive into IDOR/BOLA vulnerabilities — with examples, payloads, hotspots, and developer fixes." />
 
-<style>
-  body {
-    background: #050711;
-    color: #e8edff;
-    font-family: 'Inter', sans-serif;
-    line-height: 1.8;
-    padding: 40px 16px;
-  }
-  h1, h2 {
-    color: #4df3ff;
-    font-weight: 700;
-  }
-  h3 {
-    color: #ff6bd6;
-  }
-  p {
-    color: #d8e2ff;
-  }
-  code {
-    background: #0c1020;
-    padding: 3px 6px;
-    border-radius: 4px;
-    color: #c6d4ff;
-    font-size: 0.95rem;
-  }
-  pre {
-    background: #0c1020;
-    padding: 14px;
-    border-radius: 6px;
-    overflow-x: auto;
-    color: #cbd5f5;
-    border-left: 3px solid #4df3ff;
-  }
-  .box {
-    background: #0a0f1c;
-    padding: 16px;
-    border-left: 3px solid #4df3ff;
-    margin: 20px 0;
-    border-radius: 6px;
-  }
-  .danger {
-    border-color: #ff6b6b;
-  }
-  ul { margin-left: 20px; }
-  li { margin-bottom: 8px; }
-  footer {
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #222a46;
-    color: #94a3b8;
-    text-align: center;
-    font-size: 0.9rem;
-  }
-  .highlight {
-    color: #4df3ff;
-    font-weight: 600;
-  }
-</style>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
+  <style>
+/* ========== THECYBERARYAN GLOBAL THEME (same as SQLi blog) ========== */
+:root {
+  --bg: #030515;
+  --bg-alt: #070a1f;
+  --panel: #090d26;
+  --primary: #ff4d9c;   /* Neon pink */
+  --secondary: #7d5dff; /* Purple/indigo accent */
+  --accent: #4df3ff;    /* Cyan highlight */
+  --danger: #ff3b6e;
+  --text: #e7ebff;
+  --muted: #9ca8d9;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 40px 18px 50px;
+  background:
+    radial-gradient(circle at top, rgba(255,77,156,0.18), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(77,243,255,0.12), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.8;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  background: linear-gradient(145deg, rgba(10,13,40,0.96), rgba(4,7,26,0.98));
+  border-radius: 18px;
+  border: 1px solid rgba(255,77,156,0.3);
+  box-shadow:
+    0 0 0 1px rgba(20,24,56,0.9),
+    0 22px 60px rgba(0,0,0,0.9);
+  padding: 26px 20px 32px;
+}
+
+/* ===== HEADER STYLING ===== */
+header {
+  border-bottom: 1px solid rgba(148,163,214,0.25);
+  padding-bottom: 16px;
+  margin-bottom: 22px;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+h1 {
+  margin: 6px 0 6px;
+  font-family: var(--font-mono);
+  font-size: 1.9rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  margin-top: 6px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ===== HEADINGS ===== */
+h2 {
+  margin-top: 28px;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+  font-size: 1.3rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h3 {
+  margin-top: 22px;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+  color: var(--secondary);
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ===== TEXT ===== */
+p {
+  margin: 8px 0 10px;
+  color: var(--text);
+  font-size: 0.96rem;
+}
+
+strong { color: #ffffff; }
+
+/* ===== CODE BLOCKS ===== */
+code {
+  background: rgba(15,23,42,0.9);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  color: var(--accent);
+  border: 1px solid rgba(148,163,214,0.35);
+}
+
+pre {
+  background:
+    radial-gradient(circle at top left, rgba(255,77,156,0.12), transparent 55%),
+    #050820;
+  padding: 13px 14px;
+  border-radius: 10px;
+  overflow-x: auto;
+  border: 1px solid rgba(148,163,214,0.4);
+  box-shadow: 0 14px 35px rgba(3,4,18,0.9);
+  margin: 10px 0 18px;
+}
+
+pre code {
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: #e5e7ff;
+  font-size: 0.82rem;
+}
+
+/* ===== PANELS ===== */
+.panel {
+  background: linear-gradient(135deg, rgba(15,23,42,0.97), rgba(10,10,30,0.98));
+  border-radius: 12px;
+  padding: 14px 14px;
+  border: 1px solid rgba(148,163,214,0.4);
+  margin: 18px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.panel-danger { border-color: rgba(255,59,110,0.7); }
+
+.panel-label {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+
+.panel-danger .panel-label { color: var(--danger); }
+
+/* ===== LISTS ===== */
+ul {
+  margin: 8px 0 12px 20px;
+  padding-left: 4px;
+}
+
+li {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  margin-top: 30px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(148,163,214,0.28);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (min-width: 768px) {
+  body { padding: 50px 24px 60px; }
+  .wrap { padding: 28px 26px 34px; }
+  h1 { font-size: 2.1rem; }
+}
+  </style>
 </head>
+
 <body>
+  <div class="wrap">
 
-<h1>🔓 IDOR / BOLA — The Vulnerability That Says “Access Granted… To Everyone”</h1>
+    <!-- HEADER -->
+    <header>
+      <div class="tag">// THECYBERARYAN — Research</div>
+      <h1>IDOR / BOLA Vulnerability (Sarcastic & Informative)</h1>
+      <div class="meta">Author: Aryan Pareek • Topic: Access Control • Year: 2025</div>
+    </header>
 
-<p>
-Imagine a restaurant where the waiter doesn’t care who you are — you say “I’m table 12,” and he brings you table 12’s biryani, bill, OTP, and maybe even their passport.  
-<br><br>
-Congratulations.  
-<br>
-You’ve just experienced the spirit of <strong>IDOR</strong>.
-</p>
+    <!-- INTRO -->
+    <p>
+      Imagine a restaurant where the waiter doesn’t care who you are — you say “I’m table 12,” and he brings you table 12’s biryani, bill, OTP, and maybe even their passport.
+      <br><br>
+      Congratulations.  
+      <br>
+      You’ve just experienced the spirit of <strong>IDOR</strong>.
+    </p>
 
-<div class="box">
-<b>IDOR (Insecure Direct Object Reference)</b> means:  
-<br>
-<strong>“If you guess someone else's ID, congratulations, you are them now.”</strong>
-</div>
+    <div class="panel">
+      <div class="panel-inner">
+        <div class="panel-label">Definition</div>
+        <strong>IDOR (Insecure Direct Object Reference)</strong> means:
+        <br>
+        <em>“If you guess someone else's ID, congratulations, you are them now.”</em>
+      </div>
+    </div>
 
-<p>
-In API terms, this is called <strong>BOLA (Broken Object Level Authorization)</strong>, because cybersecurity people like fancy names for simple disasters.
-</p>
+    <p>
+      In API language this becomes <strong>BOLA (Broken Object Level Authorization)</strong>, because cybersecurity loves giving fancy names to simple disasters.
+    </p>
 
-<hr style="border-color:#1a2238;margin:30px 0">
+    <hr>
 
-<h2>🥲 Why IDOR Exists (Simple & Sarcastic Explanation)</h2>
+    <h2>🥲 Why IDOR Exists (Simple + Sarcastic)</h2>
 
-<p>
-Because developers think:
-</p>
+    <p>Because developers think:</p>
 
-<div class="box">
-“Who would ever change the ID? Users are honest people.”
-</div>
+    <div class="panel">
+      <div class="panel-inner">
+        “Who would ever change the ID? Users are honest people.”
+      </div>
+    </div>
 
-<p>
-My brother in Christ, the website is on the <em>internet</em>.  
-Of course someone will change the ID.
-</p>
+    <p>
+      Brother, it's the *internet*.  
+      Of course someone will change the ID.
+    </p>
 
-<p>
-And so they write code like this:
-</p>
+    <pre><code>GET /user/profile?id=123</code></pre>
 
-<pre><code>GET /user/profile?id=123</code></pre>
+    <p>They assume this is “security.” Meanwhile you:</p>
 
-<p>
-And assume:
-</p>
+    <pre><code>GET /user/profile?id=124</code></pre>
 
-<p><strong>“This is enough security.”</strong></p>
+    <p>And boom — access to someone else’s:</p>
 
-<p>
-Meanwhile you (the hacker), smiling like a villain:
-</p>
+    <ul>
+      <li>profile</li>
+      <li>address</li>
+      <li>phone</li>
+      <li>orders</li>
+      <li>maybe their entire life story</li>
+    </ul>
 
-<pre><code>GET /user/profile?id=124</code></pre>
+    <h3>IDOR is basically:  
+    <em>“Know the number = You’re the owner.”</em></h3>
 
-<p>
-Boom.  
-You now have access to someone else’s:
-</p>
+    <hr>
 
-<ul>
-  <li>profile</li>
-  <li>address</li>
-  <li>phone</li>
-  <li>orders</li>
-  <li>maybe their entire life story</li>
-</ul>
+    <h2>📍 Where IDOR Usually Lives</h2>
 
-<h3>IDOR is literally the vulnerability version of:  
-<br><em>“If you know the secret number… you’re in.”</em></h3>
+    <p>Any time you see predictable numbers, your hacker-sense should tingle:</p>
 
-<hr style="border-color:#1a2238;margin:30px 0">
-
-<h2>📍 Where IDOR Usually Hides (This part is important!)</h2>
-
-<p>Whenever you see numerical IDs, your hacker senses should start tingling:</p>
-
-<pre><code>/order?id=120  
+    <pre><code>/order?id=120  
 /user?id=88  
+/api/v1/user/202  
 /invoice/1022  
 /cart/56  
-/ticket?user=12  
-/api/v1/user/202</code></pre>
+/ticket?user=12</code></pre>
 
-<p>Anywhere numbers appear → IDOR says “Hello.”</p>
+    <ul>
+      <li>User profiles</li>
+      <li>Order history</li>
+      <li>Support tickets</li>
+      <li>Wallet / points</li>
+      <li>File downloads</li>
+      <li>Anything under <code>/api/v1/</code></li>
+    </ul>
 
-<h3>Top Hotspots:</h3>
-<ul>
-  <li>User profile endpoints</li>
-  <li>Order history</li>
-  <li>Support tickets</li>
-  <li>Wallet / reward points</li>
-  <li>File downloads</li>
-  <li>Anything starting with <code>/api/v1/</code> (because devs trust APIs too much)</li>
-</ul>
+    <div class="panel panel-danger">
+      <div class="panel-inner">
+        <div class="panel-label">Fun Fact</div>
+        A huge portion of bug bounty payouts come from IDOR.  
+        Developers forget authorization faster than students forget their passwords.
+      </div>
+    </div>
 
-<div class="box danger">
-<b>Fun Fact:</b>  
-A huge percent of bug bounty payouts are from IDORs.  
-Because companies forget authorization faster than students forget passwords.
-</div>
+    <hr>
 
-<hr style="border-color:#1a2238;margin:30px 0">
+    <h2>🧪 Realistic Example</h2>
 
-<h2>🧪 Realistic Example (Super Easy to Understand)</h2>
+    <pre><code>GET /api/user/details?id=2001</code></pre>
 
-<h3>Suppose you are logged in as:</h3>
+    <p>You see your own data. Cute.</p>
 
-<pre><code>GET /api/user/details?id=2001</code></pre>
+    <pre><code>GET /api/user/details?id=2002</code></pre>
 
-<p>You see your own data. Cute.</p>
+    <div class="panel panel-danger">
+      <div class="panel-inner">
+        🎉 <strong>Congrats! That's a full IDOR.</strong>
+      </div>
+    </div>
 
-<h3>Now change it to:</h3>
+    <hr>
 
-<pre><code>GET /api/user/details?id=2002</code></pre>
+    <h2>📥 IDOR in File Downloads</h2>
 
-<p>
-If you now see someone else’s data…
-</p>
+    <pre><code>/download?file=invoice_102.pdf</code></pre>
 
-<div class="box danger">
-🎉 <strong>Congrats! That's a full-blown IDOR.</strong>  
-You now know their name, email, phone — maybe even saved card details.
-</div>
+    <p>Try:</p>
 
-<p>Just don’t go to jail.</p>
+    <pre><code>/download?file=invoice_103.pdf</code></pre>
 
-<hr style="border-color:#1a2238;margin:30px 0">
+    <hr>
 
-<h2>📥 IDOR in File Downloads (People Always Forget This)</h2>
+    <h2>🔁 IDOR + PUT/PATCH/DELETE</h2>
 
-<pre><code>GET /download?file=invoice_102.pdf</code></pre>
-<p>Now try:</p>
-<pre><code>/download?file=invoice_103.pdf</code></pre>
+    <p>Not just reading — sometimes modifying:</p>
 
-<p>You just stole someone’s invoice.  
-Try it for reports, tickets, medical PDFs — developers love exposing files.</p>
-
-<hr style="border-color:#1a2238;margin:30px 0">
-
-<h2>🔁 IDOR + PUT/PATCH/DELETE = Pure Disaster</h2>
-
-<p>Sometimes it's not just reading data…  
-You can modify or delete it. 🤡</p>
-
-<pre><code>PATCH /api/user/2002
+    <pre><code>PATCH /api/user/2002
 {
   "email": "hacked@evil.com"
 }</code></pre>
 
-<p>If the server says:</p>
+    <hr>
 
-<div class="box">"Updated successfully"</div>
+    <h2>🤖 Detecting IDOR with Burp</h2>
 
-<p>…that’s not a vulnerability anymore.  
-That’s a résumé-worthy achievement.</p>
+    <ul>
+      <li>Send request to Intruder</li>
+      <li>Mark ID parameter</li>
+      <li>Payload = numbers 1–500</li>
+      <li>Send</li>
+    </ul>
 
-<hr style="border-color:#1a2238;margin:30px 0">
+    <div class="panel">
+      <div class="panel-inner">
+        <strong>Tip:</strong> Look for response size differences or keywords like <code>"email"</code>, <code>"role"</code>.
+      </div>
+    </div>
 
-<h2>🤖 Using Burp to Mass Detect IDOR (Fun & Efficient)</h2>
+    <hr>
 
-<p>In Burp Intruder:</p>
-<ul>
-  <li>Target the ID parameter</li>
-  <li>Payload = numbers from 1 to 500</li>
-  <li>Send</li>
-  <li>Look for different response sizes</li>
-</ul>
+    <h2>🔐 How Developers Should Fix It</h2>
 
-<p>If some responses look "juicy" → IDOR detected.</p>
+    <ul>
+      <li>Validate ownership on server</li>
+      <li>Never trust client-side IDs</li>
+      <li>Use server-side lookups</li>
+      <li>Prefer UUIDs over integers</li>
+      <li>Enforce authorization on every object</li>
+    </ul>
 
-<div class="box">
-<strong>Tip:</strong> Response length ≠ always different.  
-Sometimes look for keywords: <code>"email"</code>, <code>"role"</code>, <code>"address"</code>.
-</div>
+    <hr>
 
-<hr style="border-color:#1a2238;margin:30px 0">
+    <h2>🎯 Final Thoughts</h2>
 
-<h2>🔐 How Developers Can Fix IDOR (Spoiler: They Won’t)</h2>
+    <p>
+      IDOR is:
+    </p>
 
-<p>But let’s pretend they will:</p>
+    <ul>
+      <li>easy to find</li>
+      <li>highly impactful</li>
+      <li>massively rewarding</li>
+      <li>hilarious in its simplicity</li>
+    </ul>
 
-<ul>
-  <li>Validate ownership on server-side</li>
-  <li>Never trust client-provided IDs</li>
-  <li>Use session-based lookups (not user-given IDs)</li>
-  <li>Use UUIDs instead of predictable numbers</li>
-  <li>Check permission EVERY time an object is accessed</li>
-</ul>
+    <p>
+      If hacking was PUBG, IDOR is the “DP-28” —  
+      easy recoil, massive damage.
+    </p>
 
-<p>But again… this is the internet.  
-So we both know you’ll keep finding IDORs for years. 😎</p>
-
-<hr style="border-color:#1a2238;margin:30px 0">
-
-<h2>🎯 Final Thoughts</h2>
-
-<p>
-IDOR is one of those vulnerabilities that is:
-</p>
-
-<ul>
-  <li>easy to find</li>
-  <li>simple to exploit</li>
-  <li>highly rewarding in bug bounties</li>
-  <li>and absolutely hilarious when you realize how simple the fix was</li>
-</ul>
-
-<p>
-If hacking was PUBG, IDOR is the “DP-28” —  
-easy recoil, massive damage.
-</p>
-
-<footer>
-  <p>// Written for <strong>TheCyberAryan</strong> — Hack responsibly.</p>
-</footer>
-
+    <footer>// THECYBERARYAN — Hack responsibly //</footer>
+  </div>
 </body>
 </html>
