@@ -1,345 +1,773 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nuclei — Zero to Hero Guide — The Cyber Aryan</title>
+# 🎯 Nuclei: From Zero to Hero (A Journey into Vulnerability Heaven)
 
-  <meta name="author" content="Aryan Pareek — The Cyber Aryan">
-  <meta name="description" content="Complete Zero-to-Hero guide on Nuclei for automation, vulnerability scanning, and bug bounty recon.">
+> **Fair Warning**: This guide is for people who believe that manually checking every website for vulnerabilities is *totally* not a waste of time. Welcome to the future, friend. 🚀
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+---
 
-  <style>
-  :root {
-    --bg: #030515;
-    --panel: #090d26;
-    --primary: #ff4d9c;
-    --secondary: #7d5dff;
-    --accent: #4df3ff;
-    --text: #e7ebff;
-    --muted: #9ca8d9;
-    --font-mono: 'Share Tech Mono', monospace;
-    --font-body: 'Inter', system-ui, sans-serif;
-  }
+## 📖 Table of Contents
 
-  * { box-sizing: border-box; }
+1. [WTF is Nuclei?](#wtf-is-nuclei)
+2. [Installation (The Plot Thickens)](#installation-the-plot-thickens)
+3. [First Run (Holy Cow, It Works!)](#first-run-holy-cow-it-works)
+4. [Understanding Templates (The Secret Sauce)](#understanding-templates-the-secret-sauce)
+5. [Writing Your Own Templates (Become a Template Wizard)](#writing-your-own-templates-become-a-template-wizard)
+6. [Advanced Usage (Now Things Get Spicy)](#advanced-usage-now-things-get-spicy)
+7. [Troubleshooting (Murphy's Law is Real)](#troubleshooting-murphys-law-is-real)
 
-  body {
-    margin: 0;
-    padding: 40px 18px 50px;
-    background:
-      radial-gradient(circle at top, rgba(255,77,156,0.18), transparent 55%),
-      radial-gradient(circle at bottom right, rgba(77,243,255,0.12), transparent 55%),
-      var(--bg);
-    font-family: var(--font-body);
-    color: var(--text);
-    line-height: 1.78;
-  }
+---
 
-  .wrap {
-    max-width: 900px;
-    margin: 0 auto;
-    background: linear-gradient(145deg, rgba(10,13,40,0.96), rgba(4,7,26,0.98));
-    border-radius: 18px;
-    padding: 32px 26px;
-    border: 1px solid rgba(255,77,156,0.3);
-    box-shadow:
-      0 0 0 1px rgba(20,24,56,0.9),
-      0 24px 60px rgba(0,0,0,0.9);
-  }
+## 🤔 WTF is Nuclei?
 
-  header {
-    border-bottom: 1px solid rgba(148,163,214,0.25);
-    padding-bottom: 16px;
-    margin-bottom: 22px;
-  }
+> "Nuclei is a fast, customizable vulnerability scanner based on YAML templates. Translation: It's like having a robot that speaks HTTP requests and finds security holes so you don't have to." 
 
-  .tag {
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-  }
+![Nuclei Interface](https://pplx-res.cloudinary.com/image/upload/v1764313366/search_images/d1f07d047e76240cd7f03f35cd998eea808baeab.jpg)
 
-  h1 {
-    font-family: var(--font-mono);
-    font-size: 1.9rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--primary);
-    margin: 8px 0 6px;
-  }
+**In Plain English:**
 
-  .meta {
-    font-size: 0.9rem;
-    color: var(--muted);
-  }
+- **Speed**: Scans faster than you can say "SQL injection" ⚡
+- **Flexibility**: Template-based means you can customize *everything*
+- **Accuracy**: Reduces false positives (finally, right?)
+- **Extensibility**: Write templates for custom vulnerabilities
+- **Protocol Support**: HTTP, DNS, TCP, SSL, WebSocket, and 6+ more protocols
 
-  h2 {
-    margin-top: 30px;
-    margin-bottom: 12px;
-    font-family: var(--font-mono);
-    font-size: 1.3rem;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
+**Why Should You Care?**
 
-  h3 {
-    margin-top: 22px;
-    margin-bottom: 6px;
-    font-family: var(--font-mono);
-    color: var(--secondary);
-    font-size: 1.05rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
+Traditional vulnerability scanners are bloated, slow, and produce more false positives than actual vulnerabilities. Nuclei says "nah" to that and gives you precision scanning at warp speed. Think of it as the sniper rifle of vulnerability scanning—you know exactly what you're targeting.
 
-  p {
-    color: var(--text);
-    margin: 8px 0 12px;
-    font-size: 1rem;
-  }
+> **Interactive Note**: Click [here](#installation-the-plot-thickens) if you're ready to actually install this beast, or keep reading for the juicy details.
 
-  .lead {
-    font-size: 1.07rem;
-    margin-bottom: 18px;
-    color: var(--text);
-  }
+---
 
-  code {
-    background: rgba(15,23,42,0.95);
-    padding: 2px 6px;
-    border-radius: 4px;
-    color: var(--accent);
-    border: 1px solid rgba(148,163,214,0.35);
-    font-family: var(--font-mono);
-    font-size: 0.88rem;
-  }
+## ⚙️ Installation (The Plot Thickens)
 
-  pre {
-    background:
-      radial-gradient(circle at top left, rgba(255,77,156,0.14), transparent 55%),
-      #050820;
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid rgba(148,163,214,0.4);
-    box-shadow: 0 14px 36px rgba(3,4,18,0.9);
-    overflow-x: auto;
-    color: #e5e8ff;
-    margin: 12px 0 20px;
-  }
+### Prerequisites: The Boring But Necessary Part
 
-  pre code {
-    background: transparent;
-    border: none;
-    padding: 0;
-    font-size: 0.9rem;
-  }
+Before we get to the fun stuff, you need Go installed. Yes, *Go*—not Python, not Node.js. Go.
 
-  ul, ol {
-    margin-left: 20px;
-    margin-bottom: 18px;
-  }
+#### Step 1️⃣: Install Go (If You Haven't Already)
 
-  li {
-    margin-bottom: 8px;
-    color: var(--text);
-  }
+```bash
+# Check if Go is already installed (fingers crossed)
+go version
 
-  .note {
-    background: linear-gradient(135deg, rgba(15,23,42,0.97), rgba(10,10,30,0.98));
-    border: 1px solid rgba(77,243,255,0.45);
-    padding: 14px;
-    border-radius: 12px;
-    margin: 20px 0;
-  }
+# If not, download Go 1.21+ from https://golang.org/dl/
+# For Linux lovers:
+wget https://go.dev/dl/go1.21.0.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz
 
-  .cta {
-    margin-top: 24px;
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
+# Add Go to PATH
+export PATH=$PATH:/usr/local/go/bin
+# Make it permanent in ~/.bashrc or ~/.zshrc:
+echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
+source ~/.bashrc
+```
 
-  .btn {
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,77,156,0.35);
-    background: radial-gradient(circle at top left, rgba(255,77,156,0.22), transparent 55%);
-    color: var(--text);
-    font-family: var(--font-mono);
-    text-decoration: none;
-    transition: 0.25s ease;
-  }
+> **Sanity Check**: After this, run `go version` and you should see something like `go version go1.21.0 linux/amd64`
 
-  .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 14px rgba(255,77,156,0.35);
-  }
+#### Step 2️⃣: Install Nuclei (The Main Event)
 
-  footer {
-    margin-top: 32px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(148,163,214,0.28);
-    color: var(--muted);
-    text-align: center;
-    font-size: 0.85rem;
-    font-family: var(--font-mono);
-    letter-spacing: 0.14em;
-  }
-  </style>
-</head>
+```bash
+# Method 1: The Recommended Way (Go Install)
+go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
 
-<body>
-<div class="wrap">
+# Method 2: Using Apt (for Kali/Debian users - lazy but effective)
+sudo apt install nuclei
 
-<header>
-  <div class="tag">// THECYBERARYAN — RESEARCH</div>
-  <h1>Nuclei — Zero to Hero Guide</h1>
-  <div class="meta">Author: Aryan Pareek • Date: 2025-11-17 • Category: Vulnerability Scanning</div>
-</header>
+# Method 3: Download Binary Directly (for the impatient)
+wget https://github.com/projectdiscovery/nuclei/releases/download/v3.0.0/nuclei_3.0.0_linux_amd64.zip
+unzip nuclei_3.0.0_linux_amd64.zip
+sudo mv nuclei /usr/local/bin/
+```
 
-<p class="lead">
-Nuclei is a <strong>high-speed, template-based vulnerability scanner</strong> built by ProjectDiscovery.
-It powers modern bug bounty and enterprise security automation with unmatched flexibility.
-</p>
+> **Interactive Checkpoint**: Which method did you choose? Each has its pros and cons. Go Install gives you the latest, Apt is easier, and the binary is fastest. No judgment here.
 
-<h2>Why Nuclei?</h2>
-<ul>
-  <li>Runs thousands of checks at enterprise speed</li>
-  <li>Uses YAML templates for everything — simple but powerful</li>
-  <li>Massive community template library</li>
-  <li>Integrates perfectly into recon pipelines</li>
-  <li>Ideal for automation & CI/CD</li>
-</ul>
+#### Step 3️⃣: Verify Installation (Did It Actually Work?)
 
-<pre><code>Input: URLs, IPs, CIDRs  
-Output: Vulnerabilities, exposures & metadata</code></pre>
+```bash
+nuclei -version
 
-<h2>Installation</h2>
-<pre><code>sudo apt install nuclei
-curl -s https://api.projectdiscovery.io/tools/install | sh
-brew install nuclei</code></pre>
+# Expected output: nuclei 3.x.x
+# If you see this, congrats! 🎉 If not... well, StackOverflow is your friend.
+```
 
-<h2>Update Templates</h2>
-<pre><code>nuclei -update-templates
-nuclei -version</code></pre>
+#### Step 4️⃣: Update Templates (This is Important, Karen)
 
-<h2>Basic Usage</h2>
-<pre><code>nuclei -u https://example.com
-nuclei -l urls.txt -o nuclei_out.txt</code></pre>
+```bash
+nuclei -update-templates
 
-<h2>Template Tags</h2>
-<pre><code>cves  
-misconfig  
-tokens  
-exposures  
-network  
-dns  
-cloud</code></pre>
+# Nuclei will download ~8,000+ community templates
+# Go grab a coffee ☕ This takes a minute or two...
+```
 
-<h3>Run specific categories</h3>
-<pre><code>nuclei -l urls.txt -tags cves,misconfig -o out.txt</code></pre>
+> **Why This Matters**: Templates are the heart of Nuclei. They're constantly updated with new vulnerability checks. Think of it like antivirus definitions—outdated templates = missing vulnerabilities.
 
-<h2>Output Formats</h2>
-<pre><code>nuclei -l urls.txt -o out.txt       # plain  
-nuclei -l urls.txt -json -o out.json  
-nuclei -l urls.txt -me report.md</code></pre>
+---
 
-<h2>Rate Limits & Concurrency</h2>
-<pre><code>nuclei -l urls.txt -rl 50  
-nuclei -l urls.txt -c 50</code></pre>
+## 🚀 First Run (Holy Cow, It Works!)
 
-<h2>Severity Filtering</h2>
-<pre><code>nuclei -l urls.txt -severity high,critical -o high.txt</code></pre>
+### Basic Syntax: Let's Scan Something
 
-<h2>Exclude Noisy Templates</h2>
-<pre><code>nuclei -l urls.txt -exclude-tags fuzz,bruteforce</code></pre>
+```bash
+# Scan a single URL
+nuclei -u https://example.com
 
-<h2>Workflows</h2>
-<pre><code>nuclei -l urls.txt -w workflows/scan-admins.yaml -o workflow_out.txt</code></pre>
+# Scan a list of URLs from a file
+nuclei -l urls.txt
 
-<h2>Custom Template Example</h2>
-<pre><code>id: exposed-git
+# Scan with specific templates only
+nuclei -u https://example.com -t sql-injection.yaml
+
+# Scan and save results to JSON
+nuclei -u https://example.com -o results.json
+
+# Verbose mode (see EVERYTHING)
+nuclei -u https://example.com -v
+
+# Dry run (see what would be scanned, without actually scanning)
+nuclei -u https://example.com -dry-run
+```
+
+### Your First Real Scan
+
+```bash
+# Let's scan a real website (with permission, obviously)
+nuclei -u https://testphp.vulnweb.com -o my_first_scan.json
+
+# Watch the magic happen... 🪄
+```
+
+**Expected Output:**
+
+```
+                     __     _
+   ____  __  _______/ /__  (_)
+  / __ \/ / / / ___/ / _ \/ /
+ / / / / /_/ / /__/ /  __/ /
+/_/ /_/\__,_/\___/_/\___/_/   v3.0.0
+
+    projectdiscovery.io
+
+[INF] Running nuclei against https://testphp.vulnweb.com
+[INF] Fetching templates...
+[INF] Executing 8542 templates
+
+[wordpress-xss-reflected] [http] [medium] https://testphp.vulnweb.com
+[wordpress-lfi] [http] [high] https://testphp.vulnweb.com/artists.php?artist=
+
+✓ Scan completed! Check your results.
+```
+
+> **Interactive Challenge**: Try scanning a test website and compare your findings with the output. Did Nuclei catch everything you expected?
+
+---
+
+## 📚 Understanding Templates (The Secret Sauce)
+
+![YAML Template Structure](https://pplx-res.cloudinary.com/image/upload/v1764402395/search_images/8b74c5bf2291e82ad39461eb5d971c327868ac07.jpg)
+
+### Anatomy of a Nuclei Template
+
+Templates are written in YAML, and they're surprisingly simple. Here's a basic structure:
+
+```yaml
+id: super-simple-template
 info:
-  name: Exposed .git HEAD
-  severity: medium
+  name: Super Simple Vulnerability Check
+  author: Your Name Here
+  severity: high
+  description: This template checks for a common vulnerability
+  reference:
+    - https://example.com/vulnerability
+
+requests:
+  - raw: |
+      GET / HTTP/1.1
+      Host: {{Hostname}}
+
+    matchers:
+      - type: status
+        status:
+          - 200
+```
+
+### Breaking Down the Components
+
+#### 🔱 ID (The Unique Identifier)
+
+```yaml
+id: simple-sqli-check
+```
+
+- Must be unique (Nuclei will yell at you if it's not)
+- Use lowercase with hyphens (no spaces, you monster)
+- Makes it easy to reference templates
+
+#### 📋 Info Block (The Metadata)
+
+```yaml
+info:
+  name: Simple SQL Injection Check
+  author: SecurityNerd
+  severity: critical  # Options: low, medium, high, critical
+  description: Detects basic SQL injection vulnerabilities
+  tags: sqli,injection,database
+  reference:
+    - https://owasp.org/www-community/attacks/SQL_Injection
+    - https://portswigger.net/web-security/sql-injection
+```
+
+#### 🎯 Requests Block (The Action)
+
+```yaml
 requests:
   - method: GET
     path:
-      - "{{BaseURL}}/.git/HEAD"
+      - "/"
+      - "/admin"
+      - "/login"
+    headers:
+      User-Agent: Mozilla/5.0
+      X-Forwarded-For: "{{BaseURL}}"
+```
+
+#### 🔍 Matchers (The Magic)
+
+These determine if a vulnerability is found:
+
+```yaml
+matchers:
+  # Type 1: Status Code Matching
+  - type: status
+    status:
+      - 200
+      - 201
+
+  # Type 2: String Matching
+  - type: word
+    words:
+      - "error"
+      - "Exception"
+    
+  # Type 3: Regex Matching
+  - type: regex
+    regex:
+      - "SQL.*Injection.*Error"
+
+  # Type 4: DSL (Domain Specific Language) - The Powerful Stuff
+  - type: dsl
+    dsl:
+      - "contains(body, 'admin') && status_code == 200"
+```
+
+### Real-World Template Example
+
+```yaml
+id: wordpress-admin-exposure
+info:
+  name: WordPress Admin Panel Detection
+  author: SecurityPro
+  severity: medium
+  description: Detects exposed WordPress admin panel
+  tags: wordpress,admin,exposure
+
+requests:
+  - method: GET
+    path:
+      - /wp-admin/
+      - /wp-login.php
+    
+    matchers-condition: or
+    matchers:
+      - type: status
+        status:
+          - 200
+          - 302
+      
+      - type: word
+        words:
+          - "wp-login"
+          - "wordpress"
+          - "wp-submit"
+```
+
+> **Interactive Learning**: Open `~/.nuclei-templates` directory and explore existing templates. They're all open-source, so you can learn from the best!
+
+---
+
+## ✍️ Writing Your Own Templates (Become a Template Wizard)
+
+### Template 1️⃣: Basic Exposure Check (Beginner)
+
+```yaml
+id: exposed-config-check
+info:
+  name: Exposed Config File
+  author: YourName
+  severity: high
+  description: Detects commonly exposed configuration files
+
+requests:
+  - method: GET
+    path:
+      - /config.php
+      - /config.json
+      - /settings.xml
+      - /.env
+      - /web.config
+
     matchers:
       - type: word
         words:
-          - "ref: "</code></pre>
+          - "password"
+          - "database"
+          - "api_key"
+          - "secret"
+```
 
-<h2>Authenticated Scanning</h2>
-<pre><code>nuclei -l urls.txt -H "Authorization: Bearer TOKEN"</code></pre>
+**How to Use It:**
 
-<h2>Real Recon Pipeline</h2>
-<pre><code>subfinder -d example.com -o subs.txt  
-httpx -l subs.txt -o alive.txt  
-naabu -list alive.txt -o ports.txt  
-nuclei -l alive.txt -severity medium,high -o nuclei_results.txt</code></pre>
+```bash
+# Save as: ~/.nuclei-templates/exposed-config.yaml
+nuclei -u https://target.com -t exposed-config.yaml -v
+```
 
-<div class="note">
-<strong>Pro Tip:</strong> Update templates daily — new CVEs appear constantly.
-</div>
+### Template 2️⃣: Advanced XSS Detection (Intermediate)
 
-<h2>Common Template Features</h2>
-<ul>
-  <li>Matchers (word, regex, binary, status)</li>
-  <li>Extractors (response data capture)</li>
-  <li>Payloads for fuzzing</li>
-  <li>Conditions for complex chains</li>
-</ul>
+```yaml
+id: advanced-reflected-xss
+info:
+  name: Advanced Reflected XSS Detection
+  author: YourName
+  severity: high
+  description: Detects reflected XSS with DSL matchers
 
-<h2>Template Debugging</h2>
-<pre><code>nuclei -t templates/exposed-git.yaml -u https://example.com -debug</code></pre>
+requests:
+  - method: GET
+    path:
+      - "/?search={{payload}}"
+      - "/?q={{payload}}"
+      - "/search.php?term={{payload}}"
+    
+    payloads:
+      payload:
+        - "<script>alert(1)</script>"
+        - "'\"><script>alert(1)</script>"
+        - "<img src=x onerror='alert(1)'>"
 
-<h2>Reducing False Positives</h2>
-<ul>
-  <li>Combine matchers</li>
-  <li>Use length matchers when possible</li>
-  <li>Confirm with Httpx or Nmap</li>
-</ul>
+    matchers:
+      - type: dsl
+        dsl:
+          - "contains(body, payloads) && status_code == 200"
+          - "contains(body, 'alert') && contains(body, payload)"
+```
 
-<h2>CI/CD Integration</h2>
-<pre><code>- name: Run nuclei  
-  run: |  
-    nuclei -update-templates  
-    nuclei -l urls.txt -severity medium,high -o nuclei_run.json  
-</code></pre>
+### Template 3️⃣: API Vulnerability Check (Advanced)
 
-<h2>Use Cases</h2>
-<h3>Quick High Severity Sweep</h3>
-<pre><code>nuclei -l alive.txt -severity high,critical -o high.txt</code></pre>
+```yaml
+id: api-key-exposure
+info:
+  name: API Key Exposure in Responses
+  author: YourName
+  severity: critical
+  description: Detects API keys leaking in responses
 
-<h3>Moderate Full Scan</h3>
-<pre><code>nuclei -l alive.txt -c 50 -rl 100 -o all.txt</code></pre>
+requests:
+  - method: GET
+    path:
+      - /api/config
+      - /api/status
+      - /api/debug
+    
+    headers:
+      Authorization: "Bearer test"
+    
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
 
-<h3>Web Focused Only</h3>
-<pre><code>nuclei -l urls.txt -tags exposures,technologies -o web.txt</code></pre>
+      - type: regex
+        regex:
+          - '(sk_live|pk_live|api_key|secret_key)[-_]?[A-Za-z0-9]{20,}'
+          - 'aws_access_key_id.*aws_secret_access_key'
 
-<h2>Conclusion</h2>
-<p>
-Nuclei is a world-class scanning engine — flexible, scalable, and perfect for automation.  
-With custom templates and controlled workflows, it becomes an unstoppable tool in any offensive security workflow.
-</p>
+    extractors:
+      - type: regex
+        name: APIKeys
+        regex:
+          - '(sk_live|pk_live|api_key|secret_key)[-_]?[A-Za-z0-9]{20,}'
+```
 
-<div class="cta">
-  <a class="btn" href="mailto:aryanpareek311072004@gmail.com?subject=Nuclei%20Help">Contact Securely</a>
-  <a class="btn" href="https://github.com/TheCyberAryan" target="_blank">View Tools</a>
-</div>
+> **Pro Tip**: Start simple, then add complexity. Test your templates against known vulnerable apps first!
 
-<footer>
-  © 2025 THECYBERARYAN — USE RESPONSIBLY.
-</footer>
+---
 
-</div>
-</body>
-</html>
+## 🔥 Advanced Usage (Now Things Get Spicy)
+
+### Parallel Scanning (Speed Demon Mode)
+
+```bash
+# Scan 100 targets with 50 parallel threads
+nuclei -l targets.txt -c 50
+
+# Adjust based on your system:
+# -c 10 = Conservative (low resources)
+# -c 50 = Balanced (recommended)
+# -c 100+ = Aggressive (high resources, potential DoS)
+```
+
+### Rate Limiting (Be Nice to Servers)
+
+```bash
+# Limit requests per second
+nuclei -u https://target.com -rh 100
+
+# Custom rate limiting
+nuclei -l targets.txt -rpg 100  # Requests per second
+```
+
+### Filter by Severity
+
+```bash
+# Only run critical and high severity templates
+nuclei -u https://target.com -severity critical,high
+
+# Exclude specific severities
+nuclei -u https://target.com -severity low,medium
+```
+
+### Filter by Tags
+
+```bash
+# Scan only for CVE-related vulnerabilities
+nuclei -u https://target.com -tags cve
+
+# Multiple tags (OR operator)
+nuclei -u https://target.com -tags sqli,xss,rfi
+
+# Exclude tags
+nuclei -u https://target.com -etags info
+```
+
+### Interactive Output Options
+
+```bash
+# JSON output (for automation)
+nuclei -u https://target.com -o results.json -json
+
+# Markdown output
+nuclei -u https://target.com -o results.md
+
+# Template display (see what will be executed)
+nuclei -u https://target.com -td
+
+# Dry run (no actual requests sent)
+nuclei -u https://target.com -dry-run
+```
+
+### Fuzzing with Nuclei (The Fun Stuff)
+
+```yaml
+id: parameter-fuzzing
+info:
+  name: Parameter Fuzzing Check
+  author: YourName
+  severity: medium
+  description: Fuzzes common parameters
+
+requests:
+  - method: GET
+    path:
+      - "/?{{param}}=test"
+    
+    payloads:
+      param:
+        - id
+        - user
+        - admin
+        - search
+        - q
+
+    matchers:
+      - type: status
+        status:
+          - 200
+```
+
+### Use Nuclei in CI/CD Pipeline
+
+```yaml
+# GitHub Actions Example
+name: Security Scan
+on: [push]
+
+jobs:
+  nuclei:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install Nuclei
+        run: go install -v github.com/projectdiscovery/nuclei/v3/cmd/nuclei@latest
+
+      - name: Run Nuclei Scan
+        run: |
+          nuclei -u ${{ secrets.TARGET_URL }} \
+            -severity high,critical \
+            -o results.json \
+            -json
+
+      - name: Upload Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: nuclei-results
+          path: results.json
+```
+
+### Integration with Other Tools
+
+```bash
+# Use with SubFinder for subdomain discovery
+subfinder -d example.com -o subs.txt && nuclei -l subs.txt
+
+# Use with HTTPX for live host detection
+httpx -l hosts.txt -o live.txt && nuclei -l live.txt
+
+# Use with Nuclei output in another tool
+nuclei -l targets.txt -json | jq '.[]' > parsed_results.json
+```
+
+---
+
+## 🐛 Troubleshooting (Murphy's Law is Real)
+
+### Issue 1️⃣: "Command Not Found"
+
+```bash
+# Problem: Nuclei binary not in PATH
+# Solution 1: Add to PATH manually
+export PATH=$PATH:/root/go/bin
+
+# Solution 2: Create symlink
+sudo ln -s /root/go/bin/nuclei /usr/local/bin/nuclei
+
+# Verify:
+which nuclei
+```
+
+### Issue 2️⃣: "Templates Not Found"
+
+```bash
+# Problem: Templates directory not found
+# Solution: Update templates manually
+nuclei -update-templates
+
+# Verify templates location:
+ls -la ~/.nuclei-templates/
+
+# If templates are elsewhere:
+nuclei -u https://example.com -templates /path/to/templates
+```
+
+### Issue 3️⃣: "Too Many Open Files"
+
+```bash
+# Problem: Running out of file descriptors
+# Solution: Increase limit
+ulimit -n 65535
+
+# Make it permanent:
+echo "ulimit -n 65535" >> ~/.bashrc
+```
+
+### Issue 4️⃣: "SSL Certificate Verification Failed"
+
+```bash
+# Disable SSL verification (use with caution!)
+nuclei -u https://self-signed.com -insecure
+
+# Or use custom CA certificate
+nuclei -u https://example.com -cacert /path/to/ca.crt
+```
+
+### Issue 5️⃣: "False Positives Everywhere"
+
+```bash
+# Problem: Too many false positives
+# Solution: Use stricter matchers
+
+# Filter by high/critical severity only
+nuclei -u https://example.com -severity critical
+
+# Use specific templates instead of all
+nuclei -u https://example.com -templates /path/to/verified/templates
+```
+
+### Debug Mode (Last Resort)
+
+```bash
+# Enable verbose logging
+nuclei -u https://example.com -v
+
+# Enable debug logging (VERY verbose)
+nuclei -u https://example.com -debug
+```
+
+---
+
+## 📊 Real-World Scanning Scenarios
+
+### Scenario 1️⃣: Scan Company Infrastructure
+
+```bash
+# Create targets file
+cat > company-targets.txt << EOF
+https://app.company.com
+https://admin.company.com
+https://api.company.com
+https://dev.company.com
+EOF
+
+# Run comprehensive scan
+nuclei -l company-targets.txt \
+  -severity high,critical \
+  -c 50 \
+  -o company-scan-$(date +%Y%m%d).json \
+  -json
+```
+
+### Scenario 2️⃣: Bug Bounty Hunting
+
+```bash
+# Scan target with all templates
+nuclei -u https://target.com \
+  -o bug-bounty-results.json \
+  -json \
+  -v
+
+# Filter by exploitable vulnerabilities
+nuclei -u https://target.com \
+  -severity critical,high \
+  -tags sqli,rfi,lfi,xss \
+  -o exploitable.json
+```
+
+### Scenario 3️⃣: Daily Automated Scans
+
+```bash
+#!/bin/bash
+# Save as: daily-scan.sh
+
+TARGETS="/path/to/targets.txt"
+OUTPUT_DIR="/var/log/nuclei-scans"
+DATE=$(date +%Y%m%d-%H%M%S)
+
+nuclei -l $TARGETS \
+  -severity high,critical \
+  -c 50 \
+  -o "$OUTPUT_DIR/scan-$DATE.json" \
+  -json
+
+echo "Scan completed: $OUTPUT_DIR/scan-$DATE.json"
+```
+
+---
+
+## 🎓 Pro Tips & Tricks
+
+### Tip 1: Custom Nuclei Configuration
+
+```bash
+# Create config file
+cat > ~/.nuclei/config.yaml << EOF
+# Nuclei configuration
+rate-limit: 100
+timeout: 10
+retries: 1
+output: json
+severity: high,critical
+EOF
+
+# Use config
+nuclei -config ~/.nuclei/config.yaml -u https://target.com
+```
+
+### Tip 2: Create Reusable Template Collections
+
+```bash
+# Organize templates by category
+mkdir -p ~/.nuclei-templates/{custom,verified,experimental}
+
+# Store in version control
+git init ~/.nuclei-templates
+git add .
+git commit -m "Initial template collection"
+```
+
+### Tip 3: Parse and Analyze Results
+
+```bash
+# Extract only critical findings
+jq '.[] | select(.info.severity=="critical")' results.json
+
+# Group by severity
+jq 'group_by(.info.severity)' results.json
+
+# Count vulnerabilities by type
+jq '.[] | .info.name' results.json | sort | uniq -c
+```
+
+### Tip 4: Monitor Nuclei Execution
+
+```bash
+# Real-time monitoring
+watch -n 1 'ps aux | grep nuclei'
+
+# Log to file with timestamp
+nuclei -u https://target.com -v 2>&1 | tee -a nuclei-$(date +%Y%m%d).log
+```
+
+---
+
+## 🎯 Conclusion: You Made It!
+
+Congratulations! 🎉 You've gone from "What is Nuclei?" to scanning production systems like a pro.
+
+**Key Takeaways:**
+- ✅ Nuclei is fast, flexible, and incredibly powerful
+- ✅ Templates are the key to success
+- ✅ Start simple, then get complex
+- ✅ Always respect scope and permissions
+- ✅ Automate, but verify results manually
+
+**Next Steps:**
+1. Write your own templates
+2. Contribute to the community
+3. Integrate into your CI/CD
+4. Become a Nuclei master 🧙
+
+---
+
+## 📚 Resources & References
+
+- **Official Nuclei Documentation**: https://nuclei.projectdiscovery.io/
+- **GitHub Repository**: https://github.com/projectdiscovery/nuclei
+- **Template Repository**: https://github.com/projectdiscovery/nuclei-templates
+- **Community Discussions**: https://github.com/projectdiscovery/nuclei/discussions
+- **Bug Reports**: https://github.com/projectdiscovery/nuclei/issues
+
+---
+
+## ⚖️ Legal Notice
+
+> **IMPORTANT**: Only scan systems you own or have explicit written permission to scan. Unauthorized scanning is illegal in most jurisdictions and can result in serious legal consequences. Be responsible. Be ethical. 🛡️
+
+---
+
+**Happy Scanning!** 🚀
+
+*Last Updated: 2025*
+*Version: 1.0*
+
+---
