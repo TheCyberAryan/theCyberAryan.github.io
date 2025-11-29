@@ -11,28 +11,33 @@
 <style>
 :root {
   --bg: #030515;
+  --bg-alt: #070a1f;
   --panel: #090d26;
+
   --primary: #ff4d9c;
   --secondary: #7d5dff;
   --accent: #4df3ff;
+  --danger: #ff3b6e;
+
   --text: #e7ebff;
   --muted: #9ca8d9;
-  --font-mono:'Share Tech Mono', monospace;
-  --font-body:'Inter', system-ui, sans-serif;
+
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', system-ui, sans-serif;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  margin:0;
-  padding:40px 14px;
+  margin: 0;
+  padding: 40px 16px;
   background:
     radial-gradient(circle at top, rgba(255,77,156,0.18), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(77,243,255,0.14), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(77,243,255,0.12), transparent 55%),
     var(--bg);
-  color:var(--text);
-  font-family:var(--font-body);
-  line-height:1.75;
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.75;
 }
 
 .page {
@@ -44,7 +49,30 @@ body {
 }
 
 @media (max-width: 900px) {
-  .page { display:block; }
+  .page {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .toc-box {
+    position: relative;
+    top: 0;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .toc-box a {
+    font-size: 0.95rem;
+    padding: 8px 6px;
+  }
+}
+
+@media (max-width: 600px) {
+  body { padding: 20px 12px; }
+  .wrap { padding: 24px 20px; }
+  .wrap h1 { font-size: 1.6rem; }
+  .wrap h2 { font-size: 1.2rem; }
+  .wrap h3 { font-size: 1rem; }
+  pre { font-size: 0.85rem; }
 }
 
 .toc-box {
@@ -52,31 +80,31 @@ body {
   border-radius: 14px;
   border: 1px solid rgba(77,243,255,0.3);
   padding: 20px;
+  box-shadow: 0 0 0 1px rgba(20,24,56,0.8), 0 25px 55px rgba(0,0,0,0.85);
   position: sticky;
   top: 20px;
 }
 
 .toc-title {
-  font-family:var(--font-mono);
-  font-size:0.78rem;
-  color:var(--accent);
-  text-transform:uppercase;
-  letter-spacing:0.18em;
-  margin-bottom:12px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  margin-bottom: 12px;
 }
 
 .toc-box a {
-  color:var(--muted);
-  text-decoration:none;
-  font-size:0.89rem;
-  display:block;
-  padding:5px 4px;
-  border-radius:6px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.89rem;
+  display: block;
+  padding: 5px 4px;
+  border-radius: 6px;
 }
-
 .toc-box a:hover {
-  color:var(--accent);
-  background:rgba(77,243,255,0.10);
+  color: var(--accent);
+  background: rgba(77,243,255,0.10);
 }
 
 .wrap {
@@ -84,59 +112,71 @@ body {
   border-radius: 18px;
   border: 1px solid rgba(255,77,156,0.3);
   padding: 32px 26px;
+  box-shadow: 0 0 0 1px rgba(20,24,56,0.8), 0 25px 55px rgba(0,0,0,0.85);
 }
 
 .wrap h1, .wrap h2, .wrap h3 {
-  font-family:var(--font-mono);
-  text-transform:uppercase;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .08em;
 }
 
 .wrap h1 {
-  color:var(--primary);
-  font-size:2rem;
-  letter-spacing:0.08em;
+  color: var(--primary);
+  font-size: 2rem;
+  margin-bottom: 12px;
 }
 .wrap h2 {
-  color:var(--accent);
-  font-size:1.35rem;
-  margin-top:32px;
+  color: var(--accent);
+  font-size: 1.35rem;
+  margin-top: 32px;
 }
 .wrap h3 {
-  color:var(--secondary);
-  font-size:1.05rem;
-  margin-top:20px;
+  color: var(--secondary);
+  font-size: 1.05rem;
+  margin-top: 22px;
+}
+
+.wrap p {
+  font-size: 1rem;
+  margin: 8px 0 12px;
 }
 
 pre {
-  background: linear-gradient(145deg, rgba(255,77,156,0.10), transparent 65%), #050820;
+  background:
+    linear-gradient(145deg, rgba(255,77,156,0.10), transparent 65%),
+    #050820;
   border: 1px solid rgba(148,163,214,0.35);
-  padding:14px;
-  overflow-x:auto;
-  border-radius:10px;
+  border-radius: 10px;
+  padding: 14px;
+  overflow-x: auto;
+  box-shadow: 0 16px 35px rgba(5,6,20,0.9);
 }
 
 pre code {
-  color:#e5e7ff;
-  background:transparent;
+  font-family: var(--font-mono);
+  color: #e5e7ff;
+  background: transparent !important;
 }
 
 code {
-  background:#0b0f2e;
-  padding:2px 6px;
-  border-radius:4px;
-  color:var(--accent);
-  border:1px solid rgba(148,163,214,0.4);
+  background: #0b0f2e;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  border: 1px solid rgba(148,163,214,0.4);
+  color: var(--accent);
 }
 
 footer {
-  margin-top:40px;
-  padding-top:20px;
-  text-align:center;
-  font-family:var(--font-mono);
-  font-size:.8rem;
-  color:var(--muted);
-  letter-spacing:.18em;
-  border-top:1px solid rgba(148,163,214,0.28);
+  margin-top: 40px;
+  padding-top: 20px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: .8rem;
+  color: var(--muted);
+  letter-spacing: .18em;
+  border-top: 1px solid rgba(148,163,214,0.28);
 }
 </style>
 
@@ -235,6 +275,22 @@ footer {
       <h1 id="nmap-the-hacker-s-survival-guide">NMAP: The Hacker's Survival Guide</h1>
 <h2 id="complete-network-scanning-cyber-security-auditing-guide-beginner-to-advanced">Complete Network Scanning &amp; Cyber Security Auditing Guide (Beginner to Advanced)</h2>
 <p><strong>Because why just scan when you can scan smartly and safely?</strong></p>
+<hr/>
+<h2 id="table-of-contents">TABLE OF CONTENTS</h2>
+<ol>
+<li><a href="#what-is-nmap">What is Nmap?</a></li>
+<li><a href="#installation">Installation &amp; Setup</a></li>
+<li><a href="#basic-concepts">Basic Concepts</a></li>
+<li><a href="#beginner-commands">Beginner Commands with Examples</a></li>
+<li><a href="#python-nmap">Python + Nmap Integration</a></li>
+<li><a href="#intermediate-techniques">Intermediate Techniques</a></li>
+<li><a href="#advanced-scanning">Advanced Scanning Methods</a></li>
+<li><a href="#nse-scripting">NSE Scripting Engine</a></li>
+<li><a href="#output-analysis">Output Formats &amp; Analysis</a></li>
+<li><a href="#practical-labs">Practical Labs</a></li>
+<li><a href="#error-handling">Error Handling</a></li>
+<li><a href="#best-practices">Best Practices</a></li>
+</ol>
 <hr/>
 <h2 id="what-is-nmap">WHAT IS NMAP?</h2>
 <p><strong>Nmap</strong> (Network Mapper) is a powerful, open-source tool for network discovery and security auditing. It's used by:</p>
