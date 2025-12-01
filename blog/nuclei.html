@@ -1,10 +1,9 @@
 
-
 <!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>🎯 Nuclei: From Zero to Hero (A Sarcastic Journey into Vulnerability Heaven) — TheCyberAryan</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -12,232 +11,113 @@
 <style>
 :root {
   --bg: #030515;
-  --bg-alt: #070a1f;
-  --panel: #090d26;
-
   --primary: #ff4d9c;
   --secondary: #7d5dff;
   --accent: #4df3ff;
-  --danger: #ff3b6e;
-
   --text: #e7ebff;
   --muted: #9ca8d9;
-
   --font-mono: 'Share Tech Mono', monospace;
   --font-body: 'Inter', system-ui, sans-serif;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   margin: 0;
-  padding: 40px 16px;
-  background:
-    radial-gradient(circle at top, rgba(255,77,156,0.18), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(77,243,255,0.12), transparent 55%),
-    var(--bg);
+  padding: 20px 14px;
+  background: radial-gradient(circle at top, rgba(255,77,156,0.15), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(77,243,255,0.12), transparent 55%),
+              var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   line-height: 1.75;
 }
 
 .page {
-  max-width: 1200px;
+  max-width: 900px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 22px;
-}
-
-@media (max-width: 900px) {
-  .page {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  .toc-box {
-    position: relative;
-    top: 0;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-  .toc-box a {
-    font-size: 0.95rem;
-    padding: 8px 6px;
-  }
-}
-
-@media (max-width: 600px) {
-  body { padding: 20px 12px; }
-  .wrap { padding: 24px 20px; }
-  .wrap h1 { font-size: 1.6rem; }
-  .wrap h2 { font-size: 1.2rem; }
-  .wrap h3 { font-size: 1rem; }
-  pre { font-size: 0.85rem; }
-}
-
-.toc-box {
-  background: linear-gradient(145deg, rgba(10,13,40,0.96), rgba(4,7,26,0.98));
-  border-radius: 14px;
-  border: 1px solid rgba(77,243,255,0.3);
-  padding: 20px;
-  box-shadow: 0 0 0 1px rgba(20,24,56,0.8), 0 25px 55px rgba(0,0,0,0.85);
-  position: sticky;
-  top: 20px;
-}
-
-.toc-title {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  margin-bottom: 12px;
-}
-
-.toc-box a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.89rem;
-  display: block;
-  padding: 5px 4px;
-  border-radius: 6px;
-}
-.toc-box a:hover {
-  color: var(--accent);
-  background: rgba(77,243,255,0.10);
 }
 
 .wrap {
-  background: linear-gradient(145deg, rgba(10,13,40,0.98), rgba(4,7,26,0.98));
+  background: rgba(10,13,40,0.95);
   border-radius: 18px;
-  border: 1px solid rgba(255,77,156,0.3);
-  padding: 32px 26px;
-  box-shadow: 0 0 0 1px rgba(20,24,56,0.8), 0 25px 55px rgba(0,0,0,0.85);
+  border: 1px solid rgba(255,77,156,0.25);
+  padding: 24px 20px;
+  box-shadow: 0 25px 55px rgba(0,0,0,0.85);
+  overflow-wrap: break-word;
 }
 
 .wrap h1, .wrap h2, .wrap h3 {
   font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: .07em;
 }
 
 .wrap h1 {
   color: var(--primary);
-  font-size: 2rem;
-  margin-bottom: 12px;
+  font-size: 1.75rem;
 }
+
 .wrap h2 {
   color: var(--accent);
-  font-size: 1.35rem;
-  margin-top: 32px;
+  font-size: 1.3rem;
+  margin-top: 28px;
 }
+
 .wrap h3 {
   color: var(--secondary);
   font-size: 1.05rem;
-  margin-top: 22px;
-}
-
-.wrap p {
-  font-size: 1rem;
-  margin: 8px 0 12px;
+  margin-top: 20px;
 }
 
 pre {
-  background:
-    linear-gradient(145deg, rgba(255,77,156,0.10), transparent 65%),
-    #050820;
-  border: 1px solid rgba(148,163,214,0.35);
-  border-radius: 10px;
+  background: #050820;
+  border: 1px solid rgba(148,163,214,0.4);
+  border-radius: 12px;
   padding: 14px;
   overflow-x: auto;
-  box-shadow: 0 16px 35px rgba(5,6,20,0.9);
-}
-
-pre code {
-  font-family: var(--font-mono);
-  color: #e5e7ff;
-  background: transparent !important;
+  font-size: 0.9rem;
+  -webkit-overflow-scrolling: touch;
 }
 
 code {
-  background: #0b0f2e;
-  padding: 2px 6px;
-  border-radius: 4px;
+  background: rgba(11,15,46,0.9);
+  padding: 3px 6px;
+  border-radius: 5px;
   font-family: var(--font-mono);
   border: 1px solid rgba(148,163,214,0.4);
   color: var(--accent);
 }
 
+img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+
 footer {
   margin-top: 40px;
-  padding-top: 20px;
   text-align: center;
   font-family: var(--font-mono);
-  font-size: .8rem;
   color: var(--muted);
   letter-spacing: .18em;
+  font-size: .8rem;
+  padding-top: 15px;
   border-top: 1px solid rgba(148,163,214,0.28);
 }
 </style>
 
 </head>
+
 <body id="top">
   <div class="page">
-    <aside class="toc-box">
-      <div class="toc-title">// Contents</div>
-      <a href="#nuclei-from-zero-to-hero-a-sarcastic-journey-into-vulnerability-heaven" style="margin-left:0px">🎯 Nuclei: From Zero to Hero (A Sarcastic Journey into Vulnerability Heaven)</a>
-<a href="#wtf-is-nuclei" style="margin-left:12px">🤔 WTF is Nuclei?</a>
-<a href="#installation-the-plot-thickens" style="margin-left:12px">⚙️ Installation (The Plot Thickens)</a>
-<a href="#prerequisites-the-boring-but-necessary-part" style="margin-left:24px">Prerequisites: The Boring But Necessary Part</a>
-<a href="#first-run-holy-cow-it-works" style="margin-left:12px">🚀 First Run (Holy Cow, It Works!)</a>
-<a href="#basic-syntax-let-s-scan-something" style="margin-left:24px">Basic Syntax: Let's Scan Something</a>
-<a href="#your-first-real-scan" style="margin-left:24px">Your First Real Scan</a>
-<a href="#understanding-templates-the-secret-sauce" style="margin-left:12px">📚 Understanding Templates (The Secret Sauce)</a>
-<a href="#anatomy-of-a-nuclei-template" style="margin-left:24px">Anatomy of a Nuclei Template</a>
-<a href="#breaking-down-the-components" style="margin-left:24px">Breaking Down the Components</a>
-<a href="#real-world-template-example" style="margin-left:24px">Real-World Template Example</a>
-<a href="#writing-your-own-templates-become-a-template-wizard" style="margin-left:12px">✍️ Writing Your Own Templates (Become a Template Wizard)</a>
-<a href="#template-1-basic-exposure-check-beginner" style="margin-left:24px">Template 1️⃣: Basic Exposure Check (Beginner)</a>
-<a href="#template-2-advanced-xss-detection-intermediate" style="margin-left:24px">Template 2️⃣: Advanced XSS Detection (Intermediate)</a>
-<a href="#template-3-api-vulnerability-check-advanced" style="margin-left:24px">Template 3️⃣: API Vulnerability Check (Advanced)</a>
-<a href="#advanced-usage-now-things-get-spicy" style="margin-left:12px">🔥 Advanced Usage (Now Things Get Spicy)</a>
-<a href="#parallel-scanning-speed-demon-mode" style="margin-left:24px">Parallel Scanning (Speed Demon Mode)</a>
-<a href="#rate-limiting-be-nice-to-servers" style="margin-left:24px">Rate Limiting (Be Nice to Servers)</a>
-<a href="#filter-by-severity" style="margin-left:24px">Filter by Severity</a>
-<a href="#filter-by-tags" style="margin-left:24px">Filter by Tags</a>
-<a href="#interactive-output-options" style="margin-left:24px">Interactive Output Options</a>
-<a href="#fuzzing-with-nuclei-the-fun-stuff" style="margin-left:24px">Fuzzing with Nuclei (The Fun Stuff)</a>
-<a href="#use-nuclei-in-ci-cd-pipeline" style="margin-left:24px">Use Nuclei in CI/CD Pipeline</a>
-<a href="#integration-with-other-tools" style="margin-left:24px">Integration with Other Tools</a>
-<a href="#troubleshooting-murphy-s-law-is-real" style="margin-left:12px">🐛 Troubleshooting (Murphy's Law is Real)</a>
-<a href="#issue-1-command-not-found" style="margin-left:24px">Issue 1️⃣: "Command Not Found"</a>
-<a href="#issue-2-templates-not-found" style="margin-left:24px">Issue 2️⃣: "Templates Not Found"</a>
-<a href="#issue-3-too-many-open-files" style="margin-left:24px">Issue 3️⃣: "Too Many Open Files"</a>
-<a href="#issue-4-ssl-certificate-verification-failed" style="margin-left:24px">Issue 4️⃣: "SSL Certificate Verification Failed"</a>
-<a href="#issue-5-false-positives-everywhere" style="margin-left:24px">Issue 5️⃣: "False Positives Everywhere"</a>
-<a href="#debug-mode-last-resort" style="margin-left:24px">Debug Mode (Last Resort)</a>
-<a href="#real-world-scanning-scenarios" style="margin-left:12px">📊 Real-World Scanning Scenarios</a>
-<a href="#scenario-1-scan-company-infrastructure" style="margin-left:24px">Scenario 1️⃣: Scan Company Infrastructure</a>
-<a href="#scenario-2-bug-bounty-hunting" style="margin-left:24px">Scenario 2️⃣: Bug Bounty Hunting</a>
-<a href="#scenario-3-daily-automated-scans" style="margin-left:24px">Scenario 3️⃣: Daily Automated Scans</a>
-<a href="#pro-tips-tricks" style="margin-left:12px">🎓 Pro Tips & Tricks</a>
-<a href="#tip-1-custom-nuclei-configuration" style="margin-left:24px">Tip 1: Custom Nuclei Configuration</a>
-<a href="#tip-2-create-reusable-template-collections" style="margin-left:24px">Tip 2: Create Reusable Template Collections</a>
-<a href="#tip-3-parse-and-analyze-results" style="margin-left:24px">Tip 3: Parse and Analyze Results</a>
-<a href="#tip-4-monitor-nuclei-execution" style="margin-left:24px">Tip 4: Monitor Nuclei Execution</a>
-<a href="#conclusion-you-made-it" style="margin-left:12px">🎯 Conclusion: You Made It!</a>
-<a href="#resources-references" style="margin-left:12px">📚 Resources & References</a>
-<a href="#legal-notice" style="margin-left:12px">⚖️ Legal Notice</a>
-
-    </aside>
-
     <div class="wrap">
       <h1 id="nuclei-from-zero-to-hero-a-sarcastic-journey-into-vulnerability-heaven">🎯 Nuclei: From Zero to Hero (A Sarcastic Journey into Vulnerability Heaven)</h1>
 <blockquote>
 <p><strong>Fair Warning</strong>: This guide is for people who believe that manually checking every website for vulnerabilities is <em>totally</em> not a waste of time. Welcome to the future, friend. 🚀</p>
 </blockquote>
-<hr/>
 <hr/>
 <h2 id="wtf-is-nuclei">🤔 WTF is Nuclei?</h2>
 <blockquote>
@@ -255,7 +135,7 @@ footer {
 <p><strong>Why Should You Care?</strong></p>
 <p>Traditional vulnerability scanners are bloated, slow, and produce more false positives than actual vulnerabilities. Nuclei says "nah" to that and gives you precision scanning at warp speed. Think of it as the sniper rifle of vulnerability scanning—you know exactly what you're targeting.</p>
 <blockquote>
-<p><strong>Interactive Note</strong>: Click <a href="#installation-the-plot-thickens">here</a> if you're ready to actually install this beast, or keep reading for the juicy details.</p>
+<p><strong>Interactive Note</strong>: Click  if you're ready to actually install this beast, or keep reading for the juicy details.</p>
 </blockquote>
 <hr/>
 <h2 id="installation-the-plot-thickens">⚙️ Installation (The Plot Thickens)</h2>
