@@ -35,8 +35,6 @@ content="Portfolio of Aryan Pareek (TheCyberAryan) — Ethical Hacker, Cybersecu
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-/* (Your full theme remains unchanged — only text rewritten) */
-
 /* -----------------------------------------------------------
    ⭐ ORIGINAL THEME — UNTOUCHED
 ----------------------------------------------------------- */
@@ -78,9 +76,11 @@ nav{display:flex;gap:10px;align-items:center}
 .avatar img{width:100%;height:100%;object-fit:cover;display:block}
 .pill{display:inline-block;padding:8px 12px;border-radius:999px;color:#fff;background:linear-gradient(90deg,rgba(178,123,255,.16),rgba(106,43,214,.14));border:1px solid rgba(180,140,255,.08);margin-right:8px;margin-top:8px}
 
-/* Skills & Projects */
+/* Skills */
 .skills{display:flex;gap:8px;flex-wrap:wrap}
 .skill-tag{background:rgba(255,255,255,.02);padding:8px 10px;border-radius:10px;color:var(--muted);font-size:.9rem;border:1px solid rgba(150,120,255,.04)}
+
+/* Projects */
 .projects{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 .project{padding:18px;border-radius:14px;min-height:120px;border:1px solid rgba(160,120,255,.06);background:linear-gradient(135deg,rgba(110,30,150,.18),rgba(40,10,70,.06));clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);transition:transform .25s ease,box-shadow .25s ease}
 .project:hover{transform:translateY(-6px);box-shadow:0 18px 60px rgba(80,30,150,.18)}
@@ -95,10 +95,103 @@ nav{display:flex;gap:10px;align-items:center}
 /* Footer */
 footer{margin-top:28px;text-align:center;color:#cfc9ff;font-size:.9rem}
 
-/* Animations + mobile: unchanged */
+/* Animations */
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes logoPulse{0%{box-shadow:0 0 0 0 rgba(178,123,255,0)}60%{box-shadow:0 0 0 14px rgba(178,123,255,.12)}100%{box-shadow:var(--glow)}}
 
+
+/* -----------------------------------------------------------
+   ⭐ MOBILE RESPONSIVENESS (ADDED)
+----------------------------------------------------------- */
+
+@media (max-width: 850px) {
+
+  header {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .navlink {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+
+  .avatar {
+    margin: 0 auto;
+    width: 170px;
+    height: 170px;
+  }
+
+  .pill {
+    display: block;
+    margin: 8px auto;
+    text-align: center;
+    width: fit-content;
+  }
+
+  .social-mini {
+    justify-content: center !important;
+    flex-wrap: wrap;
+  }
+
+  .skills {
+    justify-content: center;
+  }
+
+  .skill-tag {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+
+  .projects {
+    grid-template-columns: 1fr !important;
+  }
+
+  .project {
+    min-height: auto;
+  }
+
+  .cert {
+    padding: 10px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .logo {
+    width: 64px;
+    height: 64px;
+    font-size: 1rem;
+  }
+
+  .title h1 {
+    font-size: 1.4rem;
+  }
+
+  .title p {
+    font-size: 0.8rem;
+  }
+
+  body {
+    padding: 0;
+  }
+
+  .container {
+    padding: 14px;
+  }
+}
 </style>
 </head>
 
@@ -150,7 +243,6 @@ footer{margin-top:28px;text-align:center;color:#cfc9ff;font-size:.9rem}
       <span class="pill">+91 99504 00005</span>
     </div>
 
-    <!-- SOCIAL ICONS -->
     <div style="margin-top:14px;">
       <div class="social-mini" style="margin-top:12px; display:flex; gap:16px; justify-content:center; align-items:center;">
 
@@ -160,7 +252,6 @@ footer{margin-top:28px;text-align:center;color:#cfc9ff;font-size:.9rem}
         style="display:inline-flex; align-items:center; justify-content:center;
         width:34px; height:34px; border-radius:50%; background:rgba(255,255,255,0.04);
         border:1px solid rgba(255,255,255,0.1); transition:0.3s;">
-          <!-- SVG same -->
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="18" height="18">
             <radialGradient id="IG_grad" cx="19.38" cy="42.035" r="44.899" gradientUnits="userSpaceOnUse">
               <stop offset="0" stop-color="#fd5"/>
@@ -196,6 +287,7 @@ footer{margin-top:28px;text-align:center;color:#cfc9ff;font-size:.9rem}
             <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04c-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05a3.74 3.74 0 0 1 3.36-1.85c3.59 0 4.25 2.36 4.25 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12a2.06 2.06 0 0 1 0 4.12zM6.93 20.45H3.75V9h3.18v11.45zM22.23 0H1.77C.79 0 0 .8 0 1.78v20.45C0 23.2.8 24 1.77 24h20.45A1.78 1.78 0 0 0 24 22.23V1.78A1.78 1.78 0 0 0 22.23 0z"/>
           </svg>
         </a>
+
       </div>
     </div>
 
@@ -259,8 +351,8 @@ footer{margin-top:28px;text-align:center;color:#cfc9ff;font-size:.9rem}
 </section>
 
 <!-- FOOTER -->
-<footer>© 2025 Aryan Pareek — TheCyberAryan. Built for speed, clarity, and clean cyber design.</footer>
+<footer>© 2025 Aryan Pareek — TheCyberARYAN. Built for speed, clarity, and clean cyber design.</footer>
 
-</div> <!-- container -->
+</div>
 </body>
 </html>
