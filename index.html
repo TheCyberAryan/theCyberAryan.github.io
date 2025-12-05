@@ -53,20 +53,23 @@ header{display:flex;justify-content:space-between;align-items:center;gap:18px;ma
 .brand{display:flex;gap:16px;align-items:center}
 
 /* ✔ NEW LOGO IMAGE */
-.logo{
-  width:84px;height:84px;border-radius:16px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  box-shadow:var(--glow);
-  display:flex;align-items:center;justify-content:center;
-  transform:rotate(-6deg);
+/* BIGGER RECTANGULAR LOGO FIX */
+.logo {
+  width: 200px;
+  height: 80px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  box-shadow: var(--glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.logo img{
-  width:100%;
-  height:100%;
-  object-fit:contain;   /* ensures no distortion */
-  padding:6px;
-  filter:drop-shadow(0 0 10px rgba(178,123,255,.35));
+.logo img {
+  width: 95%;
+  height: 95%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(178,123,255,0.45));
 }
 
 .title h1{margin:0;font-family:'Orbitron';color:#efe8ff}
