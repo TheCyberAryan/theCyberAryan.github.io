@@ -41,7 +41,7 @@ body{
 }
 
 /* ---------------------------
-   STRETCHED LOGO BANNER
+   LOGO BANNER
    --------------------------- */
 .logo-banner{
   width:100%;
@@ -53,7 +53,6 @@ body{
   backdrop-filter:blur(8px);
   margin-bottom:18px;
 }
-
 .logo-banner img{
   width:100%;
   height:100%;
@@ -70,21 +69,17 @@ header{
   align-items:center;
   text-align:center;
   gap:8px;
-  margin-bottom:14px;
 }
-
 .title h1{
   margin:0;
   font-family:'Orbitron', sans-serif;
   color:#efe8ff;
   font-size:1.9rem;
 }
-
 .title p{
   margin:6px 0 0;
   color:#cfccee;
   font-size:0.9rem;
-  max-width:920px;
 }
 
 /* ---------------------------
@@ -95,8 +90,8 @@ nav{
   gap:8px;
   justify-content:center;
   flex-wrap:wrap;
+  margin-top:8px;
 }
-
 .navlink{
   text-decoration:none;
   color:#e9e7ff;
@@ -106,7 +101,6 @@ nav{
   border:1px solid rgba(255,255,255,0.05);
   background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
   font-weight:700;
-  font-size:.88rem;
 }
 
 /* ---------------------------
@@ -119,14 +113,11 @@ nav{
   border:var(--border);
   margin-top:18px;
 }
-
 .hero{
   display:grid;
   grid-template-columns:220px 1fr;
   gap:22px;
-  background:rgba(255,255,255,0.02);
 }
-
 .avatar{
   width:200px;
   height:200px;
@@ -139,7 +130,6 @@ nav{
   object-fit:cover;
 }
 
-/* pills, skills, projects, certs */
 .pill{
   display:inline-block;
   padding:8px 12px;
@@ -152,7 +142,10 @@ nav{
 .skills{display:flex;gap:8px;flex-wrap:wrap}
 .skill-tag{
   background:rgba(255,255,255,.02);
-  padding:8px 10px;border-radius:10px;font-size:.9rem;border:1px solid rgba(150,120,255,.04);
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid rgba(150,120,255,.04);
+  font-size:.9rem;
 }
 
 .projects{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
@@ -165,7 +158,11 @@ nav{
 .project h4{margin:0;color:#fff;font-family:'Orbitron',sans-serif}
 
 .cert-list{display:flex;flex-direction:column;gap:10px}
-.cert{padding:12px;border-radius:12px;border:1px dashed rgba(200,180,255,.06);background:rgba(255,255,255,.02)}
+.cert{
+  padding:12px;border-radius:12px;
+  border:1px dashed rgba(200,180,255,.06);
+  background:rgba(255,255,255,.02);
+}
 
 /* ---------------------------
    FULL-WIDTH NEON SOCIAL BAR
@@ -184,52 +181,104 @@ nav{
   box-shadow: 0 0 22px rgba(170,120,255,0.18);
   backdrop-filter: blur(6px);
 }
-
-.social-bar a {
-  text-decoration: none;
-  color: #efe8ff;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.05);
-  transition: 0.25s ease;
+.social-bar a{
+  text-decoration:none;
+  color:#efe8ff;
+  font-family:'Orbitron',sans-serif;
+  font-size:0.9rem;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 16px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  transition:.25s ease;
 }
-
-.social-bar a i {
-  font-size: 1.1rem;
-}
-
-.social-bar a:hover {
-  transform: translateY(-4px);
-  background: rgba(160,120,255,0.18);
-  border-color: rgba(190,130,255,0.35);
-  box-shadow: 0 0 18px rgba(190,130,255,0.35);
+.social-bar a:hover{
+  transform:translateY(-4px);
+  background:rgba(160,120,255,0.18);
+  border-color:rgba(190,130,255,0.35);
+  box-shadow:0 0 18px rgba(190,130,255,0.35);
 }
 
 /* ---------------------------
-   RESPONSIVE
+   FLOATING CONTACT BAR
    --------------------------- */
-@media (max-width:850px){
+.floating-contact{
+  position:fixed;
+  right:22px;
+  bottom:120px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  z-index:9999;
+}
+.floating-contact a{
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  background:rgba(110,30,150,0.28);
+  backdrop-filter:blur(6px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#efe8ff;
+  font-size:1.3rem;
+  border:1px solid rgba(180,120,255,0.35);
+  box-shadow:0 0 14px rgba(170,120,255,0.25);
+  transition:.25s ease;
+}
+.floating-contact a:hover{
+  transform:translateY(-5px);
+  background:rgba(150,80,255,0.38);
+  box-shadow:0 0 22px rgba(190,120,255,0.45);
+  border-color:rgba(220,160,255,0.55);
+}
+
+/* Mobile */
+@media(max-width:600px){
+  .floating-contact{
+    flex-direction:row;
+    right:50%;
+    bottom:22px;
+    transform:translateX(50%);
+    gap:16px;
+  }
+  .floating-contact a{
+    width:48px;height:48px;
+    font-size:1.2rem;
+  }
+}
+
+/* ---------------------------
+   FOOTER
+   --------------------------- */
+footer{
+  text-align:center;
+  margin-top:26px;
+  color:#cfc9ff;
+  font-size:.95rem;
+}
+
+/* Responsive */
+@media(max-width:850px){
   .hero{grid-template-columns:1fr;text-align:center}
   .avatar{margin:0 auto;width:170px;height:170px}
 }
-@media (max-width:480px){
+@media(max-width:480px){
   .logo-banner{height:130px;border-radius:12px}
   .avatar{width:150px;height:150px}
 }
 </style>
 </head>
+
 <body>
 <div class="container">
 
-  <!-- LOGO BANNER -->
+  <!-- LOGO -->
   <div class="logo-banner">
-    <img src="logo.png" alt="TheCyberAryan Logo">
+    <img src="logo.png">
   </div>
 
   <!-- HEADER -->
@@ -251,15 +300,13 @@ nav{
   <!-- HERO -->
   <section class="panel hero">
     <div class="avatar">
-      <img src="pfp.jpg" alt="Profile photo of Aryan Pareek">
+      <img src="pfp.jpg">
     </div>
 
     <div>
       <h2 style="color:#efe8ff;font-family:'Orbitron',sans-serif;margin:0 0 8px 0">About Me</h2>
-      <p>
-        I am <strong>Aryan Pareek</strong> (TheCyberAryan), a cybersecurity expert specializing in penetration testing,
-        red team simulations, digital forensics, and incident response.
-      </p>
+      <p>I am <strong>Aryan Pareek</strong> (TheCyberAryan), a cybersecurity expert specializing in penetration testing,
+      red team simulations, digital forensics, and incident response.</p>
 
       <div style="margin-top:12px">
         <span class="pill">BCA — Cybersecurity & Forensics</span>
@@ -287,8 +334,8 @@ nav{
   <!-- PROJECTS -->
   <section class="panel">
     <h3 style="margin:0;color:#efe8ff;font-family:'Orbitron',sans-serif">Projects</h3>
-    <div class="projects" style="margin-top:12px">
 
+    <div class="projects" style="margin-top:12px">
       <article class="project">
         <h4>ENUMO — Recon Toolkit</h4>
         <p>Automated subdomain enumeration, port scanning, tech detection, and reconnaissance reporting.</p>
@@ -303,7 +350,6 @@ nav{
         <h4>Traverser — Path Traversal Scanner</h4>
         <p>Payload-based detection of traversal vulnerabilities using encoding variations.</p>
       </article>
-
     </div>
   </section>
 
@@ -320,7 +366,7 @@ nav{
     </div>
   </section>
 
-  <!-- FOOTER WITH FULL-WIDTH NEON SOCIAL BAR -->
+  <!-- FOOTER -->
   <footer>
 
     <div class="social-bar">
@@ -339,14 +385,50 @@ nav{
       <a href="https://thecyberaryan.blogspot.com" target="_blank">
         <i class="fab fa-blogger"></i> Blogger
       </a>
+
+      <a href="https://instagram.com/TheCyberAryan" target="_blank">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+
+      <a href="https://wa.me/919950400005" target="_blank">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+      </a>
     </div>
 
-    <p style="margin-top:18px; text-align:center;">
-      © 2025 Aryan Pareek — TheCyberAryan.
-    </p>
-
+    <p style="margin-top:18px;">© 2025 Aryan Pareek — TheCyberARYAN.</p>
   </footer>
 
 </div>
+
+<!-- FLOATING CONTACT BAR -->
+<div class="floating-contact">
+
+  <!-- Call Button -->
+  <a href="tel:+919950400005" title="Call Aryan">
+    <i class="fas fa-phone"></i>
+  </a>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/919950400005" target="_blank" title="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Email -->
+  <a href="mailto:thecyberaryan@gmail.com" title="Email">
+    <i class="fas fa-envelope"></i>
+  </a>
+
+  <!-- LinkedIn -->
+  <a href="https://www.linkedin.com/in/TheCyberAryan" target="_blank" title="LinkedIn">
+    <i class="fab fa-linkedin"></i>
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://instagram.com/TheCyberAryan" target="_blank" title="Instagram">
+    <i class="fab fa-instagram"></i>
+  </a>
+
+</div>
+
 </body>
 </html>
