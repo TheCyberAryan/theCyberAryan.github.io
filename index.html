@@ -9,24 +9,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-/* -----------------------------------------------------------
+/* ---------------------------
    BASE THEME
------------------------------------------------------------ */
+   --------------------------- */
 :root{
   --bg-1:#0b0710;
   --panel:rgba(20,12,30,0.65);
-  --accent:#b27bff;
-  --accent2:#6a2bd6;
   --muted:#bfc8e6;
   --border:1px solid rgba(160,120,255,.08);
 }
-
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:'Inter';
+  font-family:'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   color:var(--muted);
-  background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),
-  url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
+  background:
+    linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),
+    url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80')
+    center/cover fixed;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
 .container{
@@ -35,87 +37,96 @@ body{
   padding:24px;
 }
 
-/* -----------------------------------------------------------
-   ⭐ STRETCHED BANNER LOGO (OPTION 3 UPGRADED)
------------------------------------------------------------ */
+/* ---------------------------
+   STRETCHED LOGO BANNER
+   --------------------------- */
 .logo-banner{
   width:100%;
-  height:180px;                 /* banner height — adjust if needed */
+  height:180px;
   border-radius:18px;
-  overflow:hidden;              /* allows the logo to fully stretch */
+  overflow:hidden;
   background:rgba(255,255,255,0.04);
   border:1px solid rgba(255,255,255,0.08);
   backdrop-filter:blur(8px);
-  margin-bottom:22px;
+  margin-bottom:18px;
+  display:block;
 }
 
 .logo-banner img{
+  display:block;
   width:100%;
   height:100%;
-  object-fit:cover;              /* FULL STRETCH */
+  object-fit:cover;
   object-position:center;
   padding:0;
+  margin:0;
 }
 
-/* Mobile banner size */
-@media(max-width:480px){
-  .logo-banner{
-    height:130px;
-  }
-}
-
-/* -----------------------------------------------------------
-   HEADER — CENTERED NAME + SUBTITLE
------------------------------------------------------------ */
+/* ---------------------------
+   HEADER (Centered)
+   --------------------------- */
 header{
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
-  margin-bottom:20px;
+  gap:8px;
+  margin-bottom:14px;
+  padding:0 6px;
 }
 
 .title h1{
   margin:0;
-  font-family:'Orbitron';
+  font-family:'Orbitron', sans-serif;
   color:#efe8ff;
-  text-align:center;
+  line-height:1;
+  font-size:1.9rem;
+  word-break:break-word;
 }
 
 .title p{
-  margin:8px 0 0;
+  margin:6px 0 0;
   color:#cfccee;
-  text-align:center;
+  font-size:0.9rem;
+  max-width:920px;
 }
 
-/* NAVIGATION */
+/* ---------------------------
+   NAVIGATION
+   --------------------------- */
 nav{
   display:flex;
-  gap:10px;
+  gap:8px;
   justify-content:center;
-  margin-top:14px;
+  flex-wrap:wrap;
+  margin-top:8px;
+  width:100%;
+  padding:6px;
 }
 
 .navlink{
   text-decoration:none;
   color:#e9e7ff;
-  font-family:'Orbitron';
-  padding:10px 14px;
+  font-family:'Orbitron',sans-serif;
+  padding:8px 12px;
   border-radius:10px;
-  border:1px solid rgba(255,255,255,.05);
-  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.05);
+  background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
+  font-weight:700;
+  font-size:.88rem;
+  display:inline-block;
 }
 
-/* -----------------------------------------------------------
+/* ---------------------------
    PANELS
------------------------------------------------------------ */
+   --------------------------- */
 .panel{
   background:var(--panel);
   padding:18px;
   border-radius:14px;
   border:var(--border);
-  margin-top:20px;
+  margin-top:18px;
 }
 
 .hero{
@@ -131,186 +142,166 @@ nav{
   border-radius:18px;
   overflow:hidden;
 }
-
 .avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
+/* pills, skills, projects, certs */
 .pill{
   display:inline-block;
   padding:8px 12px;
-  background:rgba(178,123,255,0.15);
+  background:rgba(178,123,255,0.12);
   border-radius:20px;
+  border:1px solid rgba(255,255,255,0.06);
   margin:6px 6px 0 0;
 }
 
-/* SKILLS */
-.skills{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
+.skills{display:flex;gap:8px;flex-wrap:wrap}
 .skill-tag{
   background:rgba(255,255,255,.02);
-  padding:8px 10px;
-  border-radius:10px;
-  border:1px solid rgba(150,120,255,.04);
+  padding:8px 10px;border-radius:10px;font-size:.9rem;border:1px solid rgba(150,120,255,.04);
 }
 
-/* PROJECTS */
-.projects{
-  display:grid;
-  gap:12px;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+.projects{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.project{padding:18px;border-radius:14px;border:1px solid rgba(160,120,255,.06);background:linear-gradient(135deg,rgba(110,30,150,.18),rgba(40,10,70,.06));clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);}
+.project h4{margin:0;color:#fff;font-family:'Orbitron',sans-serif}
+
+/* certs */
+.cert-list{display:flex;flex-direction:column;gap:10px}
+.cert{padding:12px;border-radius:12px;border:1px dashed rgba(200,180,255,.06);background:rgba(255,255,255,.02)}
+
+/* footer */
+footer{text-align:center;margin-top:26px;color:#cfc9ff;font-size:.95rem}
+
+/* ---------------------------
+   RESPONSIVE IMPROVEMENTS FOR MOBILE ALIGNMENT
+   --------------------------- */
+@media (max-width:850px){
+  .container{padding:18px}
+  .hero{grid-template-columns:1fr;text-align:center}
+  .avatar{margin:0 auto;width:170px;height:170px}
+  .projects{grid-template-columns:1fr}
+  .title h1{font-size:1.6rem}
+  .title p{font-size:.9rem;padding:0 8px}
+  .navlink{padding:7px 10px;font-size:.85rem}
 }
 
-.project{
-  padding:18px;
-  border-radius:14px;
-  border:1px solid rgba(160,120,255,.06);
-  background:linear-gradient(135deg,rgba(110,30,150,.18),rgba(40,10,70,.06));
-  clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);
-}
-
-/* CERTIFICATIONS */
-.cert-list{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.cert{
-  padding:12px;
-  border-radius:12px;
-  border:1px dashed rgba(200,180,255,.06);
-  background:rgba(255,255,255,.02);
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  margin-top:26px;
-  color:#cfc9ff;
-}
-
-/* -----------------------------------------------------------
-   RESPONSIVE FIXES
------------------------------------------------------------ */
-@media(max-width:850px){
-
-  .hero{
-    grid-template-columns:1fr;
-    text-align:center;
-  }
-
-  .avatar{
-    margin:auto;
-  }
-
-  .skills{ justify-content:center; }
-  .projects{ grid-template-columns:1fr; }
+@media (max-width:480px){
+  /* container padding smaller so content feels centered */
+  .container{padding:12px;margin:18px auto}
+  /* slightly smaller banner so it doesn't overpower */
+  .logo-banner{height:130px;border-radius:12px}
+  .title h1{font-size:1.35rem}
+  .title p{font-size:.82rem}
+  /* ensure nav sits below name nicely and links are tappable */
+  nav{margin-top:10px;padding:6px}
+  .navlink{padding:8px 10px;font-size:.82rem}
+  /* keep hero compact */
+  .hero{gap:16px}
+  .avatar{width:150px;height:150px}
+  /* reduce excessive clip-path effect on very narrow screens */
+  .project{padding:14px}
+  footer{font-size:.88rem}
 }
 </style>
 </head>
-
 <body>
-
 <div class="container">
 
-<!-- ⭐ STRETCHED LOGO BANNER -->
-<div class="logo-banner">
-  <img src="logo.png" alt="TheCyberAryan Logo">
-</div>
-
-<!-- ⭐ CENTERED NAME + NAVIGATION -->
-<header>
-  <div class="title">
-    <h1>ARYAN PAREEK</h1>
-    <p>Cybersecurity Professional • Ethical Hacker • Red & Blue Team • SOC and Threat Hunting</p>
+  <!-- STRETCHED LOGO BANNER -->
+  <div class="logo-banner">
+    <img src="logo.png" alt="TheCyberAryan Logo">
   </div>
 
-  <nav>
-    <a class="navlink" href="index.html">HOME</a>
-    <a class="navlink" href="blog.html">BLOG</a>
-    <a class="navlink" href="quotes.html">QUOTES</a>
-    <a class="navlink" href="Services.html">SERVICES</a>
-    <a class="navlink" href="connect.html">CONNECT</a>
-  </nav>
-</header>
+  <!-- CENTERED NAME + NAV -->
+  <header>
+    <div class="title">
+      <h1>ARYAN PAREEK</h1>
+      <p>Cybersecurity Professional • Ethical Hacker • Red & Blue Team • SOC and Threat Hunting</p>
+    </div>
 
-<!-- HERO SECTION -->
-<section class="panel hero">
-  <div class="avatar">
-    <img src="pfp.jpg" alt="Profile photo of Aryan Pareek">
-  </div>
+    <nav>
+      <a class="navlink" href="index.html">HOME</a>
+      <a class="navlink" href="blog.html">BLOG</a>
+      <a class="navlink" href="quotes.html">QUOTES</a>
+      <a class="navlink" href="Services.html">SERVICES</a>
+      <a class="navlink" href="connect.html">CONNECT</a>
+    </nav>
+  </header>
 
-  <div>
-    <h2 style="color:#efe8ff;font-family:'Orbitron'">About Me</h2>
-    <p>
-      I am <strong>Aryan Pareek</strong> (TheCyberAryan), a cybersecurity expert specializing in 
-      penetration testing, digital forensics, red teaming, and incident response.
-    </p>
-    <span class="pill">BCA — Cybersecurity & Forensics</span>
-    <span class="pill">Jaipur • Open to relocation</span>
-    <span class="pill">+91 99504 00005</span>
-  </div>
-</section>
+  <!-- HERO -->
+  <section class="panel hero" aria-label="about">
+    <div class="avatar">
+      <img src="pfp.jpg" alt="Profile photo of Aryan Pareek">
+    </div>
 
-<!-- SKILLS -->
-<section class="panel">
-  <h3 style="color:#efe8ff;font-family:'Orbitron'">Skills</h3>
-  <div class="skills">
-    <div class="skill-tag">Penetration Testing</div>
-    <div class="skill-tag">Threat Hunting</div>
-    <div class="skill-tag">Digital Forensics</div>
-    <div class="skill-tag">Red Teaming</div>
-    <div class="skill-tag">Incident Response</div>
-    <div class="skill-tag">Cloud Security</div>
-    <div class="skill-tag">DevSecOps</div>
-    <div class="skill-tag">Python & Bash</div>
-  </div>
-</section>
+    <div>
+      <h2 style="color:#efe8ff;font-family:'Orbitron',sans-serif;margin:0 0 8px 0">About Me</h2>
+      <p>
+        I am <strong>Aryan Pareek</strong> (TheCyberAryan), a cybersecurity expert specializing in penetration testing,
+        red team simulations, digital forensics, and incident response.
+      </p>
 
-<!-- PROJECTS -->
-<section class="panel">
-  <h3 style="color:#efe8ff;font-family:'Orbitron'">Projects</h3>
-  <div class="projects">
-    <article class="project">
-      <h4>ENUMO — Recon Toolkit</h4>
-      <p>Automated subdomain enumeration, port scanning, tech detection, and reconnaissance reporting.</p>
-    </article>
+      <div style="margin-top:12px">
+        <span class="pill">BCA — Cybersecurity & Forensics</span>
+        <span class="pill">Jaipur • Open to relocation</span>
+        <span class="pill">+91 99504 00005</span>
+      </div>
+    </div>
+  </section>
 
-    <article class="project">
-      <h4>Fraud Detection System</h4>
-      <p>Machine learning–based phishing & fake website detector with over 95% accuracy.</p>
-    </article>
+  <!-- SKILLS -->
+  <section class="panel" style="margin-top:18px">
+    <h3 style="margin:0;color:#efe8ff;font-family:'Orbitron',sans-serif">Skills</h3>
+    <div class="skills" style="margin-top:12px">
+      <div class="skill-tag">Penetration Testing</div>
+      <div class="skill-tag">Threat Hunting</div>
+      <div class="skill-tag">Digital Forensics</div>
+      <div class="skill-tag">Red Teaming</div>
+      <div class="skill-tag">Incident Response</div>
+      <div class="skill-tag">Cloud Security</div>
+      <div class="skill-tag">DevSecOps</div>
+      <div class="skill-tag">Python & Bash</div>
+    </div>
+  </section>
 
-    <article class="project">
-      <h4>Traverser — Path Traversal Scanner</h4>
-      <p>Payload-based detection of traversal vulnerabilities using encoding variations.</p>
-    </article>
-  </div>
-</section>
+  <!-- PROJECTS -->
+  <section class="panel" style="margin-top:18px">
+    <h3 style="margin:0;color:#efe8ff;font-family:'Orbitron',sans-serif">Projects</h3>
+    <div class="projects" style="margin-top:12px">
+      <article class="project">
+        <h4>ENUMO — Recon Toolkit</h4>
+        <p>Automated subdomain enumeration, port scanning, tech detection, and reconnaissance reporting.</p>
+      </article>
 
-<!-- CERTIFICATIONS -->
-<section class="panel">
-  <h3 style="color:#efe8ff;font-family:'Orbitron'">Certifications</h3>
+      <article class="project">
+        <h4>Fraud Detection System</h4>
+        <p>Machine learning–based phishing & fake website detector with over 95% accuracy.</p>
+      </article>
 
-  <div class="cert-list">
-    <div class="cert"><span>CEH v13 — Certified Ethical Hacker</span></div>
-    <div class="cert"><span>CompTIA PenTest+</span></div>
-    <div class="cert"><span>Certified AppSec Pentesting Expert</span></div>
-    <div class="cert"><span>DevSecOps — CI/CD Security</span></div>
-    <div class="cert"><span>Google Cybersecurity Certificate</span></div>
-    <div class="cert"><span>Cisco — Ethical Hacker & Analyst</span></div>
-  </div>
-</section>
+      <article class="project">
+        <h4>Traverser — Path Traversal Scanner</h4>
+        <p>Payload-based detection of traversal vulnerabilities using encoding variations.</p>
+      </article>
+    </div>
+  </section>
 
-<footer>© 2025 Aryan Pareek — TheCyberARYAN.</footer>
+  <!-- CERTIFICATIONS -->
+  <section class="panel" style="margin-top:18px">
+    <h3 style="margin:0;color:#efe8ff;font-family:'Orbitron',sans-serif">Certifications</h3>
+    <div class="cert-list" style="margin-top:12px">
+      <div class="cert"><span>CEH v13 — Certified Ethical Hacker</span></div>
+      <div class="cert"><span>CompTIA PenTest+</span></div>
+      <div class="cert"><span>Certified AppSec Pentesting Expert</span></div>
+      <div class="cert"><span>DevSecOps — CI/CD Security</span></div>
+      <div class="cert"><span>Google Cybersecurity Certificate</span></div>
+      <div class="cert"><span>Cisco — Ethical Hacker & Analyst</span></div>
+    </div>
+  </section>
 
+  <footer>© 2025 Aryan Pareek — TheCyberARYAN.</footer>
 </div>
 </body>
 </html>
