@@ -48,28 +48,29 @@ body{
 }
 .container{max-width:1100px;margin:36px auto;padding:24px}
 
-/* HEADER */
+/* -----------------------------------------------------------
+   HEADER
+----------------------------------------------------------- */
 header{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:18px}
 .brand{display:flex;gap:16px;align-items:center}
 
-/* ✔ NEW LOGO IMAGE */
-/* BIGGER RECTANGULAR LOGO FIX */
-.logo {
+/* ⭐ UPDATED: CLEAN LOGO (NO NEON) */
+.logo{
   width: 200px;
   height: 80px;
   border-radius: 14px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  box-shadow: var(--glow);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: rgba(20,12,30,0.7); /* soft cyber panel */
+  box-shadow: none; /* removed neon glow */
+  border: 1px solid rgba(255,255,255,0.05);
+  display:flex;align-items:center;justify-content:center;
 }
 
-.logo img {
+.logo img{
   width: 95%;
   height: 95%;
   object-fit: contain;
-  filter: drop-shadow(0 0 12px rgba(178,123,255,0.45));
+  filter: none;  /* removed neon halo */
+  padding: 6px;
 }
 
 .title h1{margin:0;font-family:'Orbitron';color:#efe8ff}
@@ -86,7 +87,9 @@ nav{display:flex;gap:10px}
   backdrop-filter:blur(6px);
 }
 
-/* SECTIONS */
+/* -----------------------------------------------------------
+   HERO SECTION
+----------------------------------------------------------- */
 .panel{
   background:var(--panel);padding:18px;border-radius:14px;border:var(--border);
 }
@@ -97,7 +100,9 @@ nav{display:flex;gap:10px}
 .avatar{width:200px;height:200px;border-radius:18px;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover}
 
-/* SKILLS */
+/* -----------------------------------------------------------
+   SKILLS
+----------------------------------------------------------- */
 .skills{display:flex;gap:8px;flex-wrap:wrap}
 .skill-tag{
   background:rgba(255,255,255,.02);
@@ -105,7 +110,9 @@ nav{display:flex;gap:10px}
   border:1px solid rgba(150,120,255,.04)
 }
 
-/* PROJECTS */
+/* -----------------------------------------------------------
+   PROJECTS
+----------------------------------------------------------- */
 .projects{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 .project{
   padding:18px;border-radius:14px;
@@ -115,23 +122,31 @@ nav{display:flex;gap:10px}
 }
 .project h4{margin:0;color:#fff;font-family:'Orbitron'}
 
-/* CERTIFICATIONS */
+/* -----------------------------------------------------------
+   CERTIFICATIONS
+----------------------------------------------------------- */
 .cert-list{display:flex;flex-direction:column;gap:10px;margin-top:14px}
 .cert{
   padding:12px;border-radius:12px;border:1px dashed rgba(200,180,255,.06);
-  background:rgba(255,255,255,.02);transform:skewX(-6deg);
+  background:rgba(255,255,255,.02);
 }
 
-/* FOOTER */
+/* -----------------------------------------------------------
+   FOOTER
+----------------------------------------------------------- */
 footer{text-align:center;margin-top:28px;font-size:.9rem;color:#cfc9ff}
 
 /* -----------------------------------------------------------
-   MOBILE RESPONSIVE FIXES
+   RESPONSIVE FIXES
 ----------------------------------------------------------- */
 @media(max-width:850px){
   header{flex-direction:column;text-align:center}
   nav{flex-wrap:wrap;justify-content:center}
-  .navlink{padding:8px 10px;font-size:.8rem}
+
+  .logo{
+    width:180px;
+    height:70px;
+  }
 
   .hero{grid-template-columns:1fr;text-align:center}
   .avatar{margin:0 auto;width:170px;height:170px}
@@ -141,7 +156,11 @@ footer{text-align:center;margin-top:28px;font-size:.9rem;color:#cfc9ff}
 }
 
 @media(max-width:480px){
-  .logo{width:64px;height:64px}
+  .logo{
+    width: 200px;
+    height: 80px;
+  }
+
   .title h1{font-size:1.4rem}
   .title p{font-size:.8rem}
 }
@@ -156,7 +175,7 @@ footer{text-align:center;margin-top:28px;font-size:.9rem;color:#cfc9ff}
 <header>
   <div class="brand">
 
-    <!-- ⭐ NEW LOGO HERE -->
+    <!-- ⭐ LOGO WITHOUT NEON -->
     <div class="logo">
       <img src="logo.png" alt="The Cyber Aryan Logo">
     </div>
@@ -185,18 +204,12 @@ footer{text-align:center;margin-top:28px;font-size:.9rem;color:#cfc9ff}
 
   <div>
     <h2 style="margin:0 0 8px;color:#efe8ff;font-family:'Orbitron'">About Me</h2>
-
     <p>
-    My name is <strong>Aryan Pareek</strong>, also known as <strong>TheCyberAryan</strong>.
-    I am a Certified Ethical Hacker with four years of experience in cybersecurity, digital forensics,
-    and real attack simulation.<br><br>
-
-    I have supported the Rajasthan Police in cybercrime investigations and worked with private
-    companies to strengthen their systems through penetration testing, vulnerability detection,
-    threat analysis, and practical defensive controls.
+      I am <strong>Aryan Pareek</strong> (TheCyberAryan), a cybersecurity professional with deep
+      experience in ethical hacking, red & blue team operations, digital forensics, and threat hunting.
     </p>
 
-    <span class="pill">BCA — Cybersecurity & Forensics (Parul University)</span>
+    <span class="pill">BCA — Cybersecurity & Forensics</span>
     <span class="pill">Jaipur • Open to relocation</span>
     <span class="pill">+91 99504 00005</span>
   </div>
@@ -226,17 +239,17 @@ footer{text-align:center;margin-top:28px;font-size:.9rem;color:#cfc9ff}
 
     <article class="project">
       <h4>ENUMO — Recon Toolkit</h4>
-      <p>Automated subdomain scanning, port enumeration, and tech fingerprinting for faster security testing.</p>
+      <p>Automated subdomain enumeration, port scanning, and tech fingerprinting.</p>
     </article>
 
     <article class="project">
       <h4>Fraud Detection System</h4>
-      <p>Machine-learning system that identifies phishing and fraudulent websites with over 95% accuracy.</p>
+      <p>ML-powered model that identifies phishing and fake websites.</p>
     </article>
 
     <article class="project">
       <h4>Traverser — Path Traversal Scanner</h4>
-      <p>Advanced scanner that detects traversal flaws using encoding tricks, payload variations, and bypass tests.</p>
+      <p>Advanced traversal vulnerability detection using multi-encoding payloads.</p>
     </article>
 
   </div>
@@ -256,7 +269,7 @@ footer{text-align:center;margin-top:28px;font-size:.9rem;color:#cfc9ff}
   </div>
 </section>
 
-<footer>© 2025 Aryan Pareek — TheCyberARYAN. Built with cyber-precision.</footer>
+<footer>© 2025 Aryan Pareek — TheCyberARYAN.</footer>
 
 </div>
 </body>
