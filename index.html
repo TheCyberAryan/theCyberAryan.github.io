@@ -6,14 +6,11 @@
 
 <title>Aryan Pareek | TheCyberAryan — Ethical Hacker & Cybersecurity Professional</title>
 
-<meta name="description"
-content="Portfolio of Aryan Pareek (TheCyberAryan) — Ethical Hacker, Cybersecurity Specialist, SOC Analyst, Red and Blue Team Operator, and Cybercrime Investigation Expert. Explore skills, projects, certifications, and security tools.">
-
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 /* -----------------------------------------------------------
-   BASE THEME (UNCHANGED)
+   BASE THEME
 ----------------------------------------------------------- */
 :root{
   --bg-1:#0b0710;
@@ -39,82 +36,75 @@ body{
 }
 
 /* -----------------------------------------------------------
-   ⭐ GLASS CYBERCARD LOGO BANNER 
+   ⭐ STRETCHED BANNER LOGO (OPTION 3 UPGRADED)
 ----------------------------------------------------------- */
 .logo-banner{
   width:100%;
-  padding:20px 0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
+  height:180px;                 /* banner height — adjust if needed */
+  border-radius:18px;
+  overflow:hidden;              /* allows the logo to fully stretch */
   background:rgba(255,255,255,0.04);
   border:1px solid rgba(255,255,255,0.08);
-  border-radius:18px;
   backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
   margin-bottom:22px;
 }
 
-/* Enlarged logo inside banner */
 .logo-banner img{
-  width:320px;   /* enlarged */
-  height:120px;
-  object-fit:contain;
-  filter:none;
-  padding:6px;
+  width:100%;
+  height:100%;
+  object-fit:cover;              /* FULL STRETCH */
+  object-position:center;
+  padding:0;
 }
 
-/* Mobile size adjustment */
+/* Mobile banner size */
 @media(max-width:480px){
-  .logo-banner img{
-    width:280px;
-    height:100px;
+  .logo-banner{
+    height:130px;
   }
 }
 
 /* -----------------------------------------------------------
-   HEADER (NOW BELOW THE LOGO BANNER)
+   HEADER — CENTERED NAME + SUBTITLE
 ----------------------------------------------------------- */
 header{
   display:flex;
-  justify-content:space-between;
+  flex-direction:column;
   align-items:center;
-  flex-wrap:wrap;
-  margin-bottom:20px;
+  justify-content:center;
   text-align:center;
+  margin-bottom:20px;
 }
 
 .title h1{
   margin:0;
   font-family:'Orbitron';
   color:#efe8ff;
+  text-align:center;
 }
 
 .title p{
   margin:8px 0 0;
   color:#cfccee;
+  text-align:center;
 }
 
+/* NAVIGATION */
 nav{
   display:flex;
   gap:10px;
-  margin-top:12px;
-  width:100%;
   justify-content:center;
+  margin-top:14px;
 }
 
 .navlink{
   text-decoration:none;
   color:#e9e7ff;
-  font-weight:700;
   font-family:'Orbitron';
-  font-size:.9rem;
   padding:10px 14px;
   border-radius:10px;
   border:1px solid rgba(255,255,255,.05);
-  background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.02));
-  backdrop-filter:blur(6px);
+  background:rgba(255,255,255,0.05);
 }
 
 /* -----------------------------------------------------------
@@ -141,61 +131,57 @@ nav{
   border-radius:18px;
   overflow:hidden;
 }
+
 .avatar img{
   width:100%;
   height:100%;
   object-fit:cover;
 }
 
-/* Pills */
 .pill{
   display:inline-block;
   padding:8px 12px;
   background:rgba(178,123,255,0.15);
   border-radius:20px;
-  border:1px solid rgba(255,255,255,0.08);
   margin:6px 6px 0 0;
 }
 
-/* Skills */
+/* SKILLS */
 .skills{
   display:flex;
   gap:8px;
   flex-wrap:wrap;
 }
+
 .skill-tag{
   background:rgba(255,255,255,.02);
   padding:8px 10px;
   border-radius:10px;
-  font-size:.9rem;
   border:1px solid rgba(150,120,255,.04);
 }
 
-/* Projects */
+/* PROJECTS */
 .projects{
   display:grid;
   gap:12px;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 }
+
 .project{
   padding:18px;
   border-radius:14px;
   border:1px solid rgba(160,120,255,.06);
   background:linear-gradient(135deg,rgba(110,30,150,.18),rgba(40,10,70,.06));
-  clip-path:polygon(6% 0, 94% 0, 100% 50%, 94% 100%, 6% 100%, 0 50%);
-}
-.project h4{
-  color:white;
-  margin:0;
-  font-family:'Orbitron';
+  clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);
 }
 
-/* Certifications */
+/* CERTIFICATIONS */
 .cert-list{
   display:flex;
   flex-direction:column;
   gap:10px;
 }
+
 .cert{
   padding:12px;
   border-radius:12px;
@@ -203,24 +189,29 @@ nav{
   background:rgba(255,255,255,.02);
 }
 
-/* Footer */
+/* FOOTER */
 footer{
   text-align:center;
   margin-top:26px;
   color:#cfc9ff;
 }
 
-/* Responsive */
+/* -----------------------------------------------------------
+   RESPONSIVE FIXES
+----------------------------------------------------------- */
 @media(max-width:850px){
+
   .hero{
     grid-template-columns:1fr;
     text-align:center;
   }
+
   .avatar{
     margin:auto;
   }
-  .skills{justify-content:center;}
-  .projects{grid-template-columns:1fr;}
+
+  .skills{ justify-content:center; }
+  .projects{ grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -229,12 +220,12 @@ footer{
 
 <div class="container">
 
-<!-- ⭐ GLASS CYBERCARD LOGO BANNER (Option 3) -->
+<!-- ⭐ STRETCHED LOGO BANNER -->
 <div class="logo-banner">
-  <img src="logo-Photoroom.png" alt="TheCyberAryan Logo">
+  <img src="logo.png" alt="TheCyberAryan Logo">
 </div>
 
-<!-- HEADER (name + navigation) -->
+<!-- ⭐ CENTERED NAME + NAVIGATION -->
 <header>
   <div class="title">
     <h1>ARYAN PAREEK</h1>
@@ -260,7 +251,7 @@ footer{
     <h2 style="color:#efe8ff;font-family:'Orbitron'">About Me</h2>
     <p>
       I am <strong>Aryan Pareek</strong> (TheCyberAryan), a cybersecurity expert specializing in 
-      penetration testing, red team simulations, digital forensics, and threat analysis.
+      penetration testing, digital forensics, red teaming, and incident response.
     </p>
     <span class="pill">BCA — Cybersecurity & Forensics</span>
     <span class="pill">Jaipur • Open to relocation</span>
@@ -299,7 +290,7 @@ footer{
 
     <article class="project">
       <h4>Traverser — Path Traversal Scanner</h4>
-      <p>Smart payload generator and traversal vulnerability discovery tool.</p>
+      <p>Payload-based detection of traversal vulnerabilities using encoding variations.</p>
     </article>
   </div>
 </section>
@@ -318,7 +309,7 @@ footer{
   </div>
 </section>
 
-<footer>© 2025 Aryan Pareek — TheCyberAryAN.</footer>
+<footer>© 2025 Aryan Pareek — TheCyberARYAN.</footer>
 
 </div>
 </body>
