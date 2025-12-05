@@ -4,287 +4,205 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Aryan Pareek | TheCyberARYAN — Ethical Hacker & Cybersecurity Professional</title>
-<meta name="description" content="Aryan Pareek (TheCyberAryan) - Cybersecurity consultant offering penetration testing, incident response, cloud security audits, SOC consulting, and red team assessments. Book a free security audit.">
+<meta name="description" content="Aryan Pareek (TheCyberAryAN) - Cybersecurity consultant offering penetration testing, incident response, cloud security audits, SOC consulting, and red team assessments. Book a free security edit.">
 <meta name="keywords" content="ethical hacker, cyber security expert, penetration testing, red team, incident response, cloud security, Aryan Pareek">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 <style>
 :root{
   --bg:#07040a;
-  --panel: rgba(20,12,30,0.7);
+  --panel: rgba(20,12,30,0.78);
   --muted: #cfccee;
   --accent1: #9f6aff;
   --accent2: #00a7ff;
-  --glow: 0 12px 40px rgba(159,106,255,0.08);
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:'Inter',system-ui;
-  color:var(--muted);
-  background: linear-gradient(180deg, rgba(6,4,10,0.95), rgba(8,6,14,0.96)),
-    url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80')
-    center/cover fixed;
-  -webkit-font-smoothing:antialiased;
+  --glass: rgba(255,255,255,0.02);
+  --nav-height: 64px;
+  --radius: 12px;
+  --shadow: 0 12px 40px rgba(12,6,30,0.6);
 }
 
-/* ---------- BANNER (Neon line removed) ---------- */
+/* Reset & base */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--muted);background:
+  linear-gradient(180deg, rgba(6,4,10,0.96), rgba(8,6,14,0.98)),
+  url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1600&q=60') center/cover fixed;
+  -webkit-font-smoothing:antialiased;}
+a{color:inherit}
+button{font:inherit}
+
+/* ===== BANNER (sticky, compact on mobile) ===== */
 .cyber-banner{
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px 14px;
-  background: rgba(255,255,255,0.02);
-  backdrop-filter: blur(8px) saturate(120%);
-  border-bottom:1px solid rgba(255,255,255,0.04);
-  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  position:sticky;top:0;z-index:120;
+  display:flex;align-items:center;justify-content:center;
+  padding:10px 12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  backdrop-filter: blur(8px) saturate(120%);border-bottom:1px solid rgba(255,255,255,0.03);
+  box-shadow:0 6px 18px rgba(0,0,0,0.45);
 }
 .cyber-inner{
-  max-width:1200px;
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 20px;
-}
-.cyber-title h1{
-  margin:0;
-  font-family:'Orbitron',sans-serif;
-  color:#fff;
-  font-size:1.55rem;
-  letter-spacing:1px;
-}
-.cyber-title p{
-  margin:3px 0 0 0;
-  color:#dcd6ff;
-  font-size:0.93rem;
+  width:100%;max-width:1100px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 12px;
 }
 
-/* NAV */
+/* brand */
+.brand{
+  display:flex;flex-direction:column;gap:2px;
+}
+.brand h1{margin:0;font-family:'Orbitron',sans-serif;font-size:1rem;color:#fff;letter-spacing:0.8px}
+.brand p{margin:0;color:rgba(220,214,255,0.9);font-size:0.72rem;opacity:0.95}
+
+/* desktop nav (hidden on small screens via media queries) */
+.nav{
+  display:flex;gap:10px;align-items:center;
+}
 .navlink{
-  text-decoration:none;
-  color:#efe8ff;
-  font-family:'Orbitron';
-  padding:8px 12px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.03);
-  background:rgba(255,255,255,0.02);
-  font-weight:700;
-  transition:0.2s;
+  text-decoration:none;padding:8px 12px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.03);
+  font-family:'Orbitron',sans-serif;font-weight:700;font-size:0.86rem;color:#efe8ff;transition:all .14s ease;
 }
-.navlink:hover{
-  background:rgba(255,255,255,0.05);
-}
-nav{display:flex;gap:12px}
+.navlink:hover{transform:translateY(-3px);background:rgba(255,255,255,0.04)}
 
-/* LAYOUT */
-.container{max-width:1100px;margin:26px auto;padding:22px}
-.panel{
-  background:var(--panel);
-  padding:18px;
-  border-radius:12px;
-  border:1px solid rgba(159,106,255,0.06);
-  box-shadow:var(--glow);
-  margin-top:18px;
+/* mobile toggle (visible on small screens) */
+.nav-toggle{
+  display:none;background:transparent;border:none;color:var(--muted);font-size:1.15rem;padding:8px;border-radius:8px;
 }
+
+/* ===== MAIN LAYOUT ===== */
+.container{max-width:980px;margin:18px auto;padding:12px}
+.panel{background:var(--panel);padding:14px;border-radius:var(--radius);border:1px solid rgba(159,106,255,0.06);box-shadow:var(--shadow);margin-top:14px}
 
 /* HERO */
-.hero{
-  display:grid;
-  grid-template-columns:220px 1fr;
-  gap:22px;
-  align-items:center;
-}
-.avatar{
-  width:200px;
-  height:200px;
-  border-radius:16px;
-  overflow:hidden;
-  border:2px solid rgba(159,106,255,0.12);
-  box-shadow:0 18px 50px rgba(60,15,120,0.06);
-}
-.avatar img{width:100%;height:100%;object-fit:cover}
+.hero{display:grid;grid-template-columns:140px 1fr;gap:16px;align-items:center}
+.avatar{width:140px;height:140px;border-radius:14px;overflow:hidden;border:2px solid rgba(159,106,255,0.12);box-shadow:0 10px 30px rgba(40,10,90,0.12);display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12))}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.hero h2{margin:0;font-family:'Orbitron',sans-serif;font-size:1.05rem;color:#fff}
+.hero p{margin:8px 0 0 0;color:#d7d3f8;font-size:0.92rem;line-height:1.38}
 
-.hero h2{
-  margin:0;
-  font-family:'Orbitron';
-  color:#fff;
-  font-size:1.4rem;
-}
-.hero p{
-  margin:10px 0 0;
-  color:#d7d3f8;
-  line-height:1.45;
-}
+/* CTAs - mobile friendly (stack on small) */
+.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.btn{padding:12px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-family:'Orbitron',sans-serif;font-size:0.92rem}
+.btn-primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;box-shadow:0 10px 26px rgba(0,0,0,0.45)}
+.btn-ghost{background:transparent;color:#efe8ff;border:1px solid rgba(255,255,255,0.06)}
 
-/* CTA */
-.cta-row{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:14px;
-}
-.btn{
-  padding:10px 14px;
-  border-radius:10px;
-  cursor:pointer;
-  font-weight:700;
-  font-family:'Orbitron';
-  border:none;
-}
-.btn-primary{
-  background:linear-gradient(90deg,var(--accent1),var(--accent2));
-  color:#fff;
-  box-shadow:0 12px 30px rgba(0,0,0,0.5);
-}
-.btn-ghost{
-  background:transparent;
-  color:#efe8ff;
-  border:1px solid rgba(255,255,255,0.06);
-}
-
-/* PILLS */
+/* PILL tags */
 .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.pill{
-  padding:8px 12px;
-  border-radius:20px;
-  background:rgba(178,123,255,0.08);
-  border:1px solid rgba(255,255,255,0.04);
-  font-size:0.9rem;
-}
+.pill{padding:8px 12px;border-radius:999px;background:rgba(178,123,255,0.08);border:1px solid rgba(255,255,255,0.04);font-size:0.86rem;color:#efeaff}
 
-/* PROJECTS */
-.projects{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:14px;
-}
-.project{
-  padding:14px;
-  border-radius:12px;
-  border:1px solid rgba(159,106,255,0.06);
-  background:linear-gradient(180deg,rgba(40,12,80,0.06),rgba(10,6,30,0.02));
-}
+/* PROJECTS grid */
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:12px}
+.project{padding:12px;border-radius:10px;border:1px solid rgba(159,106,255,0.06);background:linear-gradient(180deg,rgba(40,12,80,0.05),rgba(10,6,30,0.02))}
 
 /* ACHIEVEMENTS */
-.achievements{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:12px;
-}
-.achievement{
-  flex:1;
-  min-width:160px;
-  text-align:center;
-  background:rgba(255,255,255,0.02);
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.03);
-  padding:12px;
-}
+.achievements{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.achievement{flex:1;min-width:120px;padding:10px;border-radius:10px;background:rgba(255,255,255,0.02);text-align:center;border:1px solid rgba(255,255,255,0.03)}
 
 /* TESTIMONIALS */
-.testimonials{
-  display:grid;
-  gap:12px;
-  margin-top:12px;
-}
+.testimonials{display:grid;gap:10px;margin-top:12px}
 
 /* FOOTER */
-footer{
-  text-align:center;
-  margin-top:22px;
-  padding:20px 0;
-  color:#cfc9ff;
-}
-.social-bar{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin-top:18px;
-}
-.social-bar a{
-  text-decoration:none;
-  padding:8px 12px;
-  border-radius:10px;
-  background:rgba(255,255,255,0.02);
-  border:1px solid rgba(255,255,255,0.03);
-  color:#efe8ff;
-}
+footer{margin-top:18px;padding:16px 6px;text-align:center;color:#cfc9ff}
+.social-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.social-bar a{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);text-decoration:none;color:#efe8ff}
 
 /* MODAL */
-#auditModal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(3,2,6,0.78);
-  backdrop-filter:blur(6px);
-  z-index:9999;
-  justify-content:center;
-  align-items:center;
-}
-.modal-card{
-  background:linear-gradient(180deg,rgba(20,12,30,0.98),rgba(10,6,20,0.9));
-  padding:20px;
-  border-radius:12px;
-  width:92%;
-  max-width:520px;
-  border:1px solid rgba(159,106,255,0.08);
-}
-.modal-card input,
-.modal-card textarea{
-  width:100%;
-  padding:10px;
-  margin-top:10px;
-  border-radius:8px;
-  border:1px solid rgba(255,255,255,0.06);
-  background:rgba(0,0,0,0.35);
-  color:#fff;
+#auditModal{display:none;position:fixed;inset:0;background:rgba(3,2,6,0.82);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;padding:18px}
+.modal-card{background:linear-gradient(180deg,rgba(20,12,30,0.98),rgba(10,6,20,0.9));padding:16px;border-radius:12px;width:100%;max-width:520px;border:1px solid rgba(159,106,255,0.08)}
+.modal-card input,.modal-card textarea{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.35);color:#fff;font-size:0.95rem}
+.modal-actions{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+
+/* ===== MOBILE SPECIFIC: make it feel native ===== */
+@media (max-width:760px){
+  .brand h1{font-size:0.98rem}
+  .brand p{font-size:0.72rem}
+  .nav{display:none}              /* hide desktop nav */
+  .nav-toggle{display:inline-flex} /* show toggle */
+  .cyber-inner{padding:0 10px}
+  .container{margin:12px auto;padding:12px}
+  .hero{grid-template-columns:1fr; text-align:center; gap:12px}
+  .avatar{width:120px;height:120px;margin:0 auto;border-radius:12px}
+  .hero h2{font-size:1.08rem}
+  .hero p{font-size:0.95rem}
+  .cta-row{flex-direction:column}
+  .btn, .btn-ghost, .btn-primary{width:100%;padding:12px 14px}
+  .pills{justify-content:center}
+  .projects{grid-template-columns:1fr}
+  .achievement{min-width:0}
+  footer{padding:14px 8px}
+  .modal-card{padding:14px}
 }
 
+/* mobile menu slide-down */
+.nav-mobile{
+  display:none;
+  position:absolute;top:calc(100% + 6px);left:8px;right:8px;
+  background:linear-gradient(180deg, rgba(12,8,20,0.98), rgba(6,4,12,0.96));
+  border-radius:10px;padding:10px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 10px 30px rgba(0,0,0,0.6);
+  max-height:0;overflow:hidden;transition:max-height .28s cubic-bezier(.2,.9,.2,1),opacity .2s;
+  opacity:0;
+}
+.nav-mobile.open{display:block;max-height:420px;opacity:1;}
+
+/* small phones */
+@media (max-width:420px){
+  .avatar{width:110px;height:110px}
+  .brand h1{font-size:0.95rem}
+  .brand p{font-size:0.7rem}
+  .modal-card{padding:12px}
+}
 </style>
 </head>
 <body>
 
 <!-- BANNER -->
-<section class="cyber-banner">
+<header class="cyber-banner" role="banner" aria-label="TheCyberARYAN banner">
   <div class="cyber-inner">
-    <div class="cyber-title">
-      <h1>THECYBERARYAN</h1>
-      <p>Cybersecurity Consultant • Ethical Hacker • Red & Blue Team</p>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="brand" aria-hidden="false">
+        <h1>THECYBERARYAN</h1>
+        <p>Cybersecurity Consultant • Ethical Hacker • Red & Blue Team</p>
+      </div>
     </div>
 
-    <!-- NAVIGATION (HOME + CONNECT REMOVED) -->
-    <nav>
+    <!-- DESKTOP NAV -->
+    <nav class="nav" aria-label="Main navigation">
       <a class="navlink" href="Services.html">SERVICES</a>
       <a class="navlink" href="blog.html">BLOG</a>
       <a class="navlink" href="quotes.html">QUOTES</a>
     </nav>
-  </div>
-</section>
 
+    <!-- MOBILE TOGGLE -->
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMobile" aria-label="Open menu">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <!-- MOBILE NAV (slide down) -->
+  <nav id="navMobile" class="nav-mobile" aria-hidden="true" role="navigation" aria-label="Mobile navigation">
+    <a class="navlink" href="Services.html" onclick="toggleMobileNav()">SERVICES</a>
+    <a class="navlink" href="blog.html" onclick="toggleMobileNav()">BLOG</a>
+    <a class="navlink" href="quotes.html" onclick="toggleMobileNav()">QUOTES</a>
+    <a class="navlink" href="#" onclick="openModal(); toggleMobileNav()">Book Free Security Edit</a>
+  </nav>
+</header>
 
 <!-- MAIN -->
-<main class="container">
+<main class="container" role="main">
 
   <!-- HERO -->
-  <section class="panel hero">
-    <div class="avatar"><img src="pfp.jpg" alt="Aryan Pareek"></div>
+  <section class="panel hero" aria-label="About section">
+    <div class="avatar" aria-hidden="true">
+      <img src="pfp.jpg" alt="Aryan Pareek">
+    </div>
 
     <div>
       <h2>Security-first consulting for startups, SMEs & enterprises</h2>
       <p>I help teams find and fix critical vulnerabilities before attackers do — penetration testing, red team simulations, incident response, cloud security, and SOC setup.</p>
 
-      <div class="cta-row">
+      <div class="cta-row" role="group" aria-label="Primary calls to action">
         <button class="btn btn-primary" onclick="openModal()">Book Free Security Edit</button>
-        <a class="btn btn-ghost" href="mailto:aryanpareek311072004@gmail.com"><i class="fa fa-envelope"></i>&nbsp;Email</a>
-        <a class="btn btn-ghost" href="https://wa.me/919950400005" target="_blank"><i class="fab fa-whatsapp"></i>&nbsp;WhatsApp</a>
+        <a class="btn btn-ghost" href="Services.html" role="button">View Services</a>
+        <a class="btn btn-ghost" href="mailto:thecyberaryan@example.com"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp; Email</a>
+        <a class="btn btn-ghost" href="https://wa.me/919950400005" target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i>&nbsp; WhatsApp</a>
       </div>
 
-      <div class="pills">
+      <div class="pills" aria-hidden="true">
         <span class="pill">BCA — Cybersecurity & Forensics</span>
         <span class="pill">Jaipur • Open to relocation</span>
         <span class="pill">4+ years experience</span>
@@ -293,35 +211,35 @@ footer{
   </section>
 
   <!-- SERVICES -->
-  <section class="panel">
+  <section class="panel" aria-label="Services">
     <h3 style="margin:0;font-family:'Orbitron';color:#fff">Services I Offer</h3>
-    <div class="projects">
-      <div class="project"><h4>Web & Mobile Penetration Testing</h4><p>OWASP Top 10, API fuzzing, logic testing, secure code guidance.</p></div>
-      <div class="project"><h4>Cloud Security</h4><p>AWS/Azure/GCP audits, IAM hardening, misconfiguration prevention.</p></div>
-      <div class="project"><h4>Red Teaming</h4><p>Adversary simulation to validate detection and response readiness.</p></div>
-      <div class="project"><h4>Incident Response</h4><p>Forensics, RCA, containment and hardening.</p></div>
-      <div class="project"><h4>SOC & Threat Hunting</h4><p>SIEM tuning, detection engineering, threat hunting engagements.</p></div>
-      <div class="project"><h4>DevSecOps</h4><p>Automation, pipeline security, SDLC strengthening.</p></div>
+    <div class="projects" style="margin-top:10px">
+      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Web & Mobile Penetration Testing</h4><p style="margin:8px 0 0 0">OWASP Top 10, API fuzzing, logic testing, secure code guidance.</p></div>
+      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Cloud Security</h4><p style="margin:8px 0 0 0">AWS/Azure/GCP audits, IAM hardening, misconfiguration prevention.</p></div>
+      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Red Teaming</h4><p style="margin:8px 0 0 0">Adversary simulation to validate detection & response readiness.</p></div>
+      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Incident Response</h4><p style="margin:8px 0 0 0">Forensics, RCA, containment and hardening.</p></div>
+      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">SOC & Threat Hunting</h4><p style="margin:8px 0 0 0">SIEM tuning, detection engineering, threat hunting engagements.</p></div>
+      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">DevSecOps</h4><p style="margin:8px 0 0 0">Automation, pipeline security, SDLC strengthening.</p></div>
     </div>
   </section>
 
   <!-- PROJECTS -->
-  <section class="panel">
+  <section class="panel" aria-label="Projects">
     <h3 style="margin:0;font-family:'Orbitron';color:#fff">Projects & Tools</h3>
-    <div class="projects">
-      <div class="project"><h4>ENUMO — Recon Toolkit</h4><p>Automated enumeration & OSINT-driven intelligence.</p></div>
-      <div class="project"><h4>Xss-Master</h4><p>Context-aware reflection-XSS analyzer.</p></div>
-      <div class="project"><h4>Traverser</h4><p>Traversal payload engine with encoded detections.</p></div>
-      <div class="project"><h4>Fraud Detection System</h4><p>ML-based phishing/fake site classifier.</p></div>
-      <div class="project"><h4>Impacket Automation</h4><p>Custom pentesting automations.</p></div>
+    <div class="projects" style="margin-top:10px">
+      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">ENUMO — Recon Toolkit</h4><p style="margin:8px 0 0 0">Automated enumeration & OSINT intelligence.</p></div>
+      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Xss-Master</h4><p style="margin:8px 0 0 0">Context-aware reflection-XSS analyzer.</p></div>
+      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Traverser</h4><p style="margin:8px 0 0 0">Traversal payload engine with encoded detections.</p></div>
+      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Fraud Detection System</h4><p style="margin:8px 0 0 0">ML-based phishing/fake site classifier.</p></div>
+      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Impacket Automation</h4><p style="margin:8px 0 0 0">Custom pentesting automations.</p></div>
     </div>
   </section>
 
   <!-- SKILLS -->
-  <section class="panel">
+  <section class="panel" aria-label="Skills">
     <h3 style="margin:0;font-family:'Orbitron';color:#fff">Skills & Technologies</h3>
-    <div class="pills">
-      <span class="pill">Pentesting</span>
+    <div class="pills" style="margin-top:10px">
+      <span class="pill">Pentesting (Web/Mobile)</span>
       <span class="pill">Red Team</span>
       <span class="pill">Threat Hunting</span>
       <span class="pill">Incident Response</span>
@@ -331,71 +249,122 @@ footer{
       <span class="pill">Python, Bash, Go</span>
       <span class="pill">Burp Suite, Nmap</span>
       <span class="pill">Impacket</span>
-      <span class="pill">SIEM</span>
+      <span class="pill">SIEM (QRadar/Elastic)</span>
       <span class="pill">MITRE ATT&CK</span>
     </div>
   </section>
 
   <!-- ACHIEVEMENTS -->
-  <section class="panel">
+  <section class="panel" aria-label="Achievements">
     <h3 style="margin:0;font-family:'Orbitron';color:#fff">Results & Achievements</h3>
-    <div class="achievements">
-      <div class="achievement"><strong>30+</strong><br>Apps Secured</div>
-      <div class="achievement"><strong>1200+</strong><br>Vulns Found</div>
-      <div class="achievement"><strong>Rajasthan Police</strong><br>Cyber Cell Collaboration</div>
+    <div class="achievements" style="margin-top:10px">
+      <div class="achievement"><strong style="font-size:1.05rem">30+</strong><div style="font-size:0.82rem;margin-top:6px">Apps Secured</div></div>
+      <div class="achievement"><strong style="font-size:1.05rem">1200+</strong><div style="font-size:0.82rem;margin-top:6px">Vulns Found</div></div>
+      <div class="achievement"><strong style="font-size:1rem">Rajasthan Police</strong><div style="font-size:0.82rem;margin-top:6px">Cyber Cell Collaboration</div></div>
     </div>
   </section>
 
   <!-- TESTIMONIALS -->
-  <section class="panel">
+  <section class="panel" aria-label="Testimonials">
     <h3 style="margin:0;font-family:'Orbitron';color:#fff">Testimonials</h3>
-    <div class="testimonials">
-      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p>"Aryan performed a thorough assessment and fixed critical issues quickly."</p></div>
-      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p>"Clear reports, great response time."</p></div>
+    <div class="testimonials" style="margin-top:10px">
+      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p style="margin:8px 0 0 0">"Aryan performed a thorough assessment and fixed critical issues quickly."</p></div>
+      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p style="margin:8px 0 0 0">"Clear reports, great response time."</p></div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer>
+  <footer aria-label="Footer">
     <div class="social-bar">
-      <a href="mailto:thecyberaryan@example.com"><i class="fa fa-envelope"></i> Email</a>
-      <a href="https://www.linkedin.com/in/aryan-pareek-597a0b218/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-      <a href="https://x.com/TheCyberAryan" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
-      <a href="https://instagram.com/The.CyberAryan" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-      <a href="https://wa.me/919950400005" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="mailto:thecyberaryan@example.com"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Email</a>
+      <a href="https://www.linkedin.com/in/aryan-pareek-597a0b218/" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i>&nbsp;LinkedIn</a>
+      <a href="https://x.com/TheCyberAryan" target="_blank" rel="noopener"><i class="fab fa-x-twitter" aria-hidden="true"></i>&nbsp;X</a>
+      <a href="https://instagram.com/The.CyberAryan" target="_blank" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i>&nbsp;Instagram</a>
+      <a href="https://wa.me/919950400005" target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i>&nbsp;WhatsApp</a>
     </div>
-    <p>© 2025 Aryan Pareek — TheCyberARYAN</p>
+    <div style="margin-top:10px;color:#cfc9ff">© 2025 Aryan Pareek — TheCyberARYAN</div>
   </footer>
 
 </main>
 
 <!-- MODAL -->
-<div id="auditModal">
-  <div class="modal-card">
+<div id="auditModal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-card" role="document">
     <h2>Request Free Security Edit</h2>
-    <form action="https://formsubmit.co/thecyberaryan@example.com" method="POST">
+    <form action="https://formsubmit.co/thecyberaryan@example.com" method="POST" onsubmit="setTimeout(closeModal,500)">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_subject" value="Security Edit Request — TheCyberARYAN">
-
       <input type="text" name="name" placeholder="Your name" required>
       <input type="email" name="email" placeholder="Email address" required>
       <input type="text" name="website" placeholder="Website / App URL" required>
       <textarea name="message" rows="4" placeholder="Describe your security needs (optional)"></textarea>
 
-      <button type="submit" class="btn-primary" style="margin-top:10px;width:100%">Send Request</button>
-      <button type="button" onclick="closeModal()" style="margin-top:10px;padding:10px;border-radius:8px;background:#ff6b6b;border:none;color:#fff;width:100%">Cancel</button>
+      <div class="modal-actions">
+        <button type="submit" class="btn btn-primary">Send Request</button>
+        <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      </div>
     </form>
   </div>
 </div>
 
 <script>
+/* Modal controls */
+const modal = document.getElementById('auditModal');
 function openModal(){
-  document.getElementById('auditModal').style.display='flex';
+  modal.style.display = 'flex';
+  modal.setAttribute('aria-hidden','false');
+  // focus the first input for better UX on mobile
+  const first = modal.querySelector('input, textarea, button');
+  if(first) first.focus();
 }
 function closeModal(){
-  document.getElementById('auditModal').style.display='none';
+  modal.style.display = 'none';
+  modal.setAttribute('aria-hidden','true');
 }
-</script>
 
+/* Mobile nav toggle with smooth slide */
+const navToggle = document.getElementById('navToggle');
+const navMobile = document.getElementById('navMobile');
+function toggleMobileNav(){
+  if(!navMobile) return;
+  const open = navMobile.classList.contains('open');
+  if(open){
+    navMobile.classList.remove('open');
+    navToggle.setAttribute('aria-expanded','false');
+    navMobile.setAttribute('aria-hidden','true');
+  } else {
+    navMobile.classList.add('open');
+    navToggle.setAttribute('aria-expanded','true');
+    navMobile.setAttribute('aria-hidden','false');
+  }
+}
+if(navToggle){
+  navToggle.addEventListener('click', function(e){
+    e.preventDefault();
+    toggleMobileNav();
+  });
+}
+
+/* Close mobile nav or modal on ESC */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    if(modal && modal.style.display === 'flex') closeModal();
+    if(navMobile && navMobile.classList.contains('open')){ navMobile.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); navMobile.setAttribute('aria-hidden','true'); }
+  }
+});
+
+/* Close mobile nav when tapping outside */
+document.addEventListener('click', function(e){
+  if(!navMobile) return;
+  if(navMobile.classList.contains('open')){
+    const target = e.target;
+    if(!navMobile.contains(target) && !navToggle.contains(target)){
+      navMobile.classList.remove('open');
+      navToggle.setAttribute('aria-expanded','false');
+      navMobile.setAttribute('aria-hidden','true');
+    }
+  }
+});
+</script>
 </body>
 </html>
