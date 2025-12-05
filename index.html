@@ -4,367 +4,399 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Aryan Pareek | TheCyberARYAN — Ethical Hacker & Cybersecurity Professional</title>
-<meta name="description" content="Aryan Pareek (TheCyberAryAN) - Cybersecurity consultant offering penetration testing, incident response, cloud security audits, SOC consulting, and red team assessments. Book a free security edit.">
+
+<meta name="description" content="Aryan Pareek (TheCyberAryan) - Cybersecurity consultant offering penetration testing, incident response, cloud security audits, SOC consulting, and red team assessments.">
 <meta name="keywords" content="ethical hacker, cyber security expert, penetration testing, red team, incident response, cloud security, Aryan Pareek">
+
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
 :root{
   --bg:#07040a;
-  --panel: rgba(20,12,30,0.78);
-  --muted: #cfccee;
-  --accent1: #9f6aff;
-  --accent2: #00a7ff;
-  --glass: rgba(255,255,255,0.02);
-  --nav-height: 64px;
-  --radius: 12px;
-  --shadow: 0 12px 40px rgba(12,6,30,0.6);
+  --panel: rgba(20,12,30,0.7);
+  --muted:#cfccee;
+  --accent1:#9f6aff;
+  --accent2:#00a7ff;
+  --glow:0 12px 40px rgba(159,106,255,0.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Inter',system-ui;
+  color:var(--muted);
+  background:linear-gradient(180deg,rgba(6,4,10,0.95),rgba(8,6,14,0.96)),
+    url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80')
+    center/cover fixed;
 }
 
-/* Reset & base */
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--muted);background:
-  linear-gradient(180deg, rgba(6,4,10,0.96), rgba(8,6,14,0.98)),
-  url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1600&q=60') center/cover fixed;
-  -webkit-font-smoothing:antialiased;}
-a{color:inherit}
-button{font:inherit}
-
-/* ===== BANNER (sticky, compact on mobile) ===== */
+/* ---------- BANNER ---------- */
 .cyber-banner{
-  position:sticky;top:0;z-index:120;
-  display:flex;align-items:center;justify-content:center;
-  padding:10px 12px;background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  backdrop-filter: blur(8px) saturate(120%);border-bottom:1px solid rgba(255,255,255,0.03);
-  box-shadow:0 6px 18px rgba(0,0,0,0.45);
+  width:100%;
+  padding:16px 14px;
+  background:rgba(255,255,255,0.02);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  position:sticky;
+  top:0;
+  z-index:999;
 }
 .cyber-inner{
-  width:100%;max-width:1100px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 12px;
+  max-width:1200px;
+  width:100%;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.brand h1{
+  margin:0;
+  font-family:'Orbitron';
+  color:#fff;
+  font-size:1.5rem;
+}
+.brand p{
+  margin:2px 0 0 0;
+  color:#dcd6ff;
+  font-size:0.9rem;
 }
 
-/* brand */
-.brand{
-  display:flex;flex-direction:column;gap:2px;
-}
-.brand h1{margin:0;font-family:'Orbitron',sans-serif;font-size:1rem;color:#fff;letter-spacing:0.8px}
-.brand p{margin:0;color:rgba(220,214,255,0.9);font-size:0.72rem;opacity:0.95}
-
-/* desktop nav (hidden on small screens via media queries) */
+/* NAV (desktop) */
 .nav{
-  display:flex;gap:10px;align-items:center;
+  display:flex;
+  gap:12px;
 }
 .navlink{
-  text-decoration:none;padding:8px 12px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,0.03);
-  font-family:'Orbitron',sans-serif;font-weight:700;font-size:0.86rem;color:#efe8ff;transition:all .14s ease;
+  text-decoration:none;
+  color:#efe8ff;
+  font-family:'Orbitron';
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);
+  background:rgba(255,255,255,0.02);
 }
-.navlink:hover{transform:translateY(-3px);background:rgba(255,255,255,0.04)}
+.navlink:hover{
+  background:rgba(255,255,255,0.06);
+}
 
-/* mobile toggle (visible on small screens) */
+/* MOBILE NAV BUTTON */
 .nav-toggle{
-  display:none;background:transparent;border:none;color:var(--muted);font-size:1.15rem;padding:8px;border-radius:8px;
+  display:none;
+  background:none;
+  border:none;
+  color:white;
+  font-size:1.5rem;
 }
 
-/* ===== MAIN LAYOUT ===== */
-.container{max-width:980px;margin:18px auto;padding:12px}
-.panel{background:var(--panel);padding:14px;border-radius:var(--radius);border:1px solid rgba(159,106,255,0.06);box-shadow:var(--shadow);margin-top:14px}
-
-/* HERO */
-.hero{display:grid;grid-template-columns:140px 1fr;gap:16px;align-items:center}
-.avatar{width:140px;height:140px;border-radius:14px;overflow:hidden;border:2px solid rgba(159,106,255,0.12);box-shadow:0 10px 30px rgba(40,10,90,0.12);display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12))}
-.avatar img{width:100%;height:100%;object-fit:cover;display:block}
-.hero h2{margin:0;font-family:'Orbitron',sans-serif;font-size:1.05rem;color:#fff}
-.hero p{margin:8px 0 0 0;color:#d7d3f8;font-size:0.92rem;line-height:1.38}
-
-/* CTAs - mobile friendly (stack on small) */
-.cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.btn{padding:12px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-family:'Orbitron',sans-serif;font-size:0.92rem}
-.btn-primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;box-shadow:0 10px 26px rgba(0,0,0,0.45)}
-.btn-ghost{background:transparent;color:#efe8ff;border:1px solid rgba(255,255,255,0.06)}
-
-/* PILL tags */
-.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.pill{padding:8px 12px;border-radius:999px;background:rgba(178,123,255,0.08);border:1px solid rgba(255,255,255,0.04);font-size:0.86rem;color:#efeaff}
-
-/* PROJECTS grid */
-.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:12px}
-.project{padding:12px;border-radius:10px;border:1px solid rgba(159,106,255,0.06);background:linear-gradient(180deg,rgba(40,12,80,0.05),rgba(10,6,30,0.02))}
-
-/* ACHIEVEMENTS */
-.achievements{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.achievement{flex:1;min-width:120px;padding:10px;border-radius:10px;background:rgba(255,255,255,0.02);text-align:center;border:1px solid rgba(255,255,255,0.03)}
-
-/* TESTIMONIALS */
-.testimonials{display:grid;gap:10px;margin-top:12px}
-
-/* FOOTER */
-footer{margin-top:18px;padding:16px 6px;text-align:center;color:#cfc9ff}
-.social-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
-.social-bar a{padding:8px 10px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);text-decoration:none;color:#efe8ff}
-
-/* MODAL */
-#auditModal{display:none;position:fixed;inset:0;background:rgba(3,2,6,0.82);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;padding:18px}
-.modal-card{background:linear-gradient(180deg,rgba(20,12,30,0.98),rgba(10,6,20,0.9));padding:16px;border-radius:12px;width:100%;max-width:520px;border:1px solid rgba(159,106,255,0.08)}
-.modal-card input,.modal-card textarea{width:100%;padding:10px;margin-top:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.35);color:#fff;font-size:0.95rem}
-.modal-actions{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-
-/* ===== MOBILE SPECIFIC: make it feel native ===== */
-@media (max-width:760px){
-  .brand h1{font-size:0.98rem}
-  .brand p{font-size:0.72rem}
-  .nav{display:none}              /* hide desktop nav */
-  .nav-toggle{display:inline-flex} /* show toggle */
-  .cyber-inner{padding:0 10px}
-  .container{margin:12px auto;padding:12px}
-  .hero{grid-template-columns:1fr; text-align:center; gap:12px}
-  .avatar{width:120px;height:120px;margin:0 auto;border-radius:12px}
-  .hero h2{font-size:1.08rem}
-  .hero p{font-size:0.95rem}
-  .cta-row{flex-direction:column}
-  .btn, .btn-ghost, .btn-primary{width:100%;padding:12px 14px}
-  .pills{justify-content:center}
-  .projects{grid-template-columns:1fr}
-  .achievement{min-width:0}
-  footer{padding:14px 8px}
-  .modal-card{padding:14px}
-}
-
-/* mobile menu slide-down */
+/* MOBILE NAV MENU */
 .nav-mobile{
   display:none;
-  position:absolute;top:calc(100% + 6px);left:8px;right:8px;
-  background:linear-gradient(180deg, rgba(12,8,20,0.98), rgba(6,4,12,0.96));
-  border-radius:10px;padding:10px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 10px 30px rgba(0,0,0,0.6);
-  max-height:0;overflow:hidden;transition:max-height .28s cubic-bezier(.2,.9,.2,1),opacity .2s;
-  opacity:0;
+  flex-direction:column;
+  background:rgba(15,10,25,0.95);
+  padding:10px 20px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
 }
-.nav-mobile.open{display:block;max-height:420px;opacity:1;}
+.nav-mobile a{
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
 
-/* small phones */
-@media (max-width:420px){
-  .avatar{width:110px;height:110px}
-  .brand h1{font-size:0.95rem}
-  .brand p{font-size:0.7rem}
-  .modal-card{padding:12px}
+/* ---------- LAYOUT ---------- */
+.container{
+  max-width:1100px;
+  margin:26px auto;
+  padding:22px;
+}
+.panel{
+  background:var(--panel);
+  padding:18px;
+  margin-top:18px;
+  border-radius:12px;
+  border:1px solid rgba(159,106,255,0.08);
+  box-shadow:var(--glow);
+}
+
+/* HERO */
+.hero{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:22px;
+  align-items:center;
+}
+.avatar{
+  width:200px;
+  height:200px;
+  overflow:hidden;
+  border-radius:14px;
+  border:2px solid rgba(159,106,255,0.12);
+}
+.avatar img{
+  width:100%;height:100%;object-fit:cover;
+}
+.hero h2{
+  margin:0;
+  font-family:'Orbitron';
+  color:white;
+  font-size:1.4rem;
+}
+.hero p{
+  margin-top:10px;
+  line-height:1.45;
+}
+
+/* CTA */
+.cta-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:14px;
+}
+.btn{
+  padding:10px 14px;
+  border-radius:10px;
+  font-family:'Orbitron';
+  cursor:pointer;
+}
+.btn-primary{
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  color:white;
+}
+.btn-ghost{
+  background:transparent;
+  color:#efe8ff;
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+/* Pills */
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.pill{
+  padding:8px 12px;
+  border-radius:20px;
+  background:rgba(178,123,255,0.1);
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+/* Grid sections */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:14px;
+}
+.project{
+  padding:14px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+.achievements{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+}
+.achievement{
+  flex:1;min-width:160px;padding:12px;
+  background:rgba(255,255,255,0.03);
+  border-radius:10px;
+  text-align:center;
+}
+
+.testimonials{
+  display:grid;
+  gap:12px;
+}
+
+/* FOOTER */
+footer{
+  margin-top:26px;
+  text-align:center;
+  padding:20px 0;
+}
+.social-bar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin-bottom:12px;
+}
+
+/* ---------- MOBILE FIXES ---------- */
+@media(max-width:880px){
+  .nav{display:none;}
+  .nav-toggle{display:block;}
+  .hero{grid-template-columns:1fr;text-align:center;}
+  .avatar{margin:auto;margin-bottom:12px;}
 }
 </style>
 </head>
+
 <body>
 
-<!-- BANNER -->
-<header class="cyber-banner" role="banner" aria-label="TheCyberARYAN banner">
+<!-- ================= BANNER ================= -->
+<header class="cyber-banner">
   <div class="cyber-inner">
-    <div style="display:flex;align-items:center;gap:12px">
-      <div class="brand" aria-hidden="false">
-        <h1>THECYBERARYAN</h1>
-        <p>Cybersecurity Consultant • Ethical Hacker • Red & Blue Team</p>
-      </div>
+    
+    <!-- Logo + title -->
+    <div class="brand">
+      <h1>THECYBERARYAN</h1>
+      <p>Cybersecurity Consultant • Ethical Hacker</p>
     </div>
 
-    <!-- DESKTOP NAV -->
-    <nav class="nav" aria-label="Main navigation">
+    <!-- Desktop Navigation -->
+    <nav class="nav">
       <a class="navlink" href="Services.html">SERVICES</a>
       <a class="navlink" href="blog.html">BLOG</a>
       <a class="navlink" href="quotes.html">QUOTES</a>
     </nav>
 
-    <!-- MOBILE TOGGLE -->
-    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMobile" aria-label="Open menu">
-      <i class="fa fa-bars" aria-hidden="true"></i>
+    <!-- Mobile menu toggle -->
+    <button class="nav-toggle" id="navToggle" onclick="toggleMobileNav()">
+      <i class="fa fa-bars"></i>
     </button>
+
   </div>
 
-  <!-- MOBILE NAV (slide down) -->
-  <nav id="navMobile" class="nav-mobile" aria-hidden="true" role="navigation" aria-label="Mobile navigation">
+  <!-- Mobile Navigation (NO CTA inside) -->
+  <nav id="navMobile" class="nav-mobile">
     <a class="navlink" href="Services.html" onclick="toggleMobileNav()">SERVICES</a>
     <a class="navlink" href="blog.html" onclick="toggleMobileNav()">BLOG</a>
     <a class="navlink" href="quotes.html" onclick="toggleMobileNav()">QUOTES</a>
-    <a class="navlink" href="#" onclick="openModal(); toggleMobileNav()">Book Free Security Edit</a>
   </nav>
 </header>
 
-<!-- MAIN -->
-<main class="container" role="main">
+
+<!-- ================= MAIN CONTENT ================= -->
+<main class="container">
 
   <!-- HERO -->
-  <section class="panel hero" aria-label="About section">
-    <div class="avatar" aria-hidden="true">
-      <img src="pfp.jpg" alt="Aryan Pareek">
-    </div>
+  <section class="panel hero">
+    <div class="avatar"><img src="pfp.jpg" alt="Aryan Pareek"></div>
 
     <div>
       <h2>Security-first consulting for startups, SMEs & enterprises</h2>
-      <p>I help teams find and fix critical vulnerabilities before attackers do — penetration testing, red team simulations, incident response, cloud security, and SOC setup.</p>
+      <p>I help companies find & fix vulnerabilities before attackers do — pentesting, red teaming, cloud audits, DFIR & SOC setup.</p>
 
-      <div class="cta-row" role="group" aria-label="Primary calls to action">
+      <div class="cta-row">
         <button class="btn btn-primary" onclick="openModal()">Book Free Security Edit</button>
-        <a class="btn btn-ghost" href="Services.html" role="button">View Services</a>
-        <a class="btn btn-ghost" href="mailto:thecyberaryan@example.com"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp; Email</a>
-        <a class="btn btn-ghost" href="https://wa.me/919950400005" target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i>&nbsp; WhatsApp</a>
+        <a class="btn btn-ghost" href="Services.html">View Services</a>
+        <a class="btn btn-ghost" href="mailto:thecyberaryan@example.com">Email</a>
+        <a class="btn btn-ghost" href="https://wa.me/919950400005" target="_blank">WhatsApp</a>
       </div>
 
-      <div class="pills" aria-hidden="true">
-        <span class="pill">BCA — Cybersecurity & Forensics</span>
-        <span class="pill">Jaipur • Open to relocation</span>
-        <span class="pill">4+ years experience</span>
+      <div class="pills">
+        <span class="pill">BCA Cybersecurity</span>
+        <span class="pill">4+ Years Experience</span>
+        <span class="pill">Open to Relocation</span>
       </div>
     </div>
   </section>
 
   <!-- SERVICES -->
-  <section class="panel" aria-label="Services">
-    <h3 style="margin:0;font-family:'Orbitron';color:#fff">Services I Offer</h3>
-    <div class="projects" style="margin-top:10px">
-      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Web & Mobile Penetration Testing</h4><p style="margin:8px 0 0 0">OWASP Top 10, API fuzzing, logic testing, secure code guidance.</p></div>
-      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Cloud Security</h4><p style="margin:8px 0 0 0">AWS/Azure/GCP audits, IAM hardening, misconfiguration prevention.</p></div>
-      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Red Teaming</h4><p style="margin:8px 0 0 0">Adversary simulation to validate detection & response readiness.</p></div>
-      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Incident Response</h4><p style="margin:8px 0 0 0">Forensics, RCA, containment and hardening.</p></div>
-      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">SOC & Threat Hunting</h4><p style="margin:8px 0 0 0">SIEM tuning, detection engineering, threat hunting engagements.</p></div>
-      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">DevSecOps</h4><p style="margin:8px 0 0 0">Automation, pipeline security, SDLC strengthening.</p></div>
+  <section class="panel">
+    <h3 style="font-family:'Orbitron';margin:0;color:white">Services I Offer</h3>
+    <div class="projects">
+      <div class="project"><h4>Web & Mobile Pentesting</h4><p>OWASP, API, logic testing, remediation.</p></div>
+      <div class="project"><h4>Cloud Security</h4><p>AWS/Azure/GCP audits & IAM hardening.</p></div>
+      <div class="project"><h4>Red Teaming</h4><p>Adversary simulation & breach validation.</p></div>
+      <div class="project"><h4>Incident Response</h4><p>Forensics, RCA & containment.</p></div>
+      <div class="project"><h4>SOC & Threat Hunting</h4><p>SIEM tuning & detection engineering.</p></div>
+      <div class="project"><h4>DevSecOps</h4><p>Pipeline security & automation.</p></div>
     </div>
   </section>
 
   <!-- PROJECTS -->
-  <section class="panel" aria-label="Projects">
-    <h3 style="margin:0;font-family:'Orbitron';color:#fff">Projects & Tools</h3>
-    <div class="projects" style="margin-top:10px">
-      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">ENUMO — Recon Toolkit</h4><p style="margin:8px 0 0 0">Automated enumeration & OSINT intelligence.</p></div>
-      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Xss-Master</h4><p style="margin:8px 0 0 0">Context-aware reflection-XSS analyzer.</p></div>
-      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Traverser</h4><p style="margin:8px 0 0 0">Traversal payload engine with encoded detections.</p></div>
-      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Fraud Detection System</h4><p style="margin:8px 0 0 0">ML-based phishing/fake site classifier.</p></div>
-      <div class="project"><h4 style="margin:0;font-family:'Orbitron'">Impacket Automation</h4><p style="margin:8px 0 0 0">Custom pentesting automations.</p></div>
+  <section class="panel">
+    <h3 style="font-family:'Orbitron';margin:0;color:white">Projects & Tools</h3>
+    <div class="projects">
+      <div class="project"><h4>ENUMO Toolkit</h4><p>Recon automation suite.</p></div>
+      <div class="project"><h4>Xss-Master</h4><p>Reflection-based XSS analyzer.</p></div>
+      <div class="project"><h4>Traverser</h4><p>Path Traversal payload engine.</p></div>
+      <div class="project"><h4>Fraud Detection System</h4><p>ML phishing detector.</p></div>
+      <div class="project"><h4>Impacket Automation</h4><p>Internal pentest modules.</p></div>
     </div>
   </section>
 
   <!-- SKILLS -->
-  <section class="panel" aria-label="Skills">
-    <h3 style="margin:0;font-family:'Orbitron';color:#fff">Skills & Technologies</h3>
-    <div class="pills" style="margin-top:10px">
-      <span class="pill">Pentesting (Web/Mobile)</span>
-      <span class="pill">Red Team</span>
+  <section class="panel">
+    <h3 style="font-family:'Orbitron';margin:0;color:white">Skills</h3>
+    <div class="pills">
+      <span class="pill">Pentesting</span>
       <span class="pill">Threat Hunting</span>
-      <span class="pill">Incident Response</span>
-      <span class="pill">Digital Forensics</span>
+      <span class="pill">DFIR</span>
+      <span class="pill">Red Teaming</span>
       <span class="pill">Cloud Security</span>
-      <span class="pill">DevSecOps</span>
-      <span class="pill">Python, Bash, Go</span>
-      <span class="pill">Burp Suite, Nmap</span>
+      <span class="pill">Python/Bash</span>
       <span class="pill">Impacket</span>
-      <span class="pill">SIEM (QRadar/Elastic)</span>
-      <span class="pill">MITRE ATT&CK</span>
+      <span class="pill">SIEM</span>
+      <span class="pill">Burp Suite</span>
     </div>
   </section>
 
   <!-- ACHIEVEMENTS -->
-  <section class="panel" aria-label="Achievements">
-    <h3 style="margin:0;font-family:'Orbitron';color:#fff">Results & Achievements</h3>
-    <div class="achievements" style="margin-top:10px">
-      <div class="achievement"><strong style="font-size:1.05rem">30+</strong><div style="font-size:0.82rem;margin-top:6px">Apps Secured</div></div>
-      <div class="achievement"><strong style="font-size:1.05rem">1200+</strong><div style="font-size:0.82rem;margin-top:6px">Vulns Found</div></div>
-      <div class="achievement"><strong style="font-size:1rem">Rajasthan Police</strong><div style="font-size:0.82rem;margin-top:6px">Cyber Cell Collaboration</div></div>
+  <section class="panel">
+    <h3 style="font-family:'Orbitron';margin:0;color:white">Achievements</h3>
+    <div class="achievements">
+      <div class="achievement"><strong>30+</strong><br>Apps Secured</div>
+      <div class="achievement"><strong>1200+</strong><br>Vulns Found</div>
+      <div class="achievement"><strong>Rajasthan Police</strong><br>Cyber Cell Work</div>
     </div>
   </section>
 
   <!-- TESTIMONIALS -->
-  <section class="panel" aria-label="Testimonials">
-    <h3 style="margin:0;font-family:'Orbitron';color:#fff">Testimonials</h3>
-    <div class="testimonials" style="margin-top:10px">
-      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p style="margin:8px 0 0 0">"Aryan performed a thorough assessment and fixed critical issues quickly."</p></div>
-      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p style="margin:8px 0 0 0">"Clear reports, great response time."</p></div>
+  <section class="panel">
+    <h3 style="font-family:'Orbitron';margin:0;color:white">Testimonials</h3>
+    <div class="testimonials">
+      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p>Aryan helped us avoid a major incident.</p></div>
+      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p>Clear reports, fast response.</p></div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer aria-label="Footer">
+  <footer>
     <div class="social-bar">
-      <a href="mailto:thecyberaryan@example.com"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Email</a>
-      <a href="https://www.linkedin.com/in/aryan-pareek-597a0b218/" target="_blank" rel="noopener"><i class="fab fa-linkedin" aria-hidden="true"></i>&nbsp;LinkedIn</a>
-      <a href="https://x.com/TheCyberAryan" target="_blank" rel="noopener"><i class="fab fa-x-twitter" aria-hidden="true"></i>&nbsp;X</a>
-      <a href="https://instagram.com/The.CyberAryan" target="_blank" rel="noopener"><i class="fab fa-instagram" aria-hidden="true"></i>&nbsp;Instagram</a>
-      <a href="https://wa.me/919950400005" target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i>&nbsp;WhatsApp</a>
+      <a href="mailto:thecyberaryan@example.com">Email</a>
+      <a href="https://linkedin.com/in/aryan-pareek-597a0b218">LinkedIn</a>
+      <a href="https://x.com/TheCyberAryan">X</a>
+      <a href="https://instagram.com/The.CyberAryan">Instagram</a>
+      <a href="https://wa.me/919950400005">WhatsApp</a>
     </div>
-    <div style="margin-top:10px;color:#cfc9ff">© 2025 Aryan Pareek — TheCyberARYAN</div>
+    <p>© 2025 Aryan Pareek — TheCyberARYAN</p>
   </footer>
 
 </main>
 
 <!-- MODAL -->
-<div id="auditModal" role="dialog" aria-modal="true" aria-hidden="true">
-  <div class="modal-card" role="document">
-    <h2>Request Free Security Edit</h2>
-    <form action="https://formsubmit.co/thecyberaryan@example.com" method="POST" onsubmit="setTimeout(closeModal,500)">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_subject" value="Security Edit Request — TheCyberARYAN">
-      <input type="text" name="name" placeholder="Your name" required>
-      <input type="email" name="email" placeholder="Email address" required>
-      <input type="text" name="website" placeholder="Website / App URL" required>
-      <textarea name="message" rows="4" placeholder="Describe your security needs (optional)"></textarea>
+<div id="auditModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);justify-content:center;align-items:center;z-index:9999">
+  <div class="panel" style="max-width:420px;width:90%;padding:20px">
+    <h2 style="font-family:'Orbitron';margin:0;color:white">Request Security Edit</h2>
 
-      <div class="modal-actions">
-        <button type="submit" class="btn btn-primary">Send Request</button>
-        <button type="button" class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      </div>
+    <form action="https://formsubmit.co/thecyberaryan@example.com" method="POST">
+      <input type="hidden" name="_captcha" value="false">
+
+      <input type="text" name="name" placeholder="Your name" required style="width:100%;margin-top:12px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:white">
+      <input type="email" name="email" placeholder="Email" required style="width:100%;margin-top:12px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:white">
+      <textarea name="message" placeholder="Describe your needs" rows="4" style="width:100%;margin-top:12px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:white"></textarea>
+
+      <button type="submit" class="btn btn-primary" style="margin-top:12px;width:100%">Submit</button>
+      <button type="button" onclick="closeModal()" class="btn btn-ghost" style="margin-top:8px;width:100%">Cancel</button>
     </form>
   </div>
 </div>
 
 <script>
-/* Modal controls */
-const modal = document.getElementById('auditModal');
+function toggleMobileNav() {
+  const nav = document.getElementById("navMobile");
+  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
+}
+
 function openModal(){
-  modal.style.display = 'flex';
-  modal.setAttribute('aria-hidden','false');
-  // focus the first input for better UX on mobile
-  const first = modal.querySelector('input, textarea, button');
-  if(first) first.focus();
+  document.getElementById('auditModal').style.display = 'flex';
 }
+
 function closeModal(){
-  modal.style.display = 'none';
-  modal.setAttribute('aria-hidden','true');
+  document.getElementById('auditModal').style.display = 'none';
 }
-
-/* Mobile nav toggle with smooth slide */
-const navToggle = document.getElementById('navToggle');
-const navMobile = document.getElementById('navMobile');
-function toggleMobileNav(){
-  if(!navMobile) return;
-  const open = navMobile.classList.contains('open');
-  if(open){
-    navMobile.classList.remove('open');
-    navToggle.setAttribute('aria-expanded','false');
-    navMobile.setAttribute('aria-hidden','true');
-  } else {
-    navMobile.classList.add('open');
-    navToggle.setAttribute('aria-expanded','true');
-    navMobile.setAttribute('aria-hidden','false');
-  }
-}
-if(navToggle){
-  navToggle.addEventListener('click', function(e){
-    e.preventDefault();
-    toggleMobileNav();
-  });
-}
-
-/* Close mobile nav or modal on ESC */
-document.addEventListener('keydown', function(e){
-  if(e.key === 'Escape'){
-    if(modal && modal.style.display === 'flex') closeModal();
-    if(navMobile && navMobile.classList.contains('open')){ navMobile.classList.remove('open'); navToggle.setAttribute('aria-expanded','false'); navMobile.setAttribute('aria-hidden','true'); }
-  }
-});
-
-/* Close mobile nav when tapping outside */
-document.addEventListener('click', function(e){
-  if(!navMobile) return;
-  if(navMobile.classList.contains('open')){
-    const target = e.target;
-    if(!navMobile.contains(target) && !navToggle.contains(target)){
-      navMobile.classList.remove('open');
-      navToggle.setAttribute('aria-expanded','false');
-      navMobile.setAttribute('aria-hidden','true');
-    }
-  }
-});
 </script>
+
 </body>
 </html>
