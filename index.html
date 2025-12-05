@@ -4,9 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<title>Aryan Pareek | TheCyberAryan — Ethical Hacker & Cybersecurity Professional</title>
+<title>Aryan Pareek | TheCyberAryAN — Ethical Hacker & Cybersecurity Professional</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- FontAwesome Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 /* ---------------------------
@@ -49,40 +52,32 @@ body{
   border:1px solid rgba(255,255,255,0.08);
   backdrop-filter:blur(8px);
   margin-bottom:18px;
-  display:block;
 }
 
 .logo-banner img{
-  display:block;
   width:100%;
   height:100%;
   object-fit:cover;
   object-position:center;
-  padding:0;
-  margin:0;
 }
 
 /* ---------------------------
-   HEADER (Centered)
+   HEADER
    --------------------------- */
 header{
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
   text-align:center;
   gap:8px;
   margin-bottom:14px;
-  padding:0 6px;
 }
 
 .title h1{
   margin:0;
   font-family:'Orbitron', sans-serif;
   color:#efe8ff;
-  line-height:1;
   font-size:1.9rem;
-  word-break:break-word;
 }
 
 .title p{
@@ -100,9 +95,6 @@ nav{
   gap:8px;
   justify-content:center;
   flex-wrap:wrap;
-  margin-top:8px;
-  width:100%;
-  padding:6px;
 }
 
 .navlink{
@@ -115,7 +107,6 @@ nav{
   background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
   font-weight:700;
   font-size:.88rem;
-  display:inline-block;
 }
 
 /* ---------------------------
@@ -165,57 +156,83 @@ nav{
 }
 
 .projects{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.project{padding:18px;border-radius:14px;border:1px solid rgba(160,120,255,.06);background:linear-gradient(135deg,rgba(110,30,150,.18),rgba(40,10,70,.06));clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);}
+.project{
+  padding:18px;border-radius:14px;
+  border:1px solid rgba(160,120,255,.06);
+  background:linear-gradient(135deg,rgba(110,30,150,.18),rgba(40,10,70,.06));
+  clip-path:polygon(6% 0,94% 0,100% 50%,94% 100%,6% 100%,0 50%);
+}
 .project h4{margin:0;color:#fff;font-family:'Orbitron',sans-serif}
 
-/* certs */
 .cert-list{display:flex;flex-direction:column;gap:10px}
 .cert{padding:12px;border-radius:12px;border:1px dashed rgba(200,180,255,.06);background:rgba(255,255,255,.02)}
 
-/* footer */
-footer{text-align:center;margin-top:26px;color:#cfc9ff;font-size:.95rem}
-
 /* ---------------------------
-   RESPONSIVE IMPROVEMENTS FOR MOBILE ALIGNMENT
+   FULL-WIDTH NEON SOCIAL BAR
    --------------------------- */
-@media (max-width:850px){
-  .container{padding:18px}
-  .hero{grid-template-columns:1fr;text-align:center}
-  .avatar{margin:0 auto;width:170px;height:170px}
-  .projects{grid-template-columns:1fr}
-  .title h1{font-size:1.6rem}
-  .title p{font-size:.9rem;padding:0 8px}
-  .navlink{padding:7px 10px;font-size:.85rem}
+.social-bar {
+  width: 100%;
+  margin-top: 32px;
+  padding: 18px 0;
+  border-radius: 14px;
+  border: 1px solid rgba(160,120,255,0.2);
+  background: linear-gradient(90deg, rgba(40,10,70,0.45), rgba(110,30,150,0.25), rgba(40,10,70,0.45));
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  box-shadow: 0 0 22px rgba(170,120,255,0.18);
+  backdrop-filter: blur(6px);
 }
 
+.social-bar a {
+  text-decoration: none;
+  color: #efe8ff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.05);
+  transition: 0.25s ease;
+}
+
+.social-bar a i {
+  font-size: 1.1rem;
+}
+
+.social-bar a:hover {
+  transform: translateY(-4px);
+  background: rgba(160,120,255,0.18);
+  border-color: rgba(190,130,255,0.35);
+  box-shadow: 0 0 18px rgba(190,130,255,0.35);
+}
+
+/* ---------------------------
+   RESPONSIVE
+   --------------------------- */
+@media (max-width:850px){
+  .hero{grid-template-columns:1fr;text-align:center}
+  .avatar{margin:0 auto;width:170px;height:170px}
+}
 @media (max-width:480px){
-  /* container padding smaller so content feels centered */
-  .container{padding:12px;margin:18px auto}
-  /* slightly smaller banner so it doesn't overpower */
   .logo-banner{height:130px;border-radius:12px}
-  .title h1{font-size:1.35rem}
-  .title p{font-size:.82rem}
-  /* ensure nav sits below name nicely and links are tappable */
-  nav{margin-top:10px;padding:6px}
-  .navlink{padding:8px 10px;font-size:.82rem}
-  /* keep hero compact */
-  .hero{gap:16px}
   .avatar{width:150px;height:150px}
-  /* reduce excessive clip-path effect on very narrow screens */
-  .project{padding:14px}
-  footer{font-size:.88rem}
 }
 </style>
 </head>
 <body>
 <div class="container">
 
-  <!-- STRETCHED LOGO BANNER -->
+  <!-- LOGO BANNER -->
   <div class="logo-banner">
     <img src="logo.png" alt="TheCyberAryan Logo">
   </div>
 
-  <!-- CENTERED NAME + NAV -->
+  <!-- HEADER -->
   <header>
     <div class="title">
       <h1>ARYAN PAREEK</h1>
@@ -232,7 +249,7 @@ footer{text-align:center;margin-top:26px;color:#cfc9ff;font-size:.95rem}
   </header>
 
   <!-- HERO -->
-  <section class="panel hero" aria-label="about">
+  <section class="panel hero">
     <div class="avatar">
       <img src="pfp.jpg" alt="Profile photo of Aryan Pareek">
     </div>
@@ -253,7 +270,7 @@ footer{text-align:center;margin-top:26px;color:#cfc9ff;font-size:.95rem}
   </section>
 
   <!-- SKILLS -->
-  <section class="panel" style="margin-top:18px">
+  <section class="panel">
     <h3 style="margin:0;color:#efe8ff;font-family:'Orbitron',sans-serif">Skills</h3>
     <div class="skills" style="margin-top:12px">
       <div class="skill-tag">Penetration Testing</div>
@@ -268,9 +285,10 @@ footer{text-align:center;margin-top:26px;color:#cfc9ff;font-size:.95rem}
   </section>
 
   <!-- PROJECTS -->
-  <section class="panel" style="margin-top:18px">
+  <section class="panel">
     <h3 style="margin:0;color:#efe8ff;font-family:'Orbitron',sans-serif">Projects</h3>
     <div class="projects" style="margin-top:12px">
+
       <article class="project">
         <h4>ENUMO — Recon Toolkit</h4>
         <p>Automated subdomain enumeration, port scanning, tech detection, and reconnaissance reporting.</p>
@@ -285,23 +303,50 @@ footer{text-align:center;margin-top:26px;color:#cfc9ff;font-size:.95rem}
         <h4>Traverser — Path Traversal Scanner</h4>
         <p>Payload-based detection of traversal vulnerabilities using encoding variations.</p>
       </article>
+
     </div>
   </section>
 
   <!-- CERTIFICATIONS -->
-  <section class="panel" style="margin-top:18px">
+  <section class="panel">
     <h3 style="margin:0;color:#efe8ff;font-family:'Orbitron',sans-serif">Certifications</h3>
     <div class="cert-list" style="margin-top:12px">
-      <div class="cert"><span>CEH v13 — Certified Ethical Hacker</span></div>
-      <div class="cert"><span>CompTIA PenTest+</span></div>
-      <div class="cert"><span>Certified AppSec Pentesting Expert</span></div>
-      <div class="cert"><span>DevSecOps — CI/CD Security</span></div>
-      <div class="cert"><span>Google Cybersecurity Certificate</span></div>
-      <div class="cert"><span>Cisco — Ethical Hacker & Analyst</span></div>
+      <div class="cert">CEH v13 — Certified Ethical Hacker</div>
+      <div class="cert">CompTIA PenTest+</div>
+      <div class="cert">Certified AppSec Pentesting Expert</div>
+      <div class="cert">DevSecOps — CI/CD Security</div>
+      <div class="cert">Google Cybersecurity Certificate</div>
+      <div class="cert">Cisco — Ethical Hacker & Analyst</div>
     </div>
   </section>
 
-  <footer>© 2025 Aryan Pareek — TheCyberARYAN.</footer>
+  <!-- FOOTER WITH FULL-WIDTH NEON SOCIAL BAR -->
+  <footer>
+
+    <div class="social-bar">
+      <a href="https://www.linkedin.com/in/TheCyberAryan" target="_blank">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+
+      <a href="https://x.com/TheCyberAryan" target="_blank">
+        <i class="fab fa-x-twitter"></i> X
+      </a>
+
+      <a href="https://medium.com/@TheCyberAryan" target="_blank">
+        <i class="fab fa-medium"></i> Medium
+      </a>
+
+      <a href="https://thecyberaryan.blogspot.com" target="_blank">
+        <i class="fab fa-blogger"></i> Blogger
+      </a>
+    </div>
+
+    <p style="margin-top:18px; text-align:center;">
+      © 2025 Aryan Pareek — TheCyberAryan.
+    </p>
+
+  </footer>
+
 </div>
 </body>
 </html>
