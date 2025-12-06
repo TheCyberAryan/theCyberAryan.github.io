@@ -31,7 +31,7 @@ body{
     center/cover fixed;
 }
 
-/* Existing Theme Styles — unchanged */
+/* HEADER & NAV */
 .cyber-banner{width:100%;padding:16px 14px;background:rgba(255,255,255,0.02);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:999;}
 .cyber-inner{max-width:1200px;width:100%;margin:auto;display:flex;justify-content:space-between;align-items:center;}
 .brand h1{margin:0;font-family:'Orbitron';color:#fff;font-size:1.5rem;}
@@ -42,26 +42,73 @@ body{
 .nav-toggle{display:none;background:none;border:none;color:white;font-size:1.5rem;}
 .nav-mobile{display:none;flex-direction:column;background:rgba(15,10,25,0.95);padding:10px 20px;border-bottom:1px solid rgba(255,255,255,0.05);}
 .nav-mobile a{padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+
+/* LAYOUT */
 .container{max-width:1100px;margin:26px auto;padding:22px;}
 .panel{background:var(--panel);padding:18px;margin-top:18px;border-radius:12px;border:1px solid rgba(159,106,255,0.08);box-shadow:var(--glow);}
+
+/* HERO */
 .hero{display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:center;}
 .avatar{width:200px;height:200px;overflow:hidden;border-radius:14px;border:2px solid rgba(159,106,255,0.12);}
 .avatar img{width:100%;height:100%;object-fit:cover;}
 .hero h2{margin:0;font-family:'Orbitron';color:white;font-size:1.4rem;}
 .hero p{margin-top:10px;line-height:1.45;}
+
+/* CTA */
 .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
 .btn{padding:10px 14px;border-radius:10px;font-family:'Orbitron';cursor:pointer;}
 .btn-primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white;}
 .btn-ghost{background:transparent;color:#efe8ff;border:1px solid rgba(255,255,255,0.06);}
+
+/* Pills */
 .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .pill{padding:8px 12px;border-radius:20px;background:rgba(178,123,255,0.1);border:1px solid rgba(255,255,255,0.06);}
+
+/* Sections */
 .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
 .project{padding:14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);}
 .achievements{display:flex;flex-wrap:wrap;gap:14px;}
 .achievement{flex:1;min-width:160px;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;text-align:center;}
 .testimonials{display:grid;gap:12px;}
+
+/* === ENHANCED SOCIAL FOOTER === */
+.enhanced-social {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.social-item {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  color: #dcd6ff;
+  transition: 0.25s ease;
+}
+
+.social-item:hover {
+  transform: translateY(-6px) scale(1.1);
+  border-color: rgba(159,106,255,0.6);
+  box-shadow: 0 0 18px rgba(159,106,255,0.3);
+  color: white;
+}
+
+.social-item.linkedin:hover { box-shadow: 0 0 18px rgba(0,119,181,0.55); }
+.social-item.x-twitter:hover { box-shadow: 0 0 18px rgba(255,255,255,0.35); }
+.social-item.instagram:hover { box-shadow: 0 0 18px rgba(225,48,108,0.55); }
+.social-item.whatsapp:hover { box-shadow: 0 0 18px rgba(37,211,102,0.55); }
+.social-item.email:hover { box-shadow: 0 0 18px rgba(159,106,255,0.55); }
+
 footer{text-align:center;margin-top:26px;padding:20px 0;}
-.social-bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
+
 @media(max-width:880px){
   .nav{display:none;}
   .nav-toggle{display:block;}
@@ -71,8 +118,6 @@ footer{text-align:center;margin-top:26px;padding:20px 0;}
 </style>
 
 <!-- ================== SEO SCHEMA ================== -->
-
-<!-- PERSON SCHEMA -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -82,7 +127,7 @@ footer{text-align:center;margin-top:26px;padding:20px 0;}
   "url": "https://thecyberaryan.com",
   "image": "https://thecyberaryan.com/pfp.jpg",
   "jobTitle": "Cybersecurity Consultant & Ethical Hacker",
-  "description": "Offensive security specialist with expertise in penetration testing, red teaming, DFIR, cloud audits, threat detection and security automation.",
+  "description": "Offensive security specialist with expertise in penetration testing, red teaming, DFIR, cloud security, and threat detection.",
   "email": "mailto:aryanpareek311072004@gmail.com",
   "sameAs": [
     "https://www.linkedin.com/in/aryan-pareek-597a0b218/",
@@ -93,24 +138,21 @@ footer{text-align:center;margin-top:26px;padding:20px 0;}
 }
 </script>
 
-<!-- PROFESSIONAL SERVICE SCHEMA -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "TheCyberAryan Cybersecurity Services",
   "url": "https://thecyberaryan.com",
-  "description": "Offensive and defensive cybersecurity consulting including pentesting, red teaming, cloud audits, DFIR, incident response, threat hunting, detection engineering and security automation.",
-  "areaServed": "Worldwide",
+  "description": "Pentesting, red teaming, DFIR, cloud audits, threat hunting and cybersecurity consulting.",
   "contactPoint": {
     "@type": "ContactPoint",
-    "email": "aryanpareek311072004@gmail.com",
-    "contactType": "customer support"
+    "contactType": "support",
+    "email": "aryanpareek311072004@gmail.com"
   }
 }
 </script>
 
-<!-- WEBSITE SCHEMA -->
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
@@ -119,7 +161,6 @@ footer{text-align:center;margin-top:26px;padding:20px 0;}
   "url":"https://thecyberaryan.com"
 }
 </script>
-
 </head>
 
 <body>
@@ -150,14 +191,14 @@ footer{text-align:center;margin-top:26px;padding:20px 0;}
 
 <main class="container">
 
-  <!-- ================== HERO ================== -->
+  <!-- HERO -->
   <section class="panel hero">
     <div class="avatar"><img src="pfp.jpg" alt="Aryan Pareek"></div>
 
     <div>
       <h2>Defense starts with offense — and I prefer to strike first.</h2>
 
-      <p>I uncover the vulnerabilities attackers pray you never find. Whether it’s pentesting, red teaming, cloud security, DFIR or SOC uplift — I help companies stay secure long before a breach becomes a headline. If you're here after one… you're not the first.</p>
+      <p>I expose the vulnerabilities attackers pray you never find. Pentesting, red teaming, cloud security, DFIR, SOC uplift — whatever breaks, I fix before someone else breaks it harder. If you're here after a breach… you're not the first.</p>
 
       <div class="cta-row">
         <button class="btn btn-primary" onclick="openModal()">Book Free Security Edit</button>
@@ -167,110 +208,82 @@ footer{text-align:center;margin-top:26px;padding:20px 0;}
 
       <div class="pills">
         <span class="pill">Cybersecurity without the buzzword inflation</span>
-        <span class="pill">4+ years of breaking things professionally (with permission)</span>
-        <span class="pill">Trusted by teams serious about security (or convincingly pretending)</span>
+        <span class="pill">4+ years breaking things professionally (with consent)</span>
+        <span class="pill">Trusted by teams serious about security</span>
       </div>
     </div>
   </section>
 
 
-  <!-- ================== PROJECTS ================== -->
+  <!-- PROJECTS -->
   <section class="panel">
     <h3 style="color:white;font-family:'Orbitron';margin:0">Projects & Tools</h3>
 
     <div class="projects">
-
-      <div class="project">
-        <h4>ENUMO Toolkit</h4>
-        <p>Automated recon engineered for efficiency — because manual recon builds patience, not results.</p>
-      </div>
-
-      <div class="project">
-        <h4>Xss-Master</h4>
-        <p>Finds XSS faster than developers saying “It worked on my machine.”</p>
-      </div>
-
-      <div class="project">
-        <h4>Traverser</h4>
-        <p>Advanced Path Traversal engine. If your server leaks files, that's between you and the framework.</p>
-      </div>
-
-      <div class="project">
-        <h4>Fraud Detection System</h4>
-        <p>ML-powered phishing detector — because humans still click ‘Verify Account Immediately’.</p>
-      </div>
-
-      <div class="project">
-        <h4>Impacket Automation</h4>
-        <p>Custom AD exploitation modules proving misconfigurations are Active Directory’s love language.</p>
-      </div>
-
+      <div class="project"><h4>ENUMO Toolkit</h4><p>Automated recon suite for subdomain enumeration, OSINT and tech fingerprinting.</p></div>
+      <div class="project"><h4>Xss-Master</h4><p>Detects XSS faster than developers say “It worked on my machine.”</p></div>
+      <div class="project"><h4>Traverser</h4><p>Path Traversal payload engine for catching file leaks early.</p></div>
+      <div class="project"><h4>Fraud Detection System</h4><p>ML phishing detection because humans still click “Verify Account Immediately.”</p></div>
+      <div class="project"><h4>Impacket Automation</h4><p>AD exploitation modules proving misconfigs are AD’s love language.</p></div>
     </div>
   </section>
 
 
-  <!-- ================== SKILLS ================== -->
+  <!-- SKILLS -->
   <section class="panel">
-    <h3 style="color:white;font-family:'Orbitron';margin:0">Skills</h3>
+    <h3 style="font-family:'Orbitron';margin:0;color:white">Skills</h3>
 
     <div class="pills">
       <span class="pill">Web & Mobile Pentesting</span>
-      <span class="pill">Threat Hunting & Detection Engineering</span>
-      <span class="pill">DFIR & Incident Response</span>
-      <span class="pill">Red Teaming & Adversary Simulation</span>
-      <span class="pill">Cloud Security (AWS/Azure/GCP)</span>
-      <span class="pill">Python & Bash Automation</span>
-      <span class="pill">Impacket Mastery</span>
-      <span class="pill">SIEM Engineering</span>
-      <span class="pill">Burp Suite Practitioner</span>
+      <span class="pill">Threat Hunting</span>
+      <span class="pill">DFIR</span>
+      <span class="pill">Red Teaming</span>
+      <span class="pill">Cloud Security</span>
+      <span class="pill">Python/Bash</span>
+      <span class="pill">Impacket</span>
+      <span class="pill">SIEM</span>
+      <span class="pill">Burp Suite</span>
     </div>
   </section>
 
 
-  <!-- ================== ACHIEVEMENTS ================== -->
+  <!-- ACHIEVEMENTS -->
   <section class="panel">
-    <h3 style="color:white;font-family:'Orbitron';margin:0">Achievements</h3>
+    <h3 style="font-family:'Orbitron';margin:0;color:white">Achievements</h3>
 
     <div class="achievements">
-      <div class="achievement"><strong>30+</strong><br>Applications secured</div>
-      <div class="achievement"><strong>1200+</strong><br>Verified vulnerabilities identified</div>
+      <div class="achievement"><strong>30+</strong><br>Apps Secured</div>
+      <div class="achievement"><strong>1200+</strong><br>Vulns Identified</div>
       <div class="achievement"><strong>Rajasthan Police</strong><br>Cyber Cell Experience</div>
     </div>
   </section>
 
 
-  <!-- ================== TESTIMONIALS ================== -->
+  <!-- TESTIMONIALS -->
   <section class="panel">
-    <h3 style="color:white;font-family:'Orbitron';margin:0">Testimonials</h3>
+    <h3 style="font-family:'Orbitron';margin:0;color:white">Testimonials</h3>
 
     <div class="testimonials">
-      <div class="project">
-        <strong>⭐⭐⭐⭐⭐</strong>
-        <p>“Aryan didn’t just find vulnerabilities — he explained exactly how attackers would chain them. Equal parts impressive and terrifying.”</p>
-      </div>
-
-      <div class="project">
-        <strong>⭐⭐⭐⭐⭐</strong>
-        <p>“Clear insights, practical fixes, and somehow he makes security feel less painful.”</p>
-      </div>
+      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p>“Aryan predicts the exact attack paths real hackers would take. Efficiently scary.”</p></div>
+      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p>“Clear reports, fast fixes, and somehow he makes security work enjoyable.”</p></div>
     </div>
   </section>
 
 
-  <!-- ================== FAQ SECTION ================== -->
+  <!-- FAQ SECTION -->
   <section class="panel">
-    <h3 style="color:white;font-family:'Orbitron';margin:0">FAQ</h3>
+    <h3 style="font-family:'Orbitron';margin:0;color:white">FAQ</h3>
 
     <div style="margin-top:14px;line-height:1.55">
 
       <p><strong>1. Do you work with startups, enterprises, or individuals?</strong><br>
-      All three. Startups move fast, enterprises break slowly, and individuals panic efficiently. I secure them all.</p>
+      All three. Startups move fast, enterprises break slowly, and individuals panic efficiently.</p>
 
-      <p><strong>2. What makes your security approach different?</strong><br>
-      I don’t rely on scanners and hope for the best — I manually break things like real attackers, but with ethics and documentation.</p>
+      <p><strong>2. What makes your approach different?</strong><br>
+      I break things manually like real attackers — but with documentation, ethics, and fewer hoodie clichés.</p>
 
-      <p><strong>3. Do you provide after-audit support?</strong><br>
-      Yes. Fix guidance, mitigation plans, and “please explain this to my dev team” sessions are all included.</p>
+      <p><strong>3. Do you provide after-audit assistance?</strong><br>
+      Yes. Fix guidance, mitigation plans, and dev-team handholding included.</p>
 
       <p><strong>4. Do you sign NDAs?</strong><br>
       Absolutely. Your secrets stay safer with me than on your production server.</p>
@@ -278,30 +291,45 @@ footer{text-align:center;margin-top:26px;padding:20px 0;}
       <p><strong>5. Are your audits compliant with standards?</strong><br>
       Yes — OWASP, NIST, MITRE ATT&CK, and practical real-world methodology.</p>
 
-      <p><strong>6. Can you handle urgent/critical incidents?</strong><br>
-      Absolutely. If your system is already on fire, I bring the extinguisher (and logs).</p>
+      <p><strong>6. Can you help during active incidents?</strong><br>
+      Yes. If your system is on fire, I bring the extinguisher (and proper logs).</p>
 
     </div>
   </section>
 
-
-  <!-- ================== FOOTER ================== -->
-  <footer>
-    <div class="social-bar">
-      <a href="mailto:aryanpareek311072004@gmail.com"><i class="fa fa-envelope"></i>&nbsp;Email</a>
-      <a href="https://www.linkedin.com/in/aryan-pareek-597a0b218/" target="_blank"><i class="fab fa-linkedin"></i>&nbsp;LinkedIn</a>
-      <a href="https://x.com/TheCyberAryan" target="_blank"><i class="fab fa-x-twitter"></i>&nbsp;X</a>
-      <a href="https://instagram.com/The.CyberAryan" target="_blank"><i class="fab fa-instagram"></i>&nbsp;Instagram</a>
-      <a href="https://wa.me/919950400005" target="_blank"><i class="fab fa-whatsapp"></i>&nbsp;WhatsApp</a>
-    </div>
-
-    <p>Offensive security, DFIR, cloud hardening, and threat detection — delivered with expertise and a hint of sarcasm. © 2025 TheCyberAryan</p>
-  </footer>
-
 </main>
 
 
-<!-- ============= MODAL ============= -->
+<!-- FOOTER (ENHANCED SOCIAL ICONS) -->
+<footer>
+  <div class="enhanced-social">
+    <a href="mailto:aryanpareek311072004@gmail.com" class="social-item email">
+      <i class="fa fa-envelope"></i>
+    </a>
+
+    <a href="https://www.linkedin.com/in/aryan-pareek-597a0b218/" target="_blank" class="social-item linkedin">
+      <i class="fab fa-linkedin"></i>
+    </a>
+
+    <a href="https://x.com/TheCyberAryan" target="_blank" class="social-item x-twitter">
+      <i class="fab fa-x-twitter"></i>
+    </a>
+
+    <a href="https://instagram.com/The.CyberAryan" target="_blank" class="social-item instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://wa.me/919950400005" target="_blank" class="social-item whatsapp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <p>Offensive security, DFIR, cloud hardening, and threat detection — delivered with expertise and a hint of sarcasm. © 2025 TheCyberAryan</p>
+</footer>
+
+
+
+<!-- MODAL -->
 <div id="auditModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);justify-content:center;align-items:center;z-index:9999">
   <div class="panel" style="max-width:420px;width:90%;padding:20px">
 
@@ -323,8 +351,7 @@ footer{text-align:center;margin-top:26px;padding:20px 0;}
   </div>
 </div>
 
-
-<!-- ============= FAQ SCHEMA ============= -->
+<!-- FAQ SCHEMA -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -333,50 +360,32 @@ footer{text-align:center;margin-top:26px;padding:20px 0;}
     {
       "@type": "Question",
       "name": "Do you work with startups, enterprises, or individuals?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "All three. Startups move fast, enterprises break slowly, and individuals panic efficiently. I secure them all."
-      }
+      "acceptedAnswer": {"@type": "Answer","text": "Yes — all three. Startups move fast, enterprises break slowly, and individuals panic efficiently."}
     },
     {
       "@type": "Question",
       "name": "What makes your security approach different?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "I don’t rely on scanners and hope for the best — I manually break things like real attackers, but with ethics and documentation."
-      }
+      "acceptedAnswer": {"@type": "Answer","text": "I manually break things the way real attackers do — but with documentation, ethics, and fewer hoodie clichés."}
     },
     {
       "@type": "Question",
       "name": "Do you provide after-audit support?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Fix guidance, mitigation plans, and developer explanation sessions are included."
-      }
+      "acceptedAnswer": {"@type": "Answer","text": "Yes. Fix guidance, mitigation plans, and dev-team explanation sessions are included."}
     },
     {
       "@type": "Question",
       "name": "Do you sign NDAs?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Of course. Your secrets stay safer with me than on your production server."
-      }
+      "acceptedAnswer": {"@type": "Answer","text": "Absolutely. Your secrets stay safer with me than on your production server."}
     },
     {
       "@type": "Question",
       "name": "Are your audits compliant with standards?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes — OWASP, NIST, MITRE ATT&CK, and modern real-world methodologies."
-      }
+      "acceptedAnswer": {"@type": "Answer","text": "Yes — OWASP, NIST, MITRE ATT&CK and real-world methodology."}
     },
     {
       "@type": "Question",
-      "name": "Can you handle urgent or critical incidents?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Absolutely. If your system is already on fire, I bring the extinguisher (and logs)."
-      }
+      "name": "Can you help during active incidents?",
+      "acceptedAnswer": {"@type": "Answer","text": "Yes. If your system is on fire, I bring the extinguisher (and logs)."}
     }
   ]
 }
