@@ -36,11 +36,7 @@
       line-height: 1.7;
     }
 
-    .shell {
-      max-width: 1080px;
-      margin: 0 auto;
-      position: relative;
-    }
+    .shell { max-width: 1080px; margin: 0 auto; position: relative; }
 
     .grid-overlay {
       position: absolute;
@@ -55,10 +51,7 @@
     }
 
     /* HEADER */
-    header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
+    header { text-align: center; margin-bottom: 32px; }
 
     .eyebrow {
       font-family: var(--font-mono);
@@ -95,23 +88,12 @@
       text-transform: uppercase;
     }
 
-    header p {
-      margin-top: 14px;
-      font-size: 0.95rem;
-      color: var(--muted);
-    }
+    header p { margin-top: 14px; font-size: 0.95rem; color: var(--muted); }
 
     /* GRID */
-    .cards {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
+    .cards { display: grid; grid-template-columns: 1fr; gap: 20px; }
     @media (min-width: 900px) {
-      .cards {
-        grid-template-columns: 1fr 1fr;
-      }
+      .cards { grid-template-columns: 1fr 1fr; }
     }
 
     /* SERVICE CARDS */
@@ -133,20 +115,11 @@
       box-shadow: 0 16px 32px rgba(0, 0, 0, 0.48);
     }
 
-    .service-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
+    .service-header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
 
     .service-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
       background:
         radial-gradient(circle at top left, rgba(255, 77, 156, 0.25), transparent 65%),
         rgba(15, 6, 30, 0.8);
@@ -172,12 +145,7 @@
       letter-spacing: 0.05em;
     }
 
-    ul {
-      padding-left: 18px;
-      margin: 4px 0 0;
-      font-size: 0.88rem;
-      color: var(--text);
-    }
+    ul { padding-left: 18px; margin: 4px 0 0; font-size: 0.88rem; color: var(--text); }
 
     .btn-wrap { margin-top: 16px; }
 
@@ -202,6 +170,35 @@
       box-shadow: 0 0 14px rgba(77, 243, 255, 0.45);
     }
 
+    /* WHY CHOOSE ME */
+    .why-me {
+      margin-top: 40px;
+      padding: 26px;
+      border-radius: var(--radius);
+      background: rgba(5, 6, 30, 0.75);
+      border: 1px solid rgba(77, 243, 255, 0.25);
+    }
+
+    .why-me h3,
+    .faq h3 {
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    /* FAQ */
+    .faq {
+      margin-top: 40px;
+      padding: 26px;
+      border-radius: var(--radius);
+      background: rgba(5, 6, 30, 0.75);
+      border: 1px solid rgba(77, 243, 255, 0.25);
+    }
+
+    .faq p strong { color: var(--primary); }
+
     footer {
       margin-top: 48px;
       text-align: center;
@@ -216,136 +213,166 @@
 
 <body>
 
-  <div class="shell">
-    <div class="grid-overlay"></div>
+<div class="shell">
+<div class="grid-overlay"></div>
 
-    <header>
-      <div class="eyebrow">Security • Testing • Assurance</div>
-      <h1>Cybersecurity Services</h1>
-      <div class="pill">(By TheCyberAryan)</div>
-      <p>Premium, high-impact security services for businesses that actually care about not getting hacked.</p>
-    </header>
+<header>
+  <div class="eyebrow">Security • Testing • Assurance</div>
+  <h1>Cybersecurity Services</h1>
+  <div class="pill">(By TheCyberAryan)</div>
+  <p>Affordable, high-impact security services — built for teams who prefer not getting hacked.</p>
+</header>
 
-    <div class="cards">
+<div class="cards">
 
-      <!-- WEBSITE SECURITY -->
-      <div class="service-card">
-        <div class="service-header">
-          <div class="service-icon">🛡</div>
-          <h2>Website Security Audit</h2>
-        </div>
-        <div class="price">₹2,499</div>
-        <ul>
-          <li>XSS, SQLi, and OWASP Top 10 testing</li>
-          <li>Security headers & TLS configuration review</li>
-          <li>Directory exposure & sensitive file discovery</li>
-          <li>Auth/session weakness checks</li>
-          <li>Evidence-based report + fixes to implement</li>
-        </ul>
-        <div class="btn-wrap">
-          <a href="mailto:aryanpareek311072004@gmail.com?subject=Book Website Security Audit" class="btn">Book Audit</a>
-        </div>
-      </div>
-
-      <!-- WORDPRESS AUDIT -->
-      <div class="service-card">
-        <div class="service-header">
-          <div class="service-icon">🧩</div>
-          <h2>WordPress Security Hardening</h2>
-        </div>
-        <div class="price">₹2,999 – ₹5,999</div>
-        <ul>
-          <li>Plugin & theme vulnerability scan</li>
-          <li>Bruteforce resistance & login protection</li>
-          <li>XML-RPC, REST API, file upload abuse check</li>
-          <li>Database, wp-config & permissions audit</li>
-          <li>Complete security hardening guide</li>
-        </ul>
-        <div class="btn-wrap">
-          <a href="mailto:aryanpareek311072004@gmail.com?subject=Book WordPress Audit" class="btn">Book Audit</a>
-        </div>
-      </div>
-
-      <!-- MINI PT -->
-      <div class="service-card">
-        <div class="service-header">
-          <div class="service-icon">🐞</div>
-          <h2>Mini Penetration Test</h2>
-        </div>
-        <div class="price">₹4,999 – ₹12,999</div>
-        <ul>
-          <li>Recon → Scan → Exploit workflow</li>
-          <li>Authentication, logic & workflow abuse testing</li>
-          <li>Admin panel discovery & privilege checks</li>
-          <li>Misconfiguration & exposed asset hunt</li>
-          <li>Professional pentest-style PDF report</li>
-        </ul>
-        <div class="btn-wrap">
-          <a href="mailto:aryanpareek311072004@gmail.com?subject=Book Mini Pentest" class="btn">Book Audit</a>
-        </div>
-      </div>
-
-      <!-- API TESTING -->
-      <div class="service-card">
-        <div class="service-header">
-          <div class="service-icon">🔗</div>
-          <h2>API Security Testing</h2>
-        </div>
-        <div class="price">₹4,999 – ₹14,999</div>
-        <ul>
-          <li>IDOR & broken access control testing</li>
-          <li>Auth bypass attempts & token abuse checks</li>
-          <li>Rate limit & bruteforce resistance testing</li>
-          <li>Parameter tampering & injection attempts</li>
-          <li>Full OWASP API Top 10 coverage</li>
-        </ul>
-        <div class="btn-wrap">
-          <a href="mailto:aryanpareek311072004@gmail.com?subject=Book API Security Test" class="btn">Book Audit</a>
-        </div>
-      </div>
-
-      <!-- MOBILE APK -->
-      <div class="service-card">
-        <div class="service-header">
-          <div class="service-icon">📱</div>
-          <h2>Mobile App (APK) Security Scan</h2>
-        </div>
-        <div class="price">₹3,499 – ₹9,999</div>
-        <ul>
-          <li>Static analysis for hardcoded secrets</li>
-          <li>Manifest, permissions & component security</li>
-          <li>API calls & network traffic inspection</li>
-          <li>Firebase/third-party misconfig checks</li>
-          <li>Clear risk categorization report</li>
-        </ul>
-        <div class="btn-wrap">
-          <a href="mailto:aryanpareek311072004@gmail.com?subject=Book Mobile App Scan" class="btn">Book Audit</a>
-        </div>
-      </div>
-
-      <!-- MONTHLY SECURITY -->
-      <div class="service-card">
-        <div class="service-header">
-          <div class="service-icon">♻️</div>
-          <h2>Monthly Security Maintenance</h2>
-        </div>
-        <div class="price">₹3,999 – ₹9,999 / month</div>
-        <ul>
-          <li>Monthly vulnerability scans</li>
-          <li>Zero-day alerts for critical exposures</li>
-          <li>Continuous asset monitoring</li>
-          <li>Updated monthly security report</li>
-          <li>Priority support for urgent issues</li>
-        </ul>
-        <div class="btn-wrap">
-          <a href="mailto:aryanpareek311072004@gmail.com?subject=Subscribe Monthly Security" class="btn">Subscribe</a>
-        </div>
-      </div>
-
+  <!-- WEBSITE SECURITY -->
+  <div class="service-card">
+    <div class="service-header">
+      <div class="service-icon">🛡</div>
+      <h2>Website Security Audit</h2>
     </div>
-
-    <footer>// THECYBERARYAN — Cybersecurity Done Right //</footer>
-
+    <div class="price">₹1,999</div>
+    <ul>
+      <li>Attack-surface mapping</li>
+      <li>XSS, SQLi & injection testing</li>
+      <li>Security headers & TLS config analysis</li>
+      <li>Broken authentication/session flaws</li>
+      <li>Actionable report with clear fixes</li>
+    </ul>
+    <div class="btn-wrap">
+      <a href="mailto:aryanpareek311072004@gmail.com?subject=Book Website Audit" class="btn">Book Audit</a>
+    </div>
   </div>
+
+  <!-- WORDPRESS -->
+  <div class="service-card">
+    <div class="service-header">
+      <div class="service-icon">🧩</div>
+      <h2>WordPress Security Hardening</h2>
+    </div>
+    <div class="price">₹2,499 – ₹4,499</div>
+    <ul>
+      <li>Plugin/theme vulnerability scan</li>
+      <li>WP-login & bruteforce protection</li>
+      <li>XML-RPC, file upload & injection checks</li>
+      <li>Permissions, DB & wp-config audit</li>
+      <li>Full hardening recommendations</li>
+    </ul>
+    <div class="btn-wrap">
+      <a href="mailto:aryanpareek311072004@gmail.com?subject=Book WordPress Audit" class="btn">Book Audit</a>
+    </div>
+  </div>
+
+  <!-- MINI PT -->
+  <div class="service-card">
+    <div class="service-header">
+      <div class="service-icon">🐞</div>
+      <h2>Mini Penetration Test</h2>
+    </div>
+    <div class="price">₹3,999 – ₹9,999</div>
+    <ul>
+      <li>Recon → Scan → Exploit simulation</li>
+      <li>Auth, session & logic flaw testing</li>
+      <li>Admin panel & sensitive route discovery</li>
+      <li>Access control & misconfig exploitation</li>
+      <li>Pentest-style PDF report</li>
+    </ul>
+    <div class="btn-wrap">
+      <a href="mailto:aryanpareek311072004@gmail.com?subject=Book Mini Pentest" class="btn">Book Audit</a>
+    </div>
+  </div>
+
+  <!-- API TESTING -->
+  <div class="service-card">
+    <div class="service-header">
+      <div class="service-icon">🔗</div>
+      <h2>API Security Testing</h2>
+    </div>
+    <div class="price">₹3,499 – ₹11,999</div>
+    <ul>
+      <li>IDOR & Broken Access Control testing</li>
+      <li>Auth bypass attempts & token abuse</li>
+      <li>Rate limit & resource exhaustion tests</li>
+      <li>Parameter tampering & injection testing</li>
+      <li>OWASP API Top 10 coverage</li>
+    </ul>
+    <div class="btn-wrap">
+      <a href="mailto:aryanpareek311072004@gmail.com?subject=Book API Security Test" class="btn">Book Audit</a>
+    </div>
+  </div>
+
+  <!-- APK -->
+  <div class="service-card">
+    <div class="service-header">
+      <div class="service-icon">📱</div>
+      <h2>Mobile App (APK) Security Scan</h2>
+    </div>
+    <div class="price">₹2,499 – ₹7,999</div>
+    <ul>
+      <li>Static analysis for secrets & API keys</li>
+      <li>Manifest, permissions & component review</li>
+      <li>Traffic inspection & API call analysis</li>
+      <li>3rd-party service & Firebase misconfigs</li>
+      <li>Risk-labelled vulnerability report</li>
+    </ul>
+    <div class="btn-wrap">
+      <a href="mailto:aryanpareek311072004@gmail.com?subject=Book Mobile App Scan" class="btn">Book Audit</a>
+    </div>
+  </div>
+
+  <!-- MONTHLY -->
+  <div class="service-card">
+    <div class="service-header">
+      <div class="service-icon">♻️</div>
+      <h2>Monthly Security Maintenance</h2>
+    </div>
+    <div class="price">₹2,999 – ₹7,999 / month</div>
+    <ul>
+      <li>Monthly vulnerability scans</li>
+      <li>Zero-day & threat intelligence alerts</li>
+      <li>Continuous risk monitoring</li>
+      <li>Monthly updated security reports</li>
+      <li>Priority support for issues</li>
+    </ul>
+    <div class="btn-wrap">
+      <a href="mailto:aryanpareek311072004@gmail.com?subject=Subscribe Monthly Security" class="btn">Subscribe</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- WHY CHOOSE ME -->
+<div class="why-me">
+  <h3>Why Choose Me?</h3>
+  <p>• I break things like attackers do — but legally, and with documentation.</p>
+  <p>• I give clear, actionable fixes developers actually understand.</p>
+  <p>• No automated scanner-only nonsense — real manual testing included.</p>
+  <p>• Fast delivery, clean reports, and polite sarcasm included free of cost.</p>
+  <p>• Trusted by startups, SMEs, and Cyber Cell teams.</p>
+</div>
+
+<!-- FAQ -->
+<div class="faq">
+  <h3>FAQ</h3>
+
+  <p><strong>1. How long does an audit take?</strong><br>
+  Typically 1–3 days depending on scope.</p>
+
+  <p><strong>2. Do you sign NDAs?</strong><br>
+  Absolutely — your data stays safer with me than on your production server.</p>
+
+  <p><strong>3. What do I receive after the audit?</strong><br>
+  A detailed vulnerability report + fixes + priority discussion call if needed.</p>
+
+  <p><strong>4. Do you retest after fixes?</strong><br>
+  Yes, retesting is included.</p>
+
+  <p><strong>5. Is this suitable for startups?</strong><br>
+  100%. Startups get hacked the most — mainly due to speed > security.</p>
+</div>
+
+<footer>// THECYBERARYAN — Cybersecurity Done Right //</footer>
+
+</div>
 </body>
 </html>
