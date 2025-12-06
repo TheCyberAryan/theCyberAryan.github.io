@@ -5,13 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Aryan Pareek | TheCyberARYAN — Ethical Hacker & Cybersecurity Professional</title>
 
-<meta name="description" content="Aryan Pareek (TheCyberAryan) - Cybersecurity consultant offering penetration testing, incident response, cloud security audits, SOC consulting, and red team assessments.">
-<meta name="keywords" content="ethical hacker, cyber security expert, penetration testing, red team, incident response, cloud security, Aryan Pareek">
+<meta name="description" content="Cybersecurity consulting with pentesting, red teaming, cloud audits, DFIR, threat hunting, and actual results — not buzzwords.">
+<meta name="keywords" content="ethical hacker, cybersecurity, penetration testing, red team, incident response, DFIR, SOC">
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+/* (same styles — unchanged) */
 :root{
   --bg:#07040a;
   --panel: rgba(20,12,30,0.7);
@@ -29,198 +30,36 @@ body{
     url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80')
     center/cover fixed;
 }
-
-/* ---------- BANNER ---------- */
-.cyber-banner{
-  width:100%;
-  padding:16px 14px;
-  background:rgba(255,255,255,0.02);
-  backdrop-filter:blur(8px);
-  border-bottom:1px solid rgba(255,255,255,0.05);
-  position:sticky;
-  top:0;
-  z-index:999;
-}
-.cyber-inner{
-  max-width:1200px;
-  width:100%;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.brand h1{
-  margin:0;
-  font-family:'Orbitron';
-  color:#fff;
-  font-size:1.5rem;
-}
-.brand p{
-  margin:2px 0 0 0;
-  color:#dcd6ff;
-  font-size:0.9rem;
-}
-
-/* NAV (desktop) */
-.nav{
-  display:flex;
-  gap:12px;
-}
-.navlink{
-  text-decoration:none;
-  color:#efe8ff;
-  font-family:'Orbitron';
-  padding:8px 12px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.04);
-  background:rgba(255,255,255,0.02);
-}
-.navlink:hover{
-  background:rgba(255,255,255,0.06);
-}
-
-/* MOBILE NAV BUTTON */
-.nav-toggle{
-  display:none;
-  background:none;
-  border:none;
-  color:white;
-  font-size:1.5rem;
-}
-
-/* MOBILE NAV MENU */
-.nav-mobile{
-  display:none;
-  flex-direction:column;
-  background:rgba(15,10,25,0.95);
-  padding:10px 20px;
-  border-bottom:1px solid rgba(255,255,255,0.05);
-}
-.nav-mobile a{
-  padding:12px 0;
-  border-bottom:1px solid rgba(255,255,255,0.05);
-}
-
-/* ---------- LAYOUT ---------- */
-.container{
-  max-width:1100px;
-  margin:26px auto;
-  padding:22px;
-}
-.panel{
-  background:var(--panel);
-  padding:18px;
-  margin-top:18px;
-  border-radius:12px;
-  border:1px solid rgba(159,106,255,0.08);
-  box-shadow:var(--glow);
-}
-
-/* HERO */
-.hero{
-  display:grid;
-  grid-template-columns:220px 1fr;
-  gap:22px;
-  align-items:center;
-}
-.avatar{
-  width:200px;
-  height:200px;
-  overflow:hidden;
-  border-radius:14px;
-  border:2px solid rgba(159,106,255,0.12);
-}
-.avatar img{
-  width:100%;height:100%;object-fit:cover;
-}
-.hero h2{
-  margin:0;
-  font-family:'Orbitron';
-  color:white;
-  font-size:1.4rem;
-}
-.hero p{
-  margin-top:10px;
-  line-height:1.45;
-}
-
-/* CTA */
-.cta-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:14px;
-}
-.btn{
-  padding:10px 14px;
-  border-radius:10px;
-  font-family:'Orbitron';
-  cursor:pointer;
-}
-.btn-primary{
-  background:linear-gradient(90deg,var(--accent1),var(--accent2));
-  color:white;
-}
-.btn-ghost{
-  background:transparent;
-  color:#efe8ff;
-  border:1px solid rgba(255,255,255,0.06);
-}
-
-/* Pills */
+.cyber-banner{width:100%;padding:16px 14px;background:rgba(255,255,255,0.02);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:999;}
+.cyber-inner{max-width:1200px;width:100%;margin:auto;display:flex;justify-content:space-between;align-items:center;}
+.brand h1{margin:0;font-family:'Orbitron';color:#fff;font-size:1.5rem;}
+.brand p{margin:2px 0 0 0;color:#dcd6ff;font-size:0.9rem;}
+.nav{display:flex;gap:12px;}
+.navlink{text-decoration:none;color:#efe8ff;font-family:'Orbitron';padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);}
+.navlink:hover{background:rgba(255,255,255,0.06);}
+.nav-toggle{display:none;background:none;border:none;color:white;font-size:1.5rem;}
+.nav-mobile{display:none;flex-direction:column;background:rgba(15,10,25,0.95);padding:10px 20px;border-bottom:1px solid rgba(255,255,255,0.05);}
+.nav-mobile a{padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.container{max-width:1100px;margin:26px auto;padding:22px;}
+.panel{background:var(--panel);padding:18px;margin-top:18px;border-radius:12px;border:1px solid rgba(159,106,255,0.08);box-shadow:var(--glow);}
+.hero{display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:center;}
+.avatar{width:200px;height:200px;overflow:hidden;border-radius:14px;border:2px solid rgba(159,106,255,0.12);}
+.avatar img{width:100%;height:100%;object-fit:cover;}
+.hero h2{margin:0;font-family:'Orbitron';color:white;font-size:1.4rem;}
+.hero p{margin-top:10px;line-height:1.45;}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;}
+.btn{padding:10px 14px;border-radius:10px;font-family:'Orbitron';cursor:pointer;}
+.btn-primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:white;}
+.btn-ghost{background:transparent;color:#efe8ff;border:1px solid rgba(255,255,255,0.06);}
 .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.pill{
-  padding:8px 12px;
-  border-radius:20px;
-  background:rgba(178,123,255,0.1);
-  border:1px solid rgba(255,255,255,0.06);
-}
-
-/* Grid sections */
-.projects{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:14px;
-}
-.project{
-  padding:14px;
-  border-radius:12px;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.05);
-}
-
-.achievements{
-  display:flex;
-  flex-wrap:wrap;
-  gap:14px;
-}
-.achievement{
-  flex:1;min-width:160px;padding:12px;
-  background:rgba(255,255,255,0.03);
-  border-radius:10px;
-  text-align:center;
-}
-
-.testimonials{
-  display:grid;
-  gap:12px;
-}
-
-/* FOOTER */
-footer{
-  margin-top:26px;
-  text-align:center;
-  padding:20px 0;
-}
-.social-bar{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:center;
-  margin-bottom:12px;
-}
-
-/* ---------- MOBILE FIXES ---------- */
+.pill{padding:8px 12px;border-radius:20px;background:rgba(178,123,255,0.1);border:1px solid rgba(255,255,255,0.06);}
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+.project{padding:14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);}
+.achievements{display:flex;flex-wrap:wrap;gap:14px;}
+.achievement{flex:1;min-width:160px;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;text-align:center;}
+.testimonials{display:grid;gap:12px;}
+footer{text-align:center;margin-top:26px;padding:20px 0;}
+.social-bar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;}
 @media(max-width:880px){
   .nav{display:none;}
   .nav-toggle{display:block;}
@@ -232,28 +71,21 @@ footer{
 
 <body>
 
-<!-- ================= BANNER ================= -->
 <header class="cyber-banner">
   <div class="cyber-inner">
-    
     <div class="brand">
       <h1>THECYBERARYAN</h1>
       <p>Cybersecurity Consultant • Ethical Hacker</p>
     </div>
 
-    <!-- Desktop Navigation (services removed) -->
     <nav class="nav">
       <a class="navlink" href="blog.html">BLOG</a>
       <a class="navlink" href="quotes.html">QUOTES</a>
     </nav>
 
-    <button class="nav-toggle" id="navToggle" onclick="toggleMobileNav()">
-      <i class="fa fa-bars"></i>
-    </button>
-
+    <button class="nav-toggle" onclick="toggleMobileNav()"><i class="fa fa-bars"></i></button>
   </div>
 
-  <!-- Mobile Navigation (services removed) -->
   <nav id="navMobile" class="nav-mobile">
     <a class="navlink" href="blog.html" onclick="toggleMobileNav()">BLOG</a>
     <a class="navlink" href="quotes.html" onclick="toggleMobileNav()">QUOTES</a>
@@ -261,7 +93,6 @@ footer{
 </header>
 
 
-<!-- ================= MAIN CONTENT ================= -->
 <main class="container">
 
   <!-- HERO -->
@@ -269,34 +100,53 @@ footer{
     <div class="avatar"><img src="pfp.jpg" alt="Aryan Pareek"></div>
 
     <div>
-      <h2>Security-first consulting for startups, SMEs & enterprises</h2>
-      <p>I help companies find & fix vulnerabilities before attackers do — pentesting, red teaming, cloud audits, DFIR & SOC setup.</p>
+      <h2>Because attackers won’t wait — but your security team usually does.</h2>
+
+      <p>I break your systems before the bad guys do — and I actually tell you how to fix them. Pentesting, red teaming, cloud security, DFIR, SOC setup… the usual things companies Google only after a breach.</p>
 
       <div class="cta-row">
         <button class="btn btn-primary" onclick="openModal()">Book Free Security Edit</button>
-        <a class="btn btn-ghost" href="mailto:thecyberaryan@example.com">Email</a>
-        <a class="btn btn-ghost" href="https://wa.me/919950400005" target="_blank">WhatsApp</a>
+        <a class="btn btn-ghost" href="mailto:thecyberaryan@example.com">Send a Sane Email Before Something Insane Happens</a>
+        <a class="btn btn-ghost" href="https://wa.me/919950400005" target="_blank">Ping Me on WhatsApp (Fastest Panic Hotline)</a>
       </div>
 
       <div class="pills">
-        <span class="pill">BCA Cybersecurity</span>
-        <span class="pill">4+ Years Experience</span>
-        <span class="pill">Open to Relocation</span>
+        <span class="pill">Cybersecurity, but without the buzzword overdose</span>
+        <span class="pill">4+ years of breaking things professionally</span>
+        <span class="pill">Available for teams serious about security… or pretending to be</span>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES SECTION REMOVED COMPLETELY -->
-
   <!-- PROJECTS -->
   <section class="panel">
     <h3 style="font-family:'Orbitron';margin:0;color:white">Projects & Tools</h3>
+
     <div class="projects">
-      <div class="project"><h4>ENUMO Toolkit</h4><p>Recon automation suite.</p></div>
-      <div class="project"><h4>Xss-Master</h4><p>Reflection-based XSS analyzer.</p></div>
-      <div class="project"><h4>Traverser</h4><p>Path Traversal payload engine.</p></div>
-      <div class="project"><h4>Fraud Detection System</h4><p>ML phishing detector.</p></div>
-      <div class="project"><h4>Impacket Automation</h4><p>Internal pentest modules.</p></div>
+      <div class="project">
+        <h4>ENUMO Toolkit</h4>
+        <p>Recon automation — because doing it manually is a form of self-torture.</p>
+      </div>
+
+      <div class="project">
+        <h4>Xss-Master</h4>
+        <p>Finds reflections faster than developers say “It works on my machine.”</p>
+      </div>
+
+      <div class="project">
+        <h4>Traverser</h4>
+        <p>Path Traversal engine. If your server leaks sensitive files, that’s on you.</p>
+      </div>
+
+      <div class="project">
+        <h4>Fraud Detection System</h4>
+        <p>ML phishing detector — because humans still click “Verify Your Account.”</p>
+      </div>
+
+      <div class="project">
+        <h4>Impacket Automation</h4>
+        <p>Internal pentest modules for when Active Directory challenges me — and loses.</p>
+      </div>
     </div>
   </section>
 
@@ -304,34 +154,43 @@ footer{
   <section class="panel">
     <h3 style="font-family:'Orbitron';margin:0;color:white">Skills</h3>
     <div class="pills">
-      <span class="pill">Pentesting</span>
-      <span class="pill">Threat Hunting</span>
-      <span class="pill">DFIR</span>
-      <span class="pill">Red Teaming</span>
-      <span class="pill">Cloud Security</span>
-      <span class="pill">Python/Bash</span>
-      <span class="pill">Impacket</span>
-      <span class="pill">SIEM</span>
-      <span class="pill">Burp Suite</span>
+      <span class="pill">Pentesting (finding cracks before attackers squeeze in)</span>
+      <span class="pill">Threat Hunting (if it moves, I detect it)</span>
+      <span class="pill">DFIR (fixing what companies didn’t know was broken)</span>
+      <span class="pill">Red Teaming (simulating attackers, minus the hoodie cliché)</span>
+      <span class="pill">Cloud Security (AWS/Azure/GCP — equally breakable)</span>
+      <span class="pill">Python/Bash (automation is life)</span>
+      <span class="pill">Impacket (Active Directory’s worst nightmare)</span>
+      <span class="pill">SIEM (teaching logs to speak clearly)</span>
+      <span class="pill">Burp Suite (my daily driver in controlled destruction)</span>
     </div>
   </section>
 
   <!-- ACHIEVEMENTS -->
   <section class="panel">
     <h3 style="font-family:'Orbitron';margin:0;color:white">Achievements</h3>
+
     <div class="achievements">
-      <div class="achievement"><strong>30+</strong><br>Apps Secured</div>
-      <div class="achievement"><strong>1200+</strong><br>Vulns Found</div>
-      <div class="achievement"><strong>Rajasthan Police</strong><br>Cyber Cell Work</div>
+      <div class="achievement"><strong>30+</strong><br>Apps secured — yes, people still deploy vulnerabilities in 2025.</div>
+      <div class="achievement"><strong>1200+</strong><br>Bugs found — most preventable, but job security is important.</div>
+      <div class="achievement"><strong>Rajasthan Police</strong><br>Cyber Cell — real breaches, real lessons.</div>
     </div>
   </section>
 
   <!-- TESTIMONIALS -->
   <section class="panel">
     <h3 style="font-family:'Orbitron';margin:0;color:white">Testimonials</h3>
+
     <div class="testimonials">
-      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p>Aryan helped us avoid a major incident.</p></div>
-      <div class="project"><strong>⭐⭐⭐⭐⭐</strong><p>Clear reports, fast response.</p></div>
+      <div class="project">
+        <strong>⭐⭐⭐⭐⭐</strong>
+        <p>“We slept better after Aryan’s audit… mainly because he showed us what almost went wrong.”</p>
+      </div>
+
+      <div class="project">
+        <strong>⭐⭐⭐⭐⭐</strong>
+        <p>“Clear reports, fast response, and somehow he made security sound fun.”</p>
+      </div>
     </div>
   </section>
 
@@ -349,6 +208,7 @@ footer{
 
 </main>
 
+
 <!-- MODAL -->
 <div id="auditModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);justify-content:center;align-items:center;z-index:9999">
   <div class="panel" style="max-width:420px;width:90%;padding:20px">
@@ -359,7 +219,8 @@ footer{
 
       <input type="text" name="name" placeholder="Your name" required style="width:100%;margin-top:12px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:white">
       <input type="email" name="email" placeholder="Email" required style="width:100%;margin-top:12px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:white">
-      <textarea name="message" placeholder="Describe your needs" rows="4" style="width:100%;margin-top:12px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:white"></textarea>
+      
+      <textarea name="message" placeholder="Describe your needs (preferably before the system collapses)" rows="4" style="width:100%;margin-top:12px;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:white"></textarea>
 
       <button type="submit" class="btn btn-primary" style="margin-top:12px;width:100%">Submit</button>
       <button type="button" onclick="closeModal()" class="btn btn-ghost" style="margin-top:8px;width:100%">Cancel</button>
@@ -372,11 +233,9 @@ function toggleMobileNav() {
   const nav = document.getElementById("navMobile");
   nav.style.display = nav.style.display === "flex" ? "none" : "flex";
 }
-
 function openModal(){
   document.getElementById('auditModal').style.display = 'flex';
 }
-
 function closeModal(){
   document.getElementById('auditModal').style.display = 'none';
 }
