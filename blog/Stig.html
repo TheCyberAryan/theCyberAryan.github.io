@@ -1,0 +1,255 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>STIG, NIST, and ISO: The Holy Trinity of Not Getting Hacked (Or At Least Looking Like You Care) — TheCyberAryan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #030515;
+  --primary: #ff4d9c;
+  --secondary: #7d5dff;
+  --accent: #4df3ff;
+  --text: #e7ebff;
+  --muted: #9ca8d9;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 20px 14px;
+  background: radial-gradient(circle at top, rgba(255,77,156,0.15), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(77,243,255,0.12), transparent 55%),
+              var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.75;
+}
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.wrap {
+  background: rgba(10,13,40,0.95);
+  border-radius: 18px;
+  border: 1px solid rgba(255,77,156,0.25);
+  padding: 24px 20px;
+  box-shadow: 0 25px 55px rgba(0,0,0,0.85);
+  overflow-wrap: break-word;
+}
+
+.wrap h1, .wrap h2, .wrap h3 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.wrap h1 {
+  color: var(--primary);
+  font-size: 1.75rem;
+}
+
+.wrap h2 {
+  color: var(--accent);
+  font-size: 1.3rem;
+  margin-top: 28px;
+}
+
+.wrap h3 {
+  color: var(--secondary);
+  font-size: 1.05rem;
+  margin-top: 20px;
+}
+
+pre {
+  background: #050820;
+  border: 1px solid rgba(148,163,214,0.4);
+  border-radius: 12px;
+  padding: 14px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+code {
+  background: rgba(11,15,46,0.9);
+  padding: 3px 6px;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  border: 1px solid rgba(148,163,214,0.4);
+  color: var(--accent);
+}
+
+img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+
+footer {
+  margin-top: 40px;
+  text-align: center;
+  font-family: var(--font-mono);
+  color: var(--muted);
+  letter-spacing: .18em;
+  font-size: .8rem;
+  padding-top: 15px;
+  border-top: 1px solid rgba(148,163,214,0.28);
+}
+</style>
+
+</head>
+
+<body id="top">
+  <div class="page">
+    <div class="wrap">
+      <h1 id="stig-nist-and-iso-the-holy-trinity-of-not-getting-hacked-or-at-least-looking-like-you-care">STIG, NIST, and ISO: The Holy Trinity of Not Getting Hacked (Or At Least Looking Like You Care)</h1>
+<blockquote>
+<p><strong>Warning</strong>: This post contains more compliance acronyms than your average pentest report, but way more sarcasm. Perfect for thecyberaryan students who want to sound smart without falling asleep.</p>
+</blockquote>
+<p>Tired of hackers treating your servers like a free buffet at a hacker conference? Welcome to the glamorous world of <strong>STIG</strong>, <strong>NIST</strong>, and <strong>ISO 27001</strong> – three cybersecurity standards that sound like they were invented by a committee of drunk bureaucrats but actually prevent your digital empire from becoming tomorrow's breach headline. These aren't just buzzwords for your LinkedIn; they're the frameworks that separate "professional MSSP" from "that guy who runs Nmap and calls it a day." Let's break down each one with the respect they deserve (and the eye-rolls they earn).</p>
+<h2 id="stig-dod-s-thou-shalt-not-get-hacked-config-bible">STIG: DoD's "Thou Shalt Not Get Hacked" Config Bible</h2>
+<p><strong>STIG</strong> = <strong>Security Technical Implementation Guide</strong>. Created by DISA (Defense Information Systems Agency) for the U.S. Department of Defense, because apparently generals don't trust sysadmins to secure their own Windows boxes. These are <strong>prescriptive configuration checklists</strong> covering everything from Windows Server 2022 to Cisco routers, PostgreSQL databases, and even web servers.</p>
+<p><strong>What makes STIGs special?</strong> They're not vague "best practices" – they're <strong>"set this registry key to 0 or else"</strong> level specific. Each STIG has hundreds of rules grouped by severity:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Color Code</th>
+<th>Basically Means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CAT I</strong></td>
+<td>🔴 Red</td>
+<td>"Immediate fix or you're fired"</td>
+</tr>
+<tr>
+<td><strong>CAT II</strong></td>
+<td>🟡 Yellow</td>
+<td>"Fix before audit or explain yourself"</td>
+</tr>
+<tr>
+<td><strong>CAT III</strong></td>
+<td>🟢 Green</td>
+<td>"Eh, get to it eventually"</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Real-world example</strong>: STIG for Windows Server might demand disabling SMBv1, enforcing 14-char passwords, and auditing failed logons. Ignore these? No <strong>Authority to Operate (ATO)</strong> for you. Released regularly for everything from Windows to Cisco routers, STIGs are the config equivalent of locking your doors <em>and</em> installing a moat.</p>
+<p><strong>Your pentest angle</strong>: Use <strong>SCAP scanners</strong> like OpenSCAP or Nessus to validate STIG compliance. Clients love seeing "95% STIG compliant" in their report – even if you had to sarcasm your way through 500 config checks.</p>
+<p><strong>Pro pentester move</strong>: Map your Nuclei templates to STIG IDs. When that DoD contractor asks about compliance, casually drop "V-123456 maps to your exposed Redis instance."</p>
+<p>![STIG compliance overview from DoD site][image:0]</p>
+<h2 id="nist-the-choose-your-own-adventure-framework-overlord">NIST: The "Choose Your Own Adventure" Framework Overlord</h2>
+<p><strong>NIST Cybersecurity Framework (CSF)</strong> from the National Institute of Standards and Technology is America's answer to "how do we secure stuff without telling everyone exactly how?" Unlike STIG's boot camp approach, NIST CSF is <strong>voluntary guidance</strong> structured around <strong>6 core functions</strong> (CSF 2.0 added Govern):</p>
+<p>GOVERN → IDENTIFY → PROTECT → DETECT → RESPOND → RECOVER
+↑ ↓
+└────────────────── Continual Feedback Loop ───────────────────────┘</p>
+<p><strong>Core Functions Breakdown</strong>:
+- <strong>Govern (2.0)</strong>: C-suite owns risk tolerance (finally!)
+- <strong>Identify</strong>: What assets do you even have? (Hint: More than you think)
+- <strong>Protect</strong>: Access controls, training, encryption (the basics)
+- <strong>Detect</strong>: Logs, SIEM, anomaly detection
+- <strong>Respond</strong>: IR plans, comms, mitigation
+- <strong>Recover</strong>: Backups, lessons learned, PR spin</p>
+<p><strong>SP 800-53</strong> (the control catalog) has <strong>1,100+ controls</strong> across 20 families that STIGs translate into configs. NIST 800-171 covers CUI for contractors.</p>
+<p><strong>Pentester gold</strong>: Use NIST mappings in your reports. "This XSS vuln maps to AC-3 (Access Enforcement) and SI-2 (Flaw Remediation)." Clients nod knowingly while you invoice for "framework alignment consulting."</p>
+<p><strong>Student exercise</strong>: Score a target using NIST CSF Tiers (1-4). Tier 1 = "hobbyist," Tier 4 = "paranoid enterprise."</p>
+<p>![NIST CSF 2.0 Core Functions with Govern pillar][image:1]</p>
+<h2 id="iso-27001-the-global-pay-us-for-a-fancy-badge-standard">ISO 27001: The Global "Pay Us For A Fancy Badge" Standard</h2>
+<p><strong>ISO/IEC 27001</strong> is the international gold standard for <strong>Information Security Management Systems (ISMS)</strong>. Think of it as STIG meets corporate bureaucracy – you build a risk-based ISMS, implement <strong>93 Annex A controls</strong> (2022 version), get audited, and display your cert like a cybersecurity Michelin star.</p>
+<p><strong>The 4 control themes</strong> (new in 2022):
+1. <strong>Organizational</strong> (37 controls): Policies, supplier relationships, incident management
+2. <strong>People</strong> (8 controls): Screening, training, disciplinary process<br/>
+3. <strong>Physical</strong> (14 controls): Secure areas, equipment protection
+4. <strong>Technological</strong> (34 controls): Access control, cryptography, secure coding</p>
+<p><strong>Certification hell</strong>:</p>
+<p>Risk Assessment → Statement of Applicability → Controls Implementation →
+Internal Audit → Certification Audit → Annual Surveillance → Recertify</p>
+<p><strong>Costs</strong>: $20K-$100K+ depending on company size. Worth it? Enterprises demand ISO 27001 from MSSPs. Your free pentest clients? Not so much.</p>
+<p><strong>Pentesting angle</strong>: Offer "ISO 27001 Gap Analysis as a Service™." Test A.8.25 (Web filtering), A.8.26 (Secure coding), A.12.6.1 (Vulnerability management). Students love the "consultant speak."</p>
+<p>![ISO 27001:2022 Annex A 4-theme control structure][image:2]</p>
+<h2 id="the-ultimate-compliance-mapping-matrix-your-new-pentest-secret-weapon">The Ultimate Compliance Mapping Matrix (Your New Pentest Secret Weapon)</h2>
+<table>
+<thead>
+<tr>
+<th>Pentest Finding</th>
+<th>STIG Rule</th>
+<th>NIST CSF</th>
+<th>ISO 27001</th>
+<th>Fix Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Weak passwords</strong></td>
+<td>SV-12345r1</td>
+<td>PR.AC-1</td>
+<td>A.9.4</td>
+<td>🔴 Immediate</td>
+</tr>
+<tr>
+<td><strong>Open Redis</strong></td>
+<td>WG360</td>
+<td>PR.AC-4</td>
+<td>A.13.1.1</td>
+<td>🟡 High</td>
+</tr>
+<tr>
+<td><strong>No WAF</strong></td>
+<td>V-98765</td>
+<td>PR.PT-4</td>
+<td>A.14.2.7</td>
+<td>🟡 Medium</td>
+</tr>
+<tr>
+<td><strong>Outdated SSL</strong></td>
+<td>APP-456</td>
+<td>PR.DS-3</td>
+<td>A.8.24</td>
+<td>🟢 Low</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pro tip</strong>: Build Nuclei templates tagged with STIG/NIST/ISO IDs. Your bug bounty dashboard becomes instant compliance reporting.</p>
+<h2 id="why-bother-spoiler-fines-and-flames">Why Bother? (Spoiler: Fines and Flames)</h2>
+<ul>
+<li><strong>STIG</strong> rules DoD world with iron-fist configs</li>
+<li><strong>NIST</strong> offers scalable smarts for everyone else </li>
+<li><strong>ISO</strong> delivers global cred and ISMS swagger</li>
+</ul>
+<p>Mix 'em for pentest portfolios that scream "pro" – or just slap 'em on your GitHub README for the lulz. Your future self (and lawyers) will thank you.</p>
+<h2 id="why-thecyberaryan-needs-this-content-now">Why thecyberaryan Needs This Content NOW</h2>
+<ol>
+<li><strong>GitHub Pages portfolio</strong>: "STIG-hardened pentesting methodology" = instant cred</li>
+<li><strong>Course goldmine</strong>: "Compliance Hacking 101" module explaining these acronyms</li>
+<li><strong>MSS proposals</strong>: "NIST CSF-aligned vulnerability management" closes deals</li>
+<li><strong>Student retention</strong>: Sarcastic compliance &gt; boring PDF reading</li>
+<li><strong>LinkedIn flex</strong>: Drop this post → "Just published framework breakdown" → leads</li>
+</ol>
+<h2 id="actionable-next-steps-no-excuses">Actionable Next Steps (No Excuses)</h2>
+<p>```bash</p>
+<h1 id="1-download-latest-stigs">1. Download latest STIGs</h1>
+<p>wget https://public.cyber.mil/stigs/downloads</p>
+<h1 id="2-check-nist-csf-2-0-excel">2. Check NIST CSF 2.0 Excel</h1>
+<p>curl -O https://www.nist.gov/cyberframework/csf-20</p>
+<h1 id="3-pentest-with-compliance-in-mind">3. Pentest with compliance in mind</h1>
+<p>nuclei -t cves/ -tags stig,nist,iso27001</p>
+      <footer>// THECYBERARYAN //</footer>
+    </div>
+  </div>
+</body>
+</html>
