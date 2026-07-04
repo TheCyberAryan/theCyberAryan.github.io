@@ -1,11 +1,302 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fool\'s Mate | The Cyber Aryan</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet"><style>body{margin:0;background:#030515;color:#e7ebff;font-family:Inter,sans-serif;line-height:1.8;padding:40px} .wrap{max-width:900px;margin:auto;background:#090d26;padding:30px;border-radius:18px;border:1px solid #ff4d9c55}h1,h2{font-family:"Share Tech Mono",monospace}h1{color:#ff4d9c}h2{color:#4df3ff}img{width:100%;border-radius:12px;margin:18px 0}pre{background:#050820;padding:15px;border-radius:10px;overflow:auto}.panel{background:#111735;border-left:4px solid #ff4d9c;padding:15px;margin:18px 0;border-radius:8px}</style></head><body><div class="wrap"><h1>Fool's Mate — Bypassing Client-Side Validation</h1><p><b>Room:</b> Fool's Mate | <b>Difficulty:</b> Easy | <b>Category:</b> Web Security / Client-Side Validation</p><img src="FoolsMate.png"><p>Imagine opening a chess website. Everything looks normal, nice UI, smooth animations. Pieces glide across the board. You move a rook…</p><div class="panel"><b>Website:</b><br>"I'll shut down your PC if you play that."</div><p>That's… oddly specific. Whenever software gets emotional, I get curious.</p><h2>Time to Become a Professional Button Clicker</h2><p>First rule of hacking: If the website says <b>Don't click that</b>, you absolutely need to know why.</p><pre><code>nmap -Pn -sC -sV -p- 10.49.169.194</code></pre><img src="nmap.png"><p>Nothing fancy. No FTP. No SMB. No database hanging out in public. Just a Node.js web app silently judging my life choices.</p><h2>Step Two: Stalking the Website</h2><pre><code>whatweb http://10.49.169.194</code></pre><pre><code>Express
-Endgame Trainer</code></pre><p>Express means JavaScript. JavaScript means someone probably trusted the browser. And trusting the browser is like asking the fox to guard the chicken coop.</p><h2>Then I Read the JavaScript…</h2><pre><code>if (probe.isCheckmate()) {
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Fool's Mate — Bypassing Client-Side Validation (TryHackMe Write-up) by TheCyberAryan — TheCyberAryan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #030515;
+  --primary: #ff4d9c;
+  --secondary: #7d5dff;
+  --accent: #4df3ff;
+  --text: #e7ebff;
+  --muted: #9ca8d9;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 20px 14px;
+  background: radial-gradient(circle at top, rgba(255,77,156,0.15), transparent 55%),
+              radial-gradient(circle at bottom right, rgba(77,243,255,0.12), transparent 55%),
+              var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.75;
+}
+
+.page {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.wrap {
+  background: rgba(10,13,40,0.95);
+  border-radius: 18px;
+  border: 1px solid rgba(255,77,156,0.25);
+  padding: 24px 20px;
+  box-shadow: 0 25px 55px rgba(0,0,0,0.85);
+  overflow-wrap: break-word;
+}
+
+.wrap h1, .wrap h2, .wrap h3 {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+
+.wrap h1 {
+  color: var(--primary);
+  font-size: 1.75rem;
+}
+
+.wrap h2 {
+  color: var(--accent);
+  font-size: 1.3rem;
+  margin-top: 28px;
+}
+
+.wrap h3 {
+  color: var(--secondary);
+  font-size: 1.05rem;
+  margin-top: 20px;
+}
+
+pre {
+  background: #050820;
+  border: 1px solid rgba(148,163,214,0.4);
+  border-radius: 12px;
+  padding: 14px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+code {
+  background: rgba(11,15,46,0.9);
+  padding: 3px 6px;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  border: 1px solid rgba(148,163,214,0.4);
+  color: var(--accent);
+}
+
+img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin: 12px 0;
+}
+
+footer {
+  margin-top: 40px;
+  text-align: center;
+  font-family: var(--font-mono);
+  color: var(--muted);
+  letter-spacing: .18em;
+  font-size: .8rem;
+  padding-top: 15px;
+  border-top: 1px solid rgba(148,163,214,0.28);
+}
+</style>
+
+</head>
+
+<body id="top">
+  <div class="page">
+    <div class="wrap">
+      <h1 id="fool-s-mate-bypassing-client-side-validation-tryhackme-write-up-by-thecyberaryan">Fool's Mate — Bypassing Client-Side Validation (TryHackMe Write-up) by TheCyberAryan</h1>
+<p><img alt="Cover" src="FoolsMate.png"/></p>
+<p><strong>Room:</strong> Fool's Mate<br/>
+<strong>Difficulty:</strong> Easy<br/>
+<strong>Category:</strong> Web Security / Client-Side Validation</p>
+<p>Imagine opening a chess website. Everything looks normal, nice UI, smooth animations.</p>
+<p>Pieces glide across the board.</p>
+<p>You move a rook…</p>
+<p>The website suddenly panics.</p>
+<blockquote>
+<p><strong>"I'll shut down your PC if you play that."</strong></p>
+</blockquote>
+<p>That's… oddly specific.</p>
+<p>Whenever software gets emotional, I get curious.</p>
+<hr/>
+<h1 id="time-to-become-a-professional-button-clicker">Time to Become a Professional Button Clicker</h1>
+<p>First rule of hacking:</p>
+<blockquote>
+<p><strong>If the website says "Don't click that", you absolutely need to know why.</strong></p>
+</blockquote>
+<p>So before clicking random squares like an intoxicated pigeon, I started with enumeration.</p>
+<pre><code class="language-bash">nmap -Pn -sC -sV -p- 10.49.169.194
+</code></pre>
+<p>Nothing fancy.</p>
+<ul>
+<li>No FTP</li>
+<li>No SMB</li>
+<li>No database hanging out in public.</li>
+</ul>
+<p>Just a Node.js web app silently judging my life choices.</p>
+<p><img alt="Nmap Scan" src="nmap.png"/></p>
+<hr/>
+<h1 id="step-two-stalking-the-website">Step Two: Stalking the Website</h1>
+<p>Time to ask the internet's favorite question:</p>
+<blockquote>
+<p><strong>"Who are you?"</strong></p>
+</blockquote>
+<pre><code class="language-bash">whatweb http://10.49.169.194
+</code></pre>
+<p>Answer:</p>
+<pre><code class="language-text">Express
+Endgame Trainer
+</code></pre>
+<p>Interesting…</p>
+<p>Express means JavaScript.</p>
+<p>JavaScript means…</p>
+<p>Someone probably trusted the browser.</p>
+<p>And trusting the browser is like asking the fox to guard the chicken coop.</p>
+<hr/>
+<h1 id="then-i-read-the-javascript">Then I Read the JavaScript…</h1>
+<p>Developers often hide the funniest secrets in JavaScript.</p>
+<p>After scrolling through the code, I found this little gem:</p>
+<pre><code class="language-javascript">if (probe.isCheckmate()) {
     showSystemNotice("I'll shut down your PC if you play that.");
     return false;
-}</code></pre><div class="panel">The browser wasn't preventing illegal chess moves. It was preventing <b>winning</b>.</div><p>Imagine a football referee saying: "Sorry, scoring goals isn't allowed."</p><h2>The Biggest Lie in Web Security</h2><div class="panel">The browser tells the server: "Don't worry, I already checked everything." Meanwhile hackers: "Yeah... about that..."</div><h2>So I Fired the Browser</h2><pre><code>curl -X POST http://10.49.169.194/api/move \
+}
+</code></pre>
+<p><img alt="JavaScript Screenshot" src="js.png"/></p>
+<p>I actually laughed.</p>
+<p>The browser wasn't preventing illegal chess moves.</p>
+<p>It was preventing <strong>winning</strong>.</p>
+<p>Imagine a football referee saying:</p>
+<blockquote>
+<p><strong>"Sorry, scoring goals isn't allowed."</strong></p>
+</blockquote>
+<hr/>
+<h1 id="wait">Wait…</h1>
+<p>Read that code again.</p>
+<p>Who is making the decision?</p>
+<p>The browser.</p>
+<p>Not the server.</p>
+<p>The browser.</p>
+<p>That means the security guard is literally standing outside my own house.</p>
+<p>And guess who owns the house?</p>
+<p><strong>Me.</strong></p>
+<hr/>
+<h1 id="the-biggest-lie-in-web-security">The Biggest Lie in Web Security</h1>
+<p>The browser tells the server:</p>
+<blockquote>
+<p>"Don't worry, I already checked everything."</p>
+</blockquote>
+<p>Meanwhile hackers:</p>
+<blockquote>
+<p><strong>"Yeah… about that…"</strong></p>
+</blockquote>
+<p>The browser is just JavaScript.</p>
+<p>JavaScript is just code.</p>
+<p>Code can be ignored.</p>
+<hr/>
+<h1 id="so-i-fired-the-browser">So I Fired the Browser</h1>
+<p>Who needs Chrome?</p>
+<p>Meet my new employee:</p>
+<pre><code class="language-text">CURL
+</code></pre>
+<p>No animations.</p>
+<p>No chessboard.</p>
+<p>No warnings.</p>
+<p>No dramatic popups threatening my PC.</p>
+<p>Just raw HTTP.</p>
+<p>I sent exactly one request:</p>
+<pre><code class="language-bash">curl -X POST http://10.49.169.194/api/move \
 -H "Content-Type: application/json" \
--d '{"from":"a1","to":"a8"}'</code></pre><h2>The Server's Response</h2><pre><code>{
- "status":"checkmate",
- "winner":"white",
- "flag":"THM{cl13nt_s1d3_ch3ckm4t3}"
-}</code></pre><h2>Moral of the Story</h2><div class="panel">If your security depends on JavaScript, it doesn't depend on security. It depends on hope. <b>Hope is not an authentication mechanism.</b></div><h2>Final Flag</h2><pre><code>THM{cl13nt_s1d3_ch3ckm4t3}</code></pre><footer style="margin-top:40px;text-align:center;color:#9ca8d9">© 2026 Aryan Pareek — The Cyber Aryan</footer></div></body></html>
+-d '{"from":"a1","to":"a8"}'
+</code></pre>
+<p><img alt="Exploit Request" src="curl.png"/></p>
+<hr/>
+<h1 id="the-server-s-response">The Server's Response?</h1>
+<p>Instead of yelling at me…</p>
+<p>It happily replied:</p>
+<pre><code class="language-json">{
+  "status":"checkmate",
+  "winner":"white",
+  "flag":"THM{cl13nt_s1d3_ch3ckm4t3}"
+}
+</code></pre>
+<p><img alt="Flag Screenshot" src="flag.png"/></p>
+<p>Wait…</p>
+<p>That's it?</p>
+<p>The browser spent all that effort screaming…</p>
+<p>…and the server was completely okay with it.</p>
+<hr/>
+<h1 id="the-browser-was-basically-doing-this">😂 The Browser Was Basically Doing This</h1>
+<h3 id="browser">Browser</h3>
+<pre><code class="language-text">NO!!
+YOU CAN'T PLAY THAT!!
+IT'S CHECKMATE!!
+I'M TELLING MOM!!
+</code></pre>
+<h3 id="meanwhile-the-server">Meanwhile the Server</h3>
+<pre><code class="language-text">Looks legal.
+Nice move.
+Here's your flag.
+</code></pre>
+<hr/>
+<h1 id="so-what-actually-happened">So What Actually Happened?</h1>
+<p>Let's simplify it.</p>
+<h2 id="normal-user">Normal User</h2>
+<pre><code class="language-text">You
+|
+Browser
+|
+"Oh no!
+That's checkmate!"
+|
+Request blocked
+</code></pre>
+<h2 id="hacker">Hacker</h2>
+<pre><code class="language-text">You &gt; curl &gt; Server &gt; "Looks good" &gt; Flag
+</code></pre>
+<p>The browser never got invited to the party.</p>
+<hr/>
+<h1 id="the-lesson-every-pentester-should-tattoo-on-their-brain">The Lesson Every Pentester Should Tattoo on Their Brain</h1>
+<p>Browsers are liars.</p>
+<p>Well…</p>
+<p>Not exactly liars.</p>
+<p>They're employees of the attacker.</p>
+<p>If I'm the attacker…</p>
+<ul>
+<li>I own the browser.</li>
+<li>I decide what JavaScript runs.</li>
+<li>I decide what requests get sent.</li>
+</ul>
+<p>The server should <strong>never trust anything coming from me.</strong></p>
+<hr/>
+<h1 id="moral-of-the-story">Moral of the Story</h1>
+<p>If your security depends on JavaScript…</p>
+<p>It doesn't depend on security.</p>
+<p>It depends on hope.</p>
+<blockquote>
+<p><strong>And hope is not an authentication mechanism.</strong></p>
+</blockquote>
+<hr/>
+<h1 id="final-flag">Final Flag</h1>
+<pre><code class="language-text">THM{cl13nt_s1d3_ch3ckm4t3}
+</code></pre>
+<hr/>
+<blockquote>
+<p><strong>"The browser said 'Don't do it.'</strong><br/>
+<strong>curl asked 'Why not?'</strong><br/>
+<strong>The server shrugged… and handed over the flag."</strong></p>
+</blockquote>
+      <footer>// THECYBERARYAN //</footer>
+    </div>
+  </div>
+</body>
+</html>
