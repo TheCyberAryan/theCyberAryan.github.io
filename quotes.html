@@ -1,219 +1,447 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Quotes — The Cyber Aryan</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:#0b0710; --muted:#bfc8e6; --cy:#00e5ff; --pu:#b27bff;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body {
-  font-family:'Inter',system-ui;color:var(--muted);
-  background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),
-             url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80') center/cover fixed;
-  min-height:100vh;-webkit-font-smoothing:antialiased;
-}
-.container {max-width:1100px;margin:40px auto;padding:24px;}
-header {display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;}
-header h1 {font-family:'Orbitron',sans-serif;color:#efe8ff;}
-header a {
-  color:var(--muted);text-decoration:none;font-weight:700;
-  border:1px solid rgba(255,255,255,.06);
-  padding:8px 12px;border-radius:10px;
-  background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
-  transition:all .2s;
-}
-header a:hover {transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12);}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#090909" />
+  <meta name="description" content="Quotes, reflections and notes by Aryan Pareek — TheCyberAryan. Ideas on cybersecurity, discipline, philosophy and personal growth." />
+  <meta property="og:title" content="Quotes & Notes — Aryan Pareek | TheCyberAryan" />
+  <meta property="og:description" content="A collection of thoughts, lessons and reflections by Aryan Pareek." />
+  <meta property="og:type" content="website" />
+  <title>Quotes & Notes — Aryan Pareek | TheCyberAryan</title>
 
-/* Gallery */
-.gallery {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:18px;
-}
-.qcard {
-  position:relative;border-radius:16px;overflow:hidden;
-  background:rgba(255,255,255,.02);
-  border:1px solid rgba(180,140,255,.12);
-  box-shadow:0 10px 30px rgba(8,6,14,.6);
-  cursor:pointer;
-  transition:transform .25s ease,box-shadow .25s ease;
-}
-.qcard:hover {transform:translateY(-6px);box-shadow:0 0 25px rgba(178,123,255,.25);}
-.qcard img {
-  display:block;width:100%;height:auto;object-fit:contain;background:#05040a;aspect-ratio:1/1;
-}
-.cap {
-  position:absolute;left:0;right:0;bottom:0;
-  padding:8px 12px;text-align:center;
-  font-family:'Orbitron';font-size:.8rem;letter-spacing:.4px;
-  color:#00e5ff;
-  background:linear-gradient(180deg,transparent 40%,rgba(10,8,16,.9));
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-/* Load More */
-#load-more {
-  display:block;margin:28px auto;
-  font-family:'Orbitron';
-  background:linear-gradient(90deg,rgba(0,229,255,0.1),rgba(178,123,255,0.1));
-  border:1px solid rgba(178,123,255,0.3);
-  color:#fff;padding:10px 18px;border-radius:10px;
-  cursor:pointer;transition:all .3s ease;
-}
-#load-more:hover {box-shadow:0 0 15px rgba(0,229,255,0.3);transform:translateY(-3px);}
-#load-more.loading {
-  animation:glowPulse 1.2s infinite ease-in-out;
-  background:linear-gradient(90deg,rgba(0,229,255,0.15),rgba(178,123,255,0.15));
-  box-shadow:0 0 20px rgba(0,229,255,.4),0 0 40px rgba(178,123,255,.25);
-}
-@keyframes glowPulse {
-  0% {box-shadow:0 0 10px rgba(0,229,255,.3);}
-  50% {box-shadow:0 0 30px rgba(178,123,255,.4);}
-  100% {box-shadow:0 0 10px rgba(0,229,255,.3);}
-}
+  <style>
+    :root {
+      --bg: #090909;
+      --surface: #141412;
+      --surface-2: #1b1a17;
+      --line: rgba(233, 225, 207, .13);
+      --line-strong: rgba(197, 138, 75, .38);
+      --gold: #C58A4B;
+      --gold-light: #DFA96B;
+      --ivory: #E9E1CF;
+      --muted: #A9A394;
+      --sage: #78936E;
+      --white: #F5F2E9;
+      --radius: 18px;
+      color-scheme: dark;
+    }
 
-footer {text-align:center;color:#cfc9ff;margin-top:26px;font-size:.9rem;}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      color: var(--ivory);
+      background:
+        radial-gradient(ellipse at 82% 0%, rgba(197, 138, 75, .10), transparent 34rem),
+        radial-gradient(ellipse at 0% 42%, rgba(120, 147, 110, .07), transparent 32rem),
+        var(--bg);
+      font-family: "DM Sans", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    body.modal-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
 
-/* Lightbox Preview */
-.lightbox {
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);
-  align-items:center;justify-content:center;z-index:1000;flex-direction:column;
-}
-.lightbox.active {display:flex;}
-.lightbox img {
-  max-width:90%;max-height:80%;
-  border-radius:14px;margin-bottom:20px;
-  box-shadow:0 0 40px rgba(0,229,255,.4);
-}
-.lightbox .actions {
-  display:flex;gap:12px;
-}
-.lightbox button {
-  font-family:'Orbitron';
-  background:linear-gradient(90deg,rgba(0,229,255,.1),rgba(178,123,255,.1));
-  border:1px solid rgba(178,123,255,.3);
-  color:#fff;padding:8px 16px;border-radius:10px;
-  cursor:pointer;transition:all .2s ease;
-}
-.lightbox button:hover {box-shadow:0 0 15px rgba(0,229,255,0.3);}
-.lightbox .close {
-  position:absolute;top:18px;right:34px;font-size:38px;color:#fff;cursor:pointer;
-}
-</style>
+    .site-shell { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+    .topbar {
+      min-height: 82px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--white);
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      letter-spacing: -.04em;
+    }
+    .brand-mark {
+      width: 34px; height: 34px;
+      display: grid; place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 10px;
+      color: var(--gold-light);
+      font-family: "DM Mono", monospace;
+      font-size: 13px;
+    }
+    .brand-name { font-size: 15px; }
+    .brand-name span { color: var(--gold-light); }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px; font-weight: 600;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .back-link:hover { color: var(--white); border-color: var(--line-strong); background: rgba(197,138,75,.06); }
+
+    .intro { padding: 76px 0 42px; max-width: 760px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      color: var(--gold-light);
+      font: 500 11px "DM Mono", monospace;
+      letter-spacing: .16em; text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .eyebrow::before { content: ""; width: 26px; height: 1px; background: var(--gold); }
+    h1 {
+      color: var(--white);
+      font: 600 clamp(42px, 7vw, 76px)/.99 "Space Grotesk", sans-serif;
+      letter-spacing: -.065em;
+      max-width: 720px;
+    }
+    h1 em { color: var(--gold-light); font-style: normal; }
+    .intro-copy {
+      margin-top: 22px; max-width: 610px;
+      color: var(--muted); font-size: 16px; line-height: 1.8;
+    }
+    .intro-meta {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 27px;
+    }
+    .meta-chip {
+      padding: 7px 11px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #C7C0B1;
+      font: 11px "DM Mono", monospace;
+      letter-spacing: .04em;
+    }
+
+    .gallery-heading {
+      display: flex; align-items: end; justify-content: space-between;
+      gap: 18px; margin: 32px 0 18px;
+    }
+    .gallery-heading h2 {
+      color: var(--white);
+      font: 600 20px "Space Grotesk", sans-serif;
+      letter-spacing: -.03em;
+    }
+    .gallery-heading p { color: var(--muted); font-size: 12px; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .qcard {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      cursor: pointer;
+      isolation: isolate;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .qcard:hover {
+      transform: translateY(-5px);
+      border-color: var(--line-strong);
+      box-shadow: 0 18px 44px rgba(0,0,0,.32);
+    }
+    .qcard:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
+    .qcard img {
+      display: block; width: 100%; aspect-ratio: 1 / 1;
+      object-fit: contain; background: #0d0d0b;
+    }
+    .card-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; padding: 12px 14px;
+      border-top: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(255,255,255,.025), transparent);
+    }
+    .card-label {
+      color: var(--ivory);
+      font: 10px "DM Mono", monospace;
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+    .card-open { color: var(--gold-light); font-size: 12px; }
+
+    .gallery-actions { display: flex; justify-content: center; padding: 34px 0 64px; }
+    .primary-btn, .secondary-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 44px; padding: 0 18px;
+      border-radius: 999px; cursor: pointer;
+      font-size: 13px; font-weight: 700;
+      transition: transform .2s, background .2s, border-color .2s;
+    }
+    .primary-btn {
+      color: #17120c; border: 1px solid var(--gold);
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    }
+    .primary-btn:hover { transform: translateY(-2px); }
+    .secondary-btn {
+      color: var(--ivory); border: 1px solid var(--line);
+      background: rgba(255,255,255,.04);
+    }
+    .secondary-btn:hover { border-color: var(--line-strong); background: rgba(197,138,75,.08); }
+    button:focus-visible, a:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
+    button:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+    .empty-state {
+      display: none; padding: 30px; border: 1px dashed var(--line);
+      border-radius: var(--radius); color: var(--muted); text-align: center;
+    }
+
+    footer {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      padding: 22px 0 30px; border-top: 1px solid var(--line);
+      color: var(--muted); font-size: 12px;
+    }
+    footer strong { color: var(--ivory); font-weight: 600; }
+    .footer-note { font: 10px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+
+    /* Image preview */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1000;
+      display: none; align-items: center; justify-content: center;
+      padding: 72px 22px 28px;
+      background: rgba(5,5,4,.96);
+      backdrop-filter: blur(14px);
+    }
+    .lightbox.active { display: flex; }
+    .lightbox-inner {
+      width: min(900px, 100%);
+      display: flex; flex-direction: column; align-items: center; gap: 18px;
+    }
+    .lightbox img {
+      display: block; max-width: 100%; max-height: min(72vh, 760px);
+      object-fit: contain; border-radius: 12px;
+      box-shadow: 0 22px 70px rgba(0,0,0,.55);
+    }
+    .lightbox-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .close {
+      position: absolute; top: 22px; right: max(22px, calc((100vw - 1160px)/2));
+      width: 42px; height: 42px; display: grid; place-items: center;
+      border: 1px solid var(--line); border-radius: 50%;
+      background: rgba(255,255,255,.04); color: var(--white);
+      font-size: 25px; cursor: pointer;
+    }
+    .lightbox-hint { color: var(--muted); font: 10px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
+
+    @media (max-width: 850px) { .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 560px) {
+      .site-shell { width: min(100% - 28px, 1160px); }
+      .topbar { min-height: 70px; }
+      .brand-name { font-size: 13px; }
+      .back-link { padding: 9px 11px; font-size: 11px; }
+      .intro { padding: 58px 0 28px; }
+      .intro-copy { font-size: 14px; }
+      .gallery { grid-template-columns: 1fr; gap: 14px; }
+      .gallery-heading { align-items: start; flex-direction: column; }
+      footer { align-items: flex-start; flex-direction: column; }
+      .lightbox { padding-left: 14px; padding-right: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>// THECYBERARYAN — Quotes</h1>
-      <a href="index.html">← Back to Portfolio</a>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="index.html" aria-label="TheCyberAryan home">
+        <span class="brand-mark">TA</span>
+        <span class="brand-name">THE<span>CYBER</span>ARYAN</span>
+      </a>
+      <a class="back-link" href="index.html"><span aria-hidden="true">←</span> Back to portfolio</a>
     </header>
 
-    <div class="gallery" id="quote-gallery"></div>
+    <main>
+      <section class="intro" aria-labelledby="page-title">
+        <div class="eyebrow">A personal collection</div>
+        <h1 id="page-title">Quotes <em>&</em><br>Notes.</h1>
+        <p class="intro-copy">
+          Thoughts, reminders and perspectives worth keeping. A collection around
+          cybersecurity, discipline, philosophy, leadership and the mindset behind meaningful work.
+        </p>
+        <div class="intro-meta" aria-label="Collection topics">
+          <span class="meta-chip">CYBERSECURITY</span>
+          <span class="meta-chip">DISCIPLINE</span>
+          <span class="meta-chip">PHILOSOPHY</span>
+          <span class="meta-chip">PERSONAL GROWTH</span>
+        </div>
+      </section>
 
-    <button id="load-more">Load More ↓</button>
+      <section aria-labelledby="gallery-title">
+        <div class="gallery-heading">
+          <h2 id="gallery-title">The collection</h2>
+          <p id="count-label">48 visual notes</p>
+        </div>
+        <div class="gallery" id="quote-gallery" aria-live="polite"></div>
+        <div class="empty-state" id="empty-state">
+          No quote images were found. Check that the <code>quotes/</code> folder and image filenames are uploaded correctly.
+        </div>
+        <div class="gallery-actions">
+          <button class="primary-btn" id="load-more" type="button">Load more <span aria-hidden="true">↓</span></button>
+        </div>
+      </section>
+    </main>
 
-    <footer>© 2025 Aryan Pareek — The Cyber Aryan</footer>
+    <footer>
+      <span>© <span id="year"></span> <strong>Aryan Pareek</strong> · TheCyberAryan</span>
+      <span class="footer-note">Security. Precision. Resilience.</span>
+    </footer>
   </div>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox">
-    <span class="close">&times;</span>
-    <img src="" alt="Preview">
-    <div class="actions">
-      <button id="download-btn">⬇ Download</button>
-      <button id="share-btn">📤 Share</button>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Quote image preview" aria-hidden="true">
+    <button class="close" id="close-preview" type="button" aria-label="Close preview">×</button>
+    <div class="lightbox-inner">
+      <img id="preview-image" src="" alt="Selected quote by TheCyberAryan" />
+      <div class="lightbox-actions">
+        <button class="primary-btn" id="download-btn" type="button">↓ Download image</button>
+        <button class="secondary-btn" id="share-btn" type="button">↗ Share quote</button>
+      </div>
+      <p class="lightbox-hint">Press Escape to close</p>
     </div>
   </div>
 
-<script>
-// --- QUOTES ARRAY ---
-const allQuotes = [
-  "quotes/q1.png","quotes/q2.png","quotes/q3.png","quotes/q4.png","quotes/q5.png","quotes/q6.png",
-  "quotes/q7.png","quotes/q8.png","quotes/q9.png","quotes/q10.png","quotes/q11.png","quotes/q12.png",
-  "quotes/q13.png","quotes/q14.png","quotes/q15.png","quotes/q16.png","quotes/q17.png","quotes/q18.png",
-  "quotes/q19.png","quotes/q20.png","quotes/q21.png","quotes/q22.png","quotes/q23.png","quotes/q24.png",
-  "quotes/q25.png","quotes/q26.png","quotes/q27.png","quotes/q28.png","quotes/q29.png","quotes/q30.png",
-  "quotes/q31.png","quotes/q32.png","quotes/q33.png","quotes/q34.png","quotes/q35.png","quotes/q36.png",
-  "quotes/q37.png","quotes/q38.png","quotes/q39.png","quotes/q40.png","quotes/q41.png","quotes/q42.png",
-  "quotes/q43.png","quotes/q44.png","quotes/q45.png","quotes/q46.png","quotes/q47.png","quotes/q48.png"
+  <script>
+    // Keep your existing images in the quotes/ folder with these filenames.
+    const allQuotes = Array.from({ length: 48 }, (_, index) =>
+      `quotes/q${index + 1}.png`
+    );
 
+    const PAGE_SIZE = 6;
+    const gallery = document.getElementById("quote-gallery");
+    const loadMoreButton = document.getElementById("load-more");
+    const countLabel = document.getElementById("count-label");
+    const emptyState = document.getElementById("empty-state");
+    const lightbox = document.getElementById("lightbox");
+    const previewImage = document.getElementById("preview-image");
+    const closeButton = document.getElementById("close-preview");
+    const downloadButton = document.getElementById("download-btn");
+    const shareButton = document.getElementById("share-btn");
 
-];
+    let visibleCount = 0;
+    let currentImage = "";
+    let lastFocusedElement = null;
 
-const gallery = document.getElementById('quote-gallery');
-const loadBtn = document.getElementById('load-more');
-const lightbox = document.getElementById('lightbox');
-const lightImg = lightbox.querySelector('img');
-const closeBtn = lightbox.querySelector('.close');
-const downloadBtn = document.getElementById('download-btn');
-const shareBtn = document.getElementById('share-btn');
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-let visibleCount = 6;
+    function createQuoteCard(src, index) {
+      const card = document.createElement("button");
+      card.className = "qcard";
+      card.type = "button";
+      card.setAttribute("aria-label", `Open quote image ${index + 1}`);
+      card.innerHTML = `
+        <img src="${src}" alt="TheCyberAryan quote ${index + 1}" loading="lazy">
+        <span class="card-foot">
+          <span class="card-label">TheCyberAryan · Note ${String(index + 1).padStart(2, "0")}</span>
+          <span class="card-open" aria-hidden="true">View ↗</span>
+        </span>
+      `;
+      card.addEventListener("click", () => openPreview(src, card));
 
-// --- INITIAL RENDER ---
-function renderQuotes() {
-  gallery.innerHTML = "";
-  allQuotes.slice(0, visibleCount).forEach(src => {
-    const card = document.createElement('div');
-    card.className = 'qcard';
-    card.innerHTML = `<img src="${src}" alt="${src}"><div class="cap">// THECYBERARYAN</div>`;
-    gallery.appendChild(card);
-  });
-  bindQuoteClicks();
-  if (visibleCount >= allQuotes.length) loadBtn.style.display = 'none';
-}
-renderQuotes();
+      const image = card.querySelector("img");
+      image.addEventListener("error", () => {
+        card.remove();
+        if (!gallery.children.length) emptyState.style.display = "block";
+        updateCount();
+      }, { once: true });
 
-// --- LOAD MORE (with animation) ---
-loadBtn.addEventListener('click', () => {
-  loadBtn.classList.add('loading');
-  loadBtn.textContent = 'Loading...';
-  setTimeout(() => {
-    visibleCount += 6;
-    renderQuotes();
-    loadBtn.classList.remove('loading');
-    loadBtn.textContent = 'Load More ↓';
-  }, 900);
-});
+      return card;
+    }
 
-// --- PREVIEW HANDLER ---
-function bindQuoteClicks() {
-  document.querySelectorAll('.qcard img').forEach(img => {
-    img.onclick = () => {
-      lightImg.src = img.src;
-      lightbox.classList.add('active');
-    };
-  });
-}
+    function updateCount() {
+      const loaded = gallery.children.length;
+      countLabel.textContent = `${loaded} of ${allQuotes.length} visual notes`;
+      loadMoreButton.hidden = visibleCount >= allQuotes.length;
+    }
 
-// --- CLOSE PREVIEW ---
-closeBtn.onclick = () => lightbox.classList.remove('active');
+    function renderNextPage() {
+      const nextItems = allQuotes.slice(visibleCount, visibleCount + PAGE_SIZE);
+      nextItems.forEach((src, offset) => {
+        gallery.appendChild(createQuoteCard(src, visibleCount + offset));
+      });
+      visibleCount += nextItems.length;
+      updateCount();
+    }
 
-// --- DOWNLOAD BUTTON ---
-downloadBtn.onclick = () => {
-  const link = document.createElement('a');
-  link.href = lightImg.src;
-  link.download = 'TheCyberAryan_Quote.png';
-  link.click();
-};
+    function openPreview(src, trigger) {
+      currentImage = src;
+      lastFocusedElement = trigger || document.activeElement;
+      previewImage.src = src;
+      lightbox.classList.add("active");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      closeButton.focus();
+    }
 
-// --- SHARE BUTTON ---
-shareBtn.onclick = async () => {
-  const imgURL = lightImg.src;
-  if (navigator.share) {
-    await navigator.share({
-      title: 'The Cyber Aryan',
-      text: 'Check out this quote by TheCyberAryan!',
-      url: imgURL
+    function closePreview() {
+      lightbox.classList.remove("active");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      previewImage.src = "";
+      currentImage = "";
+      if (lastFocusedElement) lastFocusedElement.focus();
+    }
+
+    loadMoreButton.addEventListener("click", () => {
+      loadMoreButton.disabled = true;
+      loadMoreButton.textContent = "Loading…";
+      // A short delay gives clear feedback while keeping the page responsive.
+      window.setTimeout(() => {
+        renderNextPage();
+        loadMoreButton.disabled = false;
+        loadMoreButton.innerHTML = 'Load more <span aria-hidden="true">↓</span>';
+      }, 180);
     });
-  } else {
-    navigator.clipboard.writeText(imgURL);
-    alert('Quote link copied! You can share it manually.');
-  }
-};
-</script>
+
+    closeButton.addEventListener("click", closePreview);
+    lightbox.addEventListener("click", event => {
+      if (event.target === lightbox) closePreview();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && lightbox.classList.contains("active")) closePreview();
+    });
+
+    downloadButton.addEventListener("click", async () => {
+      if (!currentImage) return;
+      const link = document.createElement("a");
+      link.href = currentImage;
+      link.download = currentImage.split("/").pop() || "TheCyberAryan_Quote.png";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    });
+
+    shareButton.addEventListener("click", async () => {
+      if (!currentImage) return;
+      const absoluteUrl = new URL(currentImage, window.location.href).href;
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: "TheCyberAryan — Quotes & Notes",
+            text: "A quote from TheCyberAryan collection.",
+            url: absoluteUrl
+          });
+        } else if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(absoluteUrl);
+          shareButton.textContent = "Link copied ✓";
+          window.setTimeout(() => { shareButton.textContent = "↗ Share quote"; }, 1800);
+        } else {
+          window.prompt("Copy this quote image link:", absoluteUrl);
+        }
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          window.prompt("Copy this quote image link:", absoluteUrl);
+        }
+      }
+    });
+
+    renderNextPage();
+  </script>
 </body>
 </html>
