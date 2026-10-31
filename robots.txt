@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://thecyberaryan.github.io/sitemap.xml

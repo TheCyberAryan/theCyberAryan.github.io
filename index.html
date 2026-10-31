@@ -2,23 +2,15 @@
 <!doctype html>
 <html lang="en">
 <head>
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:url" content="https://thecyberaryan.github.io/"><meta property="og:title" content="Aryan Pareek | TheCyberAryan — Cybersecurity Researcher"><meta property="og:description" content="Aryan Pareek, known as TheCyberAryan — cybersecurity researcher and ethical hacker focused on security research, penetration testing, vulnerability assessment and digital defence."><meta property="og:type" content="website"><meta property="og:image" content="https://thecyberaryan.github.io/logo.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Aryan Pareek | TheCyberAryan — Cybersecurity Researcher"><meta name="twitter:description" content="Aryan Pareek, known as TheCyberAryan — cybersecurity researcher and ethical hacker focused on security research, penetration testing, vulnerability assessment and digital defence."><meta name="twitter:image" content="https://thecyberaryan.github.io/logo.png">
+<link rel="canonical" href="https://thecyberaryan.github.io/">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#090909">
   <meta name="description" content="Aryan Pareek, known as TheCyberAryan — cybersecurity researcher and ethical hacker focused on security research, penetration testing, vulnerability assessment and digital defence.">
   <meta name="author" content="Aryan Pareek">
-  <meta name="robots" content="index, follow, max-image-preview:large">
-  <link rel="canonical" href="https://thecyberaryan.com/">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Aryan Pareek | TheCyberAryan">
-  <meta property="og:description" content="Security. Precision. Resilience. Explore the work, research and projects of Aryan Pareek.">
-  <meta property="og:url" content="https://thecyberaryan.com/">
-  <meta property="og:image" content="https://thecyberaryan.com/assets/thecyberaryan-logo.png">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Aryan Pareek | TheCyberAryan">
-  <meta name="twitter:description" content="Cybersecurity research, offensive security and engineering.">
-  <meta name="twitter:image" content="https://thecyberaryan.com/assets/thecyberaryan-logo.png">
 
   <title>Aryan Pareek | TheCyberAryan — Cybersecurity Researcher</title>
 
@@ -341,10 +333,10 @@
     "@type": "ProfilePage",
     "mainEntity": {
       "@type": "Person",
-      "@id": "https://thecyberaryan.com/#aryan-pareek",
+      "@id": "https://thecyberaryan.github.io/#aryan-pareek",
       "name": "Aryan Pareek",
       "alternateName": "TheCyberAryan",
-      "url": "https://thecyberaryan.com/",
+      "url": "https://thecyberaryan.github.io/",
       "jobTitle": "Cybersecurity Researcher",
       "description": "Aryan Pareek, known as TheCyberAryan, works in cybersecurity research, ethical hacking and security engineering.",
       "sameAs": [
@@ -357,6 +349,9 @@
     }
   }
   </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-theme.css">
+<link rel="icon" type="image/png" href="logo.png">
 </head>
 
 <body>
@@ -365,7 +360,7 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="#top" aria-label="TheCyberAryan homepage">
-        <img class="brand-mark" src="logo.png" alt="TheCyberAryan logo">
+        <img class="brand-mark" src="logo.png" alt="TheCyberAryan logo" width="1024" height="1024">
         <span class="brand-copy">
           <span class="brand-name">THECYBERARYAN</span>
           <span class="brand-tag">Security. Precision. Resilience.</span>
@@ -422,7 +417,7 @@
 
         <div class="hero-visual">
           <div class="portrait-frame">
-            <img src="pfp.jpg" alt="Portrait of Aryan Pareek" onerror="this.style.display='none'">
+            <img src="pfp.jpg" alt="Portrait of Aryan Pareek" onerror="this.style.display='none'" width="960" height="1280" loading="lazy">
             <div class="portrait-note">
               <strong>THECYBERARYAN</strong>
               <span>Security. Precision. Resilience.</span>
@@ -578,19 +573,19 @@
         <div class="section-head">
           <div>
             <span class="eyebrow">External recognition</span>
-            <h2>Featured & recognised.</h2>
+            <h2>Recognition.</h2>
           </div>
-          <p>Independent coverage and acknowledgements help visitors verify work beyond this website.</p>
+          <p>External features and acknowledgements are listed here when a source can be verified.</p>
         </div>
         <div class="recognition-panel">
           <div>
-            <span class="eyebrow">Press · Features · Appreciation</span>
-            <h3>Recognition should be verifiable.</h3>
-            <p>Selected features, website mentions and appreciation will be presented with the original source, date and context so visitors can read and verify each reference.</p>
+            <span class="eyebrow">External references</span>
+            <h3>Source-verified recognition.</h3>
+            <p>Features and acknowledgements will include their original source and context.</p>
           </div>
           <div class="recognition-placeholder">
-            <strong>Publication links to be added</strong>
-            Send the website names, article URLs or screenshots of the appreciation. Each confirmed mention will become an individual feature card with a direct source link.
+            <strong>No verified features listed</strong>
+            Add a publication or acknowledgement here when a public source is available.
           </div>
         </div>
       </div>
@@ -654,9 +649,7 @@
       const isOpen = mobileNav.classList.toggle("open");
       menuToggle.setAttribute("aria-expanded", String(isOpen));
       menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
-      menuToggle.innerHTML = isOpen
-        ? '<i class="fa-solid fa-xmark" aria-hidden="true"></i>'
-        : '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+      menuToggle.textContent = isOpen ? "×" : "☰";
     });
 
     mobileNav.querySelectorAll("a").forEach(link => {
@@ -664,11 +657,12 @@
         mobileNav.classList.remove("open");
         menuToggle.setAttribute("aria-expanded", "false");
         menuToggle.setAttribute("aria-label", "Open navigation");
-        menuToggle.innerHTML = '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+        menuToggle.textContent = "☰";
       });
     });
 
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+<script src="site-shell.js" defer></script>
 </body>
 </html>

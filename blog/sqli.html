@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:url" content="https://thecyberaryan.github.io/blog/sqli.html"><meta property="og:title" content="SQL Injection Case Study — Aryan Pareek"><meta property="og:description" content="Case study: safely discovering and reporting an SQL injection in a search API."><meta property="og:type" content="article"><meta property="og:image" content="https://thecyberaryan.github.io/logo.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="SQL Injection Case Study — Aryan Pareek"><meta name="twitter:description" content="Case study: safely discovering and reporting an SQL injection in a search API."><meta name="twitter:image" content="https://thecyberaryan.github.io/logo.png">
+<link rel="canonical" href="https://thecyberaryan.github.io/blog/sqli.html">
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>SQL Injection Case Study — Aryan Pareek</title>
@@ -17,6 +21,32 @@ pre{background:rgba(0,0,0,.35);padding:12px;border-radius:8px;overflow:auto;colo
 code{background:rgba(255,255,255,.02);padding:2px 6px;border-radius:4px;color:#dfeaff}
 .note{font-size:.9rem;color:#cfc5ff;padding:10px;border-radius:8px;margin-top:8px;border:1px solid rgba(178,123,255,.06)}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site-theme.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SQL Injection Case Study — Aryan Pareek",
+  "description": "Case study: safely discovering and reporting an SQL injection in a search API.",
+  "author": {
+    "@type": "Person",
+    "name": "Aryan Pareek",
+    "url": "https://thecyberaryan.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Aryan Pareek",
+    "url": "https://thecyberaryan.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://thecyberaryan.github.io/blog/sqli.html"
+  },
+  "image": "https://thecyberaryan.github.io/logo.png"
+}
+</script>
+<link rel="icon" type="image/png" href="../logo.png">
 </head>
 <body>
 <div class="wrap">
@@ -53,5 +83,6 @@ code{background:rgba(255,255,255,.02);padding:2px 6px;border-radius:4px;color:#d
     <div class="note">If you're a developer: start by removing dynamic concatenation and move to parameterized queries. For quick checks, log and monitor error messages that leak DB information.</div>
   </div>
 </div>
+<script src="../site-shell.js" defer></script>
 </body>
 </html>

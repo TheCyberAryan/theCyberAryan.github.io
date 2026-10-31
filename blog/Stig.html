@@ -3,6 +3,11 @@
 <!doctype html>
 <html lang="en">
 <head>
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:url" content="https://thecyberaryan.github.io/blog/Stig.html"><meta property="og:title" content="STIG, NIST, and ISO: The Holy Trinity of Not Getting Hacked (Or At Least Looking Like You Care) — TheCyberAryan"><meta property="og:description" content="STIG, NIST, and ISO: The Holy Trinity of Not Getting Hacked (Or At Least Looking Like You Care) — TheCyberAryan — cybersecurity research, practical security g"><meta property="og:type" content="article"><meta property="og:image" content="https://thecyberaryan.github.io/logo.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="STIG, NIST, and ISO: The Holy Trinity of Not Getting Hacked (Or At Least Looking Like You Care) — TheCyberAryan"><meta name="twitter:description" content="STIG, NIST, and ISO: The Holy Trinity of Not Getting Hacked (Or At Least Looking Like You Care) — TheCyberAryan — cybersecurity research, practical security g"><meta name="twitter:image" content="https://thecyberaryan.github.io/logo.png">
+<link rel="canonical" href="https://thecyberaryan.github.io/blog/Stig.html">
+<meta name="description" content="STIG, NIST, and ISO: The Holy Trinity of Not Getting Hacked (Or At Least Looking Like You Care) — TheCyberAryan — cybersecurity research, practical security g">
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>STIG, NIST, and ISO: The Holy Trinity of Not Getting Hacked (Or At Least Looking Like You Care) — TheCyberAryan</title>
@@ -110,6 +115,32 @@ footer {
 }
 </style>
 
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site-theme.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "STIG, NIST, and ISO: The Holy Trinity of Not Getting Hacked (Or At Least Looking Like You Care) — TheCyberAryan",
+  "description": "STIG, NIST, and ISO: The Holy Trinity of Not Getting Hacked (Or At Least Looking Like You Care) — TheCyberAryan — cybersecurity research, practical security g",
+  "author": {
+    "@type": "Person",
+    "name": "Aryan Pareek",
+    "url": "https://thecyberaryan.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Aryan Pareek",
+    "url": "https://thecyberaryan.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://thecyberaryan.github.io/blog/Stig.html"
+  },
+  "image": "https://thecyberaryan.github.io/logo.png"
+}
+</script>
+<link rel="icon" type="image/png" href="../logo.png">
 </head>
 
 <body id="top">
@@ -242,14 +273,15 @@ Internal Audit → Certification Audit → Annual Surveillance → Recertify</p>
 </ol>
 <h2 id="actionable-next-steps-no-excuses">Actionable Next Steps (No Excuses)</h2>
 <p>```bash</p>
-<h1 id="1-download-latest-stigs">1. Download latest STIGs</h1>
+<h2 id="1-download-latest-stigs">1. Download latest STIGs</h2>
 <p>wget https://public.cyber.mil/stigs/downloads</p>
-<h1 id="2-check-nist-csf-2-0-excel">2. Check NIST CSF 2.0 Excel</h1>
+<h2 id="2-check-nist-csf-2-0-excel">2. Check NIST CSF 2.0 Excel</h2>
 <p>curl -O https://www.nist.gov/cyberframework/csf-20</p>
-<h1 id="3-pentest-with-compliance-in-mind">3. Pentest with compliance in mind</h1>
+<h2 id="3-pentest-with-compliance-in-mind">3. Pentest with compliance in mind</h2>
 <p>nuclei -t cves/ -tags stig,nist,iso27001</p>
       <footer>// THECYBERARYAN //</footer>
     </div>
   </div>
+<script src="../site-shell.js" defer></script>
 </body>
 </html>

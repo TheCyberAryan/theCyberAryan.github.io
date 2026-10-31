@@ -2,17 +2,15 @@
 <!doctype html>
 <html lang="en">
 <head>
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:url" content="https://thecyberaryan.github.io/blog/FoolsMate.html"><meta property="og:title" content="Fool&#x27;s Mate: Bypassing Client-Side Validation | Aryan Pareek"><meta property="og:description" content="A TryHackMe Fool&#x27;s Mate walkthrough explaining how client-side chess validation can be bypassed by sending a request directly to the server."><meta property="og:type" content="article"><meta property="og:image" content="https://thecyberaryan.github.io/blog/FoolsMate.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Fool&#x27;s Mate: Bypassing Client-Side Validation | Aryan Pareek"><meta name="twitter:description" content="A TryHackMe Fool&#x27;s Mate walkthrough explaining how client-side chess validation can be bypassed by sending a request directly to the server."><meta name="twitter:image" content="https://thecyberaryan.github.io/blog/FoolsMate.png">
+<link rel="canonical" href="https://thecyberaryan.github.io/blog/FoolsMate.html">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fool's Mate: Bypassing Client-Side Validation | Aryan Pareek</title>
 <meta name="description" content="A TryHackMe Fool's Mate walkthrough explaining how client-side chess validation can be bypassed by sending a request directly to the server.">
 <meta name="author" content="Aryan Pareek">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://thecyberaryan.com/blog/FoolsMate.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Fool's Mate: Bypassing Client-Side Validation">
-<meta property="og:description" content="A practical TryHackMe walkthrough on why client-side validation must never be trusted.">
-<meta property="og:image" content="https://thecyberaryan.com/blog/FoolsMate.png">
 <meta name="theme-color" content="#090909">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,6 +47,32 @@ hr{border:0;border-top:1px solid var(--line);margin:42px 0}
 @media(max-width:520px){.sitebar-inner{padding:14px 18px}.nav a{font-size:10px}.nav{gap:10px}.shell{padding:30px 18px 55px}body{font-size:15px}pre{font-size:11px;padding:14px}article h1{font-size:2.35rem}.toc nav{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site-theme.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Fool's Mate: Bypassing Client-Side Validation | Aryan Pareek",
+  "description": "A TryHackMe Fool's Mate walkthrough explaining how client-side chess validation can be bypassed by sending a request directly to the server.",
+  "author": {
+    "@type": "Person",
+    "name": "Aryan Pareek",
+    "url": "https://thecyberaryan.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Aryan Pareek",
+    "url": "https://thecyberaryan.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://thecyberaryan.github.io/blog/FoolsMate.html"
+  },
+  "image": "https://thecyberaryan.github.io/blog/FoolsMate.png"
+}
+</script>
+<link rel="icon" type="image/png" href="../logo.png">
 </head>
 <body id="top">
 <div class="progress" id="progress"></div>
@@ -60,7 +84,7 @@ hr{border:0;border-top:1px solid var(--line);margin:42px 0}
 <article>
 <p class="eyebrow">Web Security / TryHackMe Walkthrough</p>
 <h1 id="fool-s-mate-bypassing-client-side-validation-tryhackme-write-up-by-thecyberaryan">Fool's Mate — Bypassing Client-Side Validation (TryHackMe Write-up) by TheCyberAryan</h1>
-<p><img alt="Cover" src="https://thecyberaryan.github.io/blog/FoolsMate.png"/></p>
+<p><img alt="Cover" src="https://thecyberaryan.github.io/blog/FoolsMate.png" width="720" height="530" loading="eager" fetchpriority="high"></p>
 <p><strong>Room:</strong> Fool's Mate<br/>
 <strong>Difficulty:</strong> Easy<br/>
 <strong>Category:</strong> Web Security / Client-Side Validation</p>
@@ -74,7 +98,7 @@ hr{border:0;border-top:1px solid var(--line);margin:42px 0}
 <p>That's… oddly specific.</p>
 <p>Whenever software gets emotional, I get curious.</p>
 <hr/>
-<h1 id="time-to-become-a-professional-button-clicker">Time to Become a Professional Button Clicker</h1>
+<h2 id="time-to-become-a-professional-button-clicker">Time to Become a Professional Button Clicker</h2>
 <p>First rule of hacking:</p>
 <blockquote>
 <p><strong>If the website says "Don't click that", you absolutely need to know why.</strong></p>
@@ -89,9 +113,9 @@ hr{border:0;border-top:1px solid var(--line);margin:42px 0}
 <li>No database hanging out in public.</li>
 </ul>
 <p>Just a Node.js web app silently judging my life choices.</p>
-<p><img alt="Nmap Scan" src="https://thecyberaryan.github.io/blog/nmap.png"/></p>
+<p><img alt="Nmap Scan" src="https://thecyberaryan.github.io/blog/nmap.png" width="1687" height="653" loading="lazy"></p>
 <hr/>
-<h1 id="step-two-stalking-the-website">Step Two: Stalking the Website</h1>
+<h2 id="step-two-stalking-the-website">Step Two: Stalking the Website</h2>
 <p>Time to ask the internet's favorite question:</p>
 <blockquote>
 <p><strong>"Who are you?"</strong></p>
@@ -108,7 +132,7 @@ Endgame Trainer
 <p>Someone probably trusted the browser.</p>
 <p>And trusting the browser is like asking the fox to guard the chicken coop.</p>
 <hr/>
-<h1 id="then-i-read-the-javascript">Then I Read the JavaScript…</h1>
+<h2 id="then-i-read-the-javascript">Then I Read the JavaScript…</h2>
 <p>Developers often hide the funniest secrets in JavaScript.</p>
 <p>After scrolling through the code, I found this little gem:</p>
 <pre><code class="language-javascript">if (probe.isCheckmate()) {
@@ -116,7 +140,7 @@ Endgame Trainer
     return false;
 }
 </code></pre>
-<p><img alt="JavaScript Screenshot" src="https://thecyberaryan.github.io/blog/js.png"/></p>
+
 <p>I actually laughed.</p>
 <p>The browser wasn't preventing illegal chess moves.</p>
 <p>It was preventing <strong>winning</strong>.</p>
@@ -125,7 +149,7 @@ Endgame Trainer
 <p><strong>"Sorry, scoring goals isn't allowed."</strong></p>
 </blockquote>
 <hr/>
-<h1 id="wait">Wait…</h1>
+<h2 id="wait">Wait…</h2>
 <p>Read that code again.</p>
 <p>Who is making the decision?</p>
 <p>The browser.</p>
@@ -135,7 +159,7 @@ Endgame Trainer
 <p>And guess who owns the house?</p>
 <p><strong>Me.</strong></p>
 <hr/>
-<h1 id="the-biggest-lie-in-web-security">The Biggest Lie in Web Security</h1>
+<h2 id="the-biggest-lie-in-web-security">The Biggest Lie in Web Security</h2>
 <p>The browser tells the server:</p>
 <blockquote>
 <p>"Don't worry, I already checked everything."</p>
@@ -148,7 +172,7 @@ Endgame Trainer
 <p>JavaScript is just code.</p>
 <p>Code can be ignored.</p>
 <hr/>
-<h1 id="so-i-fired-the-browser">So I Fired the Browser</h1>
+<h2 id="so-i-fired-the-browser">So I Fired the Browser</h2>
 <p>Who needs Chrome?</p>
 <p>Meet my new employee:</p>
 <pre><code class="language-text">CURL
@@ -163,9 +187,9 @@ Endgame Trainer
 -H "Content-Type: application/json" \\
 -d '{"from":"a1","to":"a8"}'
 </code></pre>
-<p><img alt="Exploit Request" src="https://thecyberaryan.github.io/blog/curl.png"/></p>
+
 <hr/>
-<h1 id="the-server-s-response">The Server's Response?</h1>
+<h2 id="the-server-s-response">The Server's Response?</h2>
 <p>Instead of yelling at me…</p>
 <p>It happily replied:</p>
 <pre><code class="language-json">{
@@ -174,13 +198,13 @@ Endgame Trainer
   "flag":"THM{cl13nt_s1d3_ch3ckm4t3}"
 }
 </code></pre>
-<p><img alt="Flag Screenshot" src="https://thecyberaryan.github.io/blog/flag.png"/></p>
+
 <p>Wait…</p>
 <p>That's it?</p>
 <p>The browser spent all that effort screaming…</p>
 <p>…and the server was completely okay with it.</p>
 <hr/>
-<h1 id="the-browser-was-basically-doing-this">😂 The Browser Was Basically Doing This</h1>
+<h2 id="the-browser-was-basically-doing-this">😂 The Browser Was Basically Doing This</h2>
 <h3 id="browser">Browser</h3>
 <pre><code class="language-text">NO!!
 YOU CAN'T PLAY THAT!!
@@ -193,7 +217,7 @@ Nice move.
 Here's your flag.
 </code></pre>
 <hr/>
-<h1 id="so-what-actually-happened">So What Actually Happened?</h1>
+<h2 id="so-what-actually-happened">So What Actually Happened?</h2>
 <p>Let's simplify it.</p>
 <h2 id="normal-user">Normal User</h2>
 <pre><code class="language-text">You
@@ -210,7 +234,7 @@ Request blocked
 </code></pre>
 <p>The browser never got invited to the party.</p>
 <hr/>
-<h1 id="the-lesson-every-pentester-should-tattoo-on-their-brain">The Lesson Every Pentester Should Tattoo on Their Brain</h1>
+<h2 id="the-lesson-every-pentester-should-tattoo-on-their-brain">The Lesson Every Pentester Should Tattoo on Their Brain</h2>
 <p>Browsers are liars.</p>
 <p>Well…</p>
 <p>Not exactly liars.</p>
@@ -223,7 +247,7 @@ Request blocked
 </ul>
 <p>The server should <strong>never trust anything coming from me.</strong></p>
 <hr/>
-<h1 id="moral-of-the-story">Moral of the Story</h1>
+<h2 id="moral-of-the-story">Moral of the Story</h2>
 <p>If your security depends on JavaScript…</p>
 <p>It doesn't depend on security.</p>
 <p>It depends on hope.</p>
@@ -231,7 +255,7 @@ Request blocked
 <p><strong>And hope is not an authentication mechanism.</strong></p>
 </blockquote>
 <hr/>
-<h1 id="final-flag">Final Flag</h1>
+<h2 id="final-flag">Final Flag</h2>
 <pre><code class="language-text">THM{cl13nt_s1d3_ch3ckm4t3}
 </code></pre>
 <hr/>
@@ -262,4 +286,5 @@ Request blocked
  document.getElementById('year').textContent=new Date().getFullYear();
 })();
 </script>
+<script src="../site-shell.js" defer></script>
 </body></html>

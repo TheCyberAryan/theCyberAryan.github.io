@@ -2,13 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:url" content="https://thecyberaryan.github.io/quotes.html"><meta property="og:title" content="Quotes &amp; Notes — Aryan Pareek | TheCyberAryan"><meta property="og:description" content="Quotes, reflections and notes by Aryan Pareek — TheCyberAryan. Ideas on cybersecurity, discipline, philosophy and personal growth."><meta property="og:type" content="website"><meta property="og:image" content="https://thecyberaryan.github.io/logo.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Quotes &amp; Notes — Aryan Pareek | TheCyberAryan"><meta name="twitter:description" content="Quotes, reflections and notes by Aryan Pareek — TheCyberAryan. Ideas on cybersecurity, discipline, philosophy and personal growth."><meta name="twitter:image" content="https://thecyberaryan.github.io/logo.png">
+<link rel="canonical" href="https://thecyberaryan.github.io/quotes.html">
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#090909" />
   <meta name="description" content="Quotes, reflections and notes by Aryan Pareek — TheCyberAryan. Ideas on cybersecurity, discipline, philosophy and personal growth." />
-  <meta property="og:title" content="Quotes & Notes — Aryan Pareek | TheCyberAryan" />
-  <meta property="og:description" content="A collection of thoughts, lessons and reflections by Aryan Pareek." />
-  <meta property="og:type" content="website" />
   <title>Quotes & Notes — Aryan Pareek | TheCyberAryan</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -247,6 +248,9 @@
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
     }
   </style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-theme.css">
+<link rel="icon" type="image/png" href="logo.png">
 </head>
 <body>
   <div class="site-shell">
@@ -277,7 +281,7 @@
       <section aria-labelledby="gallery-title">
         <div class="gallery-heading">
           <h2 id="gallery-title">The collection</h2>
-          <p id="count-label">48 visual notes</p>
+          <p id="count-label">41 visual notes</p>
         </div>
         <div class="gallery" id="quote-gallery" aria-live="polite"></div>
         <div class="empty-state" id="empty-state">
@@ -309,7 +313,7 @@
 
   <script>
     // Keep your existing images in the quotes/ folder with these filenames.
-    const allQuotes = Array.from({ length: 48 }, (_, index) =>
+    const allQuotes = Array.from({ length: 41 }, (_, index) =>
       `quotes/q${index + 1}.png`
     );
 
@@ -335,13 +339,19 @@
       card.className = "qcard";
       card.type = "button";
       card.setAttribute("aria-label", `Open quote image ${index + 1}`);
-      card.innerHTML = `
-        <img src="${src}" alt="TheCyberAryan quote ${index + 1}" loading="lazy">
-        <span class="card-foot">
-          <span class="card-label">TheCyberAryan · Note ${String(index + 1).padStart(2, "0")}</span>
-          <span class="card-open" aria-hidden="true">View ↗</span>
-        </span>
-      `;
+      const quoteImage = document.createElement("img");
+      quoteImage.src = src;
+      quoteImage.alt = `TheCyberAryan quote ${index + 1}`;
+      quoteImage.loading = "lazy";
+      quoteImage.decoding = "async";
+      quoteImage.width = 1024;
+      quoteImage.height = [1, 2, 4, 5, 6, 7, 8].includes(index + 1) ? 1536 : 1024;
+      const foot = document.createElement("span"); foot.className = "card-foot";
+      const label = document.createElement("span"); label.className = "card-label";
+      label.textContent = `TheCyberAryan · Note ${String(index + 1).padStart(2, "0")}`;
+      const open = document.createElement("span"); open.className = "card-open";
+      open.setAttribute("aria-hidden", "true"); open.textContent = "View ↗";
+      foot.append(label, open); card.append(quoteImage, foot);
       card.addEventListener("click", () => openPreview(src, card));
 
       const image = card.querySelector("img");
@@ -395,7 +405,7 @@
       window.setTimeout(() => {
         renderNextPage();
         loadMoreButton.disabled = false;
-        loadMoreButton.innerHTML = 'Load more <span aria-hidden="true">↓</span>';
+        loadMoreButton.textContent = "Load more ↓";
       }, 180);
     });
 
@@ -405,6 +415,12 @@
     });
     document.addEventListener("keydown", event => {
       if (event.key === "Escape" && lightbox.classList.contains("active")) closePreview();
+      if (event.key === "Tab" && lightbox.classList.contains("active")) {
+        const controls = [...lightbox.querySelectorAll("button:not([disabled])")];
+        const first = controls[0], last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
     });
 
     downloadButton.addEventListener("click", async () => {
@@ -443,5 +459,6 @@
 
     renderNextPage();
   </script>
+<script src="site-shell.js" defer></script>
 </body>
 </html>
