@@ -1,519 +1,673 @@
+
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="Aryan Pareek, known as TheCyberAryan — cybersecurity researcher and ethical hacker focused on security research, penetration testing, vulnerability assessment and digital defence.">
+  <meta name="author" content="Aryan Pareek">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://thecyberaryan.com/">
 
-<title>Aryan Pareek | TheCyberARYAN — Ethical Hacker, Red Teamer & Cybersecurity Consultant</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Aryan Pareek | TheCyberAryan">
+  <meta property="og:description" content="Security. Precision. Resilience. Explore the work, research and projects of Aryan Pareek.">
+  <meta property="og:url" content="https://thecyberaryan.com/">
+  <meta property="og:image" content="https://thecyberaryan.com/assets/thecyberaryan-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Aryan Pareek | TheCyberAryan">
+  <meta name="twitter:description" content="Cybersecurity research, offensive security and engineering.">
+  <meta name="twitter:image" content="https://thecyberaryan.com/assets/thecyberaryan-logo.png">
 
-<meta name="description" content="Offensive security, penetration testing, red teaming, DFIR, cloud security and threat detection — delivered with expertise, clarity, and a slightly sarcastic hacker personality.">
-<meta name="keywords" content="ethical hacker, cybersecurity consultant, penetration testing, red team, DFIR, cloud, threat hunting, SOC, devsecops">
+  <title>Aryan Pareek | TheCyberAryan — Cybersecurity Researcher</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<style>
-:root{
-  --bg:#07040a;
-  --panel: rgba(20,12,30,0.7);
-  --muted:#cfccee;
-  --accent1:#9f6aff;
-  --accent2:#00a7ff;
-  --glow:0 12px 40px rgba(159,106,255,0.08);
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:'Inter',system-ui;
-  color:var(--muted);
-  background:linear-gradient(180deg,rgba(6,4,10,0.95),rgba(8,6,14,0.96)),
-    url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2000&q=80')
-    center/cover fixed;
-}
+  <style>
+    :root {
+      --bg: #090909;
+      --bg-soft: #10100f;
+      --panel: #141412;
+      --panel-2: #191916;
+      --line: rgba(221, 211, 185, .13);
+      --line-strong: rgba(221, 211, 185, .23);
+      --gold: #c58a4b;
+      --gold-bright: #dfa96b;
+      --ivory: #e9e1cf;
+      --sage: #78936e;
+      --sage-light: #a5b99b;
+      --text: #d8d4ca;
+      --muted: #96938a;
+      --white: #f5f2e9;
+      --max: 1160px;
+      --radius: 18px;
+      --shadow: 0 24px 80px rgba(0,0,0,.35);
+    }
 
-/* HEADER NAV */
-.cyber-banner{
-  width:100%;padding:16px 14px;
-  background:rgba(255,255,255,0.02);
-  border-bottom:1px solid rgba(255,255,255,0.05);
-  backdrop-filter:blur(8px);
-  position:sticky;top:0;z-index:999;
-}
-.cyber-inner{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;}
-.brand h1{margin:0;font-family:'Orbitron';color:#fff;font-size:1.5rem;}
-.brand p{margin:2px 0 0;color:#dcd6ff;font-size:0.9rem;}
-.nav{display:flex;gap:12px;}
-.navlink{text-decoration:none;color:#efe8ff;font-family:'Orbitron';padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);}
-.navlink:hover{background:rgba(255,255,255,0.06);}
-.nav-toggle{display:none;background:none;border:none;color:white;font-size:1.5rem;}
-.nav-mobile{display:none;flex-direction:column;background:rgba(15,10,25,0.95);padding:10px 20px;border-bottom:1px solid rgba(255,255,255,0.05);}
-.nav-mobile a{padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 12% 5%, rgba(197,138,75,.09), transparent 31rem),
+        radial-gradient(ellipse at 88% 28%, rgba(120,147,110,.07), transparent 28rem),
+        var(--bg);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.7;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    img { max-width: 100%; display: block; }
+    ::selection { background: rgba(197,138,75,.35); color: var(--white); }
 
-/* LAYOUT */
-.container{max-width:1100px;margin:26px auto;padding:22px;}
-.panel{
-  background:var(--panel);
-  padding:18px;margin-top:18px;border-radius:12px;
-  border:1px solid rgba(159,106,255,0.08);box-shadow:var(--glow);
-}
+    .skip-link {
+      position: absolute; left: -9999px; top: 10px; z-index: 2000;
+      padding: 10px 14px; background: var(--ivory); color: #111; border-radius: 8px;
+    }
+    .skip-link:focus { left: 12px; }
 
-/* HERO */
-.hero{display:grid;grid-template-columns:220px 1fr;gap:22px;align-items:center;}
-.avatar{width:200px;height:200px;overflow:hidden;border-radius:14px;border:2px solid rgba(159,106,255,0.12);}
-.avatar img{width:100%;height:100%;object-fit:cover;}
-.hero h2{margin:0;font-family:'Orbitron';color:white;font-size:1.4rem;}
-.hero p{margin-top:10px;line-height:1.45;}
+    .site-header {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(9,9,9,.86);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(18px);
+    }
+    .header-inner {
+      width: min(var(--max), calc(100% - 44px));
+      min-height: 78px; margin: auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .brand { display: flex; align-items: center; gap: 13px; text-decoration: none; min-width: 0; }
+    .brand-mark {
+      width: 218px; height: 58px; object-fit: cover; object-position: center;
+      border-radius: 5px; background: #000;
+    }
+    .brand-copy { display: none; line-height: 1.2; }
+    .brand-name {
+      color: var(--white); font: 700 15px "Space Grotesk", sans-serif;
+      letter-spacing: .12em;
+    }
+    .brand-tag {
+      color: var(--muted); font: 10px "DM Mono", monospace;
+      letter-spacing: .12em; margin-top: 5px; text-transform: uppercase;
+    }
+    .desktop-nav { display: flex; align-items: center; gap: 5px; }
+    .desktop-nav a, .mobile-nav a {
+      color: #c4c0b6; text-decoration: none; font-size: 13px;
+      padding: 9px 12px; border-radius: 8px; transition: .2s ease;
+    }
+    .desktop-nav a:hover, .mobile-nav a:hover { color: var(--gold-bright); background: rgba(197,138,75,.08); }
+    .header-cta {
+      color: var(--bg) !important; background: var(--ivory);
+      padding: 10px 15px !important; font-weight: 700;
+    }
+    .header-cta:hover { background: var(--gold-bright) !important; color: #090909 !important; }
+    .menu-toggle {
+      display: none; width: 42px; height: 42px; border: 1px solid var(--line);
+      background: var(--panel); color: var(--ivory); border-radius: 10px; font-size: 18px;
+    }
+    .mobile-nav {
+      display: none; padding: 8px 22px 18px; border-top: 1px solid var(--line);
+      background: rgba(9,9,9,.98);
+    }
+    .mobile-nav.open { display: grid; }
+    .mobile-nav a { padding: 11px 8px; }
 
-/* CTA contact buttons (NEW) */
-.contact-btn{
-  display:inline-flex;align-items:center;gap:12px;
-  padding:10px 14px;border-radius:10px;
-  font-family:'Orbitron';cursor:pointer;
-  text-decoration:none;color:#efe8ff;
-  border:1px solid rgba(255,255,255,0.06);
-  background:transparent;
-  transition:0.25s ease;
-  min-height:44px;
-}
-.contact-btn i{font-size:1.2rem;}
-.contact-btn .btn-sub{
-  display:block;
-  font-size:0.72rem;
-  margin-left:2px;
-  opacity:0.8;
-  font-family:'Inter';
-}
-.contact-btn:hover{
-  transform:translateY(-5px);
-  background:rgba(159,106,255,0.08);
-  border-color:rgba(159,106,255,0.4);
-  color:white;
-}
+    .wrap { width: min(var(--max), calc(100% - 44px)); margin-inline: auto; }
+    .hero {
+      min-height: 650px; padding: 100px 0 84px;
+      display: grid; grid-template-columns: minmax(0,1.3fr) minmax(270px,.7fr);
+      align-items: center; gap: 70px; position: relative;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 45px -10vw 25px 35%;
+      pointer-events: none; opacity: .24;
+      background-image: linear-gradient(rgba(233,225,207,.07) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(233,225,207,.07) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(90deg, transparent, #000 30%, transparent);
+    }
+    .hero-copy, .hero-visual { position: relative; z-index: 1; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px; color: var(--gold-bright);
+      font: 11px "DM Mono", monospace; letter-spacing: .18em; text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--gold); }
+    h1, h2, h3, h4 { font-family: "Space Grotesk", sans-serif; }
+    .hero h1 {
+      color: var(--white); font-size: clamp(3.4rem, 7.2vw, 6.6rem);
+      line-height: .98; letter-spacing: -.075em; margin: 24px 0 18px;
+      font-weight: 600;
+    }
+    .hero h1 span { color: var(--gold-bright); }
+    .hero-subtitle {
+      color: var(--ivory); font: 500 clamp(15px, 1.6vw, 19px) "Space Grotesk", sans-serif;
+      letter-spacing: .015em; margin: 0 0 17px;
+    }
+    .hero-description { color: var(--muted); max-width: 650px; font-size: 16px; line-height: 1.9; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    .button {
+      min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 0 19px; border-radius: 9px; text-decoration: none; font-size: 13px;
+      font-weight: 700; transition: transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+    .button:hover { transform: translateY(-3px); }
+    .button-primary { color: #17120c; background: var(--gold-bright); border: 1px solid var(--gold-bright); }
+    .button-primary:hover { background: #edbd83; }
+    .button-secondary { color: var(--ivory); border: 1px solid var(--line-strong); background: rgba(255,255,255,.015); }
+    .button-secondary:hover { border-color: var(--sage); color: var(--sage-light); }
+    .hero-meta {
+      display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 36px;
+      color: var(--muted); font: 11px "DM Mono", monospace; letter-spacing: .04em;
+    }
+    .hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+    .hero-meta i { color: var(--sage-light); font-size: 9px; }
 
-/* PILLS */
-.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.pill{
-  padding:8px 12px;border-radius:20px;
-  background:rgba(178,123,255,0.1);
-  border:1px solid rgba(255,255,255,0.06);
-}
+    .hero-visual {
+      min-height: 390px; display: grid; place-items: center;
+    }
+    .portrait-frame {
+      width: min(100%, 340px); aspect-ratio: 4 / 5; position: relative;
+      border: 1px solid rgba(197,138,75,.45); border-radius: 180px 180px 22px 22px;
+      padding: 10px; background: linear-gradient(145deg, rgba(197,138,75,.12), rgba(120,147,110,.06));
+      box-shadow: 0 30px 90px rgba(0,0,0,.45);
+    }
+    .portrait-frame::before, .portrait-frame::after {
+      content: ""; position: absolute; width: 58px; height: 58px; border-color: var(--sage);
+      opacity: .8; pointer-events: none;
+    }
+    .portrait-frame::before { top: -12px; left: -12px; border-top: 1px solid; border-left: 1px solid; border-radius: 12px 0 0; }
+    .portrait-frame::after { bottom: -12px; right: -12px; border-bottom: 1px solid; border-right: 1px solid; border-radius: 0 0 12px; }
+    .portrait-frame img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center;
+      border-radius: 170px 170px 14px 14px; background: #151512;
+    }
+    .portrait-note {
+      position: absolute; bottom: 28px; left: -38px; padding: 12px 16px;
+      background: rgba(16,16,15,.94); border: 1px solid var(--line-strong);
+      border-radius: 10px; box-shadow: var(--shadow);
+    }
+    .portrait-note strong { display: block; color: var(--ivory); font: 12px "DM Mono", monospace; }
+    .portrait-note span { color: var(--muted); font-size: 11px; }
 
-/* GRID SECTIONS */
-.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
-.project{padding:14px;border-radius:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);}
-.achievements{display:flex;flex-wrap:wrap;gap:14px;}
-.achievement{flex:1;min-width:160px;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;text-align:center;}
-.testimonials{display:grid;gap:12px;}
+    .trust-strip {
+      border-block: 1px solid var(--line); background: rgba(255,255,255,.015);
+    }
+    .trust-inner {
+      min-height: 92px; display: flex; justify-content: space-between; align-items: center;
+      gap: 24px; flex-wrap: wrap; padding-block: 20px;
+    }
+    .trust-label { color: var(--muted); font: 10px "DM Mono", monospace; letter-spacing: .14em; text-transform: uppercase; }
+    .trust-items { display: flex; flex-wrap: wrap; gap: 12px; }
+    .trust-item {
+      color: var(--ivory); border: 1px solid var(--line); border-radius: 100px;
+      padding: 8px 13px; font-size: 11px; background: rgba(255,255,255,.018);
+    }
 
-/* FOOTER — INTERACTIVE SOCIAL ICONS */
-.enhanced-social{
-  display:flex;gap:18px;justify-content:center;margin-bottom:16px;
-}
-.social-item{
-  width:48px;height:48px;border-radius:50%;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(4px);
-  border:1px solid rgba(255,255,255,0.08);
-  display:flex;justify-content:center;align-items:center;
-  font-size:1.3rem;color:#dcd6ff;
-  transition:0.25s ease;
-}
-.social-item:hover{
-  transform:translateY(-6px) scale(1.1);
-  border-color:rgba(159,106,255,0.6);
-  box-shadow:0 0 18px rgba(159,106,255,0.3);
-  color:white;
-}
-.social-item.linkedin:hover{box-shadow:0 0 18px rgba(0,119,181,0.55);}
-.social-item.x-twitter:hover{box-shadow:0 0 18px rgba(255,255,255,0.35);}
-.social-item.instagram:hover{box-shadow:0 0 18px rgba(225,48,108,0.55);}
-.social-item.whatsapp:hover{box-shadow:0 0 18px rgba(37,211,102,0.55);}
-.social-item.email:hover{box-shadow:0 0 18px rgba(159,106,255,0.55);}
+    section.content-section { padding: 96px 0; border-bottom: 1px solid var(--line); }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 34px; }
+    .section-head h2 {
+      color: var(--white); font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -.055em; line-height: 1.1; margin: 12px 0 0;
+    }
+    .section-head p { color: var(--muted); max-width: 420px; margin: 0; font-size: 14px; }
+    .about-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: start; }
+    .about-copy p { color: var(--muted); margin: 0 0 17px; font-size: 15px; }
+    .about-copy p strong { color: var(--ivory); font-weight: 600; }
+    .detail-card {
+      padding: 26px; background: linear-gradient(145deg, var(--panel), #10100f);
+      border: 1px solid var(--line); border-radius: var(--radius);
+    }
+    .detail-card h3 { color: var(--ivory); font-size: 16px; margin: 0 0 18px; }
+    .detail-row { display: flex; justify-content: space-between; gap: 18px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+    .detail-row:last-child { border-bottom: 0; }
+    .detail-row span:first-child { color: var(--muted); }
+    .detail-row span:last-child { color: var(--ivory); text-align: right; }
 
-footer{text-align:center;margin-top:26px;padding:20px 0;}
+    .card-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+    .work-card {
+      min-height: 240px; display: flex; flex-direction: column; padding: 24px;
+      background: linear-gradient(155deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+      border: 1px solid var(--line); border-radius: var(--radius);
+      transition: transform .25s ease, border-color .25s ease, background .25s ease;
+    }
+    .work-card:hover { transform: translateY(-5px); border-color: rgba(197,138,75,.48); background: rgba(197,138,75,.035); }
+    .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px; }
+    .card-icon {
+      width: 42px; height: 42px; display: grid; place-items: center;
+      border: 1px solid rgba(197,138,75,.3); border-radius: 11px; color: var(--gold-bright);
+      background: rgba(197,138,75,.07); font-size: 16px;
+    }
+    .card-index { color: #68665f; font: 11px "DM Mono", monospace; }
+    .work-card h3 { color: var(--ivory); font-size: 19px; margin: 0 0 9px; }
+    .work-card p { color: var(--muted); font-size: 13px; line-height: 1.75; margin: 0 0 20px; }
+    .card-tag { margin-top: auto; color: var(--sage-light); font: 10px "DM Mono", monospace; letter-spacing: .08em; text-transform: uppercase; }
 
-@media(max-width:880px){
-  .nav{display:none;}
-  .nav-toggle{display:block;}
-  .hero{grid-template-columns:1fr;text-align:center;}
-  .avatar{margin:auto;margin-bottom:12px;}
-}
-</style>
+    .skills-layout { display: grid; grid-template-columns: .75fr 1.25fr; gap: 48px; }
+    .skills-intro { color: var(--muted); font-size: 14px; max-width: 340px; }
+    .skill-groups { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 14px; }
+    .skill-group { padding: 20px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; }
+    .skill-group h3 { color: var(--ivory); font-size: 14px; margin: 0 0 14px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tags span {
+      padding: 6px 9px; border: 1px solid var(--line); border-radius: 6px;
+      color: #bcb8ad; font: 10px "DM Mono", monospace;
+    }
 
-<!-- === SEO SCHEMA: PERSON === -->
-<script type="application/ld+json">{
-"@context":"https://schema.org",
-"@type":"Person",
-"name":"Aryan Pareek",
-"alternateName":"TheCyberAryan",
-"url":"https://thecyberaryan.com",
-"jobTitle":"Cybersecurity Consultant & Ethical Hacker",
-"email":"mailto:aryanpareek311072004@gmail.com",
-"sameAs":[
-"https://www.linkedin.com/in/aryan-pareek-597a0b218/",
-"https://x.com/TheCyberAryan",
-"https://instagram.com/The.CyberAryan",
-"https://github.com/TheCyberAryan"
-]
-}</script>
+    .recognition-panel {
+      display: grid; grid-template-columns: .9fr 1.1fr; gap: 35px; padding: 34px;
+      background: linear-gradient(120deg, rgba(120,147,110,.09), rgba(197,138,75,.06));
+      border: 1px solid var(--line-strong); border-radius: 22px;
+    }
+    .recognition-panel h3 { color: var(--ivory); font-size: 25px; line-height: 1.2; margin: 10px 0; }
+    .recognition-panel p { color: var(--muted); font-size: 13px; margin: 0; }
+    .recognition-placeholder {
+      align-self: center; padding: 22px; border: 1px dashed rgba(197,138,75,.4);
+      border-radius: 13px; color: var(--muted); font-size: 13px; background: rgba(0,0,0,.15);
+    }
+    .recognition-placeholder strong { display: block; color: var(--gold-bright); margin-bottom: 6px; font: 11px "DM Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
 
-<!-- === PROFESSIONAL SERVICE SCHEMA === -->
-<script type="application/ld+json">{
-"@context":"https://schema.org",
-"@type":"ProfessionalService",
-"name":"TheCyberAryan Cybersecurity Services",
-"url":"https://thecyberaryan.com",
-"description":"Penetration testing, red teaming, DFIR, cloud audits and security consulting.",
-"contactPoint":{
-"@type":"ContactPoint",
-"email":"aryanpareek311072004@gmail.com",
-"contactType":"customer support"
-}}
-</script>
+    .credentials { display: flex; flex-wrap: wrap; gap: 12px; }
+    .credential {
+      display: flex; align-items: center; gap: 12px; flex: 1 1 230px;
+      padding: 17px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+    }
+    .credential i { color: var(--gold-bright); font-size: 18px; }
+    .credential strong { display: block; color: var(--ivory); font-size: 13px; }
+    .credential span { color: var(--muted); font-size: 11px; }
 
-<!-- === WEBSITE SCHEMA === -->
-<script type="application/ld+json">{
-"@context":"https://schema.org",
-"@type":"WebSite",
-"name":"TheCyberAryan",
-"url":"https://thecyberaryan.com"
-}</script>
+    .contact-box {
+      padding: clamp(28px, 5vw, 54px); border-radius: 22px;
+      background: radial-gradient(ellipse at 90% 0%, rgba(197,138,75,.13), transparent 45%), var(--panel);
+      border: 1px solid var(--line-strong); text-align: center;
+    }
+    .contact-box h2 { color: var(--white); font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1.1; margin: 12px 0; letter-spacing: -.05em; }
+    .contact-box p { color: var(--muted); max-width: 580px; margin: 0 auto 25px; font-size: 14px; }
+    .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 11px; }
+
+    footer { padding: 35px 0 28px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+    .footer-brand { color: var(--ivory); font: 600 13px "Space Grotesk", sans-serif; letter-spacing: .1em; }
+    .footer-note { color: var(--muted); font-size: 11px; }
+    .socials { display: flex; gap: 9px; }
+    .socials a {
+      width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%;
+      border: 1px solid var(--line); color: #bdb8ad; text-decoration: none; transition: .2s ease;
+    }
+    .socials a:hover { color: var(--gold-bright); border-color: var(--gold); transform: translateY(-3px); }
+    .copyright { text-align: center; border-top: 1px solid var(--line); margin-top: 26px; padding-top: 19px; color: #77756e; font: 10px "DM Mono", monospace; }
+
+    @media (max-width: 900px) {
+      .desktop-nav { display: none; }
+      .menu-toggle { display: inline-grid; place-items: center; }
+      .hero { grid-template-columns: 1fr .72fr; gap: 35px; min-height: 570px; }
+      .hero-visual { min-height: 310px; }
+      .card-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    }
+    @media (max-width: 680px) {
+      .header-inner, .wrap { width: min(100% - 32px, var(--max)); }
+      .header-inner { min-height: 70px; }
+      .brand-mark { width: 190px; height: 52px; }
+      .hero { display: flex; flex-direction: column-reverse; align-items: stretch; gap: 32px; padding: 55px 0 60px; }
+      .hero-visual { min-height: auto; }
+      .portrait-frame { width: min(68%, 270px); }
+      .portrait-note { left: -22px; bottom: 20px; }
+      .hero h1 { font-size: clamp(3.3rem, 16vw, 5rem); }
+      .hero-description { font-size: 14px; }
+      .hero-meta { gap: 10px 15px; }
+      .trust-inner { align-items: flex-start; flex-direction: column; gap: 13px; }
+      section.content-section { padding: 68px 0; }
+      .section-head { display: block; }
+      .section-head p { margin-top: 15px; }
+      .about-grid, .skills-layout, .recognition-panel { grid-template-columns: 1fr; gap: 25px; }
+      .card-grid, .skill-groups { grid-template-columns: 1fr; }
+      .work-card { min-height: 210px; }
+      .recognition-panel { padding: 25px; }
+      .footer-inner { justify-content: center; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "mainEntity": {
+      "@type": "Person",
+      "@id": "https://thecyberaryan.com/#aryan-pareek",
+      "name": "Aryan Pareek",
+      "alternateName": "TheCyberAryan",
+      "url": "https://thecyberaryan.com/",
+      "jobTitle": "Cybersecurity Researcher",
+      "description": "Aryan Pareek, known as TheCyberAryan, works in cybersecurity research, ethical hacking and security engineering.",
+      "sameAs": [
+        "https://www.linkedin.com/in/aryan-pareek-597a0b218/",
+        "https://x.com/TheCyberAryan",
+        "https://instagram.com/The.CyberAryan",
+        "https://github.com/TheCyberAryan",
+        "https://medium.com/@TheCyberAryan"
+      ]
+    }
+  }
+  </script>
 </head>
 
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<header class="cyber-banner">
-  <div class="cyber-inner">
-    <div class="brand">
-      <h1>THECYBERARYAN</h1>
-      <p>Ethical Hacker • Security Consultant • Red Team Specialist</p>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="TheCyberAryan homepage">
+        <img class="brand-mark" src="assets/thecyberaryan-logo.png" alt="TheCyberAryan logo">
+        <span class="brand-copy">
+          <span class="brand-name">THECYBERARYAN</span>
+          <span class="brand-tag">Security. Precision. Resilience.</span>
+        </span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#research">Work</a>
+        <a href="#skills">Expertise</a>
+        <a href="#recognition">Recognition</a>
+        <a href="blog.html">Journal</a>
+        <a href="#contact" class="header-cta">Contact</a>
+      </nav>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mobileNav">
+        <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      </button>
     </div>
-
-    <nav class="nav">
-      <a class="navlink" href="blog.html">BLOG</a>
-      <a class="navlink" href="quotes.html">QUOTES</a>
-   <!--   <a class="navlink" href="Services.html">SERVICES</a> -->
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+      <a href="#about">About</a>
+      <a href="#research">Work & Projects</a>
+      <a href="#skills">Expertise</a>
+      <a href="#recognition">Recognition</a>
+      <a href="blog.html">Journal</a>
+      <a href="quotes.html">Notes & Quotes</a>
+      <a href="#contact">Contact</a>
     </nav>
+  </header>
 
-    <button class="nav-toggle" onclick="toggleMobileNav()">
-      <i class="fa fa-bars"></i>
-    </button>
-  </div>
+  <main id="main">
+    <div class="wrap" id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <span class="eyebrow">Independent security research & engineering</span>
+          <h1 id="hero-title">Aryan<br><span>Pareek.</span></h1>
+          <p class="hero-subtitle">Cybersecurity Researcher · Ethical Hacker · TheCyberAryan</p>
+          <p class="hero-description">
+            I work across offensive security and digital defence, with an interest in understanding
+            how systems fail, validating security weaknesses responsibly, and turning technical
+            findings into clear, actionable improvements.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#research"><i class="fa-solid fa-arrow-down" aria-hidden="true"></i> Explore my work</a>
+            <a class="button button-secondary" href="mailto:aryanpareek311072004@gmail.com?subject=Professional%20Enquiry"><i class="fa-regular fa-envelope" aria-hidden="true"></i> Get in touch</a>
+          </div>
+          <div class="hero-meta">
+            <span><i class="fa-solid fa-circle" aria-hidden="true"></i> Research-led approach</span>
+            <span><i class="fa-solid fa-circle" aria-hidden="true"></i> Responsible disclosure</span>
+            <span><i class="fa-solid fa-circle" aria-hidden="true"></i> Clear technical reporting</span>
+          </div>
+        </div>
 
-  <nav id="navMobile" class="nav-mobile">
-    <a class="navlink" href="blog.html">BLOG</a>
-    <a class="navlink" href="quotes.html">QUOTES</a>
-    <a class="navlink" href="Services.html">Services</a>
-  </nav>
-</header>
+        <div class="hero-visual">
+          <div class="portrait-frame">
+            <img src="pfp.jpg" alt="Portrait of Aryan Pareek" onerror="this.style.display='none'">
+            <div class="portrait-note">
+              <strong>THECYBERARYAN</strong>
+              <span>Security. Precision. Resilience.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
 
-  <main class="container">
-
-  <!-- HERO SECTION -->
-  <section class="panel hero">
-    <div class="avatar"><img src="pfp.jpg" alt="Aryan Pareek"></div>
-
-    <div>
-      <h2>Defense starts with offense — and I prefer to strike first.</h2>
-
-      <p>
-        I expose the vulnerabilities attackers pray you never find.  
-        Pentesting, red teaming, DFIR, cloud security, SOC uplift —  
-        whatever breaks, I fix before someone else breaks it harder.  
-        If you're here after a breach… you're not the first.
-      </p>
-
-      <div class="cta-row">
-
-        <!-- Enhanced Email Button -->
-        <a role="button" class="btn contact-btn mail-btn"
-           href="mailto:aryanpareek311072004@gmail.com?subject=Security%20Edit%20Request&body=Hi%20Aryan,%0A%0AI'd%20like%20a%20security%20audit%20for%20[project/domain].%0A%0ADetails:%0A-%20Scope:%0A-%20Timeline:%0A-%20Contact:%0A%0AThanks!"
-           aria-label="Email Aryan" title="Send Email">
-          <i class="fa fa-envelope"></i>
-          <span class="btn-text">Send a Sane Email</span>
-          <small class="btn-sub">Before Something Insane Happens</small>
-        </a>
-
-        <!-- Enhanced WhatsApp Button -->
-        <a role="button" class="btn contact-btn whatsapp-btn"
-           href="https://wa.me/919950400005?text=Hi%20Aryan,%20I%20need%20a%20security%20audit%20for%20[project/domain]."
-           target="_blank" rel="noopener" aria-label="Message on WhatsApp" title="WhatsApp">
-          <i class="fab fa-whatsapp"></i>
-          <span class="btn-text">Ping Me on WhatsApp</span>
-          <small class="btn-sub">(Fastest Panic Hotline)</small>
-        </a>
-
-      </div>
-
-      <div class="pills">
-        <span class="pill">Cybersecurity without the buzzword inflation</span>
-        <span class="pill">4+ years breaking things professionally</span>
-        <span class="pill">Trusted by teams serious about security</span>
+    <div class="trust-strip">
+      <div class="wrap trust-inner">
+        <span class="trust-label">Areas of focus</span>
+        <div class="trust-items">
+          <span class="trust-item">Application Security</span>
+          <span class="trust-item">Penetration Testing</span>
+          <span class="trust-item">Security Research</span>
+          <span class="trust-item">Digital Forensics</span>
+          <span class="trust-item">Threat Detection</span>
+        </div>
       </div>
     </div>
-  </section>
 
+    <section class="content-section" id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">A little about me</span>
+            <h2>Curiosity is the<br>starting point.</h2>
+          </div>
+          <p>Understanding the problem matters as much as finding it. My focus is on evidence, context and practical security outcomes.</p>
+        </div>
 
-
-  <!-- PROJECTS SECTION -->
-  <section class="panel">
-    <h3 style="color:white;font-family:'Orbitron';margin:0">Projects & Tools</h3>
-
-    <div class="projects">
-
-      <div class="project">
-        <h4>ENUMO Toolkit</h4>
-        <p>Automated recon suite for subdomain enumeration, OSINT and fingerprinting.</p>
+        <div class="about-grid">
+          <div class="about-copy">
+            <p>
+              I'm <strong>Aryan Pareek</strong>, also known as <strong>TheCyberAryan</strong>.
+              My work and learning are centred on cybersecurity, ethical hacking, vulnerability
+              research and the practical security of digital systems.
+            </p>
+            <p>
+              I enjoy examining applications and infrastructure from an adversarial perspective,
+              documenting what can go wrong, and communicating findings in a way that helps
+              technical teams understand risk and prioritise remediation.
+            </p>
+            <p>
+              This website brings together selected projects, research, professional background
+              and educational writing. It is intended to be a transparent record of work—not a
+              collection of unsupported claims.
+            </p>
+          </div>
+          <aside class="detail-card" aria-label="Professional profile">
+            <h3>Professional profile</h3>
+            <div class="detail-row"><span>Name</span><span>Aryan Pareek</span></div>
+            <div class="detail-row"><span>Public identity</span><span>TheCyberAryan</span></div>
+            <div class="detail-row"><span>Primary field</span><span>Cybersecurity</span></div>
+            <div class="detail-row"><span>Interests</span><span>Offensive & defensive security</span></div>
+            <div class="detail-row"><span>Approach</span><span>Evidence-led · Responsible</span></div>
+          </aside>
+        </div>
       </div>
+    </section>
 
-      <div class="project">
-        <h4>Xss-Master</h4>
-        <p>Finds XSS faster than developers say “It worked on my machine.”</p>
+    <section class="content-section" id="research">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Selected work</span>
+            <h2>Projects & tools.</h2>
+          </div>
+          <p>A selection of security-focused projects and experiments. Individual project pages and repositories can be linked here as they are prepared.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="work-card">
+            <div class="card-top"><span class="card-icon"><i class="fa-solid fa-radar" aria-hidden="true"></i></span><span class="card-index">01 / RECON</span></div>
+            <h3>ENUMO Toolkit</h3>
+            <p>An automated reconnaissance toolkit designed to organise subdomain discovery, service identification, fingerprinting and related assessment workflows.</p>
+            <span class="card-tag">Reconnaissance · Automation</span>
+          </article>
+          <article class="work-card">
+            <div class="card-top"><span class="card-icon"><i class="fa-solid fa-code" aria-hidden="true"></i></span><span class="card-index">02 / APPSEC</span></div>
+            <h3>Xss-Master</h3>
+            <p>A project focused on helping assess cross-site scripting exposure through structured input analysis and testing workflows.</p>
+            <span class="card-tag">Web security · XSS testing</span>
+          </article>
+          <article class="work-card">
+            <div class="card-top"><span class="card-icon"><i class="fa-solid fa-folder-open" aria-hidden="true"></i></span><span class="card-index">03 / WEB</span></div>
+            <h3>Traverser</h3>
+            <p>A path-traversal testing project intended to help identify weaknesses in how applications handle file paths and resource access.</p>
+            <span class="card-tag">Application security · Testing</span>
+          </article>
+          <article class="work-card">
+            <div class="card-top"><span class="card-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></span><span class="card-index">04 / ML</span></div>
+            <h3>Fraud Detection System</h3>
+            <p>A machine-learning project exploring the detection of phishing and fraudulent websites using website-related indicators.</p>
+            <span class="card-tag">Machine learning · Detection</span>
+          </article>
+          <article class="work-card">
+            <div class="card-top"><span class="card-icon"><i class="fa-solid fa-network-wired" aria-hidden="true"></i></span><span class="card-index">05 / AD</span></div>
+            <h3>Impacket Automation</h3>
+            <p>Automation experiments around Active Directory security assessment workflows and the identification of configuration weaknesses.</p>
+            <span class="card-tag">Active Directory · Automation</span>
+          </article>
+          <article class="work-card">
+            <div class="card-top"><span class="card-icon"><i class="fa-solid fa-book-open" aria-hidden="true"></i></span><span class="card-index">06 / NOTES</span></div>
+            <h3>Research & write-ups</h3>
+            <p>Technical notes and educational articles explaining security concepts, assessment methodology and responsible vulnerability disclosure.</p>
+            <span class="card-tag">Knowledge sharing · Research</span>
+          </article>
+        </div>
       </div>
+    </section>
 
-      <div class="project">
-        <h4>Traverser</h4>
-        <p>Path Traversal engine. If your server leaks files, that’s between you and the framework.</p>
+    <section class="content-section" id="skills">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Technical capabilities</span>
+            <h2>Areas of expertise.</h2>
+          </div>
+          <p>A practical mix of assessment, investigation, engineering and communication skills.</p>
+        </div>
+
+        <div class="skills-layout">
+          <p class="skills-intro">
+            Security work rarely sits inside one tool or one discipline. These are the areas
+            represented in my current technical practice and project work.
+          </p>
+          <div class="skill-groups">
+            <div class="skill-group">
+              <h3>Offensive security</h3>
+              <div class="skill-tags"><span>Web application testing</span><span>Vulnerability assessment</span><span>Penetration testing</span><span>Red team concepts</span></div>
+            </div>
+            <div class="skill-group">
+              <h3>Defensive security</h3>
+              <div class="skill-tags"><span>Threat hunting</span><span>Log analysis</span><span>Incident response</span><span>SIEM workflows</span></div>
+            </div>
+            <div class="skill-group">
+              <h3>Forensics & investigation</h3>
+              <div class="skill-tags"><span>Digital forensics</span><span>Evidence handling</span><span>Investigation workflows</span></div>
+            </div>
+            <div class="skill-group">
+              <h3>Engineering & automation</h3>
+              <div class="skill-tags"><span>Python</span><span>Bash</span><span>Security tooling</span><span>Cloud security concepts</span></div>
+            </div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="project">
-        <h4>Fraud Detection System</h4>
-        <p>ML-based phishing detector — because humans still click “Verify Account Immediately.”</p>
+    <section class="content-section" id="recognition">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">External recognition</span>
+            <h2>Featured & recognised.</h2>
+          </div>
+          <p>Independent coverage and acknowledgements help visitors verify work beyond this website.</p>
+        </div>
+        <div class="recognition-panel">
+          <div>
+            <span class="eyebrow">Press · Features · Appreciation</span>
+            <h3>Recognition should be verifiable.</h3>
+            <p>Selected features, website mentions and appreciation will be presented with the original source, date and context so visitors can read and verify each reference.</p>
+          </div>
+          <div class="recognition-placeholder">
+            <strong>Publication links to be added</strong>
+            Send the website names, article URLs or screenshots of the appreciation. Each confirmed mention will become an individual feature card with a direct source link.
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="project">
-        <h4>Impacket Automation</h4>
-        <p>AD exploitation modules proving misconfigs are AD’s love language.</p>
+    <section class="content-section" id="credentials">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Professional development</span>
+            <h2>Certifications.</h2>
+          </div>
+          <p>Credentials should be easy to verify. Certificate links or credential IDs can be added to each item.</p>
+        </div>
+        <div class="credentials">
+          <div class="credential"><i class="fa-solid fa-certificate" aria-hidden="true"></i><div><strong>Certified Ethical Hacker (CEH)</strong><span>EC-Council · Credential details can be linked</span></div></div>
+          <div class="credential"><i class="fa-solid fa-certificate" aria-hidden="true"></i><div><strong>Certified Penetration Testing Specialist (CPENT)</strong><span>EC-Council · Credential details can be linked</span></div></div>
+        </div>
       </div>
+    </section>
 
+    <section class="content-section" id="contact">
+      <div class="wrap">
+        <div class="contact-box">
+          <span class="eyebrow">Start a conversation</span>
+          <h2>Have a security question<br>or a project in mind?</h2>
+          <p>For professional enquiries, research discussions, responsible disclosure coordination or collaboration, send me an email.</p>
+          <div class="contact-links">
+            <a class="button button-primary" href="mailto:aryanpareek311072004@gmail.com?subject=Professional%20Enquiry"><i class="fa-regular fa-envelope" aria-hidden="true"></i> Email Aryan</a>
+            <a class="button button-secondary" href="https://www.linkedin.com/in/aryan-pareek-597a0b218/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> Connect on LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <div>
+          <div class="footer-brand">THECYBERARYAN</div>
+          <div class="footer-note">Security. Precision. Resilience.</div>
+        </div>
+        <div class="socials" aria-label="Social profiles">
+          <a href="https://www.linkedin.com/in/aryan-pareek-597a0b218/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a>
+          <a href="https://github.com/TheCyberAryan" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+          <a href="https://x.com/TheCyberAryan" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+          <a href="https://instagram.com/The.CyberAryan" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+          <a href="mailto:aryanpareek311072004@gmail.com" aria-label="Email"><i class="fa-regular fa-envelope" aria-hidden="true"></i></a>
+        </div>
+      </div>
+      <div class="copyright">© <span id="year"></span> ARYAN PAREEK · THECYBERARYAN · ALL RIGHTS RESERVED</div>
     </div>
-  </section>
+  </footer>
 
+  <script>
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileNav = document.getElementById("mobileNav");
 
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mobileNav.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+      menuToggle.innerHTML = isOpen
+        ? '<i class="fa-solid fa-xmark" aria-hidden="true"></i>'
+        : '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+    });
 
-  <!-- SKILLS SECTION -->
-  <section class="panel">
-    <h3 style="font-family:'Orbitron';margin:0;color:white">Skills</h3>
+    mobileNav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        mobileNav.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation");
+        menuToggle.innerHTML = '<i class="fa-solid fa-bars" aria-hidden="true"></i>';
+      });
+    });
 
-    <div class="pills">
-      <span class="pill">Web & Mobile Pentesting</span>
-      <span class="pill">Threat Hunting</span>
-      <span class="pill">DFIR</span>
-      <span class="pill">Red Teaming</span>
-      <span class="pill">Cloud Security (AWS/Azure/GCP)</span>
-      <span class="pill">Python/Bash Automation</span>
-      <span class="pill">Impacket Expertise</span>
-      <span class="pill">SIEM Engineering</span>
-      <span class="pill">Burp Suite Power-user</span>
-    </div>
-  </section>
-
-
-
-  <!-- ACHIEVEMENTS SECTION -->
-  <section class="panel">
-    <h3 style="font-family:'Orbitron';margin:0;color:white">Achievements</h3>
-
-    <div class="achievements">
-      <div class="achievement"><strong>30+</strong><br>Apps Secured</div>
-      <div class="achievement"><strong>1200+</strong><br>Vulnerabilities Identified</div>
-      <div class="achievement"><strong>Rajasthan Police</strong><br>Cyber Cell Experience</div>
-    </div>
-  </section>
-
-
-
-  <!-- TESTIMONIALS SECTION -->
-  <section class="panel">
-    <h3 style="font-family:'Orbitron';margin:0;color:white">Testimonials</h3>
-
-    <div class="testimonials">
-      <div class="project">
-        <strong>⭐⭐⭐⭐⭐</strong>
-        <p>“Aryan predicts the exact attack paths real hackers would take. Efficiently scary.”</p>
-      </div>
-
-      <div class="project">
-        <strong>⭐⭐⭐⭐⭐</strong>
-        <p>“Clear insights, fast fixes, and somehow he makes security less painful.”</p>
-      </div>
-    </div>
-  </section>
-
-
-
-  <!-- FAQ SECTION -->
-  <section class="panel">
-    <h3 style="font-family:'Orbitron';margin:0;color:white">FAQ</h3>
-
-    <div style="margin-top:14px;line-height:1.55">
-
-      <p><strong>1. Do you work with startups, enterprises, or individuals?</strong><br>
-        All three. Startups move fast, enterprises break slowly, and individuals panic efficiently.</p>
-
-      <p><strong>2. What makes your approach different?</strong><br>
-        I break things manually like real attackers — but with documentation and fewer hoodie clichés.</p>
-
-      <p><strong>3. Do you provide after-audit support?</strong><br>
-        Yes — remediation, guidance, and calls with dev teams.</p>
-
-      <p><strong>4. Do you sign NDAs?</strong><br>
-        Absolutely. Your secrets stay safer with me than on your production server.</p>
-
-      <p><strong>5. Are your audits compliant with standards?</strong><br>
-        Yes — OWASP, NIST, MITRE ATT&CK and real-world methodology.</p>
-
-      <p><strong>6. Do you handle critical incidents?</strong><br>
-        Yes. If your system is on fire, I bring the extinguisher (and logs).</p>
-
-    </div>
-  </section>
-
-</main>
-
-  <!-- FOOTER (ENHANCED SOCIAL ICONS) -->
-<footer>
-  <div class="enhanced-social">
-
-    <a href="mailto:aryanpareek311072004@gmail.com" class="social-item email" aria-label="Email Aryan">
-      <i class="fa fa-envelope"></i>
-    </a>
-
-    <a href="https://www.linkedin.com/in/aryan-pareek-597a0b218/" target="_blank" class="social-item linkedin" aria-label="LinkedIn">
-      <i class="fab fa-linkedin"></i>
-    </a>
-
-    <a href="https://x.com/TheCyberAryan" target="_blank" class="social-item x-twitter" aria-label="X Profile">
-      <i class="fab fa-x-twitter"></i>
-    </a>
-
-    <a href="https://instagram.com/The.CyberAryan" target="_blank" class="social-item instagram" aria-label="Instagram">
-      <i class="fab fa-instagram"></i>
-    </a>
-
-    <a href="https://wa.me/919950400005" target="_blank" class="social-item whatsapp" aria-label="WhatsApp">
-      <i class="fab fa-whatsapp"></i>
-    </a>
-
-  </div>
-
-  <p>
-    Offensive security, DFIR, cloud hardening, and threat detection — delivered with expertise and a hint of sarcasm.  
-    © TheCyberAryan
-  </p>
-</footer>
-
-
-
-<!-- ================= MODAL ================= -->
-<div id="auditModal" style="display:none;position:fixed;inset:0;
-background:rgba(0,0,0,0.7);backdrop-filter:blur(5px);
-justify-content:center;align-items:center;z-index:9999">
-
-  <div class="panel" style="max-width:420px;width:90%;padding:20px">
-
-    <h2 style="font-family:'Orbitron';margin:0;color:white">Request Security Edit</h2>
-
-    <form action="https://formsubmit.co/aryanpareek311072004@gmail.com" method="POST">
-      <input type="hidden" name="_captcha" value="false">
-
-      <input type="text" name="name" placeholder="Your Name" required
-             style="width:100%;margin-top:12px;padding:10px;border-radius:8px;
-             border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:white">
-
-      <input type="email" name="email" placeholder="Email Address" required
-             style="width:100%;margin-top:12px;padding:10px;border-radius:8px;
-             border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:white">
-
-      <textarea name="message" placeholder="Tell me what you need secured — preferably before something breaks."
-                rows="4"
-                style="width:100%;margin-top:12px;padding:10px;border-radius:8px;
-                border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.06);color:white"></textarea>
-
-      <button type="submit" class="btn btn-primary" style="margin-top:12px;width:100%">Submit</button>
-      <button type="button" onclick="closeModal()" class="btn btn-ghost" style="margin-top:8px;width:100%">Cancel</button>
-    </form>
-
-  </div>
-</div>
-
-
-
-<!-- ================= FAQ SCHEMA ================= -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Do you work with startups, enterprises, or individuals?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes — all three. Startups move fast, enterprises break slowly, and individuals panic efficiently."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What makes your approach different?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "I manually break things like real attackers — but with documentation, ethics, and fewer hoodie clichés."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you provide after-audit support?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes — remediation guidance, fix validation, and dev-team explanation calls are included."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you sign NDAs?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Absolutely. Your secrets stay safer with me than on your production server."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Are your audits compliant with standards?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes — aligned with OWASP, NIST, MITRE ATT&CK, and modern adversarial methodology."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do you handle urgent or critical incidents?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. If your system is already on fire, I bring the extinguisher (and logs)."
-      }
-    }
-  ]
-}
-</script>
-
-
-
-<!-- ================= JS FUNCTIONS ================= -->
-<script>
-function toggleMobileNav() {
-  const nav = document.getElementById("navMobile");
-  nav.style.display = nav.style.display === "flex" ? "none" : "flex";
-}
-
-function openModal(){
-  document.getElementById('auditModal').style.display = 'flex';
-}
-
-function closeModal(){
-  document.getElementById('auditModal').style.display = 'none';
-}
-</script>
-
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
