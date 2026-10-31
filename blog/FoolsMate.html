@@ -2,120 +2,65 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>Fool's Mate — Bypassing Client-Side Validation (TryHackMe Write-up) by TheCyberAryan — TheCyberAryan</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Share+Tech+Mono&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fool's Mate: Bypassing Client-Side Validation | Aryan Pareek</title>
+<meta name="description" content="A TryHackMe Fool's Mate walkthrough explaining how client-side chess validation can be bypassed by sending a request directly to the server.">
+<meta name="author" content="Aryan Pareek">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://thecyberaryan.com/blog/FoolsMate.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fool's Mate: Bypassing Client-Side Validation">
+<meta property="og:description" content="A practical TryHackMe walkthrough on why client-side validation must never be trusted.">
+<meta property="og:image" content="https://thecyberaryan.com/blog/FoolsMate.png">
+<meta name="theme-color" content="#090909">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #030515;
-  --primary: #ff4d9c;
-  --secondary: #7d5dff;
-  --accent: #4df3ff;
-  --text: #e7ebff;
-  --muted: #9ca8d9;
-  --font-mono: 'Share Tech Mono', monospace;
-  --font-body: 'Inter', system-ui, sans-serif;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  padding: 20px 14px;
-  background: radial-gradient(circle at top, rgba(255,77,156,0.15), transparent 55%),
-              radial-gradient(circle at bottom right, rgba(77,243,255,0.12), transparent 55%),
-              var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  line-height: 1.75;
-}
-
-.page {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.wrap {
-  background: rgba(10,13,40,0.95);
-  border-radius: 18px;
-  border: 1px solid rgba(255,77,156,0.25);
-  padding: 24px 20px;
-  box-shadow: 0 25px 55px rgba(0,0,0,0.85);
-  overflow-wrap: break-word;
-}
-
-.wrap h1, .wrap h2, .wrap h3 {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: .07em;
-}
-
-.wrap h1 {
-  color: var(--primary);
-  font-size: 1.75rem;
-}
-
-.wrap h2 {
-  color: var(--accent);
-  font-size: 1.3rem;
-  margin-top: 28px;
-}
-
-.wrap h3 {
-  color: var(--secondary);
-  font-size: 1.05rem;
-  margin-top: 20px;
-}
-
-pre {
-  background: #050820;
-  border: 1px solid rgba(148,163,214,0.4);
-  border-radius: 12px;
-  padding: 14px;
-  overflow-x: auto;
-  font-size: 0.9rem;
-  -webkit-overflow-scrolling: touch;
-}
-
-code {
-  background: rgba(11,15,46,0.9);
-  padding: 3px 6px;
-  border-radius: 5px;
-  font-family: var(--font-mono);
-  border: 1px solid rgba(148,163,214,0.4);
-  color: var(--accent);
-}
-
-img {
-  max-width: 100%;
-  border-radius: 10px;
-  margin: 12px 0;
-}
-
-footer {
-  margin-top: 40px;
-  text-align: center;
-  font-family: var(--font-mono);
-  color: var(--muted);
-  letter-spacing: .18em;
-  font-size: .8rem;
-  padding-top: 15px;
-  border-top: 1px solid rgba(148,163,214,0.28);
-}
+:root{--bg:#090909;--panel:#141412;--panel2:#1b1a17;--gold:#c58a4b;--gold2:#dfa96b;--ivory:#e9e1cf;--muted:#aaa397;--sage:#78936e;--line:rgba(233,225,207,.13);--body:'DM Sans',sans-serif;--display:'Space Grotesk',sans-serif;--mono:'DM Mono',monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--bg);color:var(--ivory);font:16px/1.8 var(--body);-webkit-font-smoothing:antialiased}
+.progress{height:2px;background:var(--gold);position:fixed;z-index:20;top:0;left:0;width:0}
+.sitebar{border-bottom:1px solid var(--line);background:rgba(9,9,9,.92);backdrop-filter:blur(14px);position:sticky;top:0;z-index:10}
+.sitebar-inner{max-width:1120px;margin:auto;padding:17px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{font:600 14px var(--display);letter-spacing:.08em;color:var(--ivory);text-decoration:none}.brand span{color:var(--gold)}
+.nav{display:flex;gap:24px}.nav a,.backlink{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-decoration:none}.nav a:hover,.backlink:hover{color:var(--gold2)}
+.shell{max-width:1120px;margin:0 auto;padding:54px 26px 80px;display:grid;grid-template-columns:minmax(0,1fr) 235px;gap:54px;align-items:start}
+article{min-width:0}.eyebrow{font:11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 18px}
+article h1{font:600 clamp(2.2rem,5vw,3.7rem)/1.08 var(--display);letter-spacing:-.045em;color:var(--ivory);text-transform:none;margin:0 0 22px;max-width:850px}
+.meta{display:flex;flex-wrap:wrap;gap:10px 20px;color:var(--muted);font:11px var(--mono);letter-spacing:.06em;margin:0 0 28px}
+.meta span:before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--gold);margin:0 9px 2px 0}
+.cover{width:100%;max-height:420px;object-fit:cover;border:1px solid var(--line);border-radius:8px;margin:8px 0 30px}
+article p{color:#c9c1b3;margin:16px 0}article strong{color:var(--ivory)}article a{color:var(--gold2)}
+article h1:not(:first-child),article h2{font:600 clamp(1.35rem,3vw,1.8rem)/1.25 var(--display);letter-spacing:-.025em;color:var(--gold2);text-transform:none;margin:54px 0 18px;padding-top:18px;border-top:1px solid var(--line)}
+article h3{font:600 1.1rem var(--display);color:var(--sage);margin:30px 0 12px}
+blockquote{margin:24px 0;padding:15px 20px;border-left:2px solid var(--gold);background:linear-gradient(90deg,rgba(197,138,75,.09),transparent);color:var(--ivory);border-radius:0 6px 6px 0}
+blockquote p{margin:0;color:var(--ivory)}
+pre{position:relative;overflow-x:auto;padding:20px;background:#10100e;border:1px solid var(--line);border-radius:8px;color:#d8cdb9;font:13px/1.75 var(--mono);tab-size:2;white-space:pre}
+code{font: .9em var(--mono);color:var(--gold2);background:rgba(197,138,75,.1);padding:2px 5px;border-radius:3px;overflow-wrap:anywhere}
+pre code{background:none;padding:0;color:inherit;border:0}
+img{max-width:100%;height:auto;border-radius:7px;border:1px solid var(--line)}article p img{display:block;margin:22px auto}
+ul{padding-left:22px;color:#c9c1b3}li{padding:4px 0}
+hr{border:0;border-top:1px solid var(--line);margin:42px 0}
+.toc{position:sticky;top:88px;padding:20px 0}.toc-title{font:11px var(--mono);letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin:0 0 15px}.toc a{display:block;color:var(--muted);font-size:12px;line-height:1.5;text-decoration:none;padding:7px 0;border-left:1px solid var(--line);padding-left:13px}.toc a:hover,.toc a.active{color:var(--gold2);border-left-color:var(--gold)}
+.article-note{padding:17px 19px;background:var(--panel);border:1px solid var(--line);border-radius:7px;color:var(--muted);font-size:13px;margin:28px 0}
+.site-footer{border-top:1px solid var(--line);padding:26px;text-align:center;color:var(--muted);font:11px var(--mono);letter-spacing:.12em}.site-footer a{color:var(--gold2);text-decoration:none}
+@media(max-width:850px){.shell{grid-template-columns:1fr;gap:20px;padding-top:38px}.toc{position:static;order:-1;border:1px solid var(--line);padding:16px;border-radius:7px}.toc nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.toc a{font-size:11px}.nav{gap:13px}}
+@media(max-width:520px){.sitebar-inner{padding:14px 18px}.nav a{font-size:10px}.nav{gap:10px}.shell{padding:30px 18px 55px}body{font-size:15px}pre{font-size:11px;padding:14px}article h1{font-size:2.35rem}.toc nav{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
-
 </head>
-
 <body id="top">
-  <div class="page">
-    <div class="wrap">
-      <h1 id="fool-s-mate-bypassing-client-side-validation-tryhackme-write-up-by-thecyberaryan">Fool's Mate — Bypassing Client-Side Validation (TryHackMe Write-up) by TheCyberAryan</h1>
-<p><img alt="Cover" src="FoolsMate.png"/></p>
+<div class="progress" id="progress"></div>
+<header class="sitebar"><div class="sitebar-inner">
+<a class="brand" href="../index.html">THE<span>CYBER</span>ARYAN</a>
+<nav class="nav" aria-label="Main navigation"><a href="../index.html">Home</a><a href="../blog.html">Blog</a><a href="../quotes.html">Notes</a></nav>
+</div></header>
+<div class="shell">
+<article>
+<p class="eyebrow">Web Security / TryHackMe Walkthrough</p>
+<h1 id="fool-s-mate-bypassing-client-side-validation-tryhackme-write-up-by-thecyberaryan">Fool's Mate — Bypassing Client-Side Validation (TryHackMe Write-up) by TheCyberAryan</h1>
+<p><img alt="Cover" src="https://thecyberaryan.github.io/blog/FoolsMate.png"/></p>
 <p><strong>Room:</strong> Fool's Mate<br/>
 <strong>Difficulty:</strong> Easy<br/>
 <strong>Category:</strong> Web Security / Client-Side Validation</p>
@@ -144,14 +89,14 @@ footer {
 <li>No database hanging out in public.</li>
 </ul>
 <p>Just a Node.js web app silently judging my life choices.</p>
-<p><img alt="Nmap Scan" src="nmap.png"/></p>
+<p><img alt="Nmap Scan" src="https://thecyberaryan.github.io/blog/nmap.png"/></p>
 <hr/>
 <h1 id="step-two-stalking-the-website">Step Two: Stalking the Website</h1>
 <p>Time to ask the internet's favorite question:</p>
 <blockquote>
 <p><strong>"Who are you?"</strong></p>
 </blockquote>
-<pre><code class="language-bash">whatweb http://10.49.169.194
+<pre><code class="language-bash">whatweb http\://10.49.169.194
 </code></pre>
 <p>Answer:</p>
 <pre><code class="language-text">Express
@@ -171,7 +116,7 @@ Endgame Trainer
     return false;
 }
 </code></pre>
-<p><img alt="JavaScript Screenshot" src="js.png"/></p>
+<p><img alt="JavaScript Screenshot" src="https://thecyberaryan.github.io/blog/js.png"/></p>
 <p>I actually laughed.</p>
 <p>The browser wasn't preventing illegal chess moves.</p>
 <p>It was preventing <strong>winning</strong>.</p>
@@ -214,11 +159,11 @@ Endgame Trainer
 <p>No dramatic popups threatening my PC.</p>
 <p>Just raw HTTP.</p>
 <p>I sent exactly one request:</p>
-<pre><code class="language-bash">curl -X POST http://10.49.169.194/api/move \
--H "Content-Type: application/json" \
+<pre><code class="language-bash">curl -X POST http\://10.49.169.194/api/move \\
+-H "Content-Type: application/json" \\
 -d '{"from":"a1","to":"a8"}'
 </code></pre>
-<p><img alt="Exploit Request" src="curl.png"/></p>
+<p><img alt="Exploit Request" src="https://thecyberaryan.github.io/blog/curl.png"/></p>
 <hr/>
 <h1 id="the-server-s-response">The Server's Response?</h1>
 <p>Instead of yelling at me…</p>
@@ -229,7 +174,7 @@ Endgame Trainer
   "flag":"THM{cl13nt_s1d3_ch3ckm4t3}"
 }
 </code></pre>
-<p><img alt="Flag Screenshot" src="flag.png"/></p>
+<p><img alt="Flag Screenshot" src="https://thecyberaryan.github.io/blog/flag.png"/></p>
 <p>Wait…</p>
 <p>That's it?</p>
 <p>The browser spent all that effort screaming…</p>
@@ -252,16 +197,16 @@ Here's your flag.
 <p>Let's simplify it.</p>
 <h2 id="normal-user">Normal User</h2>
 <pre><code class="language-text">You
-|
+\
 Browser
-|
+\
 "Oh no!
 That's checkmate!"
-|
+\
 Request blocked
 </code></pre>
 <h2 id="hacker">Hacker</h2>
-<pre><code class="language-text">You &gt; curl &gt; Server &gt; "Looks good" &gt; Flag
+<pre><code class="language-text">You > curl > Server > "Looks good" > Flag
 </code></pre>
 <p>The browser never got invited to the party.</p>
 <hr/>
@@ -295,8 +240,26 @@ Request blocked
 <strong>curl asked 'Why not?'</strong><br/>
 <strong>The server shrugged… and handed over the flag."</strong></p>
 </blockquote>
-      <footer>// THECYBERARYAN //</footer>
-    </div>
-  </div>
-</body>
-</html>
+<div class="article-note"><strong>Learning note:</strong> This walkthrough is based on the TryHackMe lab environment. The key lesson is that client-side checks improve user experience, but security-critical validation must also be enforced by the server.</div>
+</article>
+<aside class="toc" aria-label="Table of contents"><p class="toc-title">On this page</p><nav id="tocLinks"></nav></aside>
+</div>
+<footer class="site-footer">© <span id="year"></span> ARYAN PAREEK · THECYBERARYAN · <a href="../index.html">BACK TO HOME</a></footer>
+<script>
+(function(){
+ const article=document.querySelector('article');
+ const title=article.querySelector('h1');
+ if(title){title.setAttribute('id','article-title');}
+ const headings=[...article.querySelectorAll('h1:not(#article-title),h2,h3')];
+ const nav=document.getElementById('tocLinks');
+ headings.forEach((h,i)=>{
+   if(!h.id) h.id='section-'+(i+1);
+   const a=document.createElement('a');a.href='#'+h.id;a.textContent=h.textContent.trim();nav.appendChild(a);
+ });
+ const progress=document.getElementById('progress');
+ function update(){const max=document.documentElement.scrollHeight-innerHeight;progress.style.width=(max>0?(scrollY/max)*100:0)+'%';}
+ addEventListener('scroll',update,{passive:true});update();
+ document.getElementById('year').textContent=new Date().getFullYear();
+})();
+</script>
+</body></html>
