@@ -1,321 +1,294 @@
-<!--
-  Updated blog HTML (mobile-friendly fixes requested by user):
-  - Save your logo file as: /assets/images/logo.png (recommended) or adjust the <img> src.
-  - Logo will scale responsively and remain visible on mobile.
-  - Header/title alignment is centered on narrow screens.
-  - Side neon/background accents removed from logo area (no separate neon element).
-  - Post thumbnails use object-fit:cover and will stretch to fill the card area.
-  - Transition overlay timing tuned for smooth UX on mobile.
--->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Blog — Aryan Pareek</title>
-<meta name="description" content="Technical blog by Aryan Pareek — case studies, bug bounty writeups, and practical pentesting toolkits." />
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#0b0710; --panel:rgba(20,12,30,0.75); --muted:#bfc8e6;
-  --accent:#b27bff; --accent2:#6a2bd6; --border:1px solid rgba(160,120,255,.08);
-  --cyan:#00e5ff; --purple:#b27bff;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;font-family:'Inter',system-ui;color:var(--muted);
-  /* full-bleed background image stretched and centered */
-  background:linear-gradient(180deg,rgba(8,6,14,.9),rgba(6,4,12,.94)),url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=2400&q=80') center/cover fixed;
-}
-
-/* container */
-.wrap{max-width:980px;margin:36px auto;padding:20px}
-
-/* header: logo + title */
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;gap:12px}
-.header-left{display:flex;align-items:center;gap:14px}
-
-
-
-h1{margin:0;font-family:'Orbitron';color:#efe8ff;font-size:1.2rem}
-.header-sub{font-size:.95rem;color:var(--muted)}
-.back{color:var(--muted);text-decoration:none;font-weight:700;border:1px solid rgba(255,255,255,.06);padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,.03),rgba(255,255,255,.01));transition:all .18s}
-.back:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(178,123,255,.12)}
-
-/* posts */
-.posts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
-.post{background:var(--panel);border:var(--border);border-radius:14px;box-shadow:0 10px 30px rgba(8,6,14,.7);padding:18px;margin-bottom:16px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
-.post .thumb{width:100%;height:170px;border-radius:10px;overflow:hidden;background:linear-gradient(90deg,rgba(178,123,255,.06),rgba(0,229,255,.04));display:flex;align-items:center;justify-content:center}
-.post .thumb img{width:100%;height:100%;object-fit:cover;display:block;/* ensures image fully covers area */}
-.post h2{margin:0;color:#fff;font-family:'Orbitron';font-size:1.15rem}
-.meta{font-size:.85rem;color:var(--muted);margin:8px 0}
-.excerpt{color:var(--muted);line-height:1.6;flex:1}
-.readmore{display:inline-block;margin-top:10px;color:var(--accent);font-weight:700;text-decoration:none;border-radius:8px;padding:8px 10px;border:1px solid rgba(178,123,255,.08);background:linear-gradient(90deg,rgba(178,123,255,.04),rgba(106,43,214,.02));transition:all .18s}
-.readmore:hover{color:#fff;box-shadow:0 10px 40px rgba(106,43,214,.12);transform:translateY(-3px)}
-.tags{margin-top:10px}
-.tag{display:inline-block;padding:6px 10px;border-radius:999px;border:1px solid rgba(180,140,255,.12);background:linear-gradient(90deg,rgba(178,123,255,.08),rgba(106,43,214,.06));color:#fff;font-size:.8rem;margin-right:8px}
-
-/* transition overlay */
-.transition-overlay{
-  position:fixed; inset:0; pointer-events:none; opacity:0; transition:opacity .45s ease;
-  background: linear-gradient(90deg, rgba(0,229,255,0.06), rgba(178,123,255,0.06));
-  z-index:9999;
-}
-.transition-overlay.show{opacity:1; pointer-events:auto;}
-
-/* overlay sweep effect */
-.overlay-sweep{
-  position:fixed; left:-40%; top:0; width:40%; height:100%;
-  background: linear-gradient(90deg, rgba(0,229,255,0.12), rgba(178,123,255,0.12));
-  transform: skewX(-20deg);
-  transition: left .6s cubic-bezier(.22,.9,.32,1);
-  z-index:10000;
-}
-.transition-overlay.show .overlay-sweep{left:100%;}
-
-/* small responsive tweaks */
-@media(max-width:920px){
-  .wrap{padding:16px}
-  header{gap:10px}
-  .logo{width:64px;height:64px}
-}
-
-@media(max-width:720px){
-  /* stack header vertically on small screens and center title */
-  header{flex-direction:column;align-items:center;text-align:center}
-  .header-left{flex-direction:row;align-items:center}
-  .logo{width:88px;height:88px;border-radius:14px}
-  h1{font-size:1.3rem}
-  .header-sub{margin-top:6px}
-  .post{padding:14px}
-  .post .thumb{height:150px}
-  .back{order:2}
-}
-
-/* accessibility: focus states */
-.back:focus, .readmore:focus{outline:2px solid rgba(0,229,255,.12);outline-offset:3px}
-
-/* ensure long titles wrap nicely */
-h2{word-break:break-word}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cybersecurity Research & Write-ups | Aryan Pareek</title>
+  <meta name="description" content="Cybersecurity research, practical penetration testing guides, bug bounty case studies, tool walkthroughs and security explainers by Aryan Pareek.">
+  <meta name="author" content="Aryan Pareek">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#090909">
+  <link rel="canonical" href="https://thecyberaryan.com/blog.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Research Journal | Aryan Pareek">
+  <meta property="og:description" content="Practical cybersecurity research, walkthroughs and security notes.">
+  <meta property="og:url" content="https://thecyberaryan.com/blog.html">
+  <meta property="og:image" content="https://thecyberaryan.com/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#090909; --surface:#141412; --surface-2:#1b1a16; --line:rgba(233,225,207,.12);
+      --gold:#C58A4B; --gold-light:#DFA96B; --ivory:#E9E1CF; --white:#F5F2E9;
+      --muted:#a7a194; --sage:#78936E; --sage-light:#A5B99B;
+      --mono:'DM Mono',monospace; --sans:'DM Sans',sans-serif; --display:'Space Grotesk',sans-serif;
+      --max:1160px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ivory);font-family:var(--sans);line-height:1.65}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(ellipse at 80% 0%,rgba(197,138,75,.09),transparent 35%),radial-gradient(ellipse at 0% 55%,rgba(120,147,110,.06),transparent 30%)}
+    a{color:inherit}
+    .shell{width:min(var(--max),calc(100% - 48px));margin:auto}
+    .topbar{border-bottom:1px solid var(--line);background:rgba(9,9,9,.86);backdrop-filter:blur(14px)}
+    .nav{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:13px;text-decoration:none;min-width:0}
+    .brand img{width:46px;height:46px;object-fit:contain;border-radius:9px}
+    .brand-copy{display:flex;flex-direction:column;line-height:1.2}
+    .brand-copy strong{font:600 1rem var(--display);color:var(--white);letter-spacing:.01em}
+    .brand-copy span{font: .66rem var(--mono);color:var(--gold-light);letter-spacing:.14em;text-transform:uppercase;margin-top:5px}
+    .nav-links{display:flex;align-items:center;gap:26px}
+    .nav-links a{font-size:.88rem;text-decoration:none;color:var(--muted);transition:color .2s}
+    .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--gold-light)}
+    .nav-links .back-link{border:1px solid var(--line);padding:9px 14px;border-radius:6px;color:var(--ivory)}
+    .menu-toggle{display:none;background:none;border:1px solid var(--line);color:var(--ivory);padding:9px 12px;border-radius:6px;font:inherit}
+    .hero{padding:82px 0 48px;border-bottom:1px solid var(--line)}
+    .eyebrow{font: .72rem var(--mono);text-transform:uppercase;letter-spacing:.19em;color:var(--gold-light);display:flex;align-items:center;gap:11px}
+    .eyebrow:before{content:"";width:27px;height:1px;background:var(--gold)}
+    h1,h2,h3{font-family:var(--display);line-height:1.12}
+    h1{font-size:clamp(2.7rem,7vw,5.4rem);letter-spacing:-.055em;color:var(--white);max-width:850px;margin:22px 0 18px}
+    h1 span{color:var(--gold-light)}
+    .hero-copy{max-width:690px;color:var(--muted);font-size:1.08rem;margin:0}
+    .hero-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:38px;flex-wrap:wrap}
+    .hero-note{font: .72rem var(--mono);color:var(--muted);letter-spacing:.08em}
+    .hero-note b{color:var(--sage-light);font-weight:400}
+    .content{padding:42px 0 90px}
+    .toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:27px;flex-wrap:wrap}
+    .section-label{font: .72rem var(--mono);text-transform:uppercase;letter-spacing:.16em;color:var(--muted)}
+    .filters{display:flex;gap:8px;flex-wrap:wrap}
+    .filter{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:8px 14px;font: .78rem var(--mono);cursor:pointer;transition:.2s}
+    .filter:hover,.filter.active{border-color:rgba(197,138,75,.65);background:rgba(197,138,75,.1);color:var(--gold-light)}
+    .search-wrap{width:100%;max-width:330px;position:relative}
+    .search-wrap input{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px 14px;color:var(--white);font: .88rem var(--sans);outline:none}
+    .search-wrap input:focus{border-color:var(--gold)}
+    .search-wrap input::placeholder{color:#777267}
+    .posts-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .post{background:linear-gradient(145deg,rgba(27,26,22,.94),rgba(17,17,15,.98));border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-width:0;transition:transform .25s,border-color .25s,box-shadow .25s}
+    .post:hover{transform:translateY(-5px);border-color:rgba(197,138,75,.42);box-shadow:0 18px 45px rgba(0,0,0,.25)}
+    .thumb{height:190px;background:var(--surface-2);overflow:hidden;position:relative}
+    .thumb:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(9,9,9,.22))}
+    .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s}
+    .post:hover .thumb img{transform:scale(1.035)}
+    .post-body{padding:21px;display:flex;flex-direction:column;flex:1}
+    .meta{display:flex;align-items:center;gap:9px;flex-wrap:wrap;font: .68rem var(--mono);color:var(--muted);margin-bottom:13px}
+    .meta .dot{width:3px;height:3px;border-radius:50%;background:var(--gold)}
+    .category{color:var(--sage-light);text-transform:uppercase;letter-spacing:.08em}
+    .post h2{font-size:1.23rem;letter-spacing:-.025em;color:var(--white);margin:0 0 12px}
+    .excerpt{font-size:.9rem;color:var(--muted);margin:0 0 22px;line-height:1.7;flex:1}
+    .readmore{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:var(--gold-light);font: .78rem var(--mono);letter-spacing:.03em;align-self:flex-start;border-bottom:1px solid rgba(197,138,75,.35);padding-bottom:5px}
+    .readmore:hover{color:var(--white);border-color:var(--white)}
+    .empty{display:none;padding:40px;text-align:center;border:1px dashed var(--line);border-radius:8px;color:var(--muted);grid-column:1/-1}
+    .footer{border-top:1px solid var(--line);padding:27px 0;color:var(--muted);font-size:.82rem}
+    .footer-inner{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    .footer a{color:var(--gold-light);text-decoration:none}
+    @media(max-width:900px){.posts-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nav-links{gap:16px}}
+    @media(max-width:640px){
+      .shell{width:min(100% - 32px,var(--max))}
+      .nav{min-height:72px;flex-wrap:wrap;padding:12px 0}
+      .brand img{width:40px;height:40px}
+      .menu-toggle{display:block}
+      .nav-links{display:none;width:100%;padding:8px 0 5px;flex-direction:column;align-items:stretch;gap:0}
+      .nav-links.open{display:flex}
+      .nav-links a{padding:12px 4px;border-top:1px solid var(--line)}
+      .nav-links .back-link{border:0;border-top:1px solid var(--line);border-radius:0;padding:12px 4px}
+      .hero{padding:60px 0 36px}
+      .hero-copy{font-size:1rem}
+      .posts-grid{grid-template-columns:1fr;gap:15px}
+      .thumb{height:205px}
+      .toolbar{align-items:flex-start}
+      .filters{order:2}
+      .search-wrap{max-width:none}
+    }
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Blog",
+    "name":"Cybersecurity Research Journal — Aryan Pareek",
+    "url":"https://thecyberaryan.com/blog.html",
+    "description":"Cybersecurity research, practical penetration testing guides and security explainers.",
+    "author":{"@type":"Person","name":"Aryan Pareek","url":"https://thecyberaryan.com/"}
+  }
+  </script>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="header-left">
-      <!-- Logo: replace src with your logo path. Recommended: /assets/images/logo.png -->
-      
-      <div>
-        <h1>BLOG</h1>
-        <div class="header-sub">Deep dives • Bug bounties • Practical pentesting</div>
-      </div>
+  <header class="topbar">
+    <div class="shell nav">
+      <a class="brand" href="index.html" aria-label="Aryan Pareek home">
+        <img src="logo.png" alt="TheCyberAryan logo">
+        <span class="brand-copy"><strong>ARYAN PAREEK</strong><span>Security · Precision · Resilience</span></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="quotes.html">Notes & Quotes</a>
+        <a href="blog.html" aria-current="page">Research Journal</a>
+        <a class="back-link" href="index.html#contact">Get in touch ↗</a>
+      </nav>
     </div>
-    <div><a class="back" href="index.html">← Back to Portfolio</a></div>
   </header>
 
-  <main class="posts-grid" id="posts">
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="eyebrow">TheCyberAryan · Knowledge Base</div>
+        <h1>Research, notes &amp; <span>field learnings.</span></h1>
+        <p class="hero-copy">A practical cybersecurity journal covering web application security, bug bounty methodology, offensive security tools, vulnerability research and the fundamentals behind them.</p>
+        <div class="hero-bottom">
+          <div class="hero-note"><b>01 / RESEARCH</b> &nbsp;·&nbsp; LEARN &nbsp;·&nbsp; BUILD &nbsp;·&nbsp; SHARE</div>
+          <div class="hero-note">BY ARYAN PAREEK</div>
+        </div>
+      </div>
+    </section>
 
-     
-    
-        <article class="post">
-  <div class="thumb">
-    <img src="blog/FoolsMate.png" alt="Fool's Mate TryHackMe Walkthrough">
-  </div>
+    <section class="content shell" aria-label="Articles">
+      <div class="toolbar">
+        <div class="section-label">Published articles <span id="postCount"></span></div>
+        <div class="search-wrap"><input id="searchInput" type="search" placeholder="Search articles, tools or topics…" aria-label="Search articles"></div>
+        <div class="filters" role="group" aria-label="Filter articles">
+          <button class="filter active" data-filter="all">All</button>
+          <button class="filter" data-filter="walkthrough">Walkthroughs</button>
+          <button class="filter" data-filter="web">Web security</button>
+          <button class="filter" data-filter="tools">Tools</button>
+          <button class="filter" data-filter="fundamentals">Fundamentals</button>
+        </div>
+      </div>
 
-  <h2>♟️ "I'll Shut Down Your PC If You Play That" — Fool's Mate Walkthrough</h2>
+      <div class="posts-grid" id="postsGrid">
+        <article class="post" data-category="walkthrough" data-search="fools mate tryhackme chess node js backend api walkthrough">
+          <div class="thumb"><img src="blog/FoolsMate.png" alt="Fool's Mate TryHackMe walkthrough" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Jul 4, 2026</span><i class="dot"></i><span>8 min read</span><i class="dot"></i><span class="category">TryHackMe</span></div><h2>“I'll Shut Down Your PC If You Play That” — Fool's Mate Walkthrough</h2><p class="excerpt">A harmless chess game threatened to shut down my PC if I made the winning move. Instead of listening, I examined the application’s backend interaction and explored an important lesson about trusting client-side controls.</p><a class="readmore" href="blog/FoolsMate.html">Read the walkthrough <span>↗</span></a></div>
+        </article>
 
-  <div class="meta">
-    Jul 4, 2026 • 8 min read •
-    <span class="tag">TryHackMe</span>
-    <span class="tag">Web Security</span>
-    <span class="tag">Node.js</span>
-  </div>
+        <article class="post" data-category="fundamentals" data-search="stig nist iso security frameworks compliance hardening">
+          <div class="thumb"><img src="https://www.legalraasta.com/blog/wp-content/uploads/2018/11/iso_org.jpg" alt="Information security standards and frameworks" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Jan 14, 2026</span><i class="dot"></i><span>12 min read</span><i class="dot"></i><span class="category">Frameworks</span></div><h2>STIG, NIST and ISO</h2><p class="excerpt">A practical introduction to three widely used approaches to security hardening, risk management and information security governance.</p><a class="readmore" href="blog/Stig.html">Read the article <span>↗</span></a></div>
+        </article>
 
-  <p class="excerpt">
-    A harmless chess game threatened to shut down my PC if I made the winning move. Instead of listening, I skipped the browser entirely, talked directly to the backend API, and captured the flag while learning one of web security's most important lessons.
-  </p>
+        <article class="post" data-category="web" data-search="responsible disclosure sql injection sqli search api prepared statements">
+          <div class="thumb"><img src="https://www.vaadata.com/blog/wp-content/uploads/2022/07/prepared-statements-1024x622.png" alt="SQL injection and prepared statements" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 8, 2025</span><i class="dot"></i><span>6 min read</span><i class="dot"></i><span class="category">SQL injection</span></div><h2>Responsible Disclosure: SQL Injection (Sanitized)</h2><p class="excerpt">A vendor-safe case study of a discovered SQL injection in a public endpoint, with sanitized proof-of-concept notes, safe reproduction guidance and remediation using prepared statements.</p><a class="readmore" href="blog/SQL_bug_01.html">Read the case study <span>↗</span></a></div>
+        </article>
 
-  <a class="readmore" href="blog/FoolsMate.html">
-    Read Full blog →
-  </a>
-</article>
-    
-    <!-- STIG,NIST,ISO (excerpt) -->
-    <article class="post">
-      <div class="thumb"><img src="https://www.legalraasta.com/blog/wp-content/uploads/2018/11/iso_org.jpg" alt="The Cyber Aryan"></div>
-      <h2>STIG,NIST and ISO</h2>
-      <div class="meta">Jan 14, 2026 • 12 min read • <span class="tag">STIG</span> <span class="tag">Frameworks</span></div>
-      <p class="excerpt">
-        The Holy Trinity of Not Getting Hacked (Or At Least Looking Like You Care)
-      </p>
-      <a class="readmore" href="blog/Stig.html" data-target="blog/Stig.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="tools" data-search="web application penetration testing toolkit burp nmap gobuster nikto owasp">
+          <div class="thumb"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80" alt="Code on a computer screen" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 3, 2025</span><i class="dot"></i><span>5 min read</span><i class="dot"></i><span class="category">Toolkit</span></div><h2>Starter Toolkit for Web App Pentesting</h2><p class="excerpt">A compact introduction to tools commonly used during authorized web application assessments, including Burp Suite, Nmap, Gobuster and Nikto.</p><a class="readmore" href="blog/toolkit.html">Read the toolkit <span>↗</span></a></div>
+        </article>
 
-    <!-- NEW: Revel SQLi (excerpt) -->
-    <article class="post">
-      <div class="thumb"><img src="https://www.vaadata.com/blog/wp-content/uploads/2022/07/prepared-statements-1024x622.png" alt="The Cyber Aryan"></div>
-      <h2>Responsible Disclosure: SQL Injection (Sanitized)</h2>
-      <div class="meta">Nov 8, 2025 • 6 min read • <span class="tag">Web Security</span> <span class="tag">SQLi</span></div>
-      <p class="excerpt">
-        A vendor-safe case study of a discovered SQL Injection in a public endpoint. This post contains sanitized PoC notes, safe reproduction steps for developers, and remediation guidance using prepared statements. Screenshots are redacted for privacy.
-      </p>
-      <a class="readmore" href="blog/SQL_bug_01.html" data-target="blog/SQL_bug_01.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="fundamentals" data-search="botnet bots zombies command and control ddos">
+          <div class="thumb"><img src="https://admin-files.oss-accelerate.aliyuncs.com/blog/content/d20a52e4d3bd0d98c01ea54268781f4f/20250416_1143_%E5%8D%A1%E9%80%9A%E7%A7%91%E6%8A%80%E6%84%9F_remix_01jryb0ca1f1t9t82bkrnwk3wy.png" alt="Botnet illustration" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 20, 2025</span><i class="dot"></i><span>12 min read</span><i class="dot"></i><span class="category">Threats</span></div><h2>What Are Botnets?</h2><p class="excerpt">Understand how compromised devices become remotely controlled bots, how command-and-control works and why botnets are used in distributed attacks.</p><a class="readmore" href="blog/botnet.html">Read the explainer <span>↗</span></a></div>
+        </article>
 
-    <!-- ALL BLOG POSTS START --><!-- Example additional article (kept for brevity) -->
-    <article class="post">
-      <div class="thumb"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80" alt="Toolkit visual"></div>
-      <h2>Starter Toolkit for Web App Pentesting (2025)</h2>
-      <div class="meta">Nov 3, 2025 • 5 min read • <span class="tag">Toolkit</span> <span class="tag">OWASP</span></div>
-      <p class="excerpt">A compact, high-efficiency toolkit for real engagements: Burp Suite, nmap, gobuster, Nikto, and custom Bash scripts for recon. I explain when to use each and provide quick config tips.</p>
-      <a class="readmore" href="blog/toolkit.html" data-target="blog/toolkit.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="tools" data-search="underrated tools hids intrusion detection security tools">
+          <div class="thumb"><img src="https://cdn.prod.website-files.com/626ff4d25aca2edf4325ff97/68dd4547a2a9baeaac55be2f_01-Types-of-intrusion-detection-systems.jpg" alt="Intrusion detection systems" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Dec 24, 2025</span><i class="dot"></i><span>13 min read</span><i class="dot"></i><span class="category">Security tools</span></div><h2>Underrated Security Tools</h2><p class="excerpt">A look beyond the familiar names at useful security tools that can strengthen investigation, monitoring and assessment workflows.</p><a class="readmore" href="blog/underrated-tools.html">Read the article <span>↗</span></a></div>
+        </article>
 
-      
-    <!-- Botnet -->
-    <article class="post">
-      <div class="thumb"><img src="https://admin-files.oss-accelerate.aliyuncs.com/blog/content/d20a52e4d3bd0d98c01ea54268781f4f/20250416_1143_%E5%8D%A1%E9%80%9A%E7%A7%91%E6%8A%80%E6%84%9F_remix_01jryb0ca1f1t9t82bkrnwk3wy.png" alt="Botnet"></div>
-      <h2>What are Botnets</h2>
-      <div class="meta">Nov 20, 2025 • 12 min read • <span class="tag">Botnet</span> <span class="tag">DDOS</span></div>
-      <p class="excerpt">Bots or zombies? A simple explanation of how botnets work and how attackers use them.</p>
-      <a class="readmore" href="blog/botnet.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="web" data-search="idor insecure direct object reference bola authorization access control">
+          <div class="thumb"><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*EryxTwxZuN3pbRthplFYPg.png" alt="IDOR vulnerability concept" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 18, 2025</span><i class="dot"></i><span>9 min read</span><i class="dot"></i><span class="category">Access control</span></div><h2>What Is IDOR?</h2><p class="excerpt">Learn how insecure direct object references and broken object-level authorization can expose resources when access checks are missing.</p><a class="readmore" href="blog/IDOR.html">Read the explainer <span>↗</span></a></div>
+        </article>
 
+        <article class="post" data-category="tools" data-search="naabu port scanning projectdiscovery">
+          <div class="thumb"><img src="https://media.geeksforgeeks.org/wp-content/uploads/20240906133522/Example1-1.jpg" alt="Port scanning illustration" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 18, 2025</span><i class="dot"></i><span>9 min read</span><i class="dot"></i><span class="category">Naabu</span></div><h2>Naabu: Complete Usage Guide</h2><p class="excerpt">A beginner-friendly introduction to fast port discovery with Naabu and its role in an authorized reconnaissance workflow.</p><a class="readmore" href="blog/Naabu.html">Read the guide <span>↗</span></a></div>
+        </article>
 
-    <!-- Underrated-Tools -->
-    <article class="post">
-      <div class="thumb"><img src="https://cdn.prod.website-files.com/626ff4d25aca2edf4325ff97/68dd4547a2a9baeaac55be2f_01-Types-of-intrusion-detection-systems.jpg"></div>
-      <h2>Underrated-tools</h2>
-      <div class="meta">Dec 24, 2025 • 13 min read • <span class="tag">Tools</span> <span class="tag">HIDS</span></div>
-      <p class="excerpt">Look, we all know about Metasploit, Burp Suite, and Nmap. They're the "popular kids" of the cybersecurity world—everyone talks about them, everyone uses them, and honestly? They get all the attention they deserve. But here's the thing: the real gems are hiding in plain sight, gathering dust in GitHub repositories while everyone's busy flexing their Kali Linux boxes</p>
-      <a class="readmore" href="blog/underrated-tools.html">Read Full Blog →</a>
-    </article>
-    
-    <!-- IDOR -->
-    <article class="post">
-      <div class="thumb"><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*EryxTwxZuN3pbRthplFYPg.png" alt="IDOR"></div>
-      <h2>What is IDOR?</h2>
-      <div class="meta">Nov 18, 2025 • 9 min read • <span class="tag">IDOR</span> <span class="tag">Authorization</span></div>
-      <p class="excerpt">IDOR (or BOLA) explained with simple examples and real‑world scenarios.</p>
-      <a class="readmore" href="blog/IDOR.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="tools" data-search="nuclei templates vulnerability scanning automation projectdiscovery">
+          <div class="thumb"><img src="https://latesthackingnews.com/wp-content/uploads/2023/04/nuclei-cheat-sheet.png" alt="Nuclei scanner reference" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 20, 2025</span><i class="dot"></i><span>11 min read</span><i class="dot"></i><span class="category">Nuclei</span></div><h2>Nuclei: Full Usage Guide</h2><p class="excerpt">Explore Nuclei templates, commonly used options and ways to integrate template-based checks into authorized security testing.</p><a class="readmore" href="blog/nuclei.html">Read the guide <span>↗</span></a></div>
+        </article>
 
-    <!-- Naabu -->
-    <article class="post">
-      <div class="thumb"><img src="http://media.geeksforgeeks.org/wp-content/uploads/20240906133522/Example1-1.jpg" alt="Naabu"></div>
-      <h2>Naabu Complete Usage</h2>
-      <div class="meta">Nov 18, 2025 • 9 min read • <span class="tag">Naabu</span> <span class="tag">Ports</span></div>
-      <p class="excerpt">A complete beginner‑friendly guide to Naabu for fast port scanning.</p>
-      <a class="readmore" href="blog/Naabu.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="tools" data-search="dirsearch directory enumeration web content discovery">
+          <div class="thumb"><img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*SFmDPTUsQwkzgX6LO9gSsg.png" alt="Directory discovery concept" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 17, 2025</span><i class="dot"></i><span>8 min read</span><i class="dot"></i><span class="category">Dirsearch</span></div><h2>Dirsearch — Zero to Hero</h2><p class="excerpt">Understand directory and file discovery, useful options and how to interpret results responsibly.</p><a class="readmore" href="blog/DirSearch.html">Read the guide <span>↗</span></a></div>
+        </article>
 
-    <!-- Nuclei -->
-    <article class="post">
-      <div class="thumb"><img src="https://latesthackingnews.com/wp-content/uploads/2023/04/nuclei-cheat-sheet.png" alt="Nuclei"></div>
-      <h2>Nuclei Full Usage</h2>
-      <div class="meta">Nov 20, 2025 • 11 min read • <span class="tag">Nuclei</span> <span class="tag">Automation</span></div>
-      <p class="excerpt">A detailed walkthrough of Nuclei templates, flags, and real usage.</p>
-      <a class="readmore" href="blog/nuclei.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="tools" data-search="nmap network scanning essentials">
+          <div class="thumb"><img src="https://www.vaadata.com/blog/wp-content/uploads/2025/05/Nmap-1024x535.png" alt="Nmap network scanning" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 18, 2025</span><i class="dot"></i><span>7 min read</span><i class="dot"></i><span class="category">Nmap</span></div><h2>Nmap Essentials</h2><p class="excerpt">A practical introduction to common Nmap options, service discovery and network scanning fundamentals.</p><a class="readmore" href="blog/nmap.html">Read the guide <span>↗</span></a></div>
+        </article>
 
-    <!-- Dirsearch -->
-    <article class="post">
-      <div class="thumb"><img src="https://miro.medium.com/v2/resize:fit:4800/format:webp/1*SFmDPTUsQwkzgX6LO9gSsg.png" alt="Dirsearch"></div>
-      <h2>Dirsearch — Zero to Hero</h2>
-      <div class="meta">Nov 17, 2025 • 8 min read • <span class="tag">Dirsearch</span> <span class="tag">Directories</span></div>
-      <p class="excerpt">Learn directory enumeration with full commands and use‑cases.</p>
-      <a class="readmore" href="blog/DirSearch.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="web" data-search="path traversal directory traversal file access">
+          <div class="thumb"><img src="https://www.imperva.com/learn/wp-content/uploads/sites/13/2018/01/directory-traversal-payload-example-1.png" alt="Path traversal concept" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 20, 2025</span><i class="dot"></i><span>8 min read</span><i class="dot"></i><span class="category">Web security</span></div><h2>What Is Path Traversal?</h2><p class="excerpt">A clear explanation of directory traversal, why unsafe file path handling matters and how developers can prevent unintended file access.</p><a class="readmore" href="blog/Path_Traversal.html">Read the explainer <span>↗</span></a></div>
+        </article>
 
-    <!-- Nmap -->
-    <article class="post">
-      <div class="thumb"><img src="https://www.vaadata.com/blog/wp-content/uploads/2025/05/Nmap-1024x535.png" alt="Nmap"></div>
-      <h2>Nmap Essentials</h2>
-      <div class="meta">Nov 18, 2025 • 7 min read • <span class="tag">Nmap</span> <span class="tag">Scanning</span></div>
-      <p class="excerpt">Key flags, scripts, and workflows for network scanning.</p>
-      <a class="readmore" href="blog/nmap.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="tools" data-search="httpx projectdiscovery live host probing reconnaissance">
+          <div class="thumb"><img src="https://user-images.githubusercontent.com/38748801/170458774-e56156da-6e3a-448a-bceb-3a5cbbf8658b.png" alt="HTTP probing tool" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 20, 2025</span><i class="dot"></i><span>7 min read</span><i class="dot"></i><span class="category">httpx</span></div><h2>httpx Essentials</h2><p class="excerpt">Learn how HTTP probing helps identify responsive web services and enrich asset discovery during authorized reconnaissance.</p><a class="readmore" href="blog/httpx.html">Read the guide <span>↗</span></a></div>
+        </article>
 
-    <!-- Path Traversal -->
-    <article class="post">
-      <div class="thumb"><img src="https://www.imperva.com/learn/wp-content/uploads/sites/13/2018/01/directory-traversal-payload-example-1.png" alt="Path Traversal"></div>
-      <h2>What is Path Traversal</h2>
-      <div class="meta">Nov 20, 2025 • 8 min read • <span class="tag">Path Traversal</span> <span class="tag">File Access</span></div>
-      <p class="excerpt">Clear explanation of `../` attacks with safe examples.</p>
-      <a class="readmore" href="blog/Path_Traversal.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="tools" data-search="subfinder passive subdomain enumeration discovery">
+          <div class="thumb"><img src="https://www.secuneus.com/wp-content/uploads/2022/04/feature.png" alt="Subdomain discovery" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 19, 2025</span><i class="dot"></i><span>7 min read</span><i class="dot"></i><span class="category">Subfinder</span></div><h2>Subfinder: Zero to Hero</h2><p class="excerpt">An introduction to passive subdomain enumeration, data sources and how discovered assets fit into a broader recon process.</p><a class="readmore" href="blog/Subfinder.html">Read the guide <span>↗</span></a></div>
+        </article>
 
-    <!-- httpx -->
-    <article class="post">
-      <div class="thumb"><img src="https://user-images.githubusercontent.com/38748801/170458774-e56156da-6e3a-448a-bceb-3a5cbbf8658b.png" alt="httpx"></div>
-      <h2>httpx Essentials</h2>
-      <div class="meta">Nov 20, 2025 • 7 min read • <span class="tag">httpx</span> <span class="tag">Live Hosts</span></div>
-      <p class="excerpt">Fast host probing and automation for recon workflows.</p>
-      <a class="readmore" href="blog/httpx.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="web" data-search="reflected xss cross site scripting responsible disclosure">
+          <div class="thumb"><img src="https://www.wordfence.com/wp-content/uploads/2018/11/amp-for-wp-xss-vulnerability-exploited.png" alt="Cross-site scripting illustration" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 9, 2025</span><i class="dot"></i><span>5 min read</span><i class="dot"></i><span class="category">XSS</span></div><h2>Reflected XSS — Responsible Disclosure</h2><p class="excerpt">A safe, redacted explanation of a reflected cross-site scripting discovery, its impact and responsible reporting considerations.</p><a class="readmore" href="blog/pickaleaf.html">Read the case study <span>↗</span></a></div>
+        </article>
 
-    <!-- Subfinder -->
-    <article class="post">
-      <div class="thumb"><img src="https://www.secuneus.com/wp-content/uploads/2022/04/feature.png" alt="Subfinder"></div>
-      <h2>Subfinder Zero‑to‑Hero</h2>
-      <div class="meta">Nov 19, 2025 • 7 min read • <span class="tag">Subfinder</span> <span class="tag">Discovery</span></div>
-      <p class="excerpt">Passive subdomain enumeration explained in simple words.</p>
-      <a class="readmore" href="blog/Subfinder.html">Read Full Blog →</a>
-    </article>
+        <article class="post" data-category="web" data-search="sql injection sqli search api sanitized responsible disclosure">
+          <div class="thumb"><img src="https://miro.medium.com/v2/1*TxObiMiN6406MhYhNSlypw.png" alt="SQL injection concept" loading="lazy"></div>
+          <div class="post-body"><div class="meta"><span>Nov 7, 2025</span><i class="dot"></i><span>6 min read</span><i class="dot"></i><span class="category">SQL injection</span></div><h2>How I Found a (Sanitized) SQLi in a Search API</h2><p class="excerpt">A sanitized SQL injection discovery walkthrough, focusing on safe validation, clear evidence and practical remediation.</p><a class="readmore" href="blog/sqli.html">Read the case study <span>↗</span></a></div>
+        </article>
+      </div>
+      <div class="empty" id="emptyState">No articles match your search. Try another keyword or select “All”.</div>
+    </section>
+  </main>
 
-    <!-- XSS Disclosure -->
-    <article class="post">
-      <div class="thumb"><img src="https://www.wordfence.com/wp-content/uploads/2018/11/amp-for-wp-xss-vulnerability-exploited.png" alt="XSS"></div>
-      <h2>Reflected XSS — Responsible Disclosure</h2>
-      <div class="meta">Nov 9, 2025 • 5 min read • <span class="tag">XSS</span> <span class="tag">Web Security</span></div>
-      <p class="excerpt">A safe, redacted XSS discovery explained step‑by‑step.</p>
-      <a class="readmore" href="blog/pickaleaf.html">Read Full Blog →</a>
-    </article>
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <span>© <span id="year"></span> Aryan Pareek · TheCyberAryan</span>
+      <span>Security. Precision. Resilience. &nbsp;·&nbsp; <a href="index.html">Back to portfolio ↑</a></span>
+    </div>
+  </footer>
 
-    <!-- SQLi Existing -->
-    <article class="post">
-      <div class="thumb"><img src="https://miro.medium.com/v2/1*TxObiMiN6406MhYhNSlypw.png" alt="SQLi visual"></div>
-      <h2>How I Found a (Sanitized) SQLi in a Search API</h2>
-      <div class="meta">Nov 7, 2025 • 6 min read • <span class="tag">Web Security</span> <span class="tag">SQLi</span></div>
-      <p class="excerpt">A safe SQLi discovery walkthrough with remediation steps.</p>
-      <a class="readmore" href="blog/sqli.html">Read Full Blog→</a>
+  <script>
+    const cards = [...document.querySelectorAll('.post')];
+    const searchInput = document.getElementById('searchInput');
+    const filterButtons = [...document.querySelectorAll('.filter')];
+    const emptyState = document.getElementById('emptyState');
+    const postCount = document.getElementById('postCount');
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    let activeFilter = 'all';
 
-  <footer>© 2025 Aryan Pareek — Blog</footer>
-</div>
+    function updateArticles() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(card => {
+        const categoryMatch = activeFilter === 'all' || card.dataset.category === activeFilter;
+        const searchMatch = !query || (card.dataset.search + ' ' + card.innerText).toLowerCase().includes(query);
+        const show = categoryMatch && searchMatch;
+        card.hidden = !show;
+        if (show) visible++;
+      });
+      emptyState.style.display = visible ? 'none' : 'block';
+      postCount.textContent = `(${visible})`;
+    }
 
-<!-- Transition overlay (cyan→purple sweep) -->
-<div class="transition-overlay" id="overlay" aria-hidden="true">
-  <div class="overlay-sweep"></div>
-</div>
-
-<script>
-  // Smooth transition: when user clicks a readmore link, animate overlay then navigate
-  document.addEventListener('click', function(e){
-    const a = e.target.closest('a.readmore');
-    if(!a) return;
-    const href = a.getAttribute('data-target') || a.getAttribute('href');
-    if(!href) return;
-    e.preventDefault();
-
-    const overlay = document.getElementById('overlay');
-    overlay.classList.add('show');
-
-    // Wait for sweep animation then navigate (kept short for mobile responsiveness)
-    setTimeout(() => {
-      window.location.href = href;
-    }, 600); // matches CSS transitions
-  });
-
-  // entrance glow when page loads
-  window.addEventListener('load', () => {
-    document.querySelectorAll('.post').forEach((p, i) => {
-      p.style.transform = 'translateY(8px)';
-      p.style.opacity = '0';
-      setTimeout(()=>{ p.style.transition = 'all .5s cubic-bezier(.17,.9,.32,1)'; p.style.transform='translateY(0)'; p.style.opacity='1'; }, 120 + i*90);
+    searchInput.addEventListener('input', updateArticles);
+    filterButtons.forEach(button => button.addEventListener('click', () => {
+      activeFilter = button.dataset.filter;
+      filterButtons.forEach(item => item.classList.toggle('active', item === button));
+      updateArticles();
+    }));
+    menuToggle.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(open));
     });
-  });
-</script>
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }));
+    document.getElementById('year').textContent = new Date().getFullYear();
+    updateArticles();
+  </script>
 </body>
 </html>
