@@ -1,0 +1,34 @@
+(() => {
+  const path = location.pathname;
+  const inBlog = /\/blog\//i.test(path);
+  const relative = inBlog ? '../' : './';
+  const isHome = /(?:^|\/)index\.html?$/.test(path) || path.endsWith('/');
+  const isBlogLanding = /\/blog\.html$/.test(path);
+  const isQuotes = /\/quotes\.html$/.test(path);
+  const isContactPage = /\/connect\.html$|\/contact\.html$/i.test(path);
+  const nav = document.createElement('header');
+  nav.className = 'global-header';
+  const inner = document.createElement('div'); inner.className = 'global-header-inner';
+  const brand = document.createElement('a'); brand.className = 'global-brand'; brand.href = relative + 'index.html';
+  brand.append(document.createTextNode('THE'));
+  const brandAccent = document.createElement('span'); brandAccent.textContent='CYBER';
+  brand.append(brandAccent,document.createTextNode('ARYAN'));
+  const button = document.createElement('button'); button.className = 'global-menu'; button.type = 'button'; button.setAttribute('aria-expanded','false'); button.setAttribute('aria-controls','global-navigation'); button.setAttribute('aria-label','Open navigation'); button.textContent = 'Menu';
+  const links = document.createElement('nav'); links.className = 'global-nav'; links.id = 'global-navigation'; links.setAttribute('aria-label','Main navigation');
+  const items = [['Home','index.html',isHome],['About','index.html#about',false],['Projects','index.html#research',false],['Blog','blog.html',isBlogLanding || inBlog],['Notes & Quotes','quotes.html',isQuotes],['Contact',isContactPage?'connect.html':'index.html#contact',isContactPage]];
+  for (const [label, href, active] of items) { const a = document.createElement('a'); a.href = relative + href; a.textContent = label; if (active) a.setAttribute('aria-current','page'); links.append(a); }
+  inner.append(brand,button,links); nav.append(inner);
+  const body = document.body;
+  body.dataset.page = inBlog ? 'blog-article' : isHome ? 'home' : isBlogLanding ? 'blog' : isQuotes ? 'quotes' : 'page';
+  body.classList.add('article-theme');
+  const oldHeaders = [...body.querySelectorAll('.site-header,.topbar,.sitebar')]; oldHeaders.forEach(h => h.hidden = true);
+  const oldFooters = [...body.querySelectorAll('footer')]; oldFooters.forEach(f => f.hidden = true);
+  const main = body.querySelector('main,article,.wrap,.shell,.container');
+  if (main && !main.id) main.id='main-content';
+  const skip = document.createElement('a'); skip.className='skip-link-global'; skip.href='#main-content'; skip.textContent='Skip to content'; body.insertBefore(skip,body.firstChild);
+  body.insertBefore(nav,skip.nextSibling);
+  const footer = document.createElement('footer'); footer.className='global-footer'; footer.textContent='© ' + new Date().getFullYear() + ' Aryan Pareek · TheCyberAryan · Security. Precision. Resilience.';
+  const home = document.createElement('a'); home.href=relative+'index.html'; home.textContent=' Home'; footer.append(home); body.append(footer);
+  button.addEventListener('click', () => { const open = button.getAttribute('aria-expanded') !== 'true'; button.setAttribute('aria-expanded',String(open)); button.setAttribute('aria-label',open?'Close navigation':'Open navigation'); links.classList.toggle('is-open',open); });
+  links.addEventListener('keydown',e => { if(e.key==='Escape'){ button.setAttribute('aria-expanded','false'); links.classList.remove('is-open'); button.focus(); } });
+})();

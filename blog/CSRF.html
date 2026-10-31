@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:url" content="https://thecyberaryan.github.io/blog/CSRF.html"><meta property="og:title" content="CSRF — TheCyberAryan"><meta property="og:description" content="CSRF — TheCyberAryan — cybersecurity research, practical security guidance and field notes by Aryan Pareek."><meta property="og:type" content="article"><meta property="og:image" content="https://thecyberaryan.github.io/logo.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="CSRF — TheCyberAryan"><meta name="twitter:description" content="CSRF — TheCyberAryan — cybersecurity research, practical security guidance and field notes by Aryan Pareek."><meta name="twitter:image" content="https://thecyberaryan.github.io/logo.png">
+<link rel="canonical" href="https://thecyberaryan.github.io/blog/CSRF.html">
+<meta name="description" content="CSRF — TheCyberAryan — cybersecurity research, practical security guidance and field notes by Aryan Pareek.">
 <meta charset="utf-8" />
 <title>CSRF — TheCyberAryan</title>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -8,6 +13,32 @@
 <!-- Use your cyberpunk theme stylesheet -->
 <link rel="stylesheet" href="/blog/style.css">
 
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site-theme.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CSRF — TheCyberAryan",
+  "description": "CSRF — TheCyberAryan — cybersecurity research, practical security guidance and field notes by Aryan Pareek.",
+  "author": {
+    "@type": "Person",
+    "name": "Aryan Pareek",
+    "url": "https://thecyberaryan.github.io/"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Aryan Pareek",
+    "url": "https://thecyberaryan.github.io/"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://thecyberaryan.github.io/blog/CSRF.html"
+  },
+  "image": "https://thecyberaryan.github.io/logo.png"
+}
+</script>
+<link rel="icon" type="image/png" href="../logo.png">
 </head>
 
 <body>
@@ -228,7 +259,7 @@ password=newpass123</code></pre>
     <li>Check if the action uses GET (bad)</li>
     <li>Check if the action works without a CSRF token</li>
     <li>Check if CSRF token is missing or predictable</li>
-    <li>Test sensitive actions inside an `<img>` or `<form>`</li>
+    <li>Test sensitive actions inside an `&lt;img&gt;` or `&lt;form&gt;`</li>
     <li>Check for SameSite=None + Secure cookies</li>
   </ul>
 
@@ -242,5 +273,6 @@ password=newpass123</code></pre>
 </footer>
 
 </div>
+<script src="../site-shell.js" defer></script>
 </body>
 </html>
